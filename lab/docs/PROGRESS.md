@@ -790,3 +790,21 @@ User follow-up: corrected the complete stair landing to 1.20 m including the top
 tread, and added equal-density 3D massing with scale context. Heights are explicit
 3 m/floor assumptions; metric plans and floor-area arithmetic remain intact. See
 [T10 follow-up evidence](T10-SECTIONS.md).
+
+
+## T11 current implementation — 13 November 2026
+
+Planting widths and shallow storage are implemented locally. See
+[T11-LANDSCAPE.md](T11-LANDSCAPE.md) for geometry, common-scale detail controls,
+water/cap palette roles, assumptions, source preservation and verification limits.
+This supersedes planned-only recipes for `ground` and `stormwater`.
+
+
+## Quick-reference writing amendment — 13 November 2026
+
+User required strict removal of visible AI filler and disclaimers. The rule now
+leads project AGENTS.md. Main views use concise practical notes; long recipe
+explanations, repeated diagrams and assumptions stay under Sources. See
+[QUICK-REFERENCE-WRITING.md](QUICK-REFERENCE-WRITING.md) for the implementation,
+source-preservation boundary and extension rules. This supersedes earlier
+records that described those explanation blocks as part of the main view.

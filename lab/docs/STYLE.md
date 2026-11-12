@@ -56,6 +56,7 @@ trunk, building, buildingAlt, circulation, roof, vehicle, glass, rubber, metal, 
 | Asset | Actual bounding dimensions, metres | Detail budget / purpose |
 | --- | --- | --- |
 | Person | Height 1.75 | Neutral simple articulated silhouette; illustration assumption |
+| Low shrub (T11) | Height 0.6, crown 0.9 | Original faceted form; illustrative, not a species specification |
 | Tree | Default height 5, crown 3; parameters supported | Polygonal crown and branching trunk; no species claim |
 | Car | Width 1.8 × height 1.5 × length 5 | Sourced body plan; assumed height/detail |
 | Bus | Width 2.6 × height 3.2 × length 15 | Existing Espoo design-bus plan; height/detail assumed, mirrors omitted |
@@ -65,7 +66,7 @@ trunk, building, buildingAlt, circulation, roof, vehicle, glass, rubber, metal, 
 | Cyclist (T04) | Width 0.6 × height 1.65 × length 2 | Existing seated-posture/bar illustration envelope; natural pose |
 | Bench | Length 1.8, height 0.85 | Illustrative seat, back and frame |
 
-`ASSET_SPECS` in `assets.js` is the implementation catalogue. All nine assets are
+`ASSET_SPECS` in `assets.js` is the implementation catalogue. All ten assets are
 original procedural artwork; no external asset meshes are currently included.
 Geometry tests measure actual vertices, including wheels and protrusions.
 
@@ -217,3 +218,21 @@ Shared analytical caps, true Section views, metric comparisons and user review
 amendments are implemented and tested locally. See [T10-SECTIONS.md](T10-SECTIONS.md)
 for the API, material convention, exact dimensions, assumptions, evidence and
 remaining limitations. This supersedes planned-only descriptions for these panels.
+
+
+## T11 current implementation — 13 November 2026
+
+Planting widths and shallow storage are implemented locally. See
+[T11-LANDSCAPE.md](T11-LANDSCAPE.md) for geometry, common-scale detail controls,
+water/cap palette roles, assumptions, source preservation and verification limits.
+This supersedes planned-only recipes for `ground` and `stormwater`.
+
+
+## Quick-reference writing amendment — 13 November 2026
+
+User required strict removal of visible AI filler and disclaimers. The rule now
+leads project AGENTS.md. Main views use concise practical notes; long recipe
+explanations, repeated diagrams and assumptions stay under Sources. See
+[QUICK-REFERENCE-WRITING.md](QUICK-REFERENCE-WRITING.md) for the implementation,
+source-preservation boundary and extension rules. This supersedes earlier
+records that described those explanation blocks as part of the main view.

@@ -7,6 +7,7 @@ import * as THREE from 'three';
  */
 export const ASSET_SPECS = Object.freeze({
   person: { height: 1.75, provenance: 'Existing rulebook illustration assumption.' },
+  shrub: {height:.6,crown:.9,provenance:'Original low faceted shrub; illustrative dimensions, not a species or clearance specification.'},
   tree: { height: 5, crown: 3, provenance: 'Illustrative tree, not a mature species specification.' },
   car: { length: 5, width: 1.8, height: 1.5, provenance: 'Body plan: existing rulebook S36. Height and detailing: illustration assumptions.' },
   bus: {length:15,width:2.6,height:3.2,provenance:'Existing Espoo 031D design-bus plan; original geometry, assumed height and detail.'},
@@ -196,6 +197,12 @@ export function createTree({ height = 5, crown = 3 } = {}) {
   const leaf = mesh(result, canopy, 'foliage');
   leaf.material.flatShading = true;
   return result;
+}
+
+/** Original low faceted shrub, with its base on the local ground. */
+export function createShrub(){
+ const result=group('shrub'),rings=[[0,0],[.32,.06],[.45,.25],[.35,.47],[.14,.6],[0,.6]];
+ const leaf=mesh(result,new THREE.LatheGeometry(rings.map(([r,y])=>new THREE.Vector2(r,y)),8),'foliage');leaf.material.flatShading=true;return result;
 }
 
 export function createCar() {

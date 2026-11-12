@@ -308,3 +308,11 @@ Shared analytical caps, true Section views, metric comparisons and user review
 amendments are implemented and tested locally. See [T10-SECTIONS.md](T10-SECTIONS.md)
 for the API, material convention, exact dimensions, assumptions, evidence and
 remaining limitations. This supersedes planned-only descriptions for these panels.
+
+
+## T11 current implementation — 13 November 2026
+
+Planting widths and shallow storage are implemented locally. See
+[T11-LANDSCAPE.md](T11-LANDSCAPE.md) for geometry, common-scale detail controls,
+water/cap palette roles, assumptions, source preservation and verification limits.
+This supersedes planned-only recipes for `ground` and `stormwater`.

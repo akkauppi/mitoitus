@@ -198,6 +198,9 @@ example. Shrubs/grass are scale context; metre heights remain assumptions. Displ
 catchment, emptying and zoning context unchanged. Decorative ground layers are
 never counted as soil/water storage or shown as prescribed construction sections.
 
+T11 implemented and tested locally; [evidence and limits](T11-LANDSCAPE.md).
+Publication remains on hold.
+
 ## T12 — Conceptual stormwater cutaways
 
 **Depends:** T10–T11. **Panels:** `rain-gardens`, `ponds`, `source-control`.

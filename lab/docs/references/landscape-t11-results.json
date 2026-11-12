@@ -1,0 +1,132 @@
+{
+  "states": 45,
+  "scales": [
+    {
+      "width": 320,
+      "camera": "iso",
+      "pixels": [
+        22.552352791959397,
+        26.311078257285967,
+        18.793627326632816,
+        15.034901861306247
+      ]
+    },
+    {
+      "width": 320,
+      "camera": "plan",
+      "pixels": [
+        25.88158617340872,
+        30.19518386897684,
+        21.567988477840586,
+        17.25439078227248
+      ]
+    },
+    {
+      "width": 390,
+      "camera": "iso",
+      "pixels": [
+        22.55235279195939,
+        26.311078257285946,
+        18.79362732663283,
+        15.034901861306276
+      ]
+    },
+    {
+      "width": 390,
+      "camera": "plan",
+      "pixels": [
+        25.881586173408735,
+        30.195183868976827,
+        21.5679884778406,
+        17.25439078227248
+      ]
+    },
+    {
+      "width": 768,
+      "camera": "iso",
+      "pixels": [
+        45.22342664950705,
+        52.76066442442486,
+        37.686188874589185,
+        30.148951099671365
+      ]
+    },
+    {
+      "width": 768,
+      "camera": "plan",
+      "pixels": [
+        49.821428571428584,
+        58.12499999999997,
+        41.51785714285717,
+        33.214285714285666
+      ]
+    },
+    {
+      "width": 1024,
+      "camera": "iso",
+      "pixels": [
+        76.3449245588452,
+        89.06907865198609,
+        63.62077046570425,
+        50.89661637256356
+      ]
+    },
+    {
+      "width": 1024,
+      "camera": "plan",
+      "pixels": [
+        84.10714285714283,
+        98.125,
+        70.08928571428578,
+        56.071428571428555
+      ]
+    },
+    {
+      "width": 1440,
+      "camera": "iso",
+      "pixels": [
+        83.63902563134634,
+        97.57886323657077,
+        69.69918802612189,
+        55.75935042089768
+      ]
+    },
+    {
+      "width": 1440,
+      "camera": "plan",
+      "pixels": [
+        92.14285714285717,
+        107.5,
+        76.78571428571433,
+        61.42857142857156
+      ]
+    }
+  ],
+  "lifecycleCycles": 10,
+  "geometryCounts": [
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30
+  ],
+  "styles": 3,
+  "checks": [
+    "four minimum widths at common scale",
+    "0.20 m depth without exaggeration",
+    "true water cap",
+    "full-volume vs half note",
+    "canonical coordination and catchment preserved",
+    "trees Section reuse",
+    "responsive annotations",
+    "camera reload and query preservation",
+    "single canvas",
+    "no-WebGL and file fallback",
+    "zero external requests"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "panels": 33,
+  "conciseNotes": 41,
+  "checks": [
+    "reference prose absent from main view",
+    "short practical notes",
+    "duplicate diagrams under Sources",
+    "assumptions under Sources",
+    "formula retained",
+    "original notes preserved",
+    "Sources toggle",
+    "direct-file concise notes"
+  ]
+}

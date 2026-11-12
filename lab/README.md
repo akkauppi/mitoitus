@@ -12,7 +12,7 @@ plan for another model to implement. Start with
 [TASKS.md](docs/TASKS.md). The [layout wireframes](docs/LAYOUT.svg) show Overview,
 Focus, phone, wall and print. All 33 panels and 44 baseline drawings are mapped in
 [the inventory](docs/scene-inventory.json) and the two scene catalogues.
-The three-scene lab remains the visual reference. T01–T10 are implemented in
+The three-scene lab remains the visual reference. T01–T11 are implemented in
 the isolated candidate; the remaining handoff tasks are still planned.
 Do not run the old recursive ZIP packager in this worktree.
 
@@ -49,7 +49,7 @@ commits, shared history, easy eventual review. A GitHub fork would be useful if
 this becomes a separately maintained product; it adds no needed isolation now.
 Nothing here authorizes publication. A local commit does not trigger Pages.
 
-## Current scope
+## Original lab scope (historical)
 
 Three scenes: a composed walking/cycling street, the existing tram-stop width and
 length example, and the existing soil-volume illustration. These are experiments,
@@ -67,21 +67,20 @@ Iteration record and verification limits: [REVIEW.md](docs/REVIEW.md).
 
 ## Candidate build (T01)
 
-T01–T06 are complete. The candidate has Overview/Focus layouts and a live
-rooting-volume, route, cycle-parking, accessibility and tram dioramas, with baseline SVG
-fallbacks and canonical details. From the
+T01–T11 are complete locally. The candidate has Overview/Focus layouts and live
+metric dioramas, with baseline SVG fallbacks and canonical details. From the
 worktree root, run `python3 lab/scripts/build-book.py` for the first build, or
 `python3 lab/scripts/build-book.py --replace` to replace an intact generated
 candidate. `python3 lab/scripts/package-book.py` exports the explicitly allowlisted
 ZIP into `lab/.build/`. See [PROGRESS.md](docs/PROGRESS.md) for commands, verification
-and limits. Preview the candidate at http://localhost:8765/lab/book/. T07 is next.
+and limits. Preview the candidate at http://localhost:8765/lab/book/. T12 is next; publication remains on hold.
 
 ## Rooting-volume canary (T03)
 
 [Open the integrated diorama](http://localhost:8765/lab/book/?mode=focus&panel=trees#green-blue).
-One shared viewer supplies 3D/Plan/Front, outside callouts and metric dimensions.
+One shared viewer supplies 3D/Plan/Front/Section, outside callouts and metric dimensions.
 The reference figure remains available without WebGL and in direct-file, overview,
-wall and print use. Section support is planned for T10. See PROGRESS.md for the
+wall and print use. T10 adds a genuine capped Section view. See PROGRESS.md for the
 host API, lifecycle tests and remaining limits.
 
 ## Width comparisons (T04)
@@ -196,3 +195,14 @@ responsive, comparison-scale, source-preservation and fallback checks.
 “Check every link” remains unaccepted and recorded for rework before release.
 
 T10 section geometry, review amendments and verification: [implementation record](docs/T10-SECTIONS.md).
+
+## Planting and shallow storage (T11)
+
+[Planting widths](http://localhost:8765/lab/book/?mode=focus&panel=ground#green-blue)
+show four minimums at one scale, with optional single-category detail.
+[Storage](http://localhost:8765/lab/book/?mode=focus&panel=stormwater#green-blue)
+shows the actual 0.20 m depth, with Plan and true Section.
+See [T11 evidence](docs/T11-LANDSCAPE.md) for assumptions and checks.
+
+Writing rule: [quick reference first](docs/QUICK-REFERENCE-WRITING.md). Long scene
+explanations and duplicate source graphics stay under Sources.

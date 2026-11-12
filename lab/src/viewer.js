@@ -153,6 +153,7 @@ export function createSceneHost({canvas,overlay,viewport,onCameraChange=()=>{},o
   canvas.addEventListener('webglcontextlost',contextLost);canvas.addEventListener('webglcontextrestored',contextRestored);
   return {
     show,resize,suspend,
+    setCategory:value=>{model?.setCategory?.(value);queue();},
     setCamera:key=>setCamera(key,true),
     reset:()=>setCamera(model?.recipe.defaultCamera||'iso',true),
     setAnnotations:settings=>{dimensions=settings.dimensions??dimensions;labels=settings.callouts??labels;queue();},

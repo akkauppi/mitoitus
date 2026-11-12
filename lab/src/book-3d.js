@@ -4,11 +4,12 @@ import {recipeInfo} from './registry.js';
 
 /** One movable host; canonical figures and variant controls remain in each panel. */
 export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
-  let drawing=initialDrawing,fallback=[],active=false,failed=false,host;
+  let drawing=initialDrawing,fallback=[],active=false,failed=false,host,categoryRecipe=null;
   const frame=document.createElement('section');frame.className='scene-host';
-  frame.innerHTML='<p class="scene-case"></p><div class="scene-toolbar" role="group" aria-label="Model view"><button data-camera="iso">3D</button><button data-camera="plan">Plan</button><button data-camera="front">Front</button><button data-camera="section">Section</button><button data-reset>Reset</button></div><div class="scene-viewport" tabindex="0" role="group"><canvas aria-hidden="true"></canvas><svg aria-hidden="true"></svg></div><div class="scene-options"><label><input type="checkbox" data-dimensions checked> Dimensions</label><label><input type="checkbox" data-callouts checked> Callouts</label><span data-hint></span></div>';
+  frame.innerHTML='<p class="scene-case source-meta"></p><div class="scene-toolbar" role="group" aria-label="Model view"><button data-camera="iso">3D</button><button data-camera="plan">Plan</button><button data-camera="front">Front</button><button data-camera="section">Section</button><button data-reset>Reset</button></div><label class="scene-category" hidden>Compare planting<select aria-label="Planting category"><option value="-1">All four · same scale</option></select></label><div class="scene-viewport" tabindex="0" role="group"><canvas aria-hidden="true"></canvas><svg aria-hidden="true"></svg></div><div class="scene-options"><label><input type="checkbox" data-dimensions checked> Dimensions</label><label><input type="checkbox" data-callouts checked> Callouts</label><span data-hint></span></div>';
   const provenance=document.createElement('p');provenance.className='source-meta scene-provenance';frame.append(provenance);
-  const companion=document.createElement('div');companion.className='scene-companion';companion.hidden=true;frame.append(companion);
+  const companion=document.createElement('div');companion.className='scene-companion source-meta';companion.hidden=true;frame.append(companion);
+  const summary=document.createElement('p');summary.className='scene-summary';summary.hidden=true;frame.append(summary);
   const status=document.createElement('p');status.className='scene-status';status.setAttribute('role','status');status.hidden=true;
   const viewport=frame.querySelector('.scene-viewport'),canvas=frame.querySelector('canvas'),overlay=frame.querySelector('svg');
   frame.querySelector('[data-hint]').textContent=matchMedia('(pointer: coarse)').matches?'Two fingers to orbit / zoom':'Drag to orbit · scroll to zoom';
@@ -26,17 +27,21 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
   const listeners=[];
   function listen(el,type,handler){el.addEventListener(type,handler);listeners.push(()=>el.removeEventListener(type,handler));}
   for(const button of frame.querySelectorAll('[data-camera]'))listen(button,'click',()=>host?.setCamera(button.dataset.camera));
-  listen(frame.querySelector('[data-reset]'),'click',()=>host?.reset());
+  listen(frame.querySelector('.scene-category select'),'change',event=>host?.setCategory(Number(event.target.value)));
+  listen(frame.querySelector('[data-reset]'),'click',()=>{frame.querySelector('.scene-category select').value='-1';host?.setCategory(-1);host?.reset();});
   for(const input of frame.querySelectorAll('input'))listen(input,'change',()=>host?.setAnnotations({dimensions:frame.querySelector('input[data-dimensions]').checked,callouts:frame.querySelector('input[data-callouts]').checked}));
   return {
     show({drawing:next=drawing,recipeId='trees--v0',camera='iso',style='paper'}={}){
       if(next!==drawing)attach(next);
       const recipe=recipeInfo(recipeId);active=true;frame.hidden=failed;
+      const category=frame.querySelector('.scene-category');category.hidden=!recipe.categoryOptions;
+      if(categoryRecipe!==recipeId){categoryRecipe=recipeId;const select=category.querySelector('select');select.replaceChildren(new Option('All four · same scale','-1'));for(const [i,name]of (recipe.categoryOptions||[]).entries())select.add(new Option(name,String(i)));}
       frame.style.setProperty('--diagram-building',(STYLES[style]||STYLES.paper).colours.building);
       const selected=drawing.querySelector('[data-variant]:not([hidden]) svg .sub')||drawing.querySelector('figure svg .sub');
       frame.querySelector('.scene-case').textContent=recipe.caseTitle||selected?.textContent||'';
       frame.querySelector('.scene-case').hidden=!(recipe.caseTitle||selected);
 
+      summary.textContent=recipe.quickFact||'';summary.hidden=!recipe.quickFact;
       companion.replaceChildren();companion.hidden=!(recipe.retainedTextSelector||recipe.explanation);
       if(recipe.retainedTextSelector)for(const original of drawing.querySelectorAll(recipe.retainedTextSelector)){if(original===selected)continue;const p=document.createElement('p');p.textContent=original.textContent;companion.append(p);}
       for(const text of recipe.explanation||[]){const p=document.createElement('p');p.textContent=text;companion.append(p);}
@@ -51,7 +56,7 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
         }schematic.style.setProperty('--floor-plate',STYLES[style].colours.building);schematic.append(cards);companion.append(schematic);companion.hidden=false;
       }
       if(recipe.retainedGraphicSelector){
-        const original=drawing.querySelector(recipe.retainedGraphicSelector);if(original){const caption=document.createElement('p');caption.textContent='Original six-step flight · metric side profile';const graphic=original.cloneNode(true);graphic.classList.add('retained-profile');companion.append(caption,graphic);companion.hidden=false;}
+        const original=drawing.querySelector(recipe.retainedGraphicSelector);if(original){const caption=document.createElement('p');caption.textContent=recipe.retainedGraphicCaption||'Original six-step flight · metric side profile';const graphic=original.cloneNode(true);graphic.classList.add('retained-profile');companion.append(caption,graphic);companion.hidden=false;}
       }
       frame.setAttribute('aria-label',`${recipe.panelId} diorama`);
       viewport.setAttribute('aria-label',(recipe.description||'Soil 5 by 5 metres, 1 metre deep, 25 cubic metres.')+(recipe.fixedPlan?' Plus/minus zoom, Home resets.':' Arrow keys orbit, plus/minus zoom, Home resets.'));

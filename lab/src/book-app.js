@@ -12,6 +12,43 @@
     title: panel.querySelector('h2').textContent,
     count: panel.querySelectorAll('.drawing svg').length,
   }));
+  // User-approved editorial presentation, 2026-11-13. Full original paragraphs
+  // remain in Sources; numeric tables and canonical source files are untouched.
+  const quickNotes={
+    'building-rows':['Dimensions refer to one repeating unit.'],
+    'building-detached':[null],
+    'walking':['Keep furniture, signs, snow and door swings outside the clear route.'],
+    'cycling':['¹ At footway level, with walking separate. Allow movement clearance beyond the 0.75 m user envelope.'],
+    'bike-parking':['0.6 × 4 m includes handling. Check cargo cycles separately.'],
+    'turning':['Keep furniture and door swings outside the clear circle.'],
+    'ramps':['Run = rise ÷ gradient: 0.30 ÷ 0.05 = 6 m, before landings. Add turning space at changes of direction.'],
+    'arrival':['² Recommended park-route spacing. Seats: backrests, armrests and a choice of heights.','Allow vehicle transfer/lift space and an accessible connection.'],
+    'tram-corridor':['Size from the ATU clearance envelope. Allow for curves, poles, evacuation and crossings.'],
+    'tram-width':['Waiting space: 1 m²/person; minimum 0.75 m²/person at peak boarding demand.','Fit shelters, waiting space, access and cycle routes together.'],
+    'tram-length':['Platform: 0.30 m; Helsinki normally 0.27 m. Add ramps and crossing waiting space.'],
+    'car-turn':['Geometric radius reference.','Check the design vehicle for servicing, deliveries and waste collection.'],
+    'bus-turn':['Radius reference; 15 m design bus. Add approach and crossing clearances.'],
+    'rescue':['Add 0.4 m driving and 1 m boom allowances. Check loads, slopes, reach, trees, wires and snow.'],
+    'trees':['Stone reduces water storage in structural soil.','Coordinate crowns, connected rooting space, groundwater and utilities.'],
+    'ground':['Check rooting volume separately.','Keep snow clear of walking, turning and rescue space; route meltwater.'],
+    'stormwater':['Check soil, groundwater and design rainfall.'],
+    'rain-gardens':['Rain gardens collect, store and filter runoff; infiltration depends on soil and groundwater.','Swales slow and convey runoff. Check dams add storage.','¹ Drainage: underdrain or controlled outlet.','Keep overflow and maintenance access. Check contaminated ground and winter operation.'],
+    'ponds':['1:4 = 25%; 1:5 = 20%.','Wetlands have shallow, planted levels; ponds can retain permanent water.','Count storage above normal water level.','Show inlet, outlet, overflow, safe banks and maintenance access. Include banks and flood extent.'],
+    'source-control':['Reduce runoff → slow/filter → store → controlled discharge and overflow.','Plan for clogging and winter maintenance. Count pore space for storage.'],
+    'section-ratio':['Measure façade to façade; record both heights if they differ.'],
+    'equal-density':['Keep plot, block and district land areas separate.'],
+    'steps':['Outdoors: 2r + t = 0.66 m; covered/heated: 0.63 m. Keep risers and treads identical.','Coordinate landings, handrails, guards and an accessible route.'],
+    'crossing-refuge':['Add the refuge to both traffic lanes.','Check kerbs, tactile cues, sightlines, drainage and onward footways.'],
+    'walking-connections':['Check every link to the entrance.','Check barriers, opening hours, slopes and winter access.',null],
+    'clear-route-continuity':['Measure clear width and height along the whole route. Keep furniture, doors, branches, signs and snow outside it.',null],
+    'parking-layout':['Allow for door opening, end bays, columns and manoeuvring. ¹ Transfer access is additional.'],
+    'parking-area':['Include entrances, row ends, paths, accessible spaces, planting, snow and drainage.','12.5 m² is the bay only. Garages also need ramps, structure and vertical circulation.','Draw the layout and count usable spaces.'],
+  };
+  for(const record of records){
+    const notes=quickNotes[record.id];if(!notes)continue;
+    const paragraphs=[...record.panel.querySelectorAll('.details > p:not(.source-meta)')];
+    paragraphs.forEach((original,index)=>{if(index>=notes.length)return;original.dataset.referenceNote='';const text=notes[index];if(text){const brief=document.createElement('p');brief.className='quick-note';brief.textContent=text;original.after(brief);}});
+  }
   const byId = new Map(records.map(record => [record.id, record]));
   const header = document.createElement('div');
   header.className = 'book-heading';
@@ -39,7 +76,7 @@
   let viewerPromise=null,bookViewer=null,viewerEpoch=0;
   async function syncViewer(state) {
     const epoch=++viewerEpoch;
-    const live=state.mode==='focus'&&['trees','walking','cycling','bike-parking','turning','ramps','arrival','tram-corridor','tram-width','tram-length','car-turn','bus-turn','rescue','crossing-refuge','clear-route-continuity','building-blocks','building-rows','building-detached','section-ratio','equal-density','steps'].includes(state.active.id)&&!document.body.classList.contains('wall')&&location.protocol!=='file:';
+    const live=state.mode==='focus'&&['ground','stormwater','trees','walking','cycling','bike-parking','turning','ramps','arrival','tram-corridor','tram-width','tram-length','car-turn','bus-turn','rescue','crossing-refuge','clear-route-continuity','building-blocks','building-rows','building-detached','section-ratio','equal-density','steps'].includes(state.active.id)&&!document.body.classList.contains('wall')&&location.protocol!=='file:';
     $('book-style').closest('label').hidden=!live;
     if(!live){bookViewer?.suspend();return;}
     try {
@@ -75,8 +112,8 @@
     // A legacy variant is authoritative; T02 has only its corresponding whole figure.
     const figure = `${active.id}--v${selected}`;
     const sceneId=figure;
-    const allowed = active.id==='trees'?['iso','plan','front','section']:active.id==='section-ratio'?['section','iso']:active.id==='equal-density'?['iso','plan']:active.id==='steps'?['iso','plan','section']:['building-blocks','building-rows','building-detached'].includes(active.id)?['plan','iso']:active.id==='clear-route-continuity'?['iso','plan','front']:active.id==='crossing-refuge'?['iso','plan']:active.id==='walking-connections'?['plan']: ['turning','arrival','tram-corridor','tram-length','car-turn','bus-turn','rescue'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
-    const defaultCamera=active.id==='section-ratio'?'section':['steps','equal-density'].includes(active.id)?'iso':['clear-route-continuity','building-blocks','building-rows','building-detached'].includes(active.id)?'iso':['ramps','tram-width'].includes(active.id)?'front':['turning','arrival','tram-corridor'].includes(active.id)?'plan':['trees','walking','cycling','bike-parking','tram-length'].includes(active.id)?'iso':'plan';
+    const allowed = active.id==='ground'?['iso','plan']:active.id==='stormwater'?['iso','plan','section']:active.id==='trees'?['iso','plan','front','section']:active.id==='section-ratio'?['section','iso']:active.id==='equal-density'?['iso','plan']:active.id==='steps'?['iso','plan','section']:['building-blocks','building-rows','building-detached'].includes(active.id)?['plan','iso']:active.id==='clear-route-continuity'?['iso','plan','front']:active.id==='crossing-refuge'?['iso','plan']:active.id==='walking-connections'?['plan']: ['turning','arrival','tram-corridor','tram-length','car-turn','bus-turn','rescue'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
+    const defaultCamera=active.id==='section-ratio'?'section':['steps','equal-density','ground','stormwater'].includes(active.id)?'iso':['clear-route-continuity','building-blocks','building-rows','building-detached'].includes(active.id)?'iso':['ramps','tram-width'].includes(active.id)?'front':['turning','arrival','tram-corridor'].includes(active.id)?'plan':['trees','walking','cycling','bike-parking','tram-length'].includes(active.id)?'iso':'plan';
     const camera = allowed.includes(q.get('camera')) ? q.get('camera') : defaultCamera;
     const style = ['paper', 'ink', 'soft'].includes(q.get('style')) ? q.get('style') : 'paper';
     return { sheet, active, figure, sceneId, camera, style, mode: q.get('mode') === 'focus' ? 'focus' : 'overview' };

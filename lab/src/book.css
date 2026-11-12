@@ -25,3 +25,11 @@ body{color:var(--ink);background:var(--paper)}button,summary{border-radius:4px}b
 .scene-companion .retained-profile{width:100%;height:auto;min-height:0!important;max-height:230px!important;display:block;margin:10px auto}
 
 .scene-companion .retained-profile [fill="#ffe54c"]{fill:var(--diagram-building)}
+
+.scene-category{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;font-size:12px;margin:.5rem 0}.scene-category[hidden]{display:none}.scene-category select{font:inherit;max-width:100%;padding:.4rem}
+
+/* Quick-reference prose; complete original notes remain available with Sources. */
+body:not(.sources-on) [data-reference-note]{display:none}
+.sources-on .quick-note{display:none}
+.scene-summary{font-size:14px;margin:10px 12px 12px;font-variant-numeric:tabular-nums}
+.scene-host [data-hint]{visibility:hidden}.scene-host:focus-within [data-hint]{visibility:visible}
