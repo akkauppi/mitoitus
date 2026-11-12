@@ -26,6 +26,8 @@ RUNTIME_FILES.update({
     'runtime/viewer.js':'lab/src/viewer.js',
     'runtime/annotations.js':'lab/src/annotations.js',
     'runtime/registry.js':'lab/src/registry.js',
+    'runtime/recipes/stormwater.js':'lab/src/recipes/stormwater.js',
+    'runtime/primitives/conceptual.js':'lab/src/primitives/conceptual.js',
     'runtime/recipes/landscape.js':'lab/src/recipes/landscape.js',
     'runtime/recipes/sections.js':'lab/src/recipes/sections.js',
     'runtime/primitives/sections.js':'lab/src/primitives/sections.js',
@@ -228,7 +230,8 @@ def verify_candidate(output, allow_legacy=False):
     expected = set(PUBLIC_FILES) | {OFFLINE, 'parity.json'}
     old_expected = set(BASELINE_FILES) | {OFFLINE, 'parity.json'}
     t02_expected = old_expected | set(T02_RUNTIME_FILES)
-    t10_expected = expected - {'runtime/recipes/landscape.js'}
+    t11_expected = expected - {'runtime/recipes/stormwater.js','runtime/primitives/conceptual.js'}
+    t10_expected = t11_expected - {'runtime/recipes/landscape.js'}
     t09_review_expected = t10_expected - {'runtime/recipes/sections.js','runtime/primitives/sections.js'}
     t09_expected = t09_review_expected - {'runtime/primitives/massing.js'}
     t08_expected = t09_expected - {'runtime/recipes/buildings.js','runtime/primitives/footprints.js'}
@@ -237,7 +240,7 @@ def verify_candidate(output, allow_legacy=False):
     t05_expected = t06_expected - {'runtime/recipes/tram.js'}
     t04_expected = t05_expected - {'runtime/recipes/accessibility.js','runtime/primitives/accessibility.js'}
     t03_expected = t04_expected - {'runtime/recipes/routes.js','runtime/primitives/surfaces.js'}
-    if allow_legacy and names in (old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected):
+    if allow_legacy and names in (old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected,t11_expected):
         expected = names
     if names != expected:
         raise ValueError('Candidate contains missing or unapproved files')
@@ -305,7 +308,7 @@ def build(output=None, replace=False):
         actual = audit((stage/'index.html').read_text())
         if actual.events != audit(render_book(source).decode()).events:
             raise ValueError('Candidate semantic content drift')
-        report = dict(schemaVersion=2, stage='T11 planting widths and shallow storage volume',
+        report = dict(schemaVersion=2, stage='T12 conceptual stormwater cutaways',
                       sheets=11, panels=33, drawings=44, baselineSha256=digest(source),
                       semanticSha256=digest(json.dumps(checked.events, ensure_ascii=False).encode()),
                       content=checked.panels, semanticEvents=checked.events,

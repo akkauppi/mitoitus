@@ -33,3 +33,5 @@ body:not(.sources-on) [data-reference-note]{display:none}
 .sources-on .quick-note{display:none}
 .scene-summary{font-size:14px;margin:10px 12px 12px;font-variant-numeric:tabular-nums}
 .scene-host [data-hint]{visibility:hidden}.scene-host:focus-within [data-hint]{visibility:visible}
+
+.metric-companion{margin:16px 12px 12px;padding-top:12px;border-top:1px solid var(--line)}.metric-companion[hidden]{display:none}.metric-companion p{font-size:13px;margin:0 0 10px}.metric-companion svg{display:block;width:100%;height:auto;min-height:0!important;max-height:160px!important}

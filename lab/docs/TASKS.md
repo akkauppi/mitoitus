@@ -214,6 +214,9 @@ empty capacity; no automatic infiltration promise or hydraulic simulation.
 Quantitative slope example and qualitative sections cannot be mistaken for one
 metric model. No new tank/substrate dimensions.
 
+T12 implemented and tested locally; [evidence and limits](T12-STORMWATER.md).
+Publication remains on hold.
+
 ## Publication blocker — Residents & services
 
 User instruction recorded 12 November 2026: the Residents & services page needs

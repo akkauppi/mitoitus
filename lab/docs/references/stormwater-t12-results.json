@@ -1,0 +1,253 @@
+{
+  "states": 60,
+  "slopes": [
+    {
+      "width": 320,
+      "option": 0,
+      "camera": "iso",
+      "pixels": {
+        "width": 74.5078125,
+        "height": 18.626953125,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 320,
+      "option": 0,
+      "camera": "section",
+      "pixels": {
+        "width": 74.5078125,
+        "height": 18.626953125,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 320,
+      "option": 1,
+      "camera": "iso",
+      "pixels": {
+        "width": 74.5078125,
+        "height": 18.626953125,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 320,
+      "option": 1,
+      "camera": "section",
+      "pixels": {
+        "width": 74.5078125,
+        "height": 18.626953125,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 390,
+      "option": 0,
+      "camera": "iso",
+      "pixels": {
+        "width": 96.609375,
+        "height": 24.15234375,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 390,
+      "option": 0,
+      "camera": "section",
+      "pixels": {
+        "width": 96.609375,
+        "height": 24.15234375,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 390,
+      "option": 1,
+      "camera": "iso",
+      "pixels": {
+        "width": 96.609375,
+        "height": 24.15234375,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 390,
+      "option": 1,
+      "camera": "section",
+      "pixels": {
+        "width": 96.609375,
+        "height": 24.15234375,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 768,
+      "option": 0,
+      "camera": "iso",
+      "pixels": {
+        "width": 203.3671875,
+        "height": 50.841796875,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 768,
+      "option": 0,
+      "camera": "section",
+      "pixels": {
+        "width": 203.3671875,
+        "height": 50.841796875,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 768,
+      "option": 1,
+      "camera": "iso",
+      "pixels": {
+        "width": 203.3671875,
+        "height": 50.841796875,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 768,
+      "option": 1,
+      "camera": "section",
+      "pixels": {
+        "width": 203.3671875,
+        "height": 50.841796875,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 1024,
+      "option": 0,
+      "camera": "iso",
+      "pixels": {
+        "width": 240,
+        "height": 60,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 1024,
+      "option": 0,
+      "camera": "section",
+      "pixels": {
+        "width": 240,
+        "height": 60,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 1024,
+      "option": 1,
+      "camera": "iso",
+      "pixels": {
+        "width": 240,
+        "height": 60,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 1024,
+      "option": 1,
+      "camera": "section",
+      "pixels": {
+        "width": 240,
+        "height": 60,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 1440,
+      "option": 0,
+      "camera": "iso",
+      "pixels": {
+        "width": 240,
+        "height": 60,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 1440,
+      "option": 0,
+      "camera": "section",
+      "pixels": {
+        "width": 240,
+        "height": 60,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 1440,
+      "option": 1,
+      "camera": "iso",
+      "pixels": {
+        "width": 240,
+        "height": 60,
+        "run": "4",
+        "rise": "1"
+      }
+    },
+    {
+      "width": 1440,
+      "option": 1,
+      "camera": "section",
+      "pixels": {
+        "width": 240,
+        "height": 60,
+        "run": "4",
+        "rise": "1"
+      }
+    }
+  ],
+  "lifecycleCycles": 10,
+  "geometryCounts": [
+    76,
+    76,
+    76,
+    76,
+    76,
+    76,
+    76,
+    76,
+    76,
+    76
+  ],
+  "checks": [
+    "six conceptual cutaways",
+    "no metric dimensions or computed volumes",
+    "four option-matrix rows retained",
+    "separate metric slope triangle equal axes",
+    "conditional infiltration",
+    "permanent water separated from storm storage",
+    "complete noncrossing callouts",
+    "option/reset/camera state",
+    "canonical content preserved",
+    "three palettes",
+    "single context and stable resources",
+    "no-WebGL and file fallback",
+    "zero external requests"
+  ]
+}

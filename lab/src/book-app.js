@@ -32,8 +32,8 @@
     'trees':['Stone reduces water storage in structural soil.','Coordinate crowns, connected rooting space, groundwater and utilities.'],
     'ground':['Check rooting volume separately.','Keep snow clear of walking, turning and rescue space; route meltwater.'],
     'stormwater':['Check soil, groundwater and design rainfall.'],
-    'rain-gardens':['Rain gardens collect, store and filter runoff; infiltration depends on soil and groundwater.','Swales slow and convey runoff. Check dams add storage.','¹ Drainage: underdrain or controlled outlet.','Keep overflow and maintenance access. Check contaminated ground and winter operation.'],
-    'ponds':['1:4 = 25%; 1:5 = 20%.','Wetlands have shallow, planted levels; ponds can retain permanent water.','Count storage above normal water level.','Show inlet, outlet, overflow, safe banks and maintenance access. Include banks and flood extent.'],
+    'rain-gardens':['Rain gardens collect, store and filter runoff; infiltration depends on soil and groundwater.','Swales slow and convey runoff. Check dams add storage.','Drainage: underdrain or controlled outlet.','Keep overflow and maintenance access. Check contaminated ground and winter operation.'],
+    'ponds':[null,'Wetlands have shallow, planted levels; ponds can retain permanent water.','Count storage above normal water level.','Show inlet, outlet, overflow, safe banks and maintenance access. Include banks and flood extent.'],
     'source-control':['Reduce runoff → slow/filter → store → controlled discharge and overflow.','Plan for clogging and winter maintenance. Count pore space for storage.'],
     'section-ratio':['Measure façade to façade; record both heights if they differ.'],
     'equal-density':['Keep plot, block and district land areas separate.'],
@@ -76,7 +76,7 @@
   let viewerPromise=null,bookViewer=null,viewerEpoch=0;
   async function syncViewer(state) {
     const epoch=++viewerEpoch;
-    const live=state.mode==='focus'&&['ground','stormwater','trees','walking','cycling','bike-parking','turning','ramps','arrival','tram-corridor','tram-width','tram-length','car-turn','bus-turn','rescue','crossing-refuge','clear-route-continuity','building-blocks','building-rows','building-detached','section-ratio','equal-density','steps'].includes(state.active.id)&&!document.body.classList.contains('wall')&&location.protocol!=='file:';
+    const live=state.mode==='focus'&&['rain-gardens','ponds','source-control','ground','stormwater','trees','walking','cycling','bike-parking','turning','ramps','arrival','tram-corridor','tram-width','tram-length','car-turn','bus-turn','rescue','crossing-refuge','clear-route-continuity','building-blocks','building-rows','building-detached','section-ratio','equal-density','steps'].includes(state.active.id)&&!document.body.classList.contains('wall')&&location.protocol!=='file:';
     $('book-style').closest('label').hidden=!live;
     if(!live){bookViewer?.suspend();return;}
     try {
@@ -112,8 +112,8 @@
     // A legacy variant is authoritative; T02 has only its corresponding whole figure.
     const figure = `${active.id}--v${selected}`;
     const sceneId=figure;
-    const allowed = active.id==='ground'?['iso','plan']:active.id==='stormwater'?['iso','plan','section']:active.id==='trees'?['iso','plan','front','section']:active.id==='section-ratio'?['section','iso']:active.id==='equal-density'?['iso','plan']:active.id==='steps'?['iso','plan','section']:['building-blocks','building-rows','building-detached'].includes(active.id)?['plan','iso']:active.id==='clear-route-continuity'?['iso','plan','front']:active.id==='crossing-refuge'?['iso','plan']:active.id==='walking-connections'?['plan']: ['turning','arrival','tram-corridor','tram-length','car-turn','bus-turn','rescue'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
-    const defaultCamera=active.id==='section-ratio'?'section':['steps','equal-density','ground','stormwater'].includes(active.id)?'iso':['clear-route-continuity','building-blocks','building-rows','building-detached'].includes(active.id)?'iso':['ramps','tram-width'].includes(active.id)?'front':['turning','arrival','tram-corridor'].includes(active.id)?'plan':['trees','walking','cycling','bike-parking','tram-length'].includes(active.id)?'iso':'plan';
+    const allowed = ['rain-gardens','ponds','source-control'].includes(active.id)?['iso','section']:active.id==='ground'?['iso','plan']:active.id==='stormwater'?['iso','plan','section']:active.id==='trees'?['iso','plan','front','section']:active.id==='section-ratio'?['section','iso']:active.id==='equal-density'?['iso','plan']:active.id==='steps'?['iso','plan','section']:['building-blocks','building-rows','building-detached'].includes(active.id)?['plan','iso']:active.id==='clear-route-continuity'?['iso','plan','front']:active.id==='crossing-refuge'?['iso','plan']:active.id==='walking-connections'?['plan']: ['turning','arrival','tram-corridor','tram-length','car-turn','bus-turn','rescue'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
+    const defaultCamera=active.id==='ponds'?'section':['rain-gardens','source-control'].includes(active.id)?'iso':active.id==='section-ratio'?'section':['steps','equal-density','ground','stormwater'].includes(active.id)?'iso':['clear-route-continuity','building-blocks','building-rows','building-detached'].includes(active.id)?'iso':['ramps','tram-width'].includes(active.id)?'front':['turning','arrival','tram-corridor'].includes(active.id)?'plan':['trees','walking','cycling','bike-parking','tram-length'].includes(active.id)?'iso':'plan';
     const camera = allowed.includes(q.get('camera')) ? q.get('camera') : defaultCamera;
     const style = ['paper', 'ink', 'soft'].includes(q.get('style')) ? q.get('style') : 'paper';
     return { sheet, active, figure, sceneId, camera, style, mode: q.get('mode') === 'focus' ? 'focus' : 'overview' };

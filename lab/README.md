@@ -12,7 +12,7 @@ plan for another model to implement. Start with
 [TASKS.md](docs/TASKS.md). The [layout wireframes](docs/LAYOUT.svg) show Overview,
 Focus, phone, wall and print. All 33 panels and 44 baseline drawings are mapped in
 [the inventory](docs/scene-inventory.json) and the two scene catalogues.
-The three-scene lab remains the visual reference. T01–T11 are implemented in
+The three-scene lab remains the visual reference. T01–T12 are implemented in
 the isolated candidate; the remaining handoff tasks are still planned.
 Do not run the old recursive ZIP packager in this worktree.
 
@@ -67,13 +67,13 @@ Iteration record and verification limits: [REVIEW.md](docs/REVIEW.md).
 
 ## Candidate build (T01)
 
-T01–T11 are complete locally. The candidate has Overview/Focus layouts and live
+T01–T12 are complete locally. The candidate has Overview/Focus layouts and live
 metric dioramas, with baseline SVG fallbacks and canonical details. From the
 worktree root, run `python3 lab/scripts/build-book.py` for the first build, or
 `python3 lab/scripts/build-book.py --replace` to replace an intact generated
 candidate. `python3 lab/scripts/package-book.py` exports the explicitly allowlisted
 ZIP into `lab/.build/`. See [PROGRESS.md](docs/PROGRESS.md) for commands, verification
-and limits. Preview the candidate at http://localhost:8765/lab/book/. T12 is next; publication remains on hold.
+and limits. Preview the candidate at http://localhost:8765/lab/book/. T13 is next; publication remains on hold.
 
 ## Rooting-volume canary (T03)
 
@@ -206,3 +206,9 @@ See [T11 evidence](docs/T11-LANDSCAPE.md) for assumptions and checks.
 
 Writing rule: [quick reference first](docs/QUICK-REFERENCE-WRITING.md). Long scene
 explanations and duplicate source graphics stay under Sources.
+
+## Stormwater cutaways (T12)
+
+[Open Stormwater options](http://localhost:8765/lab/book/?mode=focus&panel=rain-gardens#stormwater-options).
+Rain garden/swale, dry basin/wet pond and roof/paving have conceptual cutaways.
+The bank-slope triangle remains separately metric. [Evidence and limits](docs/T12-STORMWATER.md).

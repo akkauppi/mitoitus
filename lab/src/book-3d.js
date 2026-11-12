@@ -4,12 +4,13 @@ import {recipeInfo} from './registry.js';
 
 /** One movable host; canonical figures and variant controls remain in each panel. */
 export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
-  let drawing=initialDrawing,fallback=[],active=false,failed=false,host,categoryRecipe=null;
+  let drawing=initialDrawing,fallback=[],active=false,failed=false,host,categoryRecipe=null,categoryDefault=-1;
   const frame=document.createElement('section');frame.className='scene-host';
   frame.innerHTML='<p class="scene-case source-meta"></p><div class="scene-toolbar" role="group" aria-label="Model view"><button data-camera="iso">3D</button><button data-camera="plan">Plan</button><button data-camera="front">Front</button><button data-camera="section">Section</button><button data-reset>Reset</button></div><label class="scene-category" hidden>Compare planting<select aria-label="Planting category"><option value="-1">All four · same scale</option></select></label><div class="scene-viewport" tabindex="0" role="group"><canvas aria-hidden="true"></canvas><svg aria-hidden="true"></svg></div><div class="scene-options"><label><input type="checkbox" data-dimensions checked> Dimensions</label><label><input type="checkbox" data-callouts checked> Callouts</label><span data-hint></span></div>';
   const provenance=document.createElement('p');provenance.className='source-meta scene-provenance';frame.append(provenance);
   const companion=document.createElement('div');companion.className='scene-companion source-meta';companion.hidden=true;frame.append(companion);
   const summary=document.createElement('p');summary.className='scene-summary';summary.hidden=true;frame.append(summary);
+  const metric=document.createElement('section');metric.className='metric-companion';metric.hidden=true;frame.append(metric);
   const status=document.createElement('p');status.className='scene-status';status.setAttribute('role','status');status.hidden=true;
   const viewport=frame.querySelector('.scene-viewport'),canvas=frame.querySelector('canvas'),overlay=frame.querySelector('svg');
   frame.querySelector('[data-hint]').textContent=matchMedia('(pointer: coarse)').matches?'Two fingers to orbit / zoom':'Drag to orbit · scroll to zoom';
@@ -28,14 +29,20 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
   function listen(el,type,handler){el.addEventListener(type,handler);listeners.push(()=>el.removeEventListener(type,handler));}
   for(const button of frame.querySelectorAll('[data-camera]'))listen(button,'click',()=>host?.setCamera(button.dataset.camera));
   listen(frame.querySelector('.scene-category select'),'change',event=>host?.setCategory(Number(event.target.value)));
-  listen(frame.querySelector('[data-reset]'),'click',()=>{frame.querySelector('.scene-category select').value='-1';host?.setCategory(-1);host?.reset();});
+  listen(frame.querySelector('[data-reset]'),'click',()=>{frame.querySelector('.scene-category select').value=String(categoryDefault);host?.setCategory(categoryDefault);host?.reset();});
   for(const input of frame.querySelectorAll('input'))listen(input,'change',()=>host?.setAnnotations({dimensions:frame.querySelector('input[data-dimensions]').checked,callouts:frame.querySelector('input[data-callouts]').checked}));
   return {
     show({drawing:next=drawing,recipeId='trees--v0',camera='iso',style='paper'}={}){
       if(next!==drawing)attach(next);
       const recipe=recipeInfo(recipeId);active=true;frame.hidden=failed;
       const category=frame.querySelector('.scene-category');category.hidden=!recipe.categoryOptions;
-      if(categoryRecipe!==recipeId){categoryRecipe=recipeId;const select=category.querySelector('select');select.replaceChildren(new Option('All four · same scale','-1'));for(const [i,name]of (recipe.categoryOptions||[]).entries())select.add(new Option(name,String(i)));}
+      categoryDefault=recipe.categoryDefault??-1;category.firstChild.textContent=recipe.categoryPrompt||'Compare planting';
+      category.querySelector('select').setAttribute('aria-label',recipe.categoryPrompt||'Planting category');
+      if(categoryRecipe!==recipeId){categoryRecipe=recipeId;const select=category.querySelector('select');select.replaceChildren();if(categoryDefault===-1)select.add(new Option('All four · same scale','-1'));for(const [i,name]of (recipe.categoryOptions||[]).entries())select.add(new Option(name,String(i)));select.value=String(categoryDefault);}
+      frame.querySelector('[data-dimensions]').closest('label').hidden=recipe.kind==='conceptual-3d';
+      metric.replaceChildren();metric.hidden=!recipe.metricGraphicSelector;
+      if(recipe.metricGraphicSelector){const original=drawing.querySelector(recipe.metricGraphicSelector);if(original){const caption=document.createElement('p');caption.textContent=recipe.metricGraphicCaption;const svg=original.closest('svg').cloneNode(false);svg.setAttribute('viewBox',recipe.metricGraphicViewBox);svg.setAttribute('aria-label',recipe.metricGraphicCaption);for(let node=original;node;node=node.nextElementSibling)svg.append(node.cloneNode(true));metric.append(caption,svg);}}
+
       frame.style.setProperty('--diagram-building',(STYLES[style]||STYLES.paper).colours.building);
       const selected=drawing.querySelector('[data-variant]:not([hidden]) svg .sub')||drawing.querySelector('figure svg .sub');
       frame.querySelector('.scene-case').textContent=recipe.caseTitle||selected?.textContent||'';

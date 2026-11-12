@@ -236,3 +236,12 @@ explanations, repeated diagrams and assumptions stay under Sources. See
 [QUICK-REFERENCE-WRITING.md](QUICK-REFERENCE-WRITING.md) for the implementation,
 source-preservation boundary and extension rules. This supersedes earlier
 records that described those explanation blocks as part of the main view.
+
+
+## T12 current implementation — 13 November 2026
+
+Six conceptual stormwater cutaways now reuse the analytical caps, palette and
+vegetation primitives. Diagram coordinates have no physical dimensions or
+computed capacity; the metric bank-slope triangle is a separate native SVG. See
+[T12-STORMWATER.md](T12-STORMWATER.md) for interfaces, options, evidence and limits.
+This supersedes planned-only recipes for the three stormwater-options panels.

@@ -316,3 +316,12 @@ Planting widths and shallow storage are implemented locally. See
 [T11-LANDSCAPE.md](T11-LANDSCAPE.md) for geometry, common-scale detail controls,
 water/cap palette roles, assumptions, source preservation and verification limits.
 This supersedes planned-only recipes for `ground` and `stormwater`.
+
+
+## T12 current implementation — 13 November 2026
+
+Six conceptual stormwater cutaways now reuse the analytical caps, palette and
+vegetation primitives. Diagram coordinates have no physical dimensions or
+computed capacity; the metric bank-slope triangle is a separate native SVG. See
+[T12-STORMWATER.md](T12-STORMWATER.md) for interfaces, options, evidence and limits.
+This supersedes planned-only recipes for the three stormwater-options panels.

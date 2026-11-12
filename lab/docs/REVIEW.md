@@ -182,3 +182,12 @@ records that described those explanation blocks as part of the main view.
 13 November: removed stair/ramp landing join seams by building continuous
 profiles. Verified 95 unit tests, 35 analytical camera states and 35 accessibility
 states; refreshed phone references and rebuilt the allowlisted offline package.
+
+
+## T12 current implementation — 13 November 2026
+
+Six conceptual stormwater cutaways now reuse the analytical caps, palette and
+vegetation primitives. Diagram coordinates have no physical dimensions or
+computed capacity; the metric bank-slope triangle is a separate native SVG. See
+[T12-STORMWATER.md](T12-STORMWATER.md) for interfaces, options, evidence and limits.
+This supersedes planned-only recipes for the three stormwater-options panels.
