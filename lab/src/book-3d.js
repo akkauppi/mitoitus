@@ -1,3 +1,4 @@
+import {STYLES} from '../styles.js';
 import {createSceneHost} from './viewer.js';
 import {recipeInfo} from './registry.js';
 
@@ -5,7 +6,7 @@ import {recipeInfo} from './registry.js';
 export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
   let drawing=initialDrawing,fallback=[],active=false,failed=false,host;
   const frame=document.createElement('section');frame.className='scene-host';
-  frame.innerHTML='<p class="scene-case"></p><div class="scene-toolbar" role="group" aria-label="Model view"><button data-camera="iso">3D</button><button data-camera="plan">Plan</button><button data-camera="front">Front</button><button data-reset>Reset</button></div><div class="scene-viewport" tabindex="0" role="group"><canvas aria-hidden="true"></canvas><svg aria-hidden="true"></svg></div><div class="scene-options"><label><input type="checkbox" data-dimensions checked> Dimensions</label><label><input type="checkbox" data-callouts checked> Callouts</label><span data-hint></span></div>';
+  frame.innerHTML='<p class="scene-case"></p><div class="scene-toolbar" role="group" aria-label="Model view"><button data-camera="iso">3D</button><button data-camera="plan">Plan</button><button data-camera="front">Front</button><button data-camera="section">Section</button><button data-reset>Reset</button></div><div class="scene-viewport" tabindex="0" role="group"><canvas aria-hidden="true"></canvas><svg aria-hidden="true"></svg></div><div class="scene-options"><label><input type="checkbox" data-dimensions checked> Dimensions</label><label><input type="checkbox" data-callouts checked> Callouts</label><span data-hint></span></div>';
   const provenance=document.createElement('p');provenance.className='source-meta scene-provenance';frame.append(provenance);
   const companion=document.createElement('div');companion.className='scene-companion';companion.hidden=true;frame.append(companion);
   const status=document.createElement('p');status.className='scene-status';status.setAttribute('role','status');status.hidden=true;
@@ -31,6 +32,7 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
     show({drawing:next=drawing,recipeId='trees--v0',camera='iso',style='paper'}={}){
       if(next!==drawing)attach(next);
       const recipe=recipeInfo(recipeId);active=true;frame.hidden=failed;
+      frame.style.setProperty('--diagram-building',(STYLES[style]||STYLES.paper).colours.building);
       const selected=drawing.querySelector('[data-variant]:not([hidden]) svg .sub')||drawing.querySelector('figure svg .sub');
       frame.querySelector('.scene-case').textContent=recipe.caseTitle||selected?.textContent||'';
       frame.querySelector('.scene-case').hidden=!(recipe.caseTitle||selected);
@@ -38,8 +40,22 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
       companion.replaceChildren();companion.hidden=!(recipe.retainedTextSelector||recipe.explanation);
       if(recipe.retainedTextSelector)for(const original of drawing.querySelectorAll(recipe.retainedTextSelector)){if(original===selected)continue;const p=document.createElement('p');p.textContent=original.textContent;companion.append(p);}
       for(const text of recipe.explanation||[]){const p=document.createElement('p');p.textContent=text;companion.append(p);}
+      if(recipe.sectionNote&&recipe.cutViews?.includes(camera)){const note=document.createElement('p');note.className='section-explanation';note.textContent=recipe.sectionNote;companion.append(note);companion.hidden=false;}
+      if(recipe.floorExamples){
+        const schematic=document.createElement('section');schematic.className='floor-schematic';schematic.setAttribute('aria-label','Schematic floor-count diagrams; no vertical metre scale');
+        const heading=document.createElement('p');heading.textContent='Schematic floor count · no vertical metre scale';schematic.append(heading);
+        const cards=document.createElement('div');cards.className='floor-cards';
+        for(const example of recipe.floorExamples){const card=document.createElement('div'),stack=document.createElement('div');card.className='floor-card';stack.className='floor-stack';stack.dataset.floors=example.floors;
+          for(let i=0;i<example.floors;i++){const plate=document.createElement('i');plate.style.bottom=`${i*12}px`;plate.style.height=`${example.depth*.8}px`;stack.append(plate);}
+          const label=document.createElement('p');label.textContent=`${example.floors} floors · ${example.coverage*100}%`;const formula=document.createElement('p');formula.textContent=`${32*example.depth} m² × ${example.floors} = 1,024 m²`;card.append(stack,label,formula);cards.append(card);
+        }schematic.style.setProperty('--floor-plate',STYLES[style].colours.building);schematic.append(cards);companion.append(schematic);companion.hidden=false;
+      }
+      if(recipe.retainedGraphicSelector){
+        const original=drawing.querySelector(recipe.retainedGraphicSelector);if(original){const caption=document.createElement('p');caption.textContent='Original six-step flight · metric side profile';const graphic=original.cloneNode(true);graphic.classList.add('retained-profile');companion.append(caption,graphic);companion.hidden=false;}
+      }
       frame.setAttribute('aria-label',`${recipe.panelId} diorama`);
-      viewport.setAttribute('aria-label',(recipe.description||'Soil 5 by 5 metres, 1 metre deep, 25 cubic metres.')+' Arrow keys orbit, plus/minus zoom, Home resets.');
+      viewport.setAttribute('aria-label',(recipe.description||'Soil 5 by 5 metres, 1 metre deep, 25 cubic metres.')+(recipe.fixedPlan?' Plus/minus zoom, Home resets.':' Arrow keys orbit, plus/minus zoom, Home resets.'));
+      frame.querySelector('[data-hint]').textContent=recipe.fixedPlan?(matchMedia('(pointer: coarse)').matches?'Two fingers to zoom':'Scroll to zoom · Home resets'):(matchMedia('(pointer: coarse)').matches?'Two fingers to orbit / zoom':'Drag to orbit · scroll to zoom');
       provenance.textContent='Diorama artwork: assistant draft. '+recipe.assumptions.join(' ');
       for(const button of frame.querySelectorAll('[data-camera]')){button.hidden=!recipe.allowedCameras.includes(button.dataset.camera);button.setAttribute('aria-pressed',String(button.dataset.camera===camera));}
       if(failed){availability(false);return;}

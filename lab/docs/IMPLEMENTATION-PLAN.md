@@ -307,3 +307,11 @@ metric footprints/plot relationships while adding explicitly illustrative height
 facade rhythms, stair sizes and context staging. Default 3D, common-scale Plan.
 Original GIFs are read as evidence only, without copying archived files into this
 public worktree. See current T09 task, SCENES-01-06.md and PROGRESS.md.
+
+
+## T10 current implementation — 12 November 2026
+
+Shared analytical caps, true Section views, metric comparisons and user review
+amendments are implemented and tested locally. See [T10-SECTIONS.md](T10-SECTIONS.md)
+for the API, material convention, exact dimensions, assumptions, evidence and
+remaining limitations. This supersedes planned-only descriptions for these panels.

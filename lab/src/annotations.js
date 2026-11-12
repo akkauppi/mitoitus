@@ -53,7 +53,7 @@ function annotations(){
  if(dimensions)for(const d of model.dimensions){
   const a=project(d.a),b=project(d.b),off=new THREE.Vector3(...d.offset),aa=project(new THREE.Vector3(...d.a).add(off).toArray()),bb=project(new THREE.Vector3(...d.b).add(off).toArray());
   const length=Math.hypot(bb.x-aa.x,bb.y-aa.y);if(length<.5)continue;line(a,aa,'extension-line');line(b,bb,'extension-line');line(aa,bb,'dimension-line',true);
-  const ux=(bb.x-aa.x)/length,uy=(bb.y-aa.y)/length;for(const p of [aa,bb])line({x:p.x-3*(ux-uy),y:p.y-3*(uy+ux)},{x:p.x+3*(ux-uy),y:p.y+3*(uy+ux)},'dimension-line');label(d.label,{x:(aa.x+bb.x)/2,y:(aa.y+bb.y)/2+(length<20?22:0)},'dim');
+  const ux=(bb.x-aa.x)/length,uy=(bb.y-aa.y)/length;for(const p of [aa,bb])line({x:p.x-3*(ux-uy),y:p.y-3*(uy+ux)},{x:p.x+3*(ux-uy),y:p.y+3*(uy+ux)},'dimension-line');label(d.label,{x:(aa.x+bb.x)/2+(d.labelOffsetPx?.[0]||0),y:(aa.y+bb.y)/2+(length<20?22:0)+(d.labelOffsetPx?.[1]||0)},'dim');
  }
 
 }

@@ -209,3 +209,11 @@ External luhtitalo stairs are open planar flights: thin treads, light stringers
 and a thin landing on posts. Preserve visible air beneath the flight and landing;
 do not fill their volume down to the ground. The supported gallery canopy and
 landing roof wings join edge-to-edge, with roof geometry separated from doors.
+
+
+## T10 current implementation — 12 November 2026
+
+Shared analytical caps, true Section views, metric comparisons and user review
+amendments are implemented and tested locally. See [T10-SECTIONS.md](T10-SECTIONS.md)
+for the API, material convention, exact dimensions, assumptions, evidence and
+remaining limitations. This supersedes planned-only descriptions for these panels.

@@ -310,3 +310,11 @@ The final luhtitalo review uses thin open treads/landings and stringers in place
 solid stair wedges. The gallery has a canopy on light posts, plus landing wings;
 unit tests check underside voids, roof coverage and door clearance. These remain
 schematic detail, not construction prescriptions.
+
+
+## T10 current implementation — 12 November 2026
+
+Shared analytical caps, true Section views, metric comparisons and user review
+amendments are implemented and tested locally. See [T10-SECTIONS.md](T10-SECTIONS.md)
+for the API, material convention, exact dimensions, assumptions, evidence and
+remaining limitations. This supersedes planned-only descriptions for these panels.

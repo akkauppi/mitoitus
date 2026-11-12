@@ -43,7 +43,7 @@ export function createSceneHost({canvas,overlay,viewport,onCameraChange=()=>{},o
       return result;
     }
     const result=new THREE.Box3();
-    model.group.traverse(o=>{
+    model.group.traverseVisible(o=>{
       if(!o.isMesh&&!o.userData.envelope)return;if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();const b=o.geometry.boundingBox;
       for(const x of [b.min.x,b.max.x])for(const y of [b.min.y,b.max.y])for(const z of [b.min.z,b.max.z])
         result.expandByPoint(new THREE.Vector3(x,y,z).applyMatrix4(o.matrixWorld).applyMatrix4(camera.matrixWorldInverse));
@@ -54,7 +54,8 @@ export function createSceneHost({canvas,overlay,viewport,onCameraChange=()=>{},o
   }
   function fit() {
     const b=bounds(true),narrow=width<650,gutter=narrow?124:148;
-    const left=labels?(narrow?18:gutter):30,right=labels?gutter:30,top=40,bottom=48;
+    let left=labels?(narrow?18:gutter):30;const right=labels?gutter:30,top=40,bottom=48;
+    if(narrow&&model.recipe.heightDimensionsOpposite)left=Math.max(left,44);
     const scale=Math.min(Math.max(40,width-left-right)/(b.max.x-b.min.x),Math.max(40,height-top-bottom)/(b.max.y-b.min.y));
     const cx=(b.min.x+b.max.x)/2,cy=(b.min.y+b.max.y)/2;
     camera.left=cx-(left+(width-left-right)/2)/scale;camera.right=camera.left+width/scale;
@@ -74,13 +75,14 @@ export function createSceneHost({canvas,overlay,viewport,onCameraChange=()=>{},o
     viewport.dataset.geometryCount=String(renderer.info.memory.geometries);
     viewport.dataset.cameraPosition=JSON.stringify(camera.position.toArray());
     viewport.dataset.recipe=model.recipe.id;
+    viewport.dataset.section=JSON.stringify(model.recipe.cutViews?.includes(cameraKey)?(model.sections||[]).map(s=>s.userData.section):[]);
     viewport.dataset.comparisonFrame=JSON.stringify([camera.left,camera.right,camera.top,camera.bottom,camera.zoom]);
     if(model.measurement?.width){const d=model.dimensions[0],a=new THREE.Vector3(...d.a).project(camera),b=new THREE.Vector3(...d.b).project(camera);
       viewport.dataset.projectedWidth=String(Math.hypot((a.x-b.x)*width/2,(a.y-b.y)*height/2));}else delete viewport.dataset.projectedWidth;
     onAvailability(true);
   }
   function resize({width:w=viewport.clientWidth,height:h=viewport.clientHeight,pixelRatio=devicePixelRatio}={}) {
-    if(disposed)return;width=Math.max(1,w);height=Math.max(1,h);
+    if(disposed)return;model?.layout?.(w<650);width=Math.max(1,w);height=Math.max(1,h);
     renderer.setPixelRatio(Math.min(pixelRatio,2));renderer.setSize(width,height,false);
     overlay.setAttribute('viewBox',`0 0 ${width} ${height}`);queue();
   }
@@ -88,10 +90,13 @@ export function createSceneHost({canvas,overlay,viewport,onCameraChange=()=>{},o
   function setCamera(key,notify=false) {
     if(!model)return;
     cameraKey=model.recipe.allowedCameras.includes(key)?key:model.recipe.defaultCamera;
+    model.applyView?.(cameraKey);controls.enableRotate=!model.recipe.fixedPlan;
+    controls.maxPolarAngle=cameraKey==='section'?Math.PI/2:Math.PI/2-.005;controls.minPolarAngle=model.recipe.fixedPlan?0:.001;
     const target=new THREE.Vector3(...model.meta.target);camera.up.set(0,1,0);
     let direction=model.meta.camera;
-    if(cameraKey==='plan'){direction=[0,1,.0001];camera.up.set(0,0,-1);}
+    if(cameraKey==='plan'){direction=model.recipe.fixedPlan?[0,1,0]:[0,1,.0001];camera.up.set(0,0,-1);}
     if(cameraKey==='front')direction=[0,.001,1];
+    if(cameraKey==='section')direction=[0,0,1];
     camera.position.copy(target).add(new THREE.Vector3(...direction).normalize().multiplyScalar(80));
     camera.lookAt(target);camera.zoom=1;controls.target.copy(target);controls.update();queue();
     if(notify)onCameraChange(cameraKey);
@@ -106,10 +111,10 @@ export function createSceneHost({canvas,overlay,viewport,onCameraChange=()=>{},o
           materials.set(role,style.light?new THREE.MeshLambertMaterial({...config,flatShading:true}):new THREE.MeshBasicMaterial(config));}
         o.material=materials.get(role);o.castShadow=true;o.receiveShadow=true;}
       if(o.userData.envelope)o.material.color.set(style.colours.metal);
-      if(o.userData.edge){o.material.color.set(style.edge);o.material.opacity=style.edgeOpacity;o.material.transparent=true;}
+      if(o.userData.edge||o.userData.sectionHatch){o.material.color.set(style.edge);o.material.opacity=style.edgeOpacity*(o.userData.sectionHatch ? .45 : 1);o.material.transparent=true;}
     });previous.forEach(m=>m.dispose());
     ambient.intensity=styleKey==='soft'?2.1:2.8;sun.intensity=styleKey==='soft'?2.5:1.1;
-    renderer.shadowMap.enabled=style.shadows;floor.visible=style.shadows;queue();
+    renderer.shadowMap.enabled=style.shadows&&!model.recipe.noShadows;floor.visible=renderer.shadowMap.enabled;queue();
   }
   function releaseModel(){if(model){scene.remove(model.group);disposeObject(model.group);model=null;}renderer.renderLists.dispose();}
   function show({recipeId,camera:requestedCamera='iso',style='paper'}) {
@@ -135,6 +140,7 @@ export function createSceneHost({canvas,overlay,viewport,onCameraChange=()=>{},o
     else if(event.key==='+'||event.key==='=')camera.zoom=Math.min(3,camera.zoom*1.1);
     else if(event.key==='-')camera.zoom=Math.max(.65,camera.zoom/1.1);
     else if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)){
+      if(model.recipe.fixedPlan){event.preventDefault();event.stopPropagation();return;}
       spherical.theta+=event.key==='ArrowLeft'?.12:event.key==='ArrowRight'?-.12:0;
       spherical.phi=Math.max(.03,Math.min(Math.PI/2-.01,spherical.phi+(event.key==='ArrowUp'?-.1:event.key==='ArrowDown'?.1:0)));
       camera.up.set(0,1,0);camera.position.copy(controls.target).add(new THREE.Vector3().setFromSpherical(spherical));camera.lookAt(controls.target);

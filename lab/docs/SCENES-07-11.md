@@ -300,3 +300,11 @@ moving it to Sources follows the documented display policy. Review desktop, 390 
 and 320 px, source dimensions, callouts, claim provenance and exported vector geometry.
 Test actual cuts, not a view label. Keep the existing 2D fallback until review passes.
 Commit locally in small batches. This plan authorizes neither pushing nor deployment.
+
+
+## T10 current implementation — 12 November 2026
+
+Shared analytical caps, true Section views, metric comparisons and user review
+amendments are implemented and tested locally. See [T10-SECTIONS.md](T10-SECTIONS.md)
+for the API, material convention, exact dimensions, assumptions, evidence and
+remaining limitations. This supersedes planned-only descriptions for these panels.

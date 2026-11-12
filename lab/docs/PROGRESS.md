@@ -777,3 +777,11 @@ Final verification: 79 unit tests including underside-void and canopy tests;
 30 building camera states, 20 candidate tests and 110 whole-shell responsive
 states. The explicit offline package is rebuilt. Current gallery phone reference
 is regenerated with this lighter, covered scheme. Everything remains local.
+
+
+## T10 current implementation — 12 November 2026
+
+Shared analytical caps, true Section views, metric comparisons and user review
+amendments are implemented and tested locally. See [T10-SECTIONS.md](T10-SECTIONS.md)
+for the API, material convention, exact dimensions, assumptions, evidence and
+remaining limitations. This supersedes planned-only descriptions for these panels.

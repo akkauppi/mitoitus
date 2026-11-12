@@ -183,6 +183,9 @@ invented metre storey heights. Keep their display distinct from metric cut secti
 remain equal; six 0.12/0.42 increments pass. Section caps/anchors align; handrails,
 guards and accessible alternatives remain coordination text, not invented specs.
 
+T10 implemented and tested locally, including user review amendments. See
+[T10 evidence](T10-SECTIONS.md). No publication approval is implied.
+
 ## T11 — Remaining green/blue scenes
 
 **Depends:** T03–T04, T10 cut support. **Panels:** `ground`, `stormwater`; recheck `trees`.

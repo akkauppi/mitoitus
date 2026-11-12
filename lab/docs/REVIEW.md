@@ -147,3 +147,11 @@ illustrative rather than TKK specifications.
 The final gallery review replaces solid stairs with open planar flights/landings,
 and adds a supported gallery canopy with landing wings. All current massing
 references are regenerated; earlier solid-stair previews are superseded.
+
+
+## T10 current implementation — 12 November 2026
+
+Shared analytical caps, true Section views, metric comparisons and user review
+amendments are implemented and tested locally. See [T10-SECTIONS.md](T10-SECTIONS.md)
+for the API, material convention, exact dimensions, assumptions, evidence and
+remaining limitations. This supersedes planned-only descriptions for these panels.

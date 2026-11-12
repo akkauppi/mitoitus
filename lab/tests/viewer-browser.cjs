@@ -25,11 +25,11 @@ const out=path.join(__dirname,'../review');fs.mkdirSync(out,{recursive:true});
  };
  await page.goto(base+'?mode=focus&panel=trees&keep=sentinel#green-blue');await ready();
  const details=await page.locator('[data-panel-id="trees"] .details').innerHTML();
- assert.equal(await page.locator('.scene-toolbar [data-camera="section"]').count(),0);
+ assert.equal(await page.locator('.scene-toolbar [data-camera="section"]').count(),1);
  const stats=[];
  for(const width of [320,390,768,1024,1440]){
   await page.setViewportSize({width,height:1000});
-  for(const camera of ['iso','plan','front']){
+  for(const camera of ['iso','plan','front','section']){
    await page.click(`.scene-toolbar [data-camera="${camera}"]`);await ready();await checkRoutes();
    assert.equal(new URL(page.url()).searchParams.get('camera'),camera);
    assert.equal(new URL(page.url()).searchParams.get('keep'),'sentinel');
@@ -64,7 +64,9 @@ const out=path.join(__dirname,'../review');fs.mkdirSync(out,{recursive:true});
   assert.equal(await page.locator('[data-panel-id="trees"] .scene-fallback-hidden').count(),0);
   assert.ok(Number(await page.locator('.scene-viewport').getAttribute('data-geometry-count'))<=1,'scene geometry released when suspended');
   await page.locator('[data-panel-id="trees"] .explore').click();await ready();
-  assert.equal(Number(await page.locator('.scene-viewport').getAttribute('data-geometry-count')),geometry);
+  assert.ok(Number(await page.locator('.scene-viewport').getAttribute('data-geometry-count'))<=geometry,'fresh whole view stays within warmed geometry count');
+  await page.click('.scene-toolbar [data-camera="section"]');await ready();await page.click('.scene-toolbar [data-camera="iso"]');await ready();
+  assert.equal(Number(await page.locator('.scene-viewport').getAttribute('data-geometry-count')),geometry,'whole and section resources remain stable after warming both views');
  }
  assert.equal(await page.evaluate(()=>window.__glCanvases.size),1);
  assert.equal(await page.evaluate(()=>[...window.__observers.values()].reduce((n,s)=>n+s.size,0)),1);
@@ -104,6 +106,6 @@ const out=path.join(__dirname,'../review');fs.mkdirSync(out,{recursive:true});
  assert.equal(disposed.before.recipe,null);assert.equal(disposed.after.renders,disposed.before.renders);await lifecycle.close();
  assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
  fs.writeFileSync(path.join(out,'viewer-t03-results.json'),JSON.stringify({states:stats,suspendResumeCycles:20,contexts:1,activeResizeTargets:1,geometryCount:geometry,orbitChecks:16,styles:3,disposal:'passed',contextLoss:'passed',noWebGL:'passed',staleImport:'passed',idle:'no continuous rendering',errors,external},null,2));
- console.log('PASS: 15 responsive camera states; geometry/callouts; 20 suspend/resume cycles; single context; idle; context loss/restore; no-WebGL and stale-import fallbacks.');
+ console.log('PASS: 20 responsive camera states; geometry/callouts; 20 suspend/resume cycles; single context; idle; context loss/restore; no-WebGL and stale-import fallbacks.');
  await browser.close();
 })().catch(error=>{console.error(error);process.exit(1);});

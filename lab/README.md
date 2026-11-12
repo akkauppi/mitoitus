@@ -12,7 +12,7 @@ plan for another model to implement. Start with
 [TASKS.md](docs/TASKS.md). The [layout wireframes](docs/LAYOUT.svg) show Overview,
 Focus, phone, wall and print. All 33 panels and 44 baseline drawings are mapped in
 [the inventory](docs/scene-inventory.json) and the two scene catalogues.
-The three-scene lab remains the visual reference. T01–T06 are implemented in
+The three-scene lab remains the visual reference. T01–T10 are implemented in
 the isolated candidate; the remaining handoff tasks are still planned.
 Do not run the old recursive ZIP packager in this worktree.
 
@@ -194,3 +194,5 @@ Source ranges, footprints, house placement, tables and fallback SVGs remain inta
 Run `node lab/tests/buildings-browser.cjs` from the worktree root for the focused
 responsive, comparison-scale, source-preservation and fallback checks.
 “Check every link” remains unaccepted and recorded for rework before release.
+
+T10 section geometry, review amendments and verification: [implementation record](docs/T10-SECTIONS.md).
