@@ -11,6 +11,7 @@ export const ASSET_SPECS = Object.freeze({
   car: { length: 5, width: 1.8, height: 1.5, provenance: 'Body plan: existing rulebook S36. Height and detailing: illustration assumptions.' },
   tram: { length: 34, width: 2.4, height: 3.4, provenance: 'Existing rulebook nominal body plan. Height, articulation and detailing: illustration assumptions.' },
   bicycle: { length: 2, width: 0.6, height: 1.2, provenance: 'Existing rulebook typical cycle envelope; original illustrative geometry.' },
+  cyclist: {length:2,width:0.6,height:1.65,provenance:'Existing rider posture and handlebar illustration envelope; original stylized pose.'},
   bench: { length: 1.8, height: 0.85, provenance: 'Illustrative furniture dimensions, not a product specification.' },
 });
 
@@ -284,6 +285,25 @@ export function createBench() {
     box(result, [0.40, 0.4, 0.055], [0, 0.2, z], 'metal', false);
     box(result, [0.48, 0.045, 0.055], [0, 0.64, z], 'metal', false);
     rod(result, [0.16, 0.45, z], [0.16, 0.64, z], 0.025, 'metal');
+  }
+  return result;
+}
+
+/** Static riding posture, not a scaled standing person or clearance standard. */
+export function createCyclist() {
+  const result=group('cyclist');result.add(createBicycle());
+  const hip=[0,1.04,-.31],shoulder=[0,1.39,.04];
+  const a=new THREE.Vector3(...hip),b=new THREE.Vector3(...shoulder),direction=b.clone().sub(a);
+  const torso=mesh(result,new THREE.CylinderGeometry(.18,.13,direction.length(),10),'person',a.clone().add(b).multiplyScalar(.5).toArray());
+  torso.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),direction.normalize());torso.name='rider-torso';
+  rod(result,shoulder,[0,1.48,.085],.048,'person');
+  const head=mesh(result,new THREE.SphereGeometry(1,12,8),'person',[0,1.535,.10]);head.scale.set(.085,.115,.09);head.name='rider-head';
+  for(const sign of [-1,1]){
+    const elbow=[sign*.23,1.19,.26],hand=[sign*.26,1.175,.48];
+    rod(result,[sign*.16,1.38,.04],elbow,.048,'person');rod(result,elbow,hand,.035,'person');
+    const knee=[sign*.11,.70,sign<0?.17:.02],foot=[sign*.10,sign<0?.36:.49,sign<0?-.12:-.20];
+    rod(result,[sign*.09,1.04,-.31],knee,.062,'person');rod(result,knee,foot,.047,'person');
+    box(result,[.12,.06,.22],[foot[0],foot[1]-.03,foot[2]+.04],'person',false);
   }
   return result;
 }

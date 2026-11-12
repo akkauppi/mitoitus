@@ -1,0 +1,97 @@
+{
+  "states": 150,
+  "ratios": [
+    {
+      "viewport": 320,
+      "camera": "iso",
+      "pixelsPerMetre": 13.210927172826183
+    },
+    {
+      "viewport": 320,
+      "camera": "plan",
+      "pixelsPerMetre": 29.5
+    },
+    {
+      "viewport": 320,
+      "camera": "front",
+      "pixelsPerMetre": 29.5
+    },
+    {
+      "viewport": 390,
+      "camera": "iso",
+      "pixelsPerMetre": 21.047917868570543
+    },
+    {
+      "viewport": 390,
+      "camera": "plan",
+      "pixelsPerMetre": 43.75450417170091
+    },
+    {
+      "viewport": 390,
+      "camera": "front",
+      "pixelsPerMetre": 47
+    },
+    {
+      "viewport": 768,
+      "camera": "iso",
+      "pixelsPerMetre": 41.648007697384244
+    },
+    {
+      "viewport": 768,
+      "camera": "plan",
+      "pixelsPerMetre": 56.793925944724364
+    },
+    {
+      "viewport": 768,
+      "camera": "front",
+      "pixelsPerMetre": 93.00000000000003
+    },
+    {
+      "viewport": 1024,
+      "camera": "iso",
+      "pixelsPerMetre": 57.25067627009768
+    },
+    {
+      "viewport": 1024,
+      "camera": "plan",
+      "pixelsPerMetre": 56.79392594472436
+    },
+    {
+      "viewport": 1024,
+      "camera": "front",
+      "pixelsPerMetre": 157.00000000000003
+    },
+    {
+      "viewport": 1440,
+      "camera": "iso",
+      "pixelsPerMetre": 57.250676270097685
+    },
+    {
+      "viewport": 1440,
+      "camera": "plan",
+      "pixelsPerMetre": 56.793925944724364
+    },
+    {
+      "viewport": 1440,
+      "camera": "front",
+      "pixelsPerMetre": 171.99999999999997
+    }
+  ],
+  "geometryCounts": {
+    "walking--v0": 36,
+    "walking--v1": 20,
+    "walking--v2": 36,
+    "walking--v3": 36,
+    "cycling--v0": 42,
+    "cycling--v1": 78,
+    "cycling--v2": 78,
+    "cycling--v3": 57,
+    "cycling--v4": 110
+  },
+  "contexts": 1,
+  "userCameraPreserved": true,
+  "canonicalFacts": "unchanged",
+  "fileFallback": "passed",
+  "errors": [],
+  "external": []
+}

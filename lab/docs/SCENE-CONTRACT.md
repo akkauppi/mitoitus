@@ -1,8 +1,8 @@
 # Proposed scene and application contract
 
-Specification · 12 November 2026. T01–T03 now implement the candidate shell and
-rooting-volume host; PROGRESS.md records the actual interfaces and checks. Other
-recipes, comparison framing and cut support below remain proposed future work.
+Specification · 12 November 2026. T01–T04 now implement the candidate shell, rooting-volume host and
+shared walking/cycling comparison frame; PROGRESS.md records the actual interfaces and checks. Other
+recipes and cut support below remain proposed future work.
 Implement the minimum contract; do not build a generic modelling editor.
 Existing source text and dimensional evidence stay authoritative.
 

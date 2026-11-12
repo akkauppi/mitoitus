@@ -64,7 +64,7 @@ const out = path.join(__dirname,'../review'); fs.mkdirSync(out,{recursive:true})
     }
   }
   await go('?mode=focus&panel=walking&figure=wrong&camera=bad&style=bad&keep=yes#walk-cycle');
-  assert.equal(await page.getAttribute('body','data-camera'),'plan');
+  assert.equal(await page.getAttribute('body','data-camera'),'iso');
   assert.equal(new URL(page.url()).searchParams.get('figure'),'walking--v0');
   await page.selectOption('#walking-select','2');
   assert.equal(new URL(page.url()).searchParams.get('figure'),'walking--v2');

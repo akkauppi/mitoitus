@@ -24,6 +24,8 @@ RUNTIME_FILES.update({
     'runtime/viewer.js':'lab/src/viewer.js',
     'runtime/annotations.js':'lab/src/annotations.js',
     'runtime/registry.js':'lab/src/registry.js',
+    'runtime/recipes/routes.js':'lab/src/recipes/routes.js',
+    'runtime/primitives/surfaces.js':'lab/src/primitives/surfaces.js',
     **{name:f'lab/{name}' for name in ('scenes.js','assets.js','styles.js','callouts.js')},
     **{f'vendor/{name}':f'lab/vendor/{name}' for name in (
         'build/three.module.js','build/three.core.js','examples/jsm/controls/OrbitControls.js',
@@ -181,7 +183,8 @@ def verify_candidate(output, allow_legacy=False):
     expected = set(PUBLIC_FILES) | {OFFLINE, 'parity.json'}
     old_expected = set(BASELINE_FILES) | {OFFLINE, 'parity.json'}
     t02_expected = old_expected | set(T02_RUNTIME_FILES)
-    if allow_legacy and names in (old_expected,t02_expected):
+    t03_expected = expected - {'runtime/recipes/routes.js','runtime/primitives/surfaces.js'}
+    if allow_legacy and names in (old_expected,t02_expected,t03_expected):
         expected = names
     if names != expected:
         raise ValueError('Candidate contains missing or unapproved files')
@@ -248,7 +251,7 @@ def build(output=None, replace=False):
         actual = audit((stage/'index.html').read_text())
         if actual.events != audit(render_book(source).decode()).events:
             raise ValueError('Candidate semantic content drift')
-        report = dict(schemaVersion=2, stage='T03 rooting-volume live viewer with canonical static fallback',
+        report = dict(schemaVersion=2, stage='T04 walking/cycling fixed-scale scenes and cycle parking',
                       sheets=11, panels=33, drawings=44, baselineSha256=digest(source),
                       semanticSha256=digest(json.dumps(checked.events, ensure_ascii=False).encode()),
                       content=checked.panels, semanticEvents=checked.events,

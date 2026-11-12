@@ -12,7 +12,7 @@ plan for another model to implement. Start with
 [TASKS.md](docs/TASKS.md). The [layout wireframes](docs/LAYOUT.svg) show Overview,
 Focus, phone, wall and print. All 33 panels and 44 baseline drawings are mapped in
 [the inventory](docs/scene-inventory.json) and the two scene catalogues.
-The three-scene lab remains the visual reference. T01–T03 are implemented in
+The three-scene lab remains the visual reference. T01–T04 are implemented in
 the isolated candidate; the remaining handoff tasks are still planned.
 Do not run the old recursive ZIP packager in this worktree.
 
@@ -67,13 +67,14 @@ Iteration record and verification limits: [REVIEW.md](docs/REVIEW.md).
 
 ## Candidate build (T01)
 
-T01–T03 are complete. The candidate has Overview/Focus layouts and a live
-rooting-volume diorama, with baseline SVG fallbacks and canonical details. From the
+T01–T04 are complete. The candidate has Overview/Focus layouts and a live
+rooting-volume, walking, cycling and cycle-parking dioramas, with baseline SVG
+fallbacks and canonical details. From the
 worktree root, run `python3 lab/scripts/build-book.py` for the first build, or
 `python3 lab/scripts/build-book.py --replace` to replace an intact generated
 candidate. `python3 lab/scripts/package-book.py` exports the explicitly allowlisted
 ZIP into `lab/.build/`. See [PROGRESS.md](docs/PROGRESS.md) for commands, verification
-and limits. Preview the candidate at http://localhost:8765/lab/book/. T04 is next.
+and limits. Preview the candidate at http://localhost:8765/lab/book/. T05 is next.
 
 ## Rooting-volume canary (T03)
 
@@ -82,6 +83,13 @@ One shared viewer supplies 3D/Plan/Front, outside callouts and metric dimensions
 The reference figure remains available without WebGL and in direct-file, overview,
 wall and print use. Section support is planned for T10. See PROGRESS.md for the
 host API, lifecycle tests and remaining limits.
+
+## Width comparisons (T04)
+
+[Open walking and cycling](http://localhost:8765/lab/book/?mode=focus&panel=walking#walk-cycle).
+All nine route choices share one comparison frame. Switching variants preserves
+scale, orientation and zoom; the cycle-parking panel explains the area allowance.
+One viewer/context moves between supported panels. See PROGRESS.md for tests.
 
 ## Development
 

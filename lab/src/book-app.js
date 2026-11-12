@@ -38,19 +38,19 @@
   let viewerPromise=null,bookViewer=null,viewerEpoch=0;
   async function syncViewer(state) {
     const epoch=++viewerEpoch;
-    const live=state.mode==='focus'&&state.active.id==='trees'&&!document.body.classList.contains('wall')&&location.protocol!=='file:';
+    const live=state.mode==='focus'&&['trees','walking','cycling','bike-parking'].includes(state.active.id)&&!document.body.classList.contains('wall')&&location.protocol!=='file:';
     $('book-style').closest('label').hidden=!live;
     if(!live){bookViewer?.suspend();return;}
     try {
       viewerPromise ||= import(viewerModuleURL.href);
       const module=await viewerPromise;
       if(epoch!==viewerEpoch)return;
-      bookViewer ||= module.createBookViewer({drawing:byId.get('trees').panel.querySelector('.drawing'),onCameraChange:camera=>{
+      bookViewer ||= module.createBookViewer({drawing:state.active.panel.querySelector('.drawing'),onCameraChange:camera=>{
         const url=new URL(location.href);url.searchParams.set('camera',camera);history.replaceState(history.state,'',url);
         current.camera=camera;document.body.dataset.camera=camera;
-        bookViewer.show({camera,style:current.style});
+        bookViewer.show({drawing:current.active.panel.querySelector('.drawing'),recipeId:current.figure,camera,style:current.style});
       }});
-      bookViewer.show({camera:state.camera,style:state.style});
+      bookViewer.show({drawing:state.active.panel.querySelector('.drawing'),recipeId:state.figure,camera:state.camera,style:state.style});
       document.body.dataset.viewerState=JSON.stringify(bookViewer.inspect());
     }catch(error){
       // Failed module loads leave the complete original figure and facts available.
@@ -73,8 +73,8 @@
     const selected = group ? group.querySelector('select').selectedIndex : 0;
     // A legacy variant is authoritative; T02 has only its corresponding whole figure.
     const figure = `${active.id}--v${selected}`;
-    const allowed = active.id==='trees'?['iso','plan','front']:['iso','plan','front','section'];
-    const camera = allowed.includes(q.get('camera')) ? q.get('camera') : active.id==='trees'?'iso':'plan';
+    const allowed = ['trees','walking','cycling','bike-parking'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
+    const camera = allowed.includes(q.get('camera')) ? q.get('camera') : ['trees','walking','cycling','bike-parking'].includes(active.id)?'iso':'plan';
     const style = ['paper', 'ink', 'soft'].includes(q.get('style')) ? q.get('style') : 'paper';
     return { sheet, active, figure, camera, style, mode: q.get('mode') === 'focus' ? 'focus' : 'overview' };
   }

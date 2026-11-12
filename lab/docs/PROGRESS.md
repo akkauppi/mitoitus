@@ -194,3 +194,76 @@ references and machine-readable results are in `docs/references/`. Tests used
 headless Chromium/software WebGL, not physical mobile/touch/GPU/array acceptance.
 No production SVG-export repair or true section support is claimed. The remaining
 32 panels continue using their static figures. No push/deployment. Next task: T04.
+
+## T04 complete — 12 November 2026
+
+Walking widths, Cycle facilities and Cycle parking now use the same movable live
+viewer as Rooting volume. The original figures remain in place for Overview,
+wall, print, unavailable WebGL and direct-file use. Variant dropdowns and previous/
+next controls stay usable above the model. All canonical tables, guidance, source
+qualifiers and legacy option indices remain unchanged. The live frame repeats the
+selected source-case label directly from its original SVG, retaining the different
+Espoo/SuRaKu/Helsinki contexts without duplicating their wording in scene code.
+
+### Geometry and comparison contract
+
+- `src/primitives/surfaces.js` supplies shared solid boxes, top-aligned strips and
+  repeated envelope tiles. Their decorative thickness is not construction guidance.
+- `src/recipes/routes.js` supplies all four walking widths (2.5/1.5/1.8/2.3 m),
+  five cycling choices (1.75/2.5/3.5/3/4 m), and the five-cycle parking example.
+  Route length is an explicitly assumed 6 m. The one-way cycling case retains
+  its separate 0.75 m design-user envelope. Direction marks and rider orientations
+  distinguish the two travel directions; shared-path actor counts are retained.
+- One common world-space framing envelope covers all nine route scenes, their
+  actors and dimension offsets. Its projection supplies the same orthographic
+  frustum for every variant in the comparison. Selecting a different width or
+  switching between Walking/Cycling preserves user orientation and zoom. Resize
+  and camera presets recompute from that shared envelope, never a variant's bounds.
+- The existing bicycle is reused in a new `createCyclist()` assembly: 1.65 m
+  overall posture, 0.60 m bar envelope and 2 m length. The person is posed with a
+  natural seated torso/limbs and a 0.23 m head, not uniformly scaled from standing.
+  These remain illustration assumptions, not a dynamic clearance model.
+- Cycle parking has five actual 0.6 × 2 m tiles and a separate 3 × 2 m handling
+  area: 12 m² total / 5 = 2.4 m² per cycle. No rack specification is invented.
+
+`src/registry.js` validates all supported recipe IDs. The adapter moves one frame/
+canvas between supported panels, restores the previous panel's original figures,
+and updates accessible description/provenance. It does not create a context per
+panel. Source-case and original facts stay available alongside the scene.
+
+### T04 verification
+
+```sh
+npm --prefix lab test
+python3 -m unittest discover -s lab/tests -p 'test_candidate.py'
+node lab/tests/routes-browser.cjs
+node lab/tests/viewer-browser.cjs
+node lab/tests/shell-browser.cjs
+python3 lab/scripts/build-book.py --replace
+python3 lab/scripts/package-book.py
+```
+
+Passed: 50 Node tests, including actual rider bounds/head proportions, every route
+surface/dimension, common-frame containment, actor counts/directions, actual cycle
+parking tile areas and invalid recipe rejection. The 18 build/archive tests pass.
+
+The route browser suite covers 150 states at 320/390/768/1024/1440 px in 3D/Plan/
+Front, all nine route choices and parking. It verifies exact projected-width
+ratios and identical frusta across walking/cycling, stable geometry counts,
+noncrossing leaders and visible-anchor counts, text collisions/clipping, original
+source-case labels, preserved free camera/zoom after a variant change, canonical
+facts, query/variant restoration, one context across panel changes and file://
+fallback. Rooting-volume lifecycle/context-loss tests and the full T02 shell suite
+still pass: 15 root camera states / 20 reopen cycles, and 110 responsive shell
+states / 33 panels / 15 original variants. Course checker passed again.
+
+The explicit candidate ZIP now contains 72 files / 902,588 bytes, with the two
+new recipe/primitive modules. Existing source HTML/CAD and public checkout are
+unchanged. No external runtime requests or page JavaScript errors were observed.
+Selected desktop cycling and desktop/phone parking references plus machine-readable
+comparison results are under `docs/references/` (Checkpoint B). Physical touch,
+assistive technology, print and array acceptance remain separate checks.
+
+Preview: http://localhost:8765/lab/book/?mode=focus&panel=walking#walk-cycle
+Use its source-case dropdown and panel selector to compare the widths. No push
+or deployment. Next task: T05 accessibility scenes.

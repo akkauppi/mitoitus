@@ -36,9 +36,15 @@ export function createSceneHost({canvas,overlay,viewport,onCameraChange=()=>{},o
   controls.addEventListener('change',queue);
   function bounds(includeDimensions=false) {
     camera.updateMatrixWorld();model.group.updateMatrixWorld(true);
+    if(includeDimensions&&model.comparison){
+      const b=model.comparison.bounds,result=new THREE.Box3();
+      for(const x of [b.min[0],b.max[0]])for(const y of [b.min[1],b.max[1]])for(const z of [b.min[2],b.max[2]])
+        result.expandByPoint(new THREE.Vector3(x,y,z).applyMatrix4(camera.matrixWorldInverse));
+      return result;
+    }
     const result=new THREE.Box3();
     model.group.traverse(o=>{
-      if(!o.isMesh)return;if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();const b=o.geometry.boundingBox;
+      if(!o.isMesh&&!o.userData.envelope)return;if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();const b=o.geometry.boundingBox;
       for(const x of [b.min.x,b.max.x])for(const y of [b.min.y,b.max.y])for(const z of [b.min.z,b.max.z])
         result.expandByPoint(new THREE.Vector3(x,y,z).applyMatrix4(o.matrixWorld).applyMatrix4(camera.matrixWorldInverse));
     });
@@ -67,6 +73,10 @@ export function createSceneHost({canvas,overlay,viewport,onCameraChange=()=>{},o
     viewport.dataset.sceneReady='true';viewport.dataset.renderCount=String(diagnostics.renders);
     viewport.dataset.geometryCount=String(renderer.info.memory.geometries);
     viewport.dataset.cameraPosition=JSON.stringify(camera.position.toArray());
+    viewport.dataset.recipe=model.recipe.id;
+    viewport.dataset.comparisonFrame=JSON.stringify([camera.left,camera.right,camera.top,camera.bottom,camera.zoom]);
+    if(model.measurement?.width){const d=model.dimensions[0],a=new THREE.Vector3(...d.a).project(camera),b=new THREE.Vector3(...d.b).project(camera);
+      viewport.dataset.projectedWidth=String(Math.hypot((a.x-b.x)*width/2,(a.y-b.y)*height/2));}else delete viewport.dataset.projectedWidth;
     onAvailability(true);
   }
   function resize({width:w=viewport.clientWidth,height:h=viewport.clientHeight,pixelRatio=devicePixelRatio}={}) {
@@ -95,6 +105,7 @@ export function createSceneHost({canvas,overlay,viewport,onCameraChange=()=>{},o
         if(!materials.has(role)){const config={color:style.colours[role],polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1};
           materials.set(role,style.light?new THREE.MeshLambertMaterial({...config,flatShading:true}):new THREE.MeshBasicMaterial(config));}
         o.material=materials.get(role);o.castShadow=true;o.receiveShadow=true;}
+      if(o.userData.envelope)o.material.color.set(style.colours.metal);
       if(o.userData.edge){o.material.color.set(style.edge);o.material.opacity=style.edgeOpacity;o.material.transparent=true;}
     });previous.forEach(m=>m.dispose());
     ambient.intensity=styleKey==='soft'?2.1:2.8;sun.intensity=styleKey==='soft'?2.5:1.1;
@@ -104,11 +115,12 @@ export function createSceneHost({canvas,overlay,viewport,onCameraChange=()=>{},o
   function show({recipeId,camera:requestedCamera='iso',style='paper'}) {
     if(disposed)throw new Error('Scene host disposed');
     const same=model?.recipe.id===recipeId;
-    if(!same){releaseModel();model=createRecipe(recipeId);scene.add(model.group);}
+    const previousGroup=model?.comparison?.id;
+    if(!same){releaseModel();model=createRecipe(recipeId);scene.add(model.group);floor.position.y=new THREE.Box3().setFromObject(model.group).min.y-.02;}
     active=true;controls.enabled=!lost;diagnostics.shows++;diagnostics.active=true;
     observer.observe(viewport);
     if(!same||style!==styleKey)setStyle(style);
-    if(!same||requestedCamera!==cameraKey)setCamera(requestedCamera);
+    if((!same&&(!previousGroup||previousGroup!==model.comparison?.id))||requestedCamera!==cameraKey)setCamera(requestedCamera);
     resize();queue();
   }
   function suspend() {
