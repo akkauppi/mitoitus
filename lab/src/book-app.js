@@ -76,7 +76,7 @@
     const figure = `${active.id}--v${selected}`;
     const sceneId=figure;
     const allowed = ['building-blocks','building-rows','building-detached'].includes(active.id)?['plan','iso']:active.id==='clear-route-continuity'?['iso','plan','front']:active.id==='crossing-refuge'?['iso','plan']:active.id==='walking-connections'?['plan']: ['turning','arrival','tram-corridor','tram-length','car-turn','bus-turn','rescue'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
-    const defaultCamera=active.id==='clear-route-continuity'?'iso':['ramps','tram-width'].includes(active.id)?'front':['turning','arrival','tram-corridor'].includes(active.id)?'plan':['trees','walking','cycling','bike-parking','tram-length'].includes(active.id)?'iso':'plan';
+    const defaultCamera=['clear-route-continuity','building-blocks','building-rows','building-detached'].includes(active.id)?'iso':['ramps','tram-width'].includes(active.id)?'front':['turning','arrival','tram-corridor'].includes(active.id)?'plan':['trees','walking','cycling','bike-parking','tram-length'].includes(active.id)?'iso':'plan';
     const camera = allowed.includes(q.get('camera')) ? q.get('camera') : defaultCamera;
     const style = ['paper', 'ink', 'soft'].includes(q.get('style')) ? q.get('style') : 'paper';
     return { sheet, active, figure, sceneId, camera, style, mode: q.get('mode') === 'focus' ? 'focus' : 'overview' };

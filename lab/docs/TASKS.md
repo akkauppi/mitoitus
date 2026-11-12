@@ -156,13 +156,18 @@ the existing Residents & services publication blocker.
 **Depends:** T04. **Panels:** `building-blocks`, `building-rows`,
 `building-detached`.
 
-Make plan-led footprint reliefs, repeatable modules and garden/plot surfaces.
-Use a common graphic scale across the sheet. Keep relief thickness an explicitly
-decorative display device; no invented building heights or floor counts.
+Keep the original footprint geometry, reusable modules, gardens and plot surfaces
+at one common metric scale. **User review amendment, 12 November 2026:** add
+schematic massing with original trees, cars and people; highlight stair rooms
+using qualitative inspection of original TKK pictures. Heights/facade rows/core
+sizes are explicit illustration assumptions; 3D default and common-scale Plan.
 
-**Done:** source ranges versus drawn representatives remain clear, footprint and
-plot areas checked, shared framing preserved. All existing typologies are present,
-not just the most picturesque one. No guessed roofs or setback requirements.
+**Done:** all five existing types, source ranges and chosen footprint sizes
+preserved; correct areas/house placement; shared framing and context scale checks;
+stair-room accents per slab module, at the square-point edge and externally for
+paired small-block units. No new height or setback requirement is attributed to
+the source. Context objects do not intersect footprint interiors. Keep these
+illustrative choices distinct from the preceding T09 plaque-only implementation.
 
 ## T10 — Shared cut sections, equal floor area and steps
 

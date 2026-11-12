@@ -12,13 +12,13 @@ const base='http://127.0.0.1:8765/lab/book/',out=path.join(__dirname,'../review'
   await page.setViewportSize({width,height:1100});
   for(const camera of ['plan','iso']){
    let ppm,frame;
-   for(const [index,panel,dimension,anchors]of [[0,'building-blocks',26,3],[1,'building-rows',9,3],[2,'building-detached',15,2]]){
+   for(const [index,panel,dimension,anchors]of [[0,'building-blocks',26,4],[1,'building-rows',9,4],[2,'building-detached',15,2]]){
     await page.locator('.panel-selector button').nth(index).click();const id=panel+'--v0';await ready(id);await page.locator(`.scene-toolbar [data-camera="${camera}"]`).click();await ready(id);
     const d=await page.evaluate(async()=>{const v=document.querySelector('.scene-viewport'),s=v.querySelector('svg'),r=s.getBoundingClientRect(),data=JSON.parse(v.dataset.callouts);return{status:s.dataset.calloutStatus,items:data.items.length,issues:(await import('./callouts.js')).validateCallouts(data.items,data),projected:Number(v.dataset.projectedWidth),frame:JSON.parse(v.dataset.comparisonFrame),w:r.width,h:r.height,texts:[...s.querySelectorAll('text')].map(n=>{const b=n.getBoundingClientRect();return{dimension:n.classList.contains('dim-label'),text:n.textContent,x:b.x-r.x,y:b.y-r.y,w:b.width,h:b.height};})};});
     assert.equal(d.status,'ok',`${width}/${id}/${camera}`);assert.equal(d.items,anchors,`${width}/${id}/${camera} complete labels`);assert.deepEqual(d.issues,[]);
     for(const t of d.texts)assert.ok(t.x>=-1&&t.y>=-1&&t.x+t.w<=d.w+1&&t.y+t.h<=d.h+1,'clipped '+t.text);
     for(let i=0;i<d.texts.length;i++)for(let j=0;j<i;j++){const a=d.texts[i],b=d.texts[j];assert.ok(!(a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y),`${width}/${id}/${camera} overlap ${a.text}/${b.text}`);}
-    assert.equal(d.texts.filter(t=>t.dimension).length,4,'all measured dimensions retained');
+    assert.equal(d.texts.filter(t=>t.dimension).length,index===1?5:4,'all measured dimensions retained');
     const scale=d.projected/dimension;if(ppm!==undefined){assert.ok(Math.abs(scale-ppm)<1e-7,'common pixels per metre');assert.deepEqual(d.frame,frame);}else{ppm=scale;frame=d.frame;}
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);assert.equal(await page.locator('.scene-toolbar [data-camera]:visible').count(),2);assert.equal(new URL(page.url()).searchParams.get('keep'),'yes');states++;
     if([390,1440].includes(width)&&camera==='plan')await page.screenshot({path:path.join(out,`buildings-${panel}-${width}.png`),fullPage:true});
@@ -30,7 +30,7 @@ const base='http://127.0.0.1:8765/lab/book/',out=path.join(__dirname,'../review'
  await page.locator('.scene-viewport').focus();await page.keyboard.press('ArrowRight');await page.keyboard.press('+');await ready('building-detached--v0');
  const position=await page.locator('.scene-viewport').getAttribute('data-camera-position'),frame=await page.locator('.scene-viewport').getAttribute('data-comparison-frame');
  await page.locator('.panel-selector button').first().click();await ready('building-blocks--v0');assert.equal(await page.locator('.scene-viewport').getAttribute('data-camera-position'),position);assert.equal(await page.locator('.scene-viewport').getAttribute('data-comparison-frame'),frame);
- await page.click('.scene-toolbar [data-reset]');assert.equal(new URL(page.url()).searchParams.get('camera'),'plan');await page.reload();await ready('building-blocks--v0');
+ await page.click('.scene-toolbar [data-reset]');assert.equal(new URL(page.url()).searchParams.get('camera'),'iso');await page.reload();await ready('building-blocks--v0');
  assert.deepEqual(await page.locator('#built-form .details').evaluateAll(ns=>ns.map(n=>n.innerHTML)),facts);assert.deepEqual(await page.locator('#built-form figure').evaluateAll(ns=>ns.map(n=>n.innerHTML)),drawings);
  assert.equal(await page.evaluate(()=>window.__gl.size),1);assert.equal(await page.locator('canvas').count(),1);
  await page.click('#back-to-sheet');assert.equal(await page.locator('#built-form figure:visible').count(),3);

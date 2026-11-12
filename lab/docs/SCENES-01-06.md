@@ -36,11 +36,24 @@ Do not push or deploy. This document changes no teaching content or application.
 
 ## 01 — Building types · `built-form`
 
-Use a plan-first family of footprint reliefs on thick neutral bases. Keep the
-same pixels per metre across all three overview panels and all type comparisons;
-frame them against the union of all three laid-out scene bounds plus common margins. A very
-thin display plaque may lift a footprint from its base, but is not building height.
-Do not invent floors, setbacks, roofs or dimensional building heights for realism.
+**User review amendment, 12 November 2026:** the initial plaque-only relief was
+rejected as too flat. Default to schematic 3D massing with trees, cars and people;
+retain a common metric Plan preset and all original footprint dimensions/ranges.
+Heights (slab 12 m, point 18 m, small/row 6 m, detached eaves 3.2 m plus a low roof), window rows and
+stair sizes are assistant illustration assumptions. These supersede the original
+no-massing/default-Plan prescriptions below, which describe the initial T09 plan.
+No source floor-count or regulatory claim follows from facade detailing.
+
+The original preserved TKK GIFs were visually inspected: `lamelli.gif` has one
+stair room per module; square `piste.gif` has an edge-positioned core; `pienk.gif`
+has external stairs for paired modules. Use teal accents for these distinctions.
+User then clarified the small-block treatment as a luhtitalo: upper entrance
+gallery, connected stair landings/guard openings and doors, plus an explicit 9 m
+body-depth dimension. This gallery interpretation comes from the user; it is not
+claimed as measured TKK geometry. A low eaved gable roof for the detached house is
+also a user-requested illustrative addition over its unchanged 15 × 10 m rectangle.
+No original GIF is copied into the public candidate. Keep the source square point
+variant and unchanged plot/house relationship. Context staging is illustrative.
 
 ### 01A — Slab & point blocks · `building-blocks`
 

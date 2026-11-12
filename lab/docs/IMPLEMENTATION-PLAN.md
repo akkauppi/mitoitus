@@ -297,3 +297,13 @@ about gates, crossings and the actual entrance; retain the earlier source exampl
 under Sources. Combine clear width/passing width/height in one positive corridor
 view. New prompts are assistant drafts, not checked author wording; no new standard
 or current-code claim. See current SCENES-07-11.md §§10.2–10.3 and PROGRESS.md.
+
+## Building massing review amendment — 12 November 2026
+
+User found the T09 relief too flat, asked for more height, trees/cars/people and
+stair-room highlighting based on the original TKK pictures. This supersedes the
+original building plaque-only/no-massing and Plan-default prescription. Preserve
+metric footprints/plot relationships while adding explicitly illustrative heights,
+facade rhythms, stair sizes and context staging. Default 3D, common-scale Plan.
+Original GIFs are read as evidence only, without copying archived files into this
+public worktree. See current T09 task, SCENES-01-06.md and PROGRESS.md.

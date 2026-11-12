@@ -178,12 +178,18 @@ clear space, with the existing manual/powered distinction retained.
 ## Building footprints (T09)
 
 [Open Building types](http://localhost:8765/lab/book/?mode=focus&panel=building-blocks#built-form).
-All five existing typologies are retained: slab, point block, small block,
-row house and detached house. Three plan-first reliefs use one comparison frame,
-including gardens and the illustrative 750 m² plot. Display plaques are only
-0.12 m thick and imply no building height, roof or storey count. Source ranges,
-chosen drawing dimensions, original house placement within the plot, tables and
-fallback SVGs remain intact. Plan/3D presets keep one metric scale across panels.
+All five existing typologies retain their metric footprints, gardens and plot
+areas. Following user review, 3D is now the default: schematic massing, simple
+facades, original trees/cars/people and teal stair-room accents enrich the drawings.
+Plan remains available at the same shared scale. Heights are illustrative
+(slab 12 m, point block 18 m, small block/rows 6 m, detached walls/eaves 3.2 m plus a low gabled roof), not TKK values.
+The preserved original TKK GIFs were inspected: slab stairs repeat per module,
+the square point core meets an edge, and external stairs serve paired small-block
+units. Their model dimensions and all facade rhythms remain assumptions. The small
+blocks now use a covered luhtitalo entrance gallery joining both open stair flights/landings to upper
+doors, with a labelled 9 m body depth. Gallery dimensions and the detached house’s
+eaved roof are user-requested illustrative additions.
+Source ranges, footprints, house placement, tables and fallback SVGs remain intact.
 
 Run `node lab/tests/buildings-browser.cjs` from the worktree root for the focused
 responsive, comparison-scale, source-preservation and fallback checks.

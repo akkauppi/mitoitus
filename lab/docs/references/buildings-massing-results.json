@@ -1,0 +1,67 @@
+{
+  "states": 30,
+  "scales": [
+    {
+      "viewport": 320,
+      "camera": "plan",
+      "pixelsPerMetre": 2.0344827586206895
+    },
+    {
+      "viewport": 320,
+      "camera": "iso",
+      "pixelsPerMetre": 1.1948297470331406
+    },
+    {
+      "viewport": 390,
+      "camera": "plan",
+      "pixelsPerMetre": 3.2413793103448283
+    },
+    {
+      "viewport": 390,
+      "camera": "iso",
+      "pixelsPerMetre": 1.9036270545951726
+    },
+    {
+      "viewport": 768,
+      "camera": "plan",
+      "pixelsPerMetre": 6.413793103448276
+    },
+    {
+      "viewport": 768,
+      "camera": "iso",
+      "pixelsPerMetre": 3.7667514059010867
+    },
+    {
+      "viewport": 1024,
+      "camera": "plan",
+      "pixelsPerMetre": 6.874808328943768
+    },
+    {
+      "viewport": 1024,
+      "camera": "iso",
+      "pixelsPerMetre": 6.203074200618185
+    },
+    {
+      "viewport": 1440,
+      "camera": "plan",
+      "pixelsPerMetre": 6.87480832894377
+    },
+    {
+      "viewport": 1440,
+      "camera": "iso",
+      "pixelsPerMetre": 6.203074200618184
+    }
+  ],
+  "checks": [
+    "all five typologies",
+    "common plan/iso scale",
+    "complete callouts and dimensions",
+    "no text overlap or clipping",
+    "canonical details/drawings",
+    "adjusted camera continuity",
+    "reset and reload",
+    "one context",
+    "native overview common scale",
+    "WebGL/file fallback"
+  ]
+}

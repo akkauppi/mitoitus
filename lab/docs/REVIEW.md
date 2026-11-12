@@ -129,3 +129,21 @@ The browser measurement report is `references/buildings-t09-results.json`.
 Reproduce with `node lab/tests/buildings-browser.cjs` from the worktree root;
 see PROGRESS.md for geometry, parity and fallback evidence and remaining limits.
 The existing “Check every link” rework item is still pending.
+
+## Current building massing review — 12 November 2026
+
+Supersedes the initial T09 plaque-only screenshots. Current references:
+`buildings-massing-{blocks,rows,detached,phone}.png`. Schematic heights/context and
+teal stairs were added following user review and inspection of original TKK GIFs;
+see PROGRESS.md for the evidence/assumption boundary and validation. TKK supplies
+footprint dimensions and schematic stair positions, not model heights/core sizes.
+
+The same review adds the connected luhtitalo gallery/doors/guard openings and its
+9 m body-depth dimension. The detached roof now has a low gable and eaves.
+`buildings-massing-rows.png`, `buildings-massing-detached.png` and
+`buildings-gallery-phone.png` show the updated forms; roof/gallery details are
+illustrative rather than TKK specifications.
+
+The final gallery review replaces solid stairs with open planar flights/landings,
+and adds a supported gallery canopy with landing wings. All current massing
+references are regenerated; earlier solid-stair previews are superseded.

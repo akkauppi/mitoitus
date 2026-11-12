@@ -49,7 +49,7 @@ Local commits are permitted; pushing and deploying are on hold.
 Colour values live only in `styles.js`. Every mesh has `userData.role`; every
 outline has `userData.edge`. Scene code must not add an unregistered colour.
 Current roles: clearance, paving, cycle, road, grass, soil, subsoil, root, person, foliage,
-trunk, building, buildingAlt, vehicle, glass, rubber, metal, furniture, rail and white.
+trunk, building, buildingAlt, circulation, roof, vehicle, glass, rubber, metal, furniture, rail and white.
 
 ## Asset catalogue
 
@@ -184,6 +184,28 @@ and window decals. These details and the 3.2 m height remain illustration assump
 
 Building-footprint plaques use `building` and `buildingAlt` palette roles. The
 secondary fill marks repetition; it does not imply a different material or use.
-`footprints.js` keeps 0.12 m relief decorative, with no storeys/roof/height model.
+`footprints.js` retains a 0.12 m metric footprint plaque. User review adds separate
+illustrative massing via `massing.js`, with explicit height/facade assumptions.
 All three building panels share one comparison frame; never auto-fit their types
 individually. Preserve garden joints and relative house placement inside the plot.
+
+
+Teal `circulation` marks stair rooms/external stairs. Partition opaque mass around
+internal cores so visible roofs do not coincide; facade glazing sits 25 mm proud
+of walls to avoid Z fighting. Massing heights/facade rows are illustration choices,
+not source storey counts. Original trees, people and cars keep their existing
+metric sizes and remain outside building footprint interiors. Context placement
+and pads are illustrative, without parking/access/setback validation.
+
+
+Luhtitalo access uses one continuous upper gallery, doors opening onto the deck,
+and stair landings adjoining its front edge. Leave gaps in the front guard at
+those landings. Keep the dimensioned 9 m body depth distinct from the assumed
+1.6 m gallery and external stair projections. Detached houses can use the original
+low gable/eave primitive (`roof` palette role) over the unchanged wall footprint;
+roof rise, overhang and gallery/guard details remain illustration assumptions.
+
+External luhtitalo stairs are open planar flights: thin treads, light stringers
+and a thin landing on posts. Preserve visible air beneath the flight and landing;
+do not fill their volume down to the ground. The supported gallery canopy and
+landing roof wings join edge-to-edge, with roof geometry separated from doors.

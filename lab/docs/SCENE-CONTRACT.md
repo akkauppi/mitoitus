@@ -293,6 +293,20 @@ files while adopting the user-requested presentation/content amendments.
 T09 uses `primitives/footprints.js` for decorative plaques, repeated modules and
 plot surfaces. All three `building-*--v0` models share `BUILDING_FRAME` and the
 `building-footprints` comparison ID, including camera/zoom continuity. Their
-source figure identities and overview SVGs remain unchanged. Plan is default;
-3D shows drawing relief only. `building` / `buildingAlt` are palette roles, not
+source figure identities and overview SVGs remain unchanged. User review supersedes the original plaque-only view: 3D is now default,
+with illustrative massing/scale context from `primitives/massing.js`; Plan retains
+the common metric comparison. Heights, facade rhythms and stair sizes are
+explicit assumptions. Stair positions follow qualitative inspection of TKK GIFs. `building` / `buildingAlt` are palette roles, not
 building-use or structural classifications.
+
+
+Building review follow-up: `entranceGallery` connects the luhtitalo stair landings,
+deck, guard openings and upper doors; the body-depth dimension remains sourced
+9 m drawn geometry. `gabledRoof` preserves the 15 × 10 m wall rectangle and adds
+an illustrative eave overhang/rise. These additions do not change plot areas or
+create new source variants. Their geometry is tested independently of footplates.
+
+The final luhtitalo review uses thin open treads/landings and stringers in place of
+solid stair wedges. The gallery has a canopy on light posts, plus landing wings;
+unit tests check underside voids, roof coverage and door clearance. These remain
+schematic detail, not construction prescriptions.

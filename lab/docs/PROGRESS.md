@@ -694,3 +694,86 @@ integration remain T15; physical display/GPU/touch validation is not claimed.
 “Check every link” remains on the unaccepted rework list, untouched in T09. The
 Residents & services publication blocker also remains open. Local commit only;
 no push, deployment or published-checkout synchronization.
+
+### Building massing, scale context and TKK stair-room review (2026-11-12)
+
+User rejected the very flat T09 treatment and requested more height, trees, cars,
+people and highlighted stair rooms referencing original TKK illustrations. The
+user instruction supersedes the earlier plaque-only/no-invented-massing restriction.
+Source footprints, areas, ranges and plot/house placement remain unchanged.
+
+Inspected preserved primary GIFs `lamelli.gif`, `piste.gif`, `pienk.gif`, `rivari.gif`
+and `omakoti.gif` alongside the archived TKK HTML. Live TKK page fetch timed out;
+retained original captures supplied the visual evidence. Qualitative translation:
+one internal stair room per slab module; an edge-positioned core in the square
+point block; two external flights for four paired small-block modules. Teal
+`circulation` highlights these positions; stair-room/flight sizes are assumptions,
+not dimensions recovered from the raster. No archived GIF/source file was copied
+into the public worktree. All model code and context assets are original artwork.
+
+New reusable `massing.js` builds partitioned bodies around cores (no coincident
+body/core roof faces), schematic facade glazing separated 25 mm from walls,
+external stairs and contextual scale assets. Illustrative heights: slab 12 m,
+point block 18 m, small blocks/row houses 6 m, detached 3.2 m. Facade rhythms and
+external stair geometry are illustrative; source “one storey” remains intact for
+the detached example. All three panels have trees (5 m), cars (5 × 1.8 m body) and
+people (1.75 m), with no footprint intersection. Garden/plot actors use the existing
+surface; other context actors have separate pads. No parking/access/setback or
+building-code suitability is established by staging.
+
+3D is default, Plan remains available. The shared comparison envelope now includes
+the tall massing; all three panels retain one scale and user camera continuity.
+Original footprint plaques/canonical fallback SVGs, source notes and tables remain
+preserved. Callouts terminate on visible roofs/stair room/landing rather than
+buried footprint centres. The footprint-base geometry remains reusable separately.
+
+Checks: 79 unit tests, including gallery/landing/door connections, guard openings,
+eave overhang, mass/footprint bounds, core partitioning and edge
+positions, two external stair groups, facade separation, actor dimensions/ground
+contact and absence of footprint intrusion; 30 responsive building states with
+all four block/row callouts, dimensions, common scale/camera continuity and native
+fallbacks; 20 candidate tests; 110 shell states preserving canonical details,
+variants/navigation/CAD and no-JS/file fallback. Candidate/offline ZIP rebuilt.
+Current reviewed references: `buildings-massing-{blocks,rows,detached,phone}.png`
+and `buildings-massing-results.json`.
+Original T09 plaque screenshots are historical. Physical GPU/touch, construction
+or accessibility validation and final overview/print stills remain unverified/T15.
+“Check every link” still needs rework. No push/deployment/public-checkout sync.
+
+
+#### Same review: luhtitalo, eaves and depth dimension
+
+User clarified that external stairs should lead to a continuous entrance-side
+balcony/gallery, requested an eaved roof on the detached house, and pointed out
+missing luhtitalo depth. Added a full upper deck at an illustrative 3 m level,
+1.6 m deep, with both stair landings flush to it, open guard gaps and four upper
+entrance doors. Ground doors and support/guard fragments improve legibility;
+these are schematic, not a structural/accessibility or guard-compliance design.
+The model body remains four 9 × 9 m modules, and “9 m body depth” is explicit.
+The gallery interpretation is user direction, not a new fact attributed to TKK.
+
+The detached roof now has a low gable with 0.45 m eaves and assumed 1.6 m rise
+above 3.2 m walls. The source-derived 15 × 10 m wall rectangle and 150/750 m²
+arithmetic remain unchanged. Roof form/overhang are illustrative. The car is
+placed in the foreground so it stays visible in the default view. Source tables,
+original overview/fallback SVGs and “one storey” wording are preserved.
+
+Final checks include 79 unit tests and 30 updated building camera states with all
+five row/luhtitalo dimension labels, plus 20 candidate tests and the rebuilt offline
+package. The 110-state shell regression passed during this massing integration.
+Current gallery phone reference: `buildings-gallery-phone.png`.
+
+
+#### Final luhtitalo follow-up: planar stairs and covered gallery
+
+User asked for the stairs to be planar rather than solid, and for a roof over the
+gallery. Replaced ground-filled step/landing blocks with 90 mm illustrative treads,
+light stringers, a thin landing deck and support posts. Voids remain beneath both
+flight and landing. The gallery canopy has light posts and separate landing wings
+meeting the main roof edge without overlapping faces. Upper doors clear its
+illustrative 5.55 m underside; guard openings still align with landings.
+
+Final verification: 79 unit tests including underside-void and canopy tests;
+30 building camera states, 20 candidate tests and 110 whole-shell responsive
+states. The explicit offline package is rebuilt. Current gallery phone reference
+is regenerated with this lighter, covered scheme. Everything remains local.
