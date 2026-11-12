@@ -69,7 +69,7 @@ def add_student_sheet(ns):
         dl([('Straight-line distance', '300 m'), ('Available walking route', '500 m'), ('Added distance', '200 m')])
         + note('A circle shows proximity. A usable route also needs a connection, a crossing and an accessible entrance.')
         + p('For parks, services and stops, trace the actual route from the entrance. Check barriers, opening hours, slopes and winter maintenance.')
-        + p('The example is geometry, not a recommended catchment threshold.'),
+        + ns['meta']('The example is geometry, not a recommended catchment threshold.'),
         'walking-connections', 'blue')
 
     # Local obstruction in plan, then two source-derived vertical clearance envelopes.

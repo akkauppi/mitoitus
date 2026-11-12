@@ -15,3 +15,6 @@ dialog{width:min(850px,calc(100vw - 32px));max-height:90vh;border:1px solid #111
 @media screen{body.wall .variant-controls{margin-bottom:16px;gap:8px}body.wall .variant-controls select{font-size:20px;padding:12px 8px}body.wall .variant-controls button{flex-basis:46px;font-size:24px}body.wall .drawing-variants figure svg{max-height:540px}}
 .variant-print-label{display:none}
 @media print{.variant-controls{display:none}.variant-print-label{display:block;font-size:11px;font-weight:700;margin:0 0 10px}.drawing-variants figcaption{min-height:0}.sheet{break-inside:avoid}.panel{break-inside:avoid}}
+
+/* Extended captions and caveats belong to the optional Sources view. */
+.source-meta{display:none}.sources-on .source-meta{display:block}
