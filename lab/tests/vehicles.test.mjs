@@ -37,3 +37,12 @@ test('vehicle recipes reject unsupported alternatives and contain finite geometr
  for(const id of ['car-turn--v3','bus-turn--v3','rescue--v1'])assert.throws(()=>recipeInfo(id));
  for(const panel of ['car-turn','bus-turn','rescue']){const m=createRecipe(panel+'--v0');m.group.traverse(o=>{if(o.geometry)for(const value of o.geometry.attributes.position.array)assert.ok(Number.isFinite(value));});dispose(m);}
 });
+test('bus glazing replaces the body band instead of overlapping its visible faces',()=>{
+ const m=createRecipe('bus-turn--v1'),bus=m.group.children.find(o=>o.userData.asset==='bus');
+ const lower=bounds(bus.getObjectByName('bus-lower-shell')),glass=bounds(bus.getObjectByName('bus-glazing-band')),roof=bounds(bus.getObjectByName('bus-roof'));
+ near(lower.max.y,glass.min.y);near(glass.max.y,roof.min.y);
+ assert.ok(glass.max.x-lower.max.x>.009);assert.ok(glass.max.x-roof.max.x>.009);
+ const pillars=[];bus.traverse(o=>{if(o.name==='bus-window-pillar')pillars.push(o);});assert.equal(pillars.length,18);
+ for(const pillar of pillars){const b=bounds(pillar);assert.ok(b.max.x>glass.max.x+.009||b.min.x<glass.min.x-.009,'pillar front separated from glazing');}
+ dispose(m);
+});

@@ -174,3 +174,9 @@ Never scale its length to fit. Use a pastel vehicle-role cap with fine diagonal
 hatching at each cut, and explicitly explain the cut outside the viewport.
 Keep nominal body dimensions separate from platform/service lengths and access
 ramps. Tracks provide scale, not proof of swept-path or clearance compliance.
+
+Bus refinement: treat glazing as a separate body band between lower shell and
+roof, with no opaque shell coplanar behind the windows. Keep visible pillar faces
+at least 10 mm proud of glass and inside the nominal 2.6 m envelope. Use restrained
+chamfers, real wheel-arch notches and simple hubs/doors rather than stacked boxes
+and window decals. These details and the 3.2 m height remain illustration assumptions.

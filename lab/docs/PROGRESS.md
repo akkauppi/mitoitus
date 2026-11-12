@@ -515,3 +515,27 @@ responsive states, 33 focus panels and 15 variants, content parity keyed by stab
 claim, URL/history/CAD, no-JS and file fallback. Tab scrolling now leaves an 8 px
 margin to avoid fractional-pixel clipping. Residents & services remains blocked
 from publication pending its T13 review. Local commits only; no push/deployment.
+
+### Bus design refinement and glazing fix (2026-11-12)
+
+User rejected the initial box-like bus and reported window Z flashing. Its glass
+and opaque shell had coincident outer faces; both received identical depth offset.
+Replaced this decal construction with three real vertical regions: lower body,
+glazing band and chamfered roof. No opaque body remains behind the glazing band.
+Pillars sit 10 mm proud of the glass, within the original nominal width. Backface
+contact at the pillar mounting surface does not duplicate its visible front.
+
+Refined silhouette with raked windscreen, bevelled roof ends, real wheel-arch
+cutouts, paired rear axles, hubs, right-side entry doors, destination panel and
+restrained end details. All details are original illustration assumptions, not a
+manufacturer model. Body envelope remains 15 × 2.6 m, assumed height 3.2 m, feet
+at Y=0; source values, lane scales, captions and renderer depth settings unchanged.
+
+Validation: 67 unit tests (including explicit lower/glass/roof separation and
+pillar offset checks), 70 responsive vehicle states; 18 additional orbit/style
+states across Paper/Ink/Soft plus phone rendering. After the final rear-face
+alignment, repeated the 67 unit tests and 18 orbit/style checks. Reviewed captures
+show clean glazing and clearer silhouette; automated captures alone cannot prove
+absence of flicker on every physical GPU. Candidate rebuilt and explicit offline
+package verified. References: `references/bus-refined-{desktop,phone}.png`.
+Local commit only; no push/deployment.

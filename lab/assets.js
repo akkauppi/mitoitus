@@ -379,15 +379,38 @@ export function createTramSlice({length=5,centerZ=0}={}) {
  return result;
 }
 
-/** Original 15 × 2.6 m design-bus illustration; 3.2 m height is assumed. */
+/** Original 15 × 2.6 m design-bus illustration; 3.2 m height is assumed.
+ * Glazing is a separate structural band, not coplanar decals on a solid body.
+ */
 export function createBus(){
- const result=group('bus');
- box(result,[2.6,2.65,15],[0,1.825,0],'vehicle');
- box(result,[2.50,.05,14.8],[0,3.175,0],'vehicle');
- for(const side of [-1,1]){
-  for(let z=-6.3;z<=6.4;z+=1.8)box(result,[.012,1.12,1.5],[side*1.294,2.27,z],'glass');
-  for(const z of [-5.1,3.9,5.2]){const wheel=mesh(result,new THREE.CylinderGeometry(.5,.5,.16,24),'rubber',[side*1.20,.5,z],true);wheel.rotation.z=Math.PI/2;}
+ const result=group('bus'),axles=[-5.1,-3.65,5.05];
+ const lower=[[-7.5,.42]];
+ for(const z of axles){
+  lower.push([z-.56,.42],[z-.56,.48]);
+  for(let i=0;i<=16;i++){const angle=Math.PI-i*Math.PI/16;lower.push([z+Math.cos(angle)*.56,.48+Math.sin(angle)*.56]);}
+  lower.push([z+.56,.42]);
  }
- box(result,[2.35,1.2,.012],[0,2.2,7.494],'glass');
+ lower.push([7.5,.42],[7.5,1.55],[-7.5,1.55]);
+ const body=profile(result,lower,2.54,'vehicle');body.name='bus-lower-shell';
+ const glazing=profile(result,[[-7.5,1.55],[7.5,1.55],[7.25,2.75],[-7.5,2.75]],2.56,'glass');glazing.name='bus-glazing-band';
+ const roof=profile(result,[[-7.5,2.75],[7.25,2.75],[7.10,3.08],[6.9,3.2],[-7.25,3.2],[-7.5,3.02]],2.54,'vehicle');roof.name='bus-roof';
+ for(const side of [-1,1]){
+  // Pillars sit 10 mm proud of the glass; their outer face stays in the body envelope.
+  for(const z of [-7.44,-5.65,-3.9,-2.15,-.4,1.35,3.1,4.85,7.06]){
+   const pillar=box(result,[.02,1.20,.065],[side*1.29,2.15,z],'vehicle',false);pillar.name='bus-window-pillar';
+  }
+  for(const z of axles)wheel(result,side*1.215,.48,z,.48,.16);
+ }
+ // Two glazed entry doors on the right, with recessed lower panels and a central seam.
+ for(const z of [5.85,.25]){
+  box(result,[.03,1.12,.92],[1.285,.99,z],'glass');
+  box(result,[.035,2.30,.035],[1.2825,1.60,z],'metal',false);
+ }
+ // Slim skirt and end detailing; no mirrors outside the nominal body width.
+ for(const z of [-7.49,7.49]){
+  box(result,[2.40,.13,.02],[0,.51,z],'rubber',false);
+  for(const side of [-1,1])box(result,[.38,.12,.02],[side*.85,.88,z],z>0?'furniture':'vehicle',false);
+ }
+ const destination=box(result,[1.65,.23,.018],[0,2.63,7.29],'rubber',false);destination.rotation.x=-Math.atan(.25/1.2);destination.name='bus-destination-panel';
  return result;
 }
