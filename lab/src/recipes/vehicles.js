@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {createCar,createBus} from '../../assets.js';
-import {box,surfaceStrip} from '../primitives/surfaces.js';
+import {box,surfaceStrip,flatArrow} from '../primitives/surfaces.js';
 export const LANE_FRAME={min:[-4,-.3,-10],max:[4,3.2,11]};
 const dimension=(a,b,label,offset=[0,0,0])=>({a,b,label,offset});
 export function vehicleInfo(panel,index){
@@ -10,7 +10,7 @@ export function vehicleInfo(panel,index){
  description:rescue?'Rescue radius references and separate set-up footprint.':`${bus?'Bus':'Car'} ${index?'lane comparison':'radius reference and detached body'}.`,
  caseTitle:rescue?'HIKLU 2024 · v1.3 · TURNING AND SET-UP':index?`${index} ${index===1?'LANE':'LANES'} · ESPOO 2010`:'TKK 2007 · RADIUS REFERENCE',
  explanation:rescue?['Engine and aerial turning bands and the separate set-up footprint share one metric scale here. Solid set-up: 13 × 6 m minimum; dashed target: 13 × 8 m.','Clear route: 3.5 m wide, 4.2 m high. Radius bands exclude 0.4 m driving and 1 m boom allowances. Check loads, slopes, reach, trees, wires and snow against the full guide.']:[index?'Carriageway only; kerbs, parking, buffers and other modes are additional.':'Historical geometric radius band; not a simulated vehicle swept path. The detached vehicle body does not validate the band.',bus?'Design bus body: 15 × 2.6 m, mirrors omitted. Stop service lengths 16/32 m are separate; add approach and crossing clearances.':'Car body: 5 × 1.8 m, mirrors omitted. W4 brief: No long-term private car parking.'],
- assumptions:[rescue?'Ground relief is decorative. No rescue vehicle or boom model is inferred.':'Lane segment length 18 m and ground relief are illustrative. Car height 1.5 m and bus height 3.2 m/detail are assistant illustration assumptions, not clearance specifications.']};
+ assumptions:[rescue?'Ground relief is decorative. No rescue vehicle or boom model is inferred.':`${index?'Lane segment length 18 m and ground relief are illustrative.':'The detached body faces the arc-entry tangent with an illustrative 1 m gap; the direction arrow is not a swept-path result.'} Car height 1.5 m and bus height 3.2 m/detail are assistant illustration assumptions, not clearance specifications.`]};
 }
 function band(group,x,z,inner,outer,name){
  const shape=new THREE.Shape();shape.moveTo(inner,0);shape.lineTo(outer,0);shape.absarc(0,0,outer,0,Math.PI/2,false);shape.lineTo(0,inner);shape.absarc(0,0,inner,Math.PI/2,0,true);shape.closePath();
@@ -36,10 +36,19 @@ export function vehicleScene(panel,index=0){
   const actor=()=>bus?createBus():createCar();
   if(index===0){
    band(group,0,0,inner,outer,'radius-band');radii(dimensions,0,0,inner,outer);
-   const body=actor();body.rotation.y=Math.PI/2;body.position.set(outer/2,0,3);body.name='reference-body';group.add(body);
-   dimensions.push(dimension([outer/2-(bus?7.5:2.5),0,4.6],[outer/2+(bus?7.5:2.5),0,4.6],bus?'15 m body':'5 m body',[0,0,.7]));
-   if(bus)dimensions.push(dimension([outer/2+7.5,0,1.7],[outer/2+7.5,0,4.3],'2.6 m body',[.8,0,0]));
-   labels.push({point:[outer*.65,0,-outer*.55],text:'Radius reference'},{point:[outer/2,bus?3.2:1.5,3],text:bus?'Design bus body':'Car body'});target=[outer/2,0,-outer/3];measurement={inner,outer};
+   // The asset's +Z nose faces -Z along the entry tangent. Keep its body
+   // separate from the historical band: this is orientation, not a swept path.
+   const centreRadius=(inner+outer)/2,bodyLength=bus?15:5,bodyWidth=bus?2.6:1.8,approachGap=1;
+   const body=actor();body.rotation.y=Math.PI;body.position.set(centreRadius,0,bodyLength/2+approachGap);body.name='reference-body';
+   body.userData.approach={point:[centreRadius,0,0],tangent:[0,0,-1],gap:approachGap};group.add(body);
+   const arrowAngle=Math.PI/3,arrowRadius=centreRadius;
+   const travel=flatArrow(group,{x:arrowRadius*Math.cos(arrowAngle),z:-arrowRadius*Math.sin(arrowAngle),rotation:Math.PI+arrowAngle,length:bus?1.8:1,width:bus?.65:.4,name:'radius-direction'});
+   travel.userData.pathDirection={angle:arrowAngle,tangent:[-Math.sin(arrowAngle),0,-Math.cos(arrowAngle)]};
+   const x=centreRadius-bodyWidth/2,z=approachGap;
+   dimensions.push(dimension([x,0,z],[x,0,z+bodyLength],`${bodyLength} m body`,[-.7,0,0]));
+   if(bus)dimensions.push(dimension([x,0,z+bodyLength],[x+bodyWidth,0,z+bodyLength],'2.6 m body',[0,0,.8]));
+   labels.push({point:[outer*.65,0,-outer*.55],text:'Radius reference'},{point:[centreRadius,bus?3.2:1.5,bodyLength/2+approachGap],text:bus?'Design bus body':'Car body'});
+   target=[outer/2,0,(bodyLength+approachGap-outer)/2];measurement={inner,outer,approachGap};
   }else{
    const total=index*width;box(group,total,.24,18,0,-.18,0,'soil','lane-base');surfaceStrip(group,{width:total,length:18,role:'road',name:'carriageway'});
    for(let i=0;i<index;i++){const vehicle=actor();vehicle.position.x=(i-(index-1)/2)*width;vehicle.rotation.y=i?Math.PI:0;group.add(vehicle);}

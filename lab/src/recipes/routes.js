@@ -2,7 +2,20 @@ import * as THREE from 'three';
 import {createPerson,createCyclist,createBicycle,createWheelchairUser} from '../../assets.js';
 import {box,surfaceStrip,tileRow} from '../primitives/surfaces.js';
 
-export const WALKING_WIDTHS=[2.5,1.5,1.8,2.3];
+// Total footway width and unobstructed clear widths are different quantities.
+// Values/context remain the existing Espoo 2010 and SuRaKu 2008 source cases.
+export const WALKING_CASES=Object.freeze([
+ {width:2.5,measure:'total-footway',label:'Total footway',caseTitle:'ESPOO 2010 · TOTAL FOOTWAY WIDTH',description:'Basic footway: 2.5 m total path width.'},
+ {width:1.5,measure:'clear-passage',label:'Clear passage',caseTitle:'SuRaKu 2008 · UNOBSTRUCTED PASSAGE',description:'Clear passage: at least 1.5 m unobstructed width.'},
+ {width:1.8,measure:'wheelchair-passing',label:'Passing width',caseTitle:'SuRaKu 2008 · WHEELCHAIR PASSING',description:'Wheelchair passing: at least 1.8 m clear width.'},
+ {width:2.3,measure:'maintenance',label:'Maintenance',caseTitle:'SuRaKu 2008 · MAINTENANCE CLEAR WIDTH',description:'Machine maintenance: at least 2.3 m clear width.'},
+]);
+export const WALKING_WIDTHS=WALKING_CASES.map(option=>option.width);
+export function routeCaseInfo(panel,index){
+ if(panel!=='walking')return {};
+ const option=WALKING_CASES[index];if(!option)throw new RangeError('Unknown walking variant');
+ return {caseTitle:option.caseTitle,description:option.description,measurementType:option.measure};
+}
 export const CYCLING_WIDTHS=[1.75,2.5,3.5,3,4];
 // Union of all nine route examples, their actors and dimension offsets. This is
 // a framing envelope, not a clearance volume or another adopted dimension.
@@ -28,7 +41,7 @@ export function routeScene(panel,index) {
   if(index>=3){for(const f of index===4?[.14,.33]:[.2])place(group,createPerson({pose:'walking'}),(f-.5)*width,.8);}
  }
  const dimensions=[{a:[-width/2,0,3],b:[width/2,0,3],offset:[0,0,.8],label:`${width} m`}];
- const labels=[{point:[0,0,2.2],text:walking?(index===0?'Footway':'Clear width'):'Cycle facility'}];
+ const labels=[{point:[0,0,2.2],text:walking?WALKING_CASES[index].label:'Cycle facility'}];
  if(!walking&&index===0){
   // 0.75 m user envelope is distinct from the 1.75 m facility.
   const points=[[-.375,.01,-1.8],[-.375,1.65,-1.8],[.375,1.65,-1.8],[.375,.01,-1.8]];
@@ -39,7 +52,7 @@ export function routeScene(panel,index) {
   labels.push({point:[.375,1.5,-1.8],text:'User envelope'});
  }
  group.updateMatrixWorld(true);
- return {group,dimensions,labels,meta:{target:[0,.7,0],camera:[1.3,1.15,1.6]},comparison:{id:'route-widths',bounds:ROUTE_FRAME},measurement:{width,length:6}};
+ return {group,dimensions,labels,meta:{target:[0,.7,0],camera:[1.3,1.15,1.6]},comparison:{id:'route-widths',bounds:ROUTE_FRAME},measurement:{width,length:6,...(walking?{type:WALKING_CASES[index].measure}:{})}};
 }
 export function cycleParkingScene(){
  const group=new THREE.Group();

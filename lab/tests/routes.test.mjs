@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import {createCyclist} from '../assets.js';
 import {createRecipe} from '../src/registry.js';
-import {WALKING_WIDTHS,CYCLING_WIDTHS,ROUTE_FRAME} from '../src/recipes/routes.js';
+import {WALKING_WIDTHS,CYCLING_WIDTHS,ROUTE_FRAME,WALKING_CASES,routeCaseInfo} from '../src/recipes/routes.js';
 const close=(a,b)=>assert.ok(Math.abs(a-b)<2e-6,`${a} != ${b}`);
 function dispose(model){const geometry=new Set(),material=new Set();model.group.traverse(o=>{if(o.geometry)geometry.add(o.geometry);if(o.material)material.add(o.material);});geometry.forEach(g=>g.dispose());material.forEach(m=>m.dispose());}
 test('rider has a natural seated pose inside the existing illustration envelope',()=>{
@@ -39,3 +39,19 @@ test('cycle parking measures actual five envelope tiles and handling area',()=>{
  assert.equal(model.group.children.filter(o=>o.userData.asset==='bicycle').length,5);dispose(model);
 });
 test('unknown route alternatives fail explicitly',()=>{assert.throws(()=>createRecipe('walking--v4'));assert.throws(()=>createRecipe('cycling--v5'));});
+
+test('walking cases distinguish total path width from three clear-width purposes',()=>{
+ assert.deepEqual(WALKING_CASES.map(c=>c.measure),['total-footway','clear-passage','wheelchair-passing','maintenance']);
+ for(const [index,entry]of WALKING_CASES.entries()){
+  const model=createRecipe(`walking--v${index}`),info=routeCaseInfo('walking',index);
+  assert.equal(model.labels[0].text,entry.label);
+  assert.equal(model.measurement.type,entry.measure);
+  close(model.measurement.width,[2.5,1.5,1.8,2.3][index]);
+  assert.equal(info.measurementType,entry.measure);
+  assert.ok(info.description.includes(index===0?'total path width':index===1?'unobstructed width':'clear width'));
+  assert.ok(info.caseTitle.includes(index===0?'ESPOO 2010':'SuRaKu 2008'));
+  dispose(model);
+ }
+ assert.throws(()=>routeCaseInfo('walking',4));
+ assert.deepEqual(routeCaseInfo('cycling',0),{});
+});

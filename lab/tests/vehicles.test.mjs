@@ -12,7 +12,7 @@ test('car and bus preserve exact radius references and detached metric bodies',(
   const m=createRecipe(panel+'--v0'),band=m.group.getObjectByName('radius-band'),body=bounds(m.group.getObjectByName('reference-body'));
   assert.deepEqual(band.userData.radii,{inner,outer});checkBand(band,inner,outer);
   for(const d of m.dimensions.slice(0,2))near(new THREE.Vector3(...d.a).distanceTo(new THREE.Vector3(...d.b)),d===m.dimensions[0]?inner:outer);
-  near(body.max.x-body.min.x,length);near(body.max.z-body.min.z,width);near(body.max.y,height);near(body.min.y,0);assert.ok(body.min.z>bounds(band).max.z);
+  near(body.max.x-body.min.x,width);near(body.max.z-body.min.z,length);near(body.max.y,height);near(body.min.y,0);assert.ok(body.min.z>bounds(band).max.z);
   assert.equal(m.recipe.defaultCamera,'plan');assert.ok(m.recipe.explanation.join().includes('not a simulated'));dispose(m);
  }
 });
@@ -45,4 +45,27 @@ test('bus glazing replaces the body band instead of overlapping its visible face
  const pillars=[];bus.traverse(o=>{if(o.name==='bus-window-pillar')pillars.push(o);});assert.equal(pillars.length,18);
  for(const pillar of pillars){const b=bounds(pillar);assert.ok(b.max.x>glass.max.x+.009||b.min.x<glass.min.x-.009,'pillar front separated from glazing');}
  dispose(m);
+});
+
+test('radius-reference noses and direction arrows follow the quarter-turn tangents',()=>{
+ for(const [panel,inner,outer,length]of [['car-turn',3,6.5,5],['bus-turn',8.1,15.2,15]]){
+  const m=createRecipe(panel+'--v0'),body=m.group.getObjectByName('reference-body'),travel=m.group.getObjectByName('radius-direction');
+  const nose=new THREE.Vector3(0,0,1).applyQuaternion(body.quaternion);
+  const entryTangent=new THREE.Vector3(0,0,-1),entryRadius=new THREE.Vector3(1,0,0);
+  near(nose.dot(entryTangent),1);near(nose.dot(entryRadius),0);
+  near(body.position.x,(inner+outer)/2);
+  const front=body.localToWorld(new THREE.Vector3(0,0,length/2));
+  near(front.z,1);near(front.x,(inner+outer)/2);
+  // The vehicle stays detached, with the same metric body and a declared gap.
+  near(bounds(body).min.z-bounds(m.group.getObjectByName('radius-band')).max.z,1);
+  const angle=travel.userData.pathDirection.angle;
+  const tangent=new THREE.Vector3(-Math.sin(angle),0,-Math.cos(angle));
+  const tip=new THREE.Vector3(0,-1,0).applyQuaternion(travel.quaternion);
+  near(tip.dot(tangent),1);near(tip.dot(new THREE.Vector3(Math.cos(angle),0,-Math.sin(angle))),0);
+  near(Math.hypot(travel.position.x,travel.position.z),(inner+outer)/2);
+  const bodyDimension=m.dimensions.find(d=>d.label===`${length} m body`);
+  near(new THREE.Vector3(...bodyDimension.b).sub(new THREE.Vector3(...bodyDimension.a)).length(),length);
+  near(bodyDimension.a[0],bodyDimension.b[0]);
+  dispose(m);
+ }
 });
