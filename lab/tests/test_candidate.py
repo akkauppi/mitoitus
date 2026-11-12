@@ -98,6 +98,24 @@ class CandidateTests(unittest.TestCase):
             m.build()
         self.assertFalse(self.output.exists())
 
+    def test_cropped_posters_retain_full_width_content_and_comparison_scale(self):
+        manifest = m.validate_assets(self.root)
+        crops = {}
+        cropped = 0
+        for recipe in manifest['posters']:
+            for option in recipe['options']:
+                for profile, file in option['files'].items():
+                    left, top, width, height = file['viewBox']
+                    self.assertEqual(left, 0)
+                    self.assertEqual(width, manifest['profiles'][profile]['width'])
+                    self.assertLessEqual(top, file['contentBounds']['top'])
+                    self.assertGreaterEqual(top + height, file['contentBounds']['bottom'])
+                    if file['comparisonFamily'] in crops:
+                        self.assertEqual(crops[file['comparisonFamily']], file['viewBox'])
+                    crops[file['comparisonFamily']] = file['viewBox']
+                    cropped += height < manifest['profiles'][profile]['height']
+        self.assertGreater(cropped, 60, 'Most posters remove unused vertical margins')
+
     def test_candidate_title_subtitle_and_fixed_date_edition(self):
         original = (self.root/'index.html').read_bytes()
         rendered = m.render_book(original).decode()

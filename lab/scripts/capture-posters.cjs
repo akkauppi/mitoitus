@@ -26,6 +26,7 @@ function inputs(){
   page.on('request',r=>{if(/^https?:/.test(r.url())&&!r.url().startsWith('http://127.0.0.1:8765/'))external.push(r.url());});
   await page.goto('http://127.0.0.1:8765/lab/scripts/poster-host.html');await page.waitForFunction(()=>window.posterReady);
   const manifest={schemaVersion:1,style:'paper',renderer:'Three.js WebGL + vector SVG annotations',profiles,titles,inputs:inputs(),posters:[],review:{textContainment:true,textOverlap:true,calloutRouting:true,externalRequests:0}};
+  const captures=[],cropFamilies=new Map();
   for(const sheet of inventory.sheets)for(const panel of sheet.panels){
    if(excluded.has(panel.id))continue;
    for(const drawing of panel.drawings){
@@ -47,8 +48,12 @@ function inputs(){
       const name=`${drawing.id}--${category.value===null?'default':category.value===-1?'all':'c'+category.value}--${profile}.svg`;
       const title=(titles[panel.id]||panel.title)+(category.label?' · '+category.label:'');
       const desc=recipe.description+' Source claims: '+info.sourceClaims.join(', ')+'. '+info.assumptions.join(' ');
-      const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${size.width}" height="${size.height}" viewBox="0 0 ${size.width} ${size.height}" role="img" aria-labelledby="title desc" data-current-poster="${xml(drawing.id)}"><title id="title">${xml(title)}</title><desc id="desc">${xml(desc)}</desc><image width="${size.width}" height="${size.height}" href="data:image/png;base64,${png.toString('base64')}"/>${overlay.markup}</svg>\n`;
-      fs.writeFileSync(path.join(out,name),svg);option.files[profile]={path:'posters/'+name,sha256:hash(svg),width:size.width,height:size.height};
+      const family=info.posterComparison+'/'+info.defaultCamera+'/'+profile;
+      const crop=cropFamilies.get(family)||{top:size.height,bottom:0};
+      crop.top=Math.min(crop.top,Math.max(0,Math.floor(overlay.bounds.top-14)));
+      crop.bottom=Math.max(crop.bottom,Math.min(size.height,Math.ceil(overlay.bounds.bottom+14)));
+      cropFamilies.set(family,crop);
+      captures.push({family,size,name,title,desc,id:drawing.id,png,overlay,option,profile});
      }
      recipe.options.push(option);
     }
@@ -57,6 +62,16 @@ function inputs(){
   }
   if(errors.length||external.length)throw new Error(JSON.stringify({errors,external}));
   if(JSON.stringify(inputs())!==JSON.stringify(manifest.inputs))throw new Error('Source inputs changed during capture; rerun after edits settle');
+  for(const capture of captures){
+   const {family,size,name,title,desc,id,png,overlay,option,profile}=capture,crop=cropFamilies.get(family),height=crop.bottom-crop.top;
+   if(height<=0||height>size.height||crop.top<0)throw new Error(`Invalid crop for ${name}`);
+   if(overlay.bounds.top<crop.top-.5||overlay.bounds.bottom>crop.bottom+.5)throw new Error(`Crop removes content in ${name}`);
+   // Coordinates and full width are unchanged: only the view window loses empty
+   // vertical margins. Shared comparison families also share one crop rectangle.
+   const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${size.width}" height="${height}" viewBox="0 ${crop.top} ${size.width} ${height}" role="img" aria-labelledby="title desc" data-current-poster="${xml(id)}"><title id="title">${xml(title)}</title><desc id="desc">${xml(desc)}</desc><image width="${size.width}" height="${size.height}" href="data:image/png;base64,${png.toString('base64')}"/>${overlay.markup}</svg>\n`;
+   fs.writeFileSync(path.join(out,name),svg);option.files[profile]={path:'posters/'+name,sha256:hash(svg),width:size.width,height,viewBox:[0,crop.top,size.width,height],comparisonFamily:family,contentBounds:overlay.bounds};
+  }
+  manifest.review.cropContainment=true;
   fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
   console.log(`Ready: ${manifest.posters.length} recipes, ${manifest.posters.reduce((n,p)=>n+p.options.length*2,0)} poster SVGs.`);
  }finally{await browser.close();}

@@ -43,8 +43,13 @@ captures, node_modules or private course data. CAD bytes remain unchanged.
 
 ## Layout and offline controls
 
-Compact posters are authored at 320 × 420 CSS pixels, with 2× raster geometry;
-wide posters at 900 × 560. Vector text remains sharp. Compact callouts wrap inside
+Compact capture frames are 320 × 420 CSS pixels, with 2× raster geometry;
+wide frames are 900 × 560. The final SVG crops empty vertical margins to the union
+of projected model bounds and vector annotations, with 14 px padding. Width and
+all image coordinates remain unchanged, so cropping cannot change metric scale.
+Comparison families share one crop per profile/camera to prevent variant jumps.
+The manifest records each intrinsic height/viewBox and verifies content containment.
+Vector text remains sharp. Compact callouts wrap inside
 their reserved gutter rather than shrinking long labels. Wide posters support
 large Focus fallbacks and wall display; compact posters serve cards and paper.
 Actual physical text size still depends on the final printed scale.

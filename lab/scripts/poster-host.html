@@ -13,10 +13,14 @@ html,body{margin:0;padding:0;background:#f7f5ef;font-family:Arial,sans-serif}
 <div id="poster-viewport" class="scene-viewport"><canvas aria-hidden="true"></canvas><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div>
 <script type="module">
 import {createSceneHost} from '../src/viewer.js';
-import {recipeInfo} from '../src/registry.js';
+import {recipeInfo,createRecipe} from '../src/registry.js';
 const viewport=document.querySelector('#poster-viewport');
 const host=createSceneHost({viewport,canvas:viewport.querySelector('canvas'),overlay:viewport.querySelector('svg')});
-window.posterInfo=id=>recipeInfo(id);
+window.posterInfo=id=>{
+ const model=createRecipe(id),info={...recipeInfo(id),posterComparison:model.comparison?.id||id};
+ const geometries=new Set(),materials=new Set();model.group.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)materials.add(o.material);});
+ geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());return info;
+};
 window.posterRender=async({id,category,width,height,camera})=>{
  const info=recipeInfo(id);viewport.style.width=width+'px';viewport.style.height=height+'px';
  host.suspend();host.show({recipeId:id,camera:camera||info.defaultCamera,style:'paper'});
@@ -45,7 +49,8 @@ window.posterOverlay=()=>{
  const copy=source.cloneNode(true),properties=['fill','fill-opacity','stroke','stroke-width','stroke-opacity','stroke-dasharray','stroke-linecap','stroke-linejoin','paint-order','opacity','font-family','font-size','font-weight','letter-spacing'];
  const a=[...source.querySelectorAll('*')],b=[...copy.querySelectorAll('*')];
  a.forEach((node,i)=>{const computed=getComputedStyle(node);b[i].setAttribute('style',properties.map(k=>k+':'+computed.getPropertyValue(k)).join(';'));});
- return {markup:copy.innerHTML,texts:[...source.querySelectorAll('text')].map(n=>{const b=n.getBBox();return {text:n.textContent,x:b.x,y:b.y,width:b.width,height:b.height};})};
+ const annotation=source.getBBox(),modelBounds=JSON.parse(viewport.dataset.callouts).bounds;
+ return {markup:copy.innerHTML,bounds:{top:Math.min(annotation.y,modelBounds.top),bottom:Math.max(annotation.y+annotation.height,modelBounds.bottom)},texts:[...source.querySelectorAll('text')].map(n=>{const b=n.getBBox();return {text:n.textContent,x:b.x,y:b.y,width:b.width,height:b.height};})};
 };
 window.posterReady=true;
 </script></html>

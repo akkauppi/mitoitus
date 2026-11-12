@@ -28,8 +28,8 @@
     "lab/assets.js": "9d25bbaf9a2ebd38edf5cd268c19f79f82903be527385164912e0013da5e2d95",
     "lab/callouts.js": "3acea6e2568d6986bcdf921057f3587c92f9924bea52f2a1c440a742ece84a1e",
     "lab/scenes.js": "a645e6e4de9e1172315fac481a071fe9654cd3e42b3e1cc8ba54752eae5ad45f",
-    "lab/scripts/capture-posters.cjs": "571345bb29e9492fbe1b0050888bfb979a060227b97b95ac5a0b3554982dce6d",
-    "lab/scripts/poster-host.html": "3ee1978e007c69cbddd189a788678e46b9de9ab61ea4514bf8d1a4b18cb86c99",
+    "lab/scripts/capture-posters.cjs": "04c2159e432e65408b6b0c03a905b29681a5d589b41fcea7db3c28ac7ea24199",
+    "lab/scripts/poster-host.html": "8f82eb5d9d5d538c9582ec972d5ea557d4e707f9178a1b76724146a35ce6d338",
     "lab/src/annotations.js": "9e887b5338385d4f3432465669285460380f49643d7e33201497cb8c45b0b84d",
     "lab/src/book.css": "6747a25818157de202b5afc6f46a7d97b633ae0d831067d27266f7dd5baefc10",
     "lab/src/primitives/accessibility.js": "e31d331be21b3c175b3683170fe445c83b5021843e65ce35415c30793dd3e05d",
@@ -45,7 +45,7 @@
     "lab/src/recipes/parking.js": "08e863bbbdc147ce4cf5c2aae59161a4151c23e970bf43db5ea08b0a0a7c185d",
     "lab/src/recipes/routes.js": "965f807725a35a1fd3756eeb58b9f144bfe78212248fc24a1b7f117eaf63e126",
     "lab/src/recipes/sections.js": "58bf2a3078b81c23df96db1f41cc338feeca9bf9af6c00319348094ec55600bd",
-    "lab/src/recipes/stormwater.js": "4a75b3f91409a8b788711f2caa582baf90ddee1e301dbb06407fa991e5cefef8",
+    "lab/src/recipes/stormwater.js": "3c20ac8be74a48bb5c2f114b991cd20ac3236cca2c8c4318aa71ac84edd63883",
     "lab/src/recipes/tram.js": "69b63b3b6a5cd35e7a6b1f68465f5aa811c841cdf3440eecdd9513498da8de46",
     "lab/src/recipes/vehicles.js": "5938a02f92d4297dfa77e89c569b90de828bc7b02458df0d52abecb6db0b8d07",
     "lab/src/registry.js": "45d0bdc4f3140cb846dd9e698e93dbeee0f1e16d3c87024cc29701d973b8cf46",
@@ -70,15 +70,37 @@
           "files": {
             "compact": {
               "path": "posters/building-blocks--v0--default--compact.svg",
-              "sha256": "33ea36ff4ca423ab20b9e490b92136333cbe0531181d198349a2a083cca0781d",
+              "sha256": "ee1f45993087dd07710428caacc4fb9c7c7f22805e944438ee0cb897184105e7",
               "width": 320,
-              "height": 420
+              "height": 244,
+              "viewBox": [
+                0,
+                112,
+                320,
+                244
+              ],
+              "comparisonFamily": "building-footprints/iso/compact",
+              "contentBounds": {
+                "top": 126.51240539550781,
+                "bottom": 291.618896484375
+              }
             },
             "wide": {
               "path": "posters/building-blocks--v0--default--wide.svg",
-              "sha256": "fe5397c9faa6e448c5ed2f6327197d56798de0fc66b3c20fb7309995b882f0fd",
+              "sha256": "77558f17effffa374d01bdab744382985ec6da25e32a292c3f7bd245bc032f14",
               "width": 900,
-              "height": 560
+              "height": 304,
+              "viewBox": [
+                0,
+                135,
+                900,
+                304
+              ],
+              "comparisonFamily": "building-footprints/iso/wide",
+              "contentBounds": {
+                "top": 149.17298032574192,
+                "bottom": 402.86886979327573
+              }
             }
           }
         }
@@ -101,15 +123,37 @@
           "files": {
             "compact": {
               "path": "posters/building-rows--v0--default--compact.svg",
-              "sha256": "01949fb7abb6b51b050cbd418ee6c9d2b5c31e90352bd2e49831eb033ea7b3d0",
+              "sha256": "12c6aea5397939b2207aa19e1881fb3a10b844b913cd9961a1b599263fbdf1e7",
               "width": 320,
-              "height": 420
+              "height": 244,
+              "viewBox": [
+                0,
+                112,
+                320,
+                244
+              ],
+              "comparisonFamily": "building-footprints/iso/compact",
+              "contentBounds": {
+                "top": 142.5,
+                "bottom": 341.9725646972656
+              }
             },
             "wide": {
               "path": "posters/building-rows--v0--default--wide.svg",
-              "sha256": "87fde43dce70b2f743241bf41dbea379c793f460373b240ec9b948df6f5f8cde",
+              "sha256": "406b2e2aa3d84ce775ac91ce47c39edaa05292491acdede9c3b3e38262ab1b58",
               "width": 900,
-              "height": 560
+              "height": 304,
+              "viewBox": [
+                0,
+                135,
+                900,
+                304
+              ],
+              "comparisonFamily": "building-footprints/iso/wide",
+              "contentBounds": {
+                "top": 189.82777594870691,
+                "bottom": 424.07313574564574
+              }
             }
           }
         }
@@ -132,15 +176,37 @@
           "files": {
             "compact": {
               "path": "posters/building-detached--v0--default--compact.svg",
-              "sha256": "80da88021a4fd4b69c0a8746cb4de704061c178ec626c2347a6e0e4d4d7d65f0",
+              "sha256": "0ca22fa93c249a841d17d5b2054f487ecedb0caf184a751caa5e632de4888eac",
               "width": 320,
-              "height": 420
+              "height": 244,
+              "viewBox": [
+                0,
+                112,
+                320,
+                244
+              ],
+              "comparisonFamily": "building-footprints/iso/compact",
+              "contentBounds": {
+                "top": 184.68898010253906,
+                "bottom": 293.5963134765625
+              }
             },
             "wide": {
               "path": "posters/building-detached--v0--default--wide.svg",
-              "sha256": "bc6f5b3a4dfe013976ed91a0442341625136039db53158d488fb5e7229160378",
+              "sha256": "bf9b9c34d5b8a20bcb7cbc43d499d111690f852d83f1cd194dbe819a2477a713",
               "width": 900,
-              "height": 560
+              "height": 304,
+              "viewBox": [
+                0,
+                135,
+                900,
+                304
+              ],
+              "comparisonFamily": "building-footprints/iso/wide",
+              "contentBounds": {
+                "top": 274.6270751953125,
+                "bottom": 408.2393798828125
+              }
             }
           }
         }
@@ -163,15 +229,37 @@
           "files": {
             "compact": {
               "path": "posters/walking--v0--default--compact.svg",
-              "sha256": "b77d7e7102766c6cb9c851727cb69e9a52459930ca5d11cedd2160b07d2554b3",
+              "sha256": "0c830b3a193fb1bad2649cd5ad9c9f4b61b9ba5f7d0045bc0468c7197f8552ff",
               "width": 320,
-              "height": 420
+              "height": 142,
+              "viewBox": [
+                0,
+                143,
+                320,
+                142
+              ],
+              "comparisonFamily": "route-widths/iso/compact",
+              "contentBounds": {
+                "top": 177.79148299457523,
+                "bottom": 265.4605407714844
+              }
             },
             "wide": {
               "path": "posters/walking--v0--default--wide.svg",
-              "sha256": "2e95311251d06275bfc967a3f01e1eeb80c19ce9509f7491585e46d9d2f96c23",
+              "sha256": "3147f1571d3c4fa1e746091acd7441f15d27518735398aafe6a1c5847b4e584d",
               "width": 900,
-              "height": 560
+              "height": 397,
+              "viewBox": [
+                0,
+                105,
+                900,
+                397
+              ],
+              "comparisonFamily": "route-widths/iso/wide",
+              "contentBounds": {
+                "top": 180.2812119591206,
+                "bottom": 468.4466857910156
+              }
             }
           }
         }
@@ -194,15 +282,37 @@
           "files": {
             "compact": {
               "path": "posters/walking--v1--default--compact.svg",
-              "sha256": "d2c5179832f649c19048a449230c161e1042007118609ea9a174ff2fee9efcac",
+              "sha256": "2efc748d8f945b97c97b9efd93673404d8b7f795d6d84abd9a373f3bbb23d927",
               "width": 320,
-              "height": 420
+              "height": 142,
+              "viewBox": [
+                0,
+                143,
+                320,
+                142
+              ],
+              "comparisonFamily": "route-widths/iso/compact",
+              "contentBounds": {
+                "top": 173.85202348114586,
+                "bottom": 261.7933349609375
+              }
             },
             "wide": {
               "path": "posters/walking--v1--default--wide.svg",
-              "sha256": "b6cba5b768ffcfeac264b6a2516e54796a897e08acdc8b9bc324f256956ef4e8",
+              "sha256": "035c901dbec1fbfcfcaec68536d0462eee8db335ae4e430172a5ccb05fb0c739",
               "width": 900,
-              "height": 560
+              "height": 397,
+              "viewBox": [
+                0,
+                105,
+                900,
+                397
+              ],
+              "comparisonFamily": "route-widths/iso/wide",
+              "contentBounds": {
+                "top": 166.91360776748377,
+                "bottom": 456.00299072265625
+              }
             }
           }
         }
@@ -225,15 +335,37 @@
           "files": {
             "compact": {
               "path": "posters/walking--v2--default--compact.svg",
-              "sha256": "a23709e0fe714f43ede22bbf233b075e86025b18b909ddcbea9b4863ccaa4a30",
+              "sha256": "aee3a2d6c7a7fca637a8d29330db63c9b6f0957bac2ef2b83d6d598d8efe1393",
               "width": 320,
-              "height": 420
+              "height": 142,
+              "viewBox": [
+                0,
+                143,
+                320,
+                142
+              ],
+              "comparisonFamily": "route-widths/iso/compact",
+              "contentBounds": {
+                "top": 179.02365566131613,
+                "bottom": 262.89349365234375
+              }
             },
             "wide": {
               "path": "posters/walking--v2--default--wide.svg",
-              "sha256": "cb139dbd72076b8ed6a7a2cba898684891408a06905a999b08dcf9e18a9e847f",
+              "sha256": "08b2de0cc5459bf8ec20a203f6cc74eefdbb403b08d6615a6f4c7d3d5c6f17bd",
               "width": 900,
-              "height": 560
+              "height": 397,
+              "viewBox": [
+                0,
+                105,
+                900,
+                397
+              ],
+              "comparisonFamily": "route-widths/iso/wide",
+              "contentBounds": {
+                "top": 184.4622922440167,
+                "bottom": 459.736083984375
+              }
             }
           }
         }
@@ -256,15 +388,37 @@
           "files": {
             "compact": {
               "path": "posters/walking--v3--default--compact.svg",
-              "sha256": "30ef774796be8119bde3ab362eac486eeb9622d02e3a8a3a7af9110fbdfc18df",
+              "sha256": "7a9c018f110b4935568d11a68298ef885afb5731591ba579cc9a394b6d4a2f5d",
               "width": 320,
-              "height": 420
+              "height": 142,
+              "viewBox": [
+                0,
+                143,
+                320,
+                142
+              ],
+              "comparisonFamily": "route-widths/iso/compact",
+              "contentBounds": {
+                "top": 169.80345614756865,
+                "bottom": 264.7270812988281
+              }
             },
             "wide": {
               "path": "posters/walking--v3--default--wide.svg",
-              "sha256": "b5be9630c18aa031949133c6ff1ebe791b8baa4171f39b9a39dc1786ec47c707",
+              "sha256": "e2107b48825f0333fea6cb65733d74758cfe98e5f8563e68a3bd0f02f5a6cb38",
               "width": 900,
-              "height": 560
+              "height": 397,
+              "viewBox": [
+                0,
+                105,
+                900,
+                397
+              ],
+              "comparisonFamily": "route-widths/iso/wide",
+              "contentBounds": {
+                "top": 153.17577254568243,
+                "bottom": 465.95794677734375
+              }
             }
           }
         }
@@ -287,15 +441,37 @@
           "files": {
             "compact": {
               "path": "posters/cycling--v0--default--compact.svg",
-              "sha256": "29fb5be3b794cd0ba55491a2dbcc58e125071038f0cc492c5d66e94bfc415052",
+              "sha256": "6d381b2d92debc7ffa7fb85140f99327f58552c156ca12fa9bdf4dad76a229ec",
               "width": 320,
-              "height": 420
+              "height": 142,
+              "viewBox": [
+                0,
+                143,
+                320,
+                142
+              ],
+              "comparisonFamily": "route-widths/iso/compact",
+              "contentBounds": {
+                "top": 157.048583984375,
+                "bottom": 262.71014404296875
+              }
             },
             "wide": {
               "path": "posters/cycling--v0--default--wide.svg",
-              "sha256": "6f986d764ecb56850343bcd7d7bf35a96fd725fea0e1e7c190cfc123bec8fa22",
+              "sha256": "49e9fd7748655aaf8d552ad092da8853aa90ee9aa56dc0869b1f54418f5f802c",
               "width": 900,
-              "height": 560
+              "height": 397,
+              "viewBox": [
+                0,
+                105,
+                900,
+                397
+              ],
+              "comparisonFamily": "route-widths/iso/wide",
+              "contentBounds": {
+                "top": 119.21343994140625,
+                "bottom": 459.1139221191406
+              }
             }
           }
         }
@@ -318,15 +494,37 @@
           "files": {
             "compact": {
               "path": "posters/cycling--v1--default--compact.svg",
-              "sha256": "f5dc8c68fff5cb1f694e568c9cce8a50307433bf6256ec8f5a48dcccd808a06d",
+              "sha256": "e144b3d3e5424f03322d6289aa8c79425b702357c74657c6d2957c62ce6af309",
               "width": 320,
-              "height": 420
+              "height": 142,
+              "viewBox": [
+                0,
+                143,
+                320,
+                142
+              ],
+              "comparisonFamily": "route-widths/iso/compact",
+              "contentBounds": {
+                "top": 172.25801414512472,
+                "bottom": 265.4605407714844
+              }
             },
             "wide": {
               "path": "posters/cycling--v1--default--wide.svg",
-              "sha256": "d3ceaea3caa26959c1444c45ee139e7e08ec770999eaa1f4e007fa576ab7722a",
+              "sha256": "da237c5df3d16d1deacafa0a0324e40bebfdbc279d7cc1306f76a74c315db16f",
               "width": 900,
-              "height": 560
+              "height": 397,
+              "viewBox": [
+                0,
+                105,
+                900,
+                397
+              ],
+              "comparisonFamily": "route-widths/iso/wide",
+              "contentBounds": {
+                "top": 161.50472215536712,
+                "bottom": 468.4466857910156
+              }
             }
           }
         }
@@ -349,15 +547,37 @@
           "files": {
             "compact": {
               "path": "posters/cycling--v2--default--compact.svg",
-              "sha256": "b4c8ef6f05e4222b46fa02a74b36184e7eb1fb7dc857deb4b1512e4219bfb19b",
+              "sha256": "86497988141d91129188a1f5fcca9790d14d8821c669d882be0c32c4e3e2b297",
               "width": 320,
-              "height": 420
+              "height": 142,
+              "viewBox": [
+                0,
+                143,
+                320,
+                142
+              ],
+              "comparisonFamily": "route-widths/iso/compact",
+              "contentBounds": {
+                "top": 170.42442386723647,
+                "bottom": 269.1277160644531
+              }
             },
             "wide": {
               "path": "posters/cycling--v2--default--wide.svg",
-              "sha256": "1f7e8feb3439c19268e2f63036eb21b8ce2027a8c8366e8d21202670f99941cd",
+              "sha256": "aef1663c635156bf971f266975c6f6cbd92cc5f278fc100ef7d6067badda4ff9",
               "width": 900,
-              "height": 560
+              "height": 397,
+              "viewBox": [
+                0,
+                105,
+                900,
+                397
+              ],
+              "comparisonFamily": "route-widths/iso/wide",
+              "contentBounds": {
+                "top": 155.2828764933194,
+                "bottom": 480.890380859375
+              }
             }
           }
         }
@@ -380,15 +600,37 @@
           "files": {
             "compact": {
               "path": "posters/cycling--v3--default--compact.svg",
-              "sha256": "64e2601a339fa475b2b416f943446731032181a20653c53c0f85feb07c1637f7",
+              "sha256": "4ddb99bd5be5f1085e7c5401c565dc27202bab7bd91a40fd46da7966ec3fc7ef",
               "width": 320,
-              "height": 420
+              "height": 142,
+              "viewBox": [
+                0,
+                143,
+                320,
+                142
+              ],
+              "comparisonFamily": "route-widths/iso/compact",
+              "contentBounds": {
+                "top": 180.01453030319996,
+                "bottom": 267.29412841796875
+              }
             },
             "wide": {
               "path": "posters/cycling--v3--default--wide.svg",
-              "sha256": "d2d01ffb12997ab53688c2600349f7d12d7ebe021bd24fc1d12fc1b81d966220",
+              "sha256": "64074fac874840de809fd527d3ad601024b6ae071f6bdfdccbe18c8d64299e74",
               "width": 900,
-              "height": 560
+              "height": 397,
+              "viewBox": [
+                0,
+                105,
+                900,
+                397
+              ],
+              "comparisonFamily": "route-widths/iso/wide",
+              "contentBounds": {
+                "top": 187.82458597265622,
+                "bottom": 474.66851806640625
+              }
             }
           }
         }
@@ -411,15 +653,37 @@
           "files": {
             "compact": {
               "path": "posters/cycling--v4--default--compact.svg",
-              "sha256": "d6d3219d3129b74b0721cd18621a2d4401589477f525ccdbb84a49bdf7bd0ebd",
+              "sha256": "ca685b048ab9b19e1328b022f069513d0a7cbce1976ae415643b44a0d60780cf",
               "width": 320,
-              "height": 420
+              "height": 142,
+              "viewBox": [
+                0,
+                143,
+                320,
+                142
+              ],
+              "comparisonFamily": "route-widths/iso/compact",
+              "contentBounds": {
+                "top": 176.34734974742352,
+                "bottom": 270.9613037109375
+              }
             },
             "wide": {
               "path": "posters/cycling--v4--default--wide.svg",
-              "sha256": "a56814b01f4cf61bc6d07b0fcf1b0b920d72d3e32025d82aa716faba28dcd450",
+              "sha256": "3461fca742a24294c22d134f08a1c1b596e40f1cf3f4e61eeabbdfb4fb83693e",
               "width": 900,
-              "height": 560
+              "height": 397,
+              "viewBox": [
+                0,
+                105,
+                900,
+                397
+              ],
+              "comparisonFamily": "route-widths/iso/wide",
+              "contentBounds": {
+                "top": 175.38089464856085,
+                "bottom": 487.1122131347656
+              }
             }
           }
         }
@@ -442,15 +706,37 @@
           "files": {
             "compact": {
               "path": "posters/bike-parking--v0--default--compact.svg",
-              "sha256": "9036f0cfdff1d51a2b7a707268f918213f8f13bd08620eff6b41cec0c528982c",
+              "sha256": "74ab9d0590125946b9fecc781fc527dfaaa0bbb301031dc58b7ef47e686c9424",
               "width": 320,
-              "height": 420
+              "height": 137,
+              "viewBox": [
+                0,
+                139,
+                320,
+                137
+              ],
+              "comparisonFamily": "bike-parking--v0/iso/compact",
+              "contentBounds": {
+                "top": 153.2602429887805,
+                "bottom": 261.5350036621094
+              }
             },
             "wide": {
               "path": "posters/bike-parking--v0--default--wide.svg",
-              "sha256": "5f4076e3bde456ced04a54ffaca193edb5125b09bf7ea3a9c56277ff60b877a3",
+              "sha256": "368b6b24ba99eb7bff565a18c3007680cf554078a984645af244c40e3cc6129e",
               "width": 900,
-              "height": 560
+              "height": 387,
+              "viewBox": [
+                0,
+                83,
+                900,
+                387
+              ],
+              "comparisonFamily": "bike-parking--v0/iso/wide",
+              "contentBounds": {
+                "top": 97.04037508552489,
+                "bottom": 455.1263427734375
+              }
             }
           }
         }
@@ -473,15 +759,37 @@
           "files": {
             "compact": {
               "path": "posters/turning--v0--default--compact.svg",
-              "sha256": "3689d346a10b5c5d9ba0c9d67837353939033a5facfcf35f0735dbfdced9b7bd",
+              "sha256": "d51a3ae053fd32b5f5c03f62ffea5eccb2fcf6093c1ba609acd6fa7c0b9d7d6c",
               "width": 320,
-              "height": 420
+              "height": 185,
+              "viewBox": [
+                0,
+                117,
+                320,
+                185
+              ],
+              "comparisonFamily": "turning--v0/plan/compact",
+              "contentBounds": {
+                "top": 131.83346979673257,
+                "bottom": 287.1665344238281
+              }
             },
             "wide": {
               "path": "posters/turning--v0--default--wide.svg",
-              "sha256": "b38598b9137bb92cbc7d4a30d6437b88106aa1080bc593c296aafc08630785e9",
+              "sha256": "a06ff8c1f222b9d5b901e9ba8bc00c0e1b079a01b38dc2fd0c22c970a95acb12",
               "width": 900,
-              "height": 560
+              "height": 508,
+              "viewBox": [
+                0,
+                25,
+                900,
+                508
+              ],
+              "comparisonFamily": "turning--v0/plan/wide",
+              "contentBounds": {
+                "top": 39.99999999999995,
+                "bottom": 518.9999923706055
+              }
             }
           }
         }
@@ -504,15 +812,37 @@
           "files": {
             "compact": {
               "path": "posters/ramps--v0--default--compact.svg",
-              "sha256": "7e027fd39509e01de11c8bef4bc5c7e7ea09c66299e8707a43d72cc39ddba344",
+              "sha256": "f8b0fd0b24d5f3e813446772e77ce83a10c60caf04947018e059592b4d23bcd6",
               "width": 320,
-              "height": 420
+              "height": 159,
+              "viewBox": [
+                0,
+                173,
+                320,
+                159
+              ],
+              "comparisonFamily": "ramps--v0/front/compact",
+              "contentBounds": {
+                "top": 187.32740783691406,
+                "bottom": 317.0949401855469
+              }
             },
             "wide": {
               "path": "posters/ramps--v0--default--wide.svg",
-              "sha256": "8f7ed805833a812a791a8ff0ce775dc664da0ba2fb1f67686dc5ef50de8d33d0",
+              "sha256": "b8e77de81d14815c6bcff47bf78caf6240c72fe92dad065bae02c1b7258913f3",
               "width": 900,
-              "height": 560
+              "height": 139,
+              "viewBox": [
+                0,
+                210,
+                900,
+                139
+              ],
+              "comparisonFamily": "ramps--v0/front/wide",
+              "contentBounds": {
+                "top": 224.14944440170837,
+                "bottom": 334.8505554199219
+              }
             }
           }
         }
@@ -535,15 +865,37 @@
           "files": {
             "compact": {
               "path": "posters/arrival--v0--default--compact.svg",
-              "sha256": "ebb88753c833b8729ffe352f021c7440b472d79b5caa488232316207199e79e0",
+              "sha256": "50a5e6326b67b7a5f89bd96bb8f3260ea5d8d13625b09cd4b30a34acb5993c89",
               "width": 320,
-              "height": 420
+              "height": 179,
+              "viewBox": [
+                0,
+                130,
+                320,
+                179
+              ],
+              "comparisonFamily": "arrival--v0/plan/compact",
+              "contentBounds": {
+                "top": 144.62071920102804,
+                "bottom": 294.1378479003906
+              }
             },
             "wide": {
               "path": "posters/arrival--v0--default--wide.svg",
-              "sha256": "e0b04eb0d3e15f8a937146c3e00be025ba693e34a268c7faf685a18372447665",
+              "sha256": "dd9d5ce1cd2642cda693c6de42e088ebf91ff850290f7ad5371016b8e52f0209",
               "width": 900,
-              "height": 560
+              "height": 453,
+              "viewBox": [
+                0,
+                53,
+                900,
+                453
+              ],
+              "comparisonFamily": "arrival--v0/plan/wide",
+              "contentBounds": {
+                "top": 67.72423818775817,
+                "bottom": 491.2757568359375
+              }
             }
           }
         }
@@ -566,15 +918,37 @@
           "files": {
             "compact": {
               "path": "posters/tram-corridor--v0--default--compact.svg",
-              "sha256": "a9bb31ef344e7bec31fe7f0f576691ecd6def7c8c3fd20060c9fe3e7514c947d",
+              "sha256": "4240051e21491449578aca895d0853d1a927f369f190f05693cf8ac251359c54",
               "width": 320,
-              "height": 420
+              "height": 169,
+              "viewBox": [
+                0,
+                125,
+                320,
+                169
+              ],
+              "comparisonFamily": "tram-corridor--v0/plan/compact",
+              "contentBounds": {
+                "top": 139.7712393516519,
+                "bottom": 279.228759765625
+              }
             },
             "wide": {
               "path": "posters/tram-corridor--v0--default--wide.svg",
-              "sha256": "fb77d9a156e12be146ac85a97de807d00126e17438eb6f1a2ab2cb2afa33aff5",
+              "sha256": "ae30bd81e0e61edd2f2387df96c7832e44beca87b766c2b76b0cb79710457d85",
               "width": 900,
-              "height": 560
+              "height": 485,
+              "viewBox": [
+                0,
+                37,
+                900,
+                485
+              ],
+              "comparisonFamily": "tram-corridor--v0/plan/wide",
+              "contentBounds": {
+                "top": 51.26869982245929,
+                "bottom": 507.7312927246094
+              }
             }
           }
         }
@@ -597,15 +971,37 @@
           "files": {
             "compact": {
               "path": "posters/tram-width--v0--default--compact.svg",
-              "sha256": "7b3e5dc9da70a31b4481eb707e32b89b6b1af1c108601cb983c52aa39c8ae01b",
+              "sha256": "f2a9e32ab1bda788e22a5b5110bad02cc3839618e0c9413123723ae25b115fca",
               "width": 320,
-              "height": 420
+              "height": 118,
+              "viewBox": [
+                0,
+                163,
+                320,
+                118
+              ],
+              "comparisonFamily": "tram-width--v0/front/compact",
+              "contentBounds": {
+                "top": 177.30818020550456,
+                "bottom": 266.69183349609375
+              }
             },
             "wide": {
               "path": "posters/tram-width--v0--default--wide.svg",
-              "sha256": "df4a962fe0492bc8bc03d20e05f6800048094f5e5acecbc163e6242ee1a24820",
+              "sha256": "a8ef7dc87ee53e781ed822216c280e9a88284e391f9d8f66333dcb6ac5d9d81d",
               "width": 900,
-              "height": 560
+              "height": 231,
+              "viewBox": [
+                0,
+                164,
+                900,
+                231
+              ],
+              "comparisonFamily": "tram-width--v0/front/wide",
+              "contentBounds": {
+                "top": 178.64124069733006,
+                "bottom": 380.3587646484375
+              }
             }
           }
         }
@@ -628,15 +1024,37 @@
           "files": {
             "compact": {
               "path": "posters/tram-length--v0--default--compact.svg",
-              "sha256": "f5a7e20bad01e024d7e302a094a741cde58ec77eb8d61464ca2c5e243405a804",
+              "sha256": "17aa3b8e4aa49a7257e756070ecbc8589fbe3126405828973d316f184cf6b78c",
               "width": 320,
-              "height": 420
+              "height": 198,
+              "viewBox": [
+                0,
+                90,
+                320,
+                198
+              ],
+              "comparisonFamily": "tram-length--v0/iso/compact",
+              "contentBounds": {
+                "top": 104.39616394042969,
+                "bottom": 273.4761047363281
+              }
             },
             "wide": {
               "path": "posters/tram-length--v0--default--wide.svg",
-              "sha256": "b839ac1259d0612bb524a4c49c60cbb8c7851668bf0915720d786d91b2253607",
+              "sha256": "45835b4cb6c04a797f7ab5d41408a8e059b576fd7c77d79d66b91d532ff0d5d2",
               "width": 900,
-              "height": 560
+              "height": 318,
+              "viewBox": [
+                0,
+                117,
+                900,
+                318
+              ],
+              "comparisonFamily": "tram-length--v0/iso/wide",
+              "contentBounds": {
+                "top": 131.35971069335938,
+                "bottom": 420.6402893066406
+              }
             }
           }
         }
@@ -659,15 +1077,37 @@
           "files": {
             "compact": {
               "path": "posters/car-turn--v0--default--compact.svg",
-              "sha256": "9f6b24d7217b2a47f04167d0c407077fde9ec562b82f864a0986b15b3f377189",
+              "sha256": "46ea3f6330d4cc8d10870566fb1b30973c27ae258827a909e50837c3512768f9",
               "width": 320,
-              "height": 420
+              "height": 363,
+              "viewBox": [
+                0,
+                26,
+                320,
+                363
+              ],
+              "comparisonFamily": "car-turn--v0/plan/compact",
+              "contentBounds": {
+                "top": 40.00000000000004,
+                "bottom": 374.99999237060547
+              }
             },
             "wide": {
               "path": "posters/car-turn--v0--default--wide.svg",
-              "sha256": "4de04452b4253626f7d6d5850570b672bd55a0fc9881bb4d2bf42cf04e534790",
+              "sha256": "352af7950c813e2b5339ba226bf7fd87e8467c7c8dd95a5c4a9779a79cc7b29b",
               "width": 900,
-              "height": 560
+              "height": 505,
+              "viewBox": [
+                0,
+                25,
+                900,
+                505
+              ],
+              "comparisonFamily": "car-turn--v0/plan/wide",
+              "contentBounds": {
+                "top": 39.999999999999986,
+                "bottom": 515.0000152587891
+              }
             }
           }
         }
@@ -690,15 +1130,37 @@
           "files": {
             "compact": {
               "path": "posters/car-turn--v1--default--compact.svg",
-              "sha256": "8702c88ec34dfcd4774283031569334c7711403bd968ee7eca9946734b0ac32e",
+              "sha256": "cdd3b651b7e1844e91315eb0a5d559006f7f28a9904081486a2ffdace7201374",
               "width": 320,
-              "height": 420
+              "height": 337,
+              "viewBox": [
+                0,
+                41,
+                320,
+                337
+              ],
+              "comparisonFamily": "vehicle-lanes/plan/compact",
+              "contentBounds": {
+                "top": 55.85747138980911,
+                "bottom": 363.1883544921875
+              }
             },
             "wide": {
               "path": "posters/car-turn--v1--default--wide.svg",
-              "sha256": "8fb5b818c6215fe48d73cb0f38781f98a61c00ab3ab59a42c003494ce2832046",
+              "sha256": "299e55738f2fe5f0dce501edc464d110eca1e9904dfb35f06ff200b7807daed3",
               "width": 900,
-              "height": 560
+              "height": 463,
+              "viewBox": [
+                0,
+                48,
+                900,
+                463
+              ],
+              "comparisonFamily": "vehicle-lanes/plan/wide",
+              "contentBounds": {
+                "top": 62.54435691563224,
+                "bottom": 496.52081298828125
+              }
             }
           }
         }
@@ -721,15 +1183,37 @@
           "files": {
             "compact": {
               "path": "posters/car-turn--v2--default--compact.svg",
-              "sha256": "2222fbf7382770c1e55d7a5917d6617d354a1c175ad1a40a3bc9c4fcf8926b9e",
+              "sha256": "bba8e80ac1b2e5c5ce0d36b9b0b17b6cadd44fd5b081cc9b954e07fa45a7fa97",
               "width": 320,
-              "height": 420
+              "height": 337,
+              "viewBox": [
+                0,
+                41,
+                320,
+                337
+              ],
+              "comparisonFamily": "vehicle-lanes/plan/compact",
+              "contentBounds": {
+                "top": 55.857313320856086,
+                "bottom": 363.1883544921875
+              }
             },
             "wide": {
               "path": "posters/car-turn--v2--default--wide.svg",
-              "sha256": "0104d749483fe9221d67d80d81e17055561ec057ded1e2ab31983d1e9c86264c",
+              "sha256": "fdfcacb28edb1c957400f9ad18ea6da6b0273c2c00b3614e55f9af47138e595c",
               "width": 900,
-              "height": 560
+              "height": 463,
+              "viewBox": [
+                0,
+                48,
+                900,
+                463
+              ],
+              "comparisonFamily": "vehicle-lanes/plan/wide",
+              "contentBounds": {
+                "top": 62.544132191096644,
+                "bottom": 496.52081298828125
+              }
             }
           }
         }
@@ -752,15 +1236,37 @@
           "files": {
             "compact": {
               "path": "posters/bus-turn--v0--default--compact.svg",
-              "sha256": "477b511941bc3bf96582843d64892173a13712160bada51a21374ac058200dd1",
+              "sha256": "3292e28340b69da68f5ea75ec4db60ccc2c35d20b591c874deddb25b6664d793",
               "width": 320,
-              "height": 420
+              "height": 368,
+              "viewBox": [
+                0,
+                25,
+                320,
+                368
+              ],
+              "comparisonFamily": "bus-turn--v0/plan/compact",
+              "contentBounds": {
+                "top": 39.99999999999997,
+                "bottom": 378.99998474121094
+              }
             },
             "wide": {
               "path": "posters/bus-turn--v0--default--wide.svg",
-              "sha256": "9f63347a6b2d095c5121c650fd81a285078aaefdaf806f45d5a049e5d021bd2a",
+              "sha256": "3a6fd880dc740288935e481978e1507c62222763856fbec7ccbcd63573f767a9",
               "width": 900,
-              "height": 560
+              "height": 507,
+              "viewBox": [
+                0,
+                26,
+                900,
+                507
+              ],
+              "comparisonFamily": "bus-turn--v0/plan/wide",
+              "contentBounds": {
+                "top": 40.00000000000004,
+                "bottom": 519
+              }
             }
           }
         }
@@ -783,15 +1289,37 @@
           "files": {
             "compact": {
               "path": "posters/bus-turn--v1--default--compact.svg",
-              "sha256": "e0fa0f26344986baff99b018cd7cc0befd119fad8f79aeca7c59fea9050d85dc",
+              "sha256": "af7498f074780c60ccf614c5527a22fcdad2c8d3651979ed84e6430224603ae5",
               "width": 320,
-              "height": 420
+              "height": 337,
+              "viewBox": [
+                0,
+                41,
+                320,
+                337
+              ],
+              "comparisonFamily": "vehicle-lanes/plan/compact",
+              "contentBounds": {
+                "top": 55.85747138980911,
+                "bottom": 363.18834686279297
+              }
             },
             "wide": {
               "path": "posters/bus-turn--v1--default--wide.svg",
-              "sha256": "000c46e60fe2eeb507a4567b4bf905e93ddecde9590cc7f7136bc623849cad43",
+              "sha256": "f9839ec66d0216a13b96e60acdab3fe9ef8e8bfd00f17cb386e566cd195ecbd5",
               "width": 900,
-              "height": 560
+              "height": 463,
+              "viewBox": [
+                0,
+                48,
+                900,
+                463
+              ],
+              "comparisonFamily": "vehicle-lanes/plan/wide",
+              "contentBounds": {
+                "top": 62.54435691563224,
+                "bottom": 496.5207977294922
+              }
             }
           }
         }
@@ -814,15 +1342,37 @@
           "files": {
             "compact": {
               "path": "posters/bus-turn--v2--default--compact.svg",
-              "sha256": "5324bd906e000146364dd830f8ba198b734f6a24afbd4d4b228d58f8fcdb36c2",
+              "sha256": "abd6ffdaeb72fc14f2ef08b030fdcb380a4b39ae7ce568b86aa2b22ec67317a4",
               "width": 320,
-              "height": 420
+              "height": 337,
+              "viewBox": [
+                0,
+                41,
+                320,
+                337
+              ],
+              "comparisonFamily": "vehicle-lanes/plan/compact",
+              "contentBounds": {
+                "top": 55.857313320856086,
+                "bottom": 363.18834686279297
+              }
             },
             "wide": {
               "path": "posters/bus-turn--v2--default--wide.svg",
-              "sha256": "f957f0149f4f431f65bb70b79bb5e0c842ec7e9374fbed47d51473140f912cdb",
+              "sha256": "61dc2df9f4b50c8614fa140ba09af350aaec15eac96619a306240356c3f474da",
               "width": 900,
-              "height": 560
+              "height": 463,
+              "viewBox": [
+                0,
+                48,
+                900,
+                463
+              ],
+              "comparisonFamily": "vehicle-lanes/plan/wide",
+              "contentBounds": {
+                "top": 62.544132191096644,
+                "bottom": 496.5207977294922
+              }
             }
           }
         }
@@ -845,15 +1395,37 @@
           "files": {
             "compact": {
               "path": "posters/rescue--v0--default--compact.svg",
-              "sha256": "0aeb14598a369f9709b0a65e32efa237c5ed077782f8c6824ca498207ae60b07",
+              "sha256": "c3057a770a13eddab180913ea66919000954183e687130cef1f42e59ed31a6ae",
               "width": 320,
-              "height": 420
+              "height": 240,
+              "viewBox": [
+                0,
+                89,
+                320,
+                240
+              ],
+              "comparisonFamily": "rescue--v0/plan/compact",
+              "contentBounds": {
+                "top": 103.85454559326172,
+                "bottom": 314.94539642333984
+              }
             },
             "wide": {
               "path": "posters/rescue--v0--default--wide.svg",
-              "sha256": "8ec09fdbcdbaddba4b715a6de97cb8deea1e14a592d1849a92b5edaf02420b6c",
+              "sha256": "43260a2b48a0cbfd903a3fa9fbb13dd2b788d09f3aaae645cc7550b3fedf7d00",
               "width": 900,
-              "height": 560
+              "height": 508,
+              "viewBox": [
+                0,
+                25,
+                900,
+                508
+              ],
+              "comparisonFamily": "rescue--v0/plan/wide",
+              "contentBounds": {
+                "top": 39.999999999999986,
+                "bottom": 518.9999923706055
+              }
             }
           }
         }
@@ -876,15 +1448,37 @@
           "files": {
             "compact": {
               "path": "posters/trees--v0--default--compact.svg",
-              "sha256": "d006428686d51a7ef36abd86478c86202abee12b6d140abf108063d497af894e",
+              "sha256": "018775394fb2318171c6c9193683b274fedfc3049f8eb55d46893efaaaf2f6f9",
               "width": 320,
-              "height": 420
+              "height": 205,
+              "viewBox": [
+                0,
+                114,
+                320,
+                205
+              ],
+              "comparisonFamily": "trees--v0/iso/compact",
+              "contentBounds": {
+                "top": 128.17619831252304,
+                "bottom": 304.65338134765625
+              }
             },
             "wide": {
               "path": "posters/trees--v0--default--wide.svg",
-              "sha256": "8f4f6cb351c7a8406c05e80ba12734f0dc99b95a7a6085792ff7becb61365cca",
+              "sha256": "0a741b9e60e9f6ca83f348e3089eca456fd1f283c66b6cae09fa64d5d14b165a",
               "width": 900,
-              "height": 560
+              "height": 505,
+              "viewBox": [
+                0,
+                25,
+                900,
+                505
+              ],
+              "comparisonFamily": "trees--v0/iso/wide",
+              "contentBounds": {
+                "top": 39.999999999999986,
+                "bottom": 515.0000076293945
+              }
             }
           }
         }
@@ -907,15 +1501,37 @@
           "files": {
             "compact": {
               "path": "posters/ground--v0--all--compact.svg",
-              "sha256": "40e25d745a75516d9e89f1f2fc3e0b3913009cef731608fb5025f9c2b5312393",
+              "sha256": "a10f61385c1295a03dbb08c6017f442c3b8458e1be7e9ea5fda45900579f911f",
               "width": 320,
-              "height": 420
+              "height": 373,
+              "viewBox": [
+                0,
+                35,
+                320,
+                373
+              ],
+              "comparisonFamily": "planting-widths/iso/compact",
+              "contentBounds": {
+                "top": 49.375790679527896,
+                "bottom": 393.7132339477539
+              }
             },
             "wide": {
               "path": "posters/ground--v0--all--wide.svg",
-              "sha256": "4cb1d4cc5f71a81ee6b8d1d02342508c84c379bc8ccc27841cc3302780cd4831",
+              "sha256": "de575963049916e8493bbda6c0c66f887c805f3fa3a13139a7130334b0ae22ec",
               "width": 900,
-              "height": 560
+              "height": 271,
+              "viewBox": [
+                0,
+                147,
+                900,
+                271
+              ],
+              "comparisonFamily": "planting-widths/iso/wide",
+              "contentBounds": {
+                "top": 161.19027560372754,
+                "bottom": 403.9966735839844
+              }
             }
           }
         },
@@ -925,15 +1541,37 @@
           "files": {
             "compact": {
               "path": "posters/ground--v0--c0--compact.svg",
-              "sha256": "553942cbdce2059e2103c4cc9c95cd7733fb717171d84eb57a0108f6387e9a36",
+              "sha256": "89fbb556ba9889ea59bd13c53353717f7d4cbb43fc13589a11eeeade92c36575",
               "width": 320,
-              "height": 420
+              "height": 373,
+              "viewBox": [
+                0,
+                35,
+                320,
+                373
+              ],
+              "comparisonFamily": "planting-widths/iso/compact",
+              "contentBounds": {
+                "top": 49.375790679527896,
+                "bottom": 116.15265655517578
+              }
             },
             "wide": {
               "path": "posters/ground--v0--c0--wide.svg",
-              "sha256": "196a6c651b34a7dc426fc05eb223986fb47447231510eb59ed99ac46eaee918a",
+              "sha256": "36a19a59b62e531b765b35252477707a797f846c147a940880a6fc43d483a21c",
               "width": 900,
-              "height": 560
+              "height": 271,
+              "viewBox": [
+                0,
+                147,
+                900,
+                271
+              ],
+              "comparisonFamily": "planting-widths/iso/wide",
+              "contentBounds": {
+                "top": 161.19027560372754,
+                "bottom": 346.4994201660156
+              }
             }
           }
         },
@@ -943,15 +1581,37 @@
           "files": {
             "compact": {
               "path": "posters/ground--v0--c1--compact.svg",
-              "sha256": "fff621414ff18a7c5db1481880447d5cc509f940e7ec448488cecfc848cb00e0",
+              "sha256": "5f216e1a560f80557aeba9df8f40bbbced54a14fedcc4bd0803f954fff02a06f",
               "width": 320,
-              "height": 420
+              "height": 373,
+              "viewBox": [
+                0,
+                35,
+                320,
+                373
+              ],
+              "comparisonFamily": "planting-widths/iso/compact",
+              "contentBounds": {
+                "top": 134.5626483821162,
+                "bottom": 201.33950805664062
+              }
             },
             "wide": {
               "path": "posters/ground--v0--c1--wide.svg",
-              "sha256": "e57fd0eb2603c08699407bc4b414db1807f7bb73cfdfef19254ba2b29b3d4891",
+              "sha256": "fc510cfc2014e92912e48d57a4712955493b929dc1761ae6cc2d2b80da2b6372",
               "width": 900,
-              "height": 560
+              "height": 271,
+              "viewBox": [
+                0,
+                147,
+                900,
+                271
+              ],
+              "comparisonFamily": "planting-widths/iso/wide",
+              "contentBounds": {
+                "top": 180.7795930039162,
+                "bottom": 366.90496826171875
+              }
             }
           }
         },
@@ -961,15 +1621,37 @@
           "files": {
             "compact": {
               "path": "posters/ground--v0--c2--compact.svg",
-              "sha256": "4c50a6e85b069ddc28059fe53be4a7546f9e9555b4fad477103ed6db79d30bfa",
+              "sha256": "59f14c27ecf07ca81a71b256574dfecd87a5c3fb4f097779f994af7de3fa3e3c",
               "width": 320,
-              "height": 420
+              "height": 373,
+              "viewBox": [
+                0,
+                35,
+                320,
+                373
+              ],
+              "comparisonFamily": "planting-widths/iso/compact",
+              "contentBounds": {
+                "top": 247.27886962890625,
+                "bottom": 286.5263671875
+              }
             },
             "wide": {
               "path": "posters/ground--v0--c2--wide.svg",
-              "sha256": "203ce435a7edd47b2b6483c9300aebdc2c66494c599d5e3df99eb3e7022308c1",
+              "sha256": "49e068b48ace059afe7be0843497aa934982ff5f5810f7165bcac7507c0d4258",
               "width": 900,
-              "height": 560
+              "height": 271,
+              "viewBox": [
+                0,
+                147,
+                900,
+                271
+              ],
+              "comparisonFamily": "planting-widths/iso/wide",
+              "contentBounds": {
+                "top": 273,
+                "bottom": 384.8618469238281
+              }
             }
           }
         },
@@ -979,15 +1661,37 @@
           "files": {
             "compact": {
               "path": "posters/ground--v0--c3--compact.svg",
-              "sha256": "99aad4ef42da39264dbd7fd185d805195b679a19ca48c9d58631be5a077e4772",
+              "sha256": "497a62d816b97a41d2dc1da65f4bd906fb8471f8335a4eb6dfc51be1efd74d40",
               "width": 320,
-              "height": 420
+              "height": 373,
+              "viewBox": [
+                0,
+                35,
+                320,
+                373
+              ],
+              "comparisonFamily": "planting-widths/iso/compact",
+              "contentBounds": {
+                "top": 332.19012451171875,
+                "bottom": 393.7132263183594
+              }
             },
             "wide": {
               "path": "posters/ground--v0--c3--wide.svg",
-              "sha256": "e77d9e4046ea755af273a26b3aea07efb5762a4ee7bdbe2d021be6b6d2727152",
+              "sha256": "c1a79b34179ff197ccbbd1b4d0bdbaea81d8420b197e3023bfacc7630178dbe6",
               "width": 900,
-              "height": 560
+              "height": 271,
+              "viewBox": [
+                0,
+                147,
+                900,
+                271
+              ],
+              "comparisonFamily": "planting-widths/iso/wide",
+              "contentBounds": {
+                "top": 273,
+                "bottom": 403.9966735839844
+              }
             }
           }
         }
@@ -1010,15 +1714,37 @@
           "files": {
             "compact": {
               "path": "posters/rain-gardens--v0--c0--compact.svg",
-              "sha256": "b7c40ab293bca37b956b351dcd44e63c28d2b6dafedef0cd17951dad68190064",
+              "sha256": "81613687ec82d6ea7b4d87b4921700999d23bc6846b21be159c3e489a51a19d3",
               "width": 320,
-              "height": 420
+              "height": 167,
+              "viewBox": [
+                0,
+                127,
+                320,
+                167
+              ],
+              "comparisonFamily": "conceptual-rain-gardens/iso/compact",
+              "contentBounds": {
+                "top": 157.0491180419922,
+                "bottom": 279.0491027832031
+              }
             },
             "wide": {
               "path": "posters/rain-gardens--v0--c0--wide.svg",
-              "sha256": "a0d569936ea20884d6fbf1a653ca1ce103d646ef8c5d70be261856d2ec74d5db",
+              "sha256": "b1575e5a9dda1d02747322398fd04e2779a083259a06854a400ac91b535537aa",
               "width": 900,
-              "height": 560
+              "height": 255,
+              "viewBox": [
+                0,
+                157,
+                900,
+                255
+              ],
+              "comparisonFamily": "conceptual-rain-gardens/iso/wide",
+              "contentBounds": {
+                "top": 171.64106953678228,
+                "bottom": 397.94157350929305
+              }
             }
           }
         },
@@ -1028,15 +1754,37 @@
           "files": {
             "compact": {
               "path": "posters/rain-gardens--v0--c1--compact.svg",
-              "sha256": "5718931703589a322aca00354ff60b60c74e51271fe882647ee3ba9bc85aba55",
+              "sha256": "3094304acf9a3d45c7488b592e78a8c095c52035dc5cd06c1a7f3807731e66d5",
               "width": 320,
-              "height": 420
+              "height": 167,
+              "viewBox": [
+                0,
+                127,
+                320,
+                167
+              ],
+              "comparisonFamily": "conceptual-rain-gardens/iso/compact",
+              "contentBounds": {
+                "top": 141.51744079589844,
+                "bottom": 270.0174560546875
+              }
             },
             "wide": {
               "path": "posters/rain-gardens--v0--c1--wide.svg",
-              "sha256": "b6bf0e89258bfa208e8a7dfa73ec1f190b176e7bdd72e0b5b04d246c20357e42",
+              "sha256": "8faf3d5eac41146a993b975920ead75c223ef0c45b507e4086cb030aab5a7619",
               "width": 900,
-              "height": 560
+              "height": 255,
+              "viewBox": [
+                0,
+                157,
+                900,
+                255
+              ],
+              "comparisonFamily": "conceptual-rain-gardens/iso/wide",
+              "contentBounds": {
+                "top": 180.6523257866253,
+                "bottom": 377.2693588970638
+              }
             }
           }
         }
@@ -1059,15 +1807,37 @@
           "files": {
             "compact": {
               "path": "posters/ponds--v0--c0--compact.svg",
-              "sha256": "18570fcd3fb47f1bc68169dc38a68d6a10c4364f312dfcd97a1d3094ab2534af",
+              "sha256": "b8524ebe2141293f38eeed0b772ca145763d3809ee95f102ac00ffd087642dd3",
               "width": 320,
-              "height": 420
+              "height": 164,
+              "viewBox": [
+                0,
+                119,
+                320,
+                164
+              ],
+              "comparisonFamily": "conceptual-ponds/section/compact",
+              "contentBounds": {
+                "top": 133.85409545898438,
+                "bottom": 232.85409545898438
+              }
             },
             "wide": {
               "path": "posters/ponds--v0--c0--wide.svg",
-              "sha256": "87f0181523f66ab23b50be01d7869f26723ae6d5459f17d7f028478095be52fe",
+              "sha256": "b66d2f5a512e49da7e82be509a802285adc5fa4443cb1cbd81f5e6d64c48c829",
               "width": 900,
-              "height": 560
+              "height": 200,
+              "viewBox": [
+                0,
+                162,
+                900,
+                200
+              ],
+              "comparisonFamily": "conceptual-ponds/section/wide",
+              "contentBounds": {
+                "top": 176.28301750938843,
+                "bottom": 347.22641781141175
+              }
             }
           }
         },
@@ -1077,15 +1847,37 @@
           "files": {
             "compact": {
               "path": "posters/ponds--v0--c1--compact.svg",
-              "sha256": "172412280f56322607b729b52088c56f5ab5857db4e80f25fee05ffd12e5d3e4",
+              "sha256": "c6a05520abbd1d9257ce7a496d61a67f892fc1798b772ad221e99f9f0d809387",
               "width": 320,
-              "height": 420
+              "height": 164,
+              "viewBox": [
+                0,
+                119,
+                320,
+                164
+              ],
+              "comparisonFamily": "conceptual-ponds/section/compact",
+              "contentBounds": {
+                "top": 139.8490447998047,
+                "bottom": 268.3490295410156
+              }
             },
             "wide": {
               "path": "posters/ponds--v0--c1--wide.svg",
-              "sha256": "609815f3b90235b954306c15d90140176512869cdbc360efeac8a1dc70778d57",
+              "sha256": "58f830f7fa7d73a2c20e559fa1b7c0239c741da2a6688b979a0954509bacf270",
               "width": 900,
-              "height": 560
+              "height": 200,
+              "viewBox": [
+                0,
+                162,
+                900,
+                200
+              ],
+              "comparisonFamily": "conceptual-ponds/section/wide",
+              "contentBounds": {
+                "top": 176.28301750938843,
+                "bottom": 347.22641781141175
+              }
             }
           }
         }
@@ -1108,15 +1900,37 @@
           "files": {
             "compact": {
               "path": "posters/source-control--v0--c0--compact.svg",
-              "sha256": "23a06b8fa6c32623ce444cb3ef82b97e76fae43045c31d1c519c37d683572e5f",
+              "sha256": "5484e07d142a8c687f1e796dd99953520423649647a8cff55fe97b0e295584db",
               "width": 320,
-              "height": 420
+              "height": 163,
+              "viewBox": [
+                0,
+                128,
+                320,
+                163
+              ],
+              "comparisonFamily": "conceptual-source-control/iso/compact",
+              "contentBounds": {
+                "top": 142.5,
+                "bottom": 271
+              }
             },
             "wide": {
               "path": "posters/source-control--v0--c0--wide.svg",
-              "sha256": "351f3a989d950471ede15baeb25cb062dc5e407bd1aafcacea037b185a7ced99",
+              "sha256": "7fab4f33b825de403e50d79920de4c93295209b5f4a3c74e214c89d9f883acc4",
               "width": 900,
-              "height": 560
+              "height": 241,
+              "viewBox": [
+                0,
+                166,
+                900,
+                241
+              ],
+              "comparisonFamily": "conceptual-source-control/iso/wide",
+              "contentBounds": {
+                "top": 180.73814944363141,
+                "bottom": 377.2693588970638
+              }
             }
           }
         },
@@ -1126,15 +1940,37 @@
           "files": {
             "compact": {
               "path": "posters/source-control--v0--c1--compact.svg",
-              "sha256": "ac6acf7ab28ed023073be651f62da8d398a950275c27037ae090ef6fb5ea3bbc",
+              "sha256": "b94461bc704982ed3115af909b41acf7eab0ebbd30f5cff726240e16b8261ed1",
               "width": 320,
-              "height": 420
+              "height": 163,
+              "viewBox": [
+                0,
+                128,
+                320,
+                163
+              ],
+              "comparisonFamily": "conceptual-source-control/iso/compact",
+              "contentBounds": {
+                "top": 147.90853881835938,
+                "bottom": 276.4085388183594
+              }
             },
             "wide": {
               "path": "posters/source-control--v0--c1--wide.svg",
-              "sha256": "98037365f6c0392253b8a7530a59e8cf5012aaf2340edc7fe93b17985f8229c1",
+              "sha256": "8f809c0309596e77224cbb6ac6f754e7fec4fbdedaf1b9f6ccdac083efb401af",
               "width": 900,
-              "height": 560
+              "height": 241,
+              "viewBox": [
+                0,
+                166,
+                900,
+                241
+              ],
+              "comparisonFamily": "conceptual-source-control/iso/wide",
+              "contentBounds": {
+                "top": 223.13396175360825,
+                "bottom": 392.717224298565
+              }
             }
           }
         }
@@ -1157,15 +1993,37 @@
           "files": {
             "compact": {
               "path": "posters/section-ratio--v0--default--compact.svg",
-              "sha256": "e01b25b1ba82005dc835a430646a565fd769fc5c6afc2eb837726193fdc0b3ac",
+              "sha256": "4dd5f2a3e2dfaf1fbbd556042f78847a8d71c9cd3ed99d5ead00d5aabf66146b",
               "width": 320,
-              "height": 420
+              "height": 205,
+              "viewBox": [
+                0,
+                104,
+                320,
+                205
+              ],
+              "comparisonFamily": "width-height-sections/section/compact",
+              "contentBounds": {
+                "top": 118.58332824707031,
+                "bottom": 294.3833312988281
+              }
             },
             "wide": {
               "path": "posters/section-ratio--v0--default--wide.svg",
-              "sha256": "c699a05914481ae570820c59bae5264c1a57afd4bfefddf230e3b2c7372782f0",
+              "sha256": "68fc27a55685a8c263bdaf3f37daf8b4636170df1327af9fe414f5652576d262",
               "width": 900,
-              "height": 560
+              "height": 477,
+              "viewBox": [
+                0,
+                49,
+                900,
+                477
+              ],
+              "comparisonFamily": "width-height-sections/section/wide",
+              "contentBounds": {
+                "top": 63.71697998046875,
+                "bottom": 511.8754577636719
+              }
             }
           }
         }
@@ -1188,15 +2046,37 @@
           "files": {
             "compact": {
               "path": "posters/equal-density--v0--default--compact.svg",
-              "sha256": "40b15364953655d9dbb1e026a028727bdc3eb4df0a805531611d5987dcefe300",
+              "sha256": "66aa124cb38bd9b167efe60838f2289792e1c1688d30896d93fd1dbcae171048",
               "width": 320,
-              "height": 420
+              "height": 352,
+              "viewBox": [
+                0,
+                34,
+                320,
+                352
+              ],
+              "comparisonFamily": "equal-floor-area/iso/compact",
+              "contentBounds": {
+                "top": 48.96899772296371,
+                "bottom": 371.39109802246094
+              }
             },
             "wide": {
               "path": "posters/equal-density--v0--default--wide.svg",
-              "sha256": "2a22afb4a13c8c4c179fa19f37dc62cd9501e7f9ff1551e21781ead4a505eb78",
+              "sha256": "20ee29344b2c03136d2d74333c2a19f8544035caa93e12da8d5059128532722a",
               "width": 900,
-              "height": 560
+              "height": 237,
+              "viewBox": [
+                0,
+                199,
+                900,
+                237
+              ],
+              "comparisonFamily": "equal-floor-area/iso/wide",
+              "contentBounds": {
+                "top": 213.08881999167946,
+                "bottom": 421.3687438964844
+              }
             }
           }
         }
@@ -1219,15 +2099,37 @@
           "files": {
             "compact": {
               "path": "posters/steps--v0--default--compact.svg",
-              "sha256": "e58a83b71c9a7bc6e8a1d37b16adf2522c069e1e13868bc88c8481f8f6b826f8",
+              "sha256": "c34caf6c05ead0808b112d6210a9ff90cb5e70ddbc9a7b06ad600cc5e20847ac",
               "width": 320,
-              "height": 420
+              "height": 155,
+              "viewBox": [
+                0,
+                127,
+                320,
+                155
+              ],
+              "comparisonFamily": "steps--v0/iso/compact",
+              "contentBounds": {
+                "top": 141.02377319335938,
+                "bottom": 267.57244873046875
+              }
             },
             "wide": {
               "path": "posters/steps--v0--default--wide.svg",
-              "sha256": "b00a44c2a1c6e39ac1a389f6d86ecb62dca35850a7a30a79df2efbf80706cf65",
+              "sha256": "9b1eb95698ed1c8ca4b7dfcfd8233f3d118d1b80e2d8cd143a36ce3fbbea5f8f",
               "width": 900,
-              "height": 560
+              "height": 298,
+              "viewBox": [
+                0,
+                127,
+                900,
+                298
+              ],
+              "comparisonFamily": "steps--v0/iso/wide",
+              "contentBounds": {
+                "top": 141.97793677702504,
+                "bottom": 410.02206322297496
+              }
             }
           }
         }
@@ -1250,15 +2152,37 @@
           "files": {
             "compact": {
               "path": "posters/crossing-refuge--v0--default--compact.svg",
-              "sha256": "b62745fe6c764154af99fc808a8ca240ac433f4472b0a4b85f72860a3f15566f",
+              "sha256": "6441547fb5f04efa5567adfdc2e7ec59ab8f62754cd971e99cc130f1ef521cc5",
               "width": 320,
-              "height": 420
+              "height": 197,
+              "viewBox": [
+                0,
+                108,
+                320,
+                197
+              ],
+              "comparisonFamily": "crossing-refuge--v0/plan/compact",
+              "contentBounds": {
+                "top": 122.601806640625,
+                "bottom": 290.211669921875
+              }
             },
             "wide": {
               "path": "posters/crossing-refuge--v0--default--wide.svg",
-              "sha256": "b857746ddf683ec70510bbc71301a6b3c1d6fba6f2779b7aaf78477f9233be2b",
+              "sha256": "4da05db63ce324409fd06397fe23033f16fbd324ce8b14e2a2400cd0d2621c7f",
               "width": 900,
-              "height": 560
+              "height": 514,
+              "viewBox": [
+                0,
+                19,
+                900,
+                514
+              ],
+              "comparisonFamily": "crossing-refuge--v0/plan/wide",
+              "contentBounds": {
+                "top": 33,
+                "bottom": 519
+              }
             }
           }
         }
@@ -1281,15 +2205,37 @@
           "files": {
             "compact": {
               "path": "posters/clear-route-continuity--v0--default--compact.svg",
-              "sha256": "fd58810e42c8e6c3b006daa383d595b7da387eb916922a51efcbe1bc253293fb",
+              "sha256": "48c219cfa6d63e632119d9283ac83794e5044e64447effe645a27c79be51081f",
               "width": 320,
-              "height": 420
+              "height": 254,
+              "viewBox": [
+                0,
+                79,
+                320,
+                254
+              ],
+              "comparisonFamily": "clear-route-continuity--v0/iso/compact",
+              "contentBounds": {
+                "top": 93.76307741657719,
+                "bottom": 318.5411682128906
+              }
             },
             "wide": {
               "path": "posters/clear-route-continuity--v0--default--wide.svg",
-              "sha256": "ee09b8530b504c38237d84998456b2f331c76a6e4dafe13f5722695fa3095346",
+              "sha256": "f92c15ecd62c40b5aa0a4b6458eb16e94579d522e85f4f842ce7083cb9f6b217",
               "width": 900,
-              "height": 560
+              "height": 500,
+              "viewBox": [
+                0,
+                26,
+                900,
+                500
+              ],
+              "comparisonFamily": "clear-route-continuity--v0/iso/wide",
+              "contentBounds": {
+                "top": 40.00000000000004,
+                "bottom": 512
+              }
             }
           }
         }
@@ -1313,15 +2259,37 @@
           "files": {
             "compact": {
               "path": "posters/parking-layout--v0--c0--compact.svg",
-              "sha256": "03bf5254236f5a752bebaebc471801143a85265ee49b8da9718a95dd5b6a6fb2",
+              "sha256": "8f8167b066f3b005eab54b38e2b82d3e855c9d6d18d83f8c0441d452c7c66c4d",
               "width": 320,
-              "height": 420
+              "height": 165,
+              "viewBox": [
+                0,
+                136,
+                320,
+                165
+              ],
+              "comparisonFamily": "parking-module/plan/compact",
+              "contentBounds": {
+                "top": 150.60110473632812,
+                "bottom": 286.7170715332031
+              }
             },
             "wide": {
               "path": "posters/parking-layout--v0--c0--wide.svg",
-              "sha256": "8358e40f00a25908410075f9219f907aacb66702f52f192b2fdf5c2fe2f64567",
+              "sha256": "e72da058016c4fd91b3abd0534cedbbb9b7e8fc15d93e154f0935a1580352ed3",
               "width": 900,
-              "height": 560
+              "height": 365,
+              "viewBox": [
+                0,
+                90,
+                900,
+                365
+              ],
+              "comparisonFamily": "parking-module/plan/wide",
+              "contentBounds": {
+                "top": 104.77006530761719,
+                "bottom": 440.09788513183594
+              }
             }
           }
         },
@@ -1331,15 +2299,37 @@
           "files": {
             "compact": {
               "path": "posters/parking-layout--v0--c1--compact.svg",
-              "sha256": "5529183d32658ff91ad20fbf2271a0185f62e840c2d7bda58acae70b3adce73c",
+              "sha256": "4b1e2ce4005c130ab4e6ac3bc97050e43e0cdd0655eb4369e429fce9f1f1753e",
               "width": 320,
-              "height": 420
+              "height": 165,
+              "viewBox": [
+                0,
+                136,
+                320,
+                165
+              ],
+              "comparisonFamily": "parking-module/plan/compact",
+              "contentBounds": {
+                "top": 150.60110473632812,
+                "bottom": 259.29705810546875
+              }
             },
             "wide": {
               "path": "posters/parking-layout--v0--c1--wide.svg",
-              "sha256": "fa8903898cc4110c48fa35539536770a147d93ff0abc011a6bebd14b68f84e9f",
+              "sha256": "bde58e2c61d5001ae00239b7648d300846e8a617cb99a79806833531a0eafdc1",
               "width": 900,
-              "height": 560
+              "height": 365,
+              "viewBox": [
+                0,
+                90,
+                900,
+                365
+              ],
+              "comparisonFamily": "parking-module/plan/wide",
+              "contentBounds": {
+                "top": 104.77006530761719,
+                "bottom": 440.09788513183594
+              }
             }
           }
         }
@@ -1350,6 +2340,7 @@
     "textContainment": true,
     "textOverlap": true,
     "calloutRouting": true,
-    "externalRequests": 0
+    "externalRequests": 0,
+    "cropContainment": true
   }
 }

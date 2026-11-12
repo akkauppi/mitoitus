@@ -3,6 +3,7 @@ import hashlib
 import html
 import json
 import re
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 MANIFEST = 'lab/posters/manifest.json'
@@ -46,6 +47,7 @@ def validate_assets(root):
         path = Path(root) / name
         if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
             raise ValueError(f'Modern posters are stale: {name}; recapture after source changes')
+    crop_families = {}
     for recipe in manifest['posters']:
         for option in recipe['options']:
             for profile, file in option['files'].items():
@@ -55,6 +57,24 @@ def validate_assets(root):
                 text = path.read_text()
                 if 'data-legacy-visual' in text or '<image ' not in text or '<text ' not in text:
                     raise ValueError(f'Invalid raster/vector poster: {recipe["id"]}/{profile}')
+                graphic = ET.fromstring(text)
+                view_box = list(map(float, graphic.attrib['viewBox'].split()))
+                if view_box != file['viewBox'] or float(graphic.attrib['width']) != file['width'] or float(graphic.attrib['height']) != file['height']:
+                    raise ValueError(f'Poster crop metadata mismatch: {file["path"]}')
+                left, top, width, height = view_box
+                source_size = manifest['profiles'][profile]
+                if left != 0 or width != source_size['width'] or not 0 < height <= source_size['height'] or top < 0 or top + height > source_size['height']:
+                    raise ValueError(f'Poster crop changes scale or extends its source: {file["path"]}')
+                bounds = file['contentBounds']
+                if bounds['top'] < top - .5 or bounds['bottom'] > top + height + .5:
+                    raise ValueError(f'Poster crop removes model or annotations: {file["path"]}')
+                image = graphic.find('{http://www.w3.org/2000/svg}image')
+                if float(image.attrib['width']) != source_size['width'] or float(image.attrib['height']) != source_size['height']:
+                    raise ValueError(f'Poster crop resizes metric geometry: {file["path"]}')
+                family = file['comparisonFamily']
+                if family in crop_families and crop_families[family] != view_box:
+                    raise ValueError(f'Inconsistent comparison-family crop: {family}')
+                crop_families[family] = view_box
     return manifest
 
 
