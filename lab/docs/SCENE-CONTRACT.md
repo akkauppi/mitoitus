@@ -1,7 +1,7 @@
 # Proposed scene and application contract
 
-Specification · 12 November 2026. T01–T07 now implement the candidate shell, rooting-volume host,
-shared walking/cycling comparison frame, accessibility, tram and vehicle/rescue scenes; PROGRESS.md records the actual interfaces and checks. Other
+Specification · 12 November 2026. T01–T08 now implement the candidate shell, rooting-volume host,
+shared walking/cycling comparison frame, accessibility, tram, vehicle/rescue and connection scenes; PROGRESS.md records the actual interfaces and checks. Other
 recipes and cut support below remain proposed future work.
 Implement the minimum contract; do not build a generic modelling editor.
 Existing source text and dimensional evidence stay authoritative.
@@ -278,3 +278,10 @@ a useful direct-file experience with static figures, text, navigation and varian
 selection through a small bundled/classic fallback, no module fetches required.
 The same package served locally enables interactive 3D. This is a deliberate
 compatibility requirement, not permission to claim full direct-file 3D support.
+
+
+T08 keeps `figure=clear-route-continuity--v0` as the single canonical source
+figure. `detail=pinch|height` selects its analytic treatment; only the runtime
+recipe ID gains `-height`. This creates no source variant or inventory drawing.
+`emphasis=route|direct` styles the native walking-network SVG without mutating its
+geometry. Native network focus needs no WebGL; controls also work under file://.

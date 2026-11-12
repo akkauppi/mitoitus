@@ -18,3 +18,14 @@ export function tileRow(group,{count,tileWidth,length,z=0,role='cycle',name='env
   return {mesh,x,z};
  });
 }
+
+/** Flat direction glyph: +Z forward; metre dimensions are illustrative. */
+export function flatArrow(group,{x=0,z=0,rotation=0,length=1,width=.3,name='arrow',role='metal'}){
+ const shape=new THREE.Shape(),tip=Math.min(length*.28,width*1.4);
+ shape.moveTo(-width*.17,-length/2);shape.lineTo(width*.17,-length/2);shape.lineTo(width*.17,length/2-tip);shape.lineTo(width/2,length/2-tip);shape.lineTo(0,length/2);shape.lineTo(-width/2,length/2-tip);shape.lineTo(-width*.17,length/2-tip);shape.closePath();
+ const mesh=new THREE.Mesh(new THREE.ShapeGeometry(shape).rotateZ(Math.PI),new THREE.MeshBasicMaterial());mesh.rotation.x=-Math.PI/2;mesh.rotation.z=rotation;mesh.position.set(x,.01,z);mesh.userData.role=role;mesh.name=name;group.add(mesh);return mesh;
+}
+export function outline(group,points,name){
+ const geometry=new THREE.BufferGeometry().setFromPoints(points.map(p=>new THREE.Vector3(...p)));
+ const line=new THREE.Line(geometry,new THREE.LineDashedMaterial({dashSize:.15,gapSize:.1}));line.computeLineDistances();line.userData.envelope=true;line.name=name;group.add(line);return line;
+}

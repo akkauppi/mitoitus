@@ -43,8 +43,13 @@ details → Green & blue → Stormwater options. Existing source titles remain a
 supplied (for example “Land & population”). The candidate builder reorders static DOM,
 tabs, navigation arrays and spread numbers; hash identities are stable. Baseline
 HTML and inventory keep their historical ordering for content-parity checks. Do not introduce a new landing page, hero area, calculator, course
-task, numeric design editor or model-scale conversion table. Retain the title
-“Antti’s Dubious Little Rulebook” and current Aalto branding.
+task, numeric design editor or model-scale conversion table. Retain Aalto branding.
+User amendment, 12 November 2026: candidate title is now “Antti’s Dubious Little
+Planning Rulebook”, subtitle “Rules of thumb. Fingers crossed.”, edition
+“v2026-11-12”. This supersedes the original title-retention instruction. The
+candidate builder changes branding only; canonical source files stay preserved.
+The same review corrected accessibility circle annotations to name clear space,
+with a separate callout anchored on the wheelchair figure.
 
 The two reading modes share the same content and state:
 

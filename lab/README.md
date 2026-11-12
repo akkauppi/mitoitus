@@ -149,3 +149,20 @@ new order, including direct-file and print DOM order.
 
 Focused checks: `node lab/tests/vehicles-browser.cjs` and
 `node lab/tests/spread-order-browser.cjs` from the worktree root.
+
+## Connections (T08)
+
+[Open Connections](http://localhost:8765/lab/book/?mode=focus&panel=crossing-refuge#connections).
+The crossing keeps 3 + 2.5 + 3 = 8.5 m with road-aligned 0.5 m stripes/gaps.
+The walking network stays native SVG; emphasis switches between the 500 m route
+and 300 m direct distance without changing geometry. Clear-route focus has
+separate Pinch point / Clear heights controls (`detail=pinch|height`), retaining
+one canonical source figure and all existing notes. No decorative object occupies
+the measured clear passages. Focused checks: `node lab/tests/connections-browser.cjs`.
+
+Candidate branding is now **Antti’s Dubious Little Planning Rulebook**,
+**Rules of thumb. Fingers crossed. · v2026-11-12**, as approved by the user.
+The date is a fixed edition stamp, not the build clock or source-validity date.
+Accessibility circle callouts now identify clear turning space; the wheelchair
+callout terminates on the actual figure. Overview/fallback labels likewise identify
+clear space, with the existing manual/powered distinction retained.

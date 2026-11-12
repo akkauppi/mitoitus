@@ -9,6 +9,7 @@ const allowed={turning:['plan','iso'],ramps:['front','iso','plan'],arrival:['pla
  await page.addInitScript(()=>{window.__gl=new Set();const get=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){const gl=get.call(this,type,...args);if(gl&&type.startsWith('webgl'))window.__gl.add(this);return gl;};});
  const ready=async panel=>{await page.waitForFunction(panel=>document.querySelector('.scene-viewport')?.dataset.recipe===panel+'--v0',panel);await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));};
  await page.goto(base+'?mode=focus&panel=turning&keep=yes#accessible');await ready('turning');
+ const circleLabels=await page.locator('#accessible .panel').first().locator('figure svg text').allTextContents();assert.ok(circleLabels.includes('Clear space · manual'));assert.ok(circleLabels.includes('Clear space · powered'));assert.ok(!circleLabels.includes('Wheelchair'));
  const details=await page.locator('#accessible .details').evaluateAll(ns=>ns.map(n=>n.innerHTML));
  let states=0;
  for(const width of [320,390,768,1024,1440]){
@@ -23,7 +24,7 @@ const allowed={turning:['plan','iso'],ramps:['front','iso','plan'],arrival:['pla
      const length=e=>{const a=JSON.parse(e.dataset.a),b=JSON.parse(e.dataset.b);return Math.hypot(b.x-a.x,b.y-a.y);};
      return{status:svg.dataset.calloutStatus,items:d.items.length,issues:(await import('./callouts.js')).validateCallouts(d.items,d),dimensions:[...svg.querySelectorAll('g.dimension-measure')].map(length),texts:[...svg.querySelectorAll('text')].map(e=>{const r=e.getBoundingClientRect();return{text:e.textContent,x:r.x-rect.x,y:r.y-rect.y,w:r.width,h:r.height};}),w:rect.width,h:rect.height};
     });
-    assert.equal(data.status,'ok');assert.equal(data.items,2,`all ${panel} callouts`);assert.deepEqual(data.issues,[]);
+    assert.equal(data.status,'ok');assert.equal(data.items,panel==='turning'?3:2,`all ${panel} callouts`);assert.deepEqual(data.issues,[]);
     for(const t of data.texts)assert.ok(t.x>=-1&&t.y>=-1&&t.x+t.w<=data.w+1&&t.y+t.h<=data.h+1,'text clipping '+t.text);
     for(let i=0;i<data.texts.length;i++)for(let j=0;j<i;j++){const a=data.texts[i],b=data.texts[j];assert.ok(!(a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y),`${width}/${panel}/${camera} overlap ${a.text}/${b.text}`);}
     if(panel==='turning')assert.ok(Math.abs(data.dimensions[1]/data.dimensions[0]-2.5/1.5)<1e-7,'circle diameters at common scale');

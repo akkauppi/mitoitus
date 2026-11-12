@@ -38,9 +38,12 @@ class CandidateTests(unittest.TestCase):
         groups = {p['group']:len(p['options']) for p in report['content'] if p['group']}
         self.assertEqual(groups, {'walking':4,'cycling':5,'car-layout':3,'bus-layout':3})
         for name in m.PUBLIC_FILES:
-            self.assertEqual((self.output/name).read_bytes(), m.render_book((self.root/name).read_bytes()) if name == 'index.html' else m.source_path(self.root,name).read_bytes())
+            expected = m.source_path(self.root,name).read_bytes()
+            if name == 'index.html': expected = m.render_book(expected)
+            if name == 'evidence.html': expected = m.render_evidence(expected)
+            self.assertEqual((self.output/name).read_bytes(),expected)
 
-    def test_approved_order_preserves_each_sheet_except_presentation_number(self):
+    def test_approved_order_preserves_sheets_except_numbers_and_accepted_circle_labels(self):
         import re
         original = (self.root/'index.html').read_text()
         rendered = m.render_book(original.encode()).decode()
@@ -51,9 +54,18 @@ class CandidateTests(unittest.TestCase):
         for index, sheet in enumerate(after,1):
             expected = re.sub(r'(<div class="panel-top"><span>)\d{2}',
                               lambda v:v[1]+f'{index:02}',before[sheet[1]])
+            if sheet[1] == 'accessible':
+                expected = expected.replace('>Wheelchair</text>', '>Clear space · manual</text>').replace('>Powered chair</text>', '>Clear space · powered</text>')
             self.assertEqual(sheet[0],expected)
         tabs = re.search(r'<nav class="tabs"[^>]*>(.*?)</nav>',rendered,re.S)[1]
         self.assertEqual(re.findall(r'<a href="#([^"]+)">',tabs),list(m.SPREAD_ORDER))
+
+    def test_candidate_title_subtitle_and_fixed_date_edition(self):
+        original = (self.root/'index.html').read_bytes()
+        rendered = m.render_book(original).decode()
+        self.assertIn('<title>Antti’s Dubious Little Planning Rulebook</title>',rendered)
+        self.assertIn('Rules of thumb. Fingers crossed. · v2026-11-12',rendered)
+        self.assertIn('Antti’s Dubious Little Rulebook',original.decode())
 
     def test_repeat_build_requires_explicit_replace_and_is_reproducible(self):
         first = m.build()

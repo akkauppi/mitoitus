@@ -25,6 +25,7 @@ RUNTIME_FILES.update({
     'runtime/viewer.js':'lab/src/viewer.js',
     'runtime/annotations.js':'lab/src/annotations.js',
     'runtime/registry.js':'lab/src/registry.js',
+    'runtime/recipes/connections.js':'lab/src/recipes/connections.js',
     'runtime/recipes/vehicles.js':'lab/src/recipes/vehicles.js',
     'runtime/recipes/tram.js':'lab/src/recipes/tram.js',
     'runtime/recipes/accessibility.js':'lab/src/recipes/accessibility.js',
@@ -144,13 +145,21 @@ SPREAD_ORDER = ('built-form', 'land-population', 'walk-cycle', 'accessible',
                 'section-details', 'green-blue', 'stormwater-options')
 
 
+def render_evidence(source):
+    return source.replace('Antti’s Dubious Little Rulebook'.encode(), 'Antti’s Dubious Little Planning Rulebook'.encode())
+
+
 def render_book(source):
     text = source.decode()
+    text = text.replace('Antti’s Dubious Little Rulebook', 'Antti’s Dubious Little Planning Rulebook')
+    text = text.replace('Collected guidance on dimensions and layouts.', 'Rules of thumb. Fingers crossed. · v2026-11-12')
     # Presentation-only reorder, explicitly accepted by the user. Keep source IDs.
     pattern = r'<section class="sheet" id="([^"]+)".*?</section>'
     sections = {match[1]: match[0] for match in re.finditer(pattern, text, re.S)}
     if set(sections) != set(SPREAD_ORDER):
         raise ValueError('Unexpected sheets while applying approved order')
+    # User correction: circles denote clear space, never the wheelchair itself.
+    sections['accessible'] = sections['accessible'].replace('>Wheelchair</text>', '>Clear space · manual</text>').replace('>Powered chair</text>', '>Clear space · powered</text>')
     ordered = []
     for index, identity in enumerate(SPREAD_ORDER, 1):
         ordered.append(re.sub(r'(<div class="panel-top"><span>)\d{2}',
@@ -211,11 +220,12 @@ def verify_candidate(output, allow_legacy=False):
     expected = set(PUBLIC_FILES) | {OFFLINE, 'parity.json'}
     old_expected = set(BASELINE_FILES) | {OFFLINE, 'parity.json'}
     t02_expected = old_expected | set(T02_RUNTIME_FILES)
-    t06_expected = expected - {'runtime/recipes/vehicles.js'}
+    t07_expected = expected - {'runtime/recipes/connections.js'}
+    t06_expected = t07_expected - {'runtime/recipes/vehicles.js'}
     t05_expected = t06_expected - {'runtime/recipes/tram.js'}
     t04_expected = t05_expected - {'runtime/recipes/accessibility.js','runtime/primitives/accessibility.js'}
     t03_expected = t04_expected - {'runtime/recipes/routes.js','runtime/primitives/surfaces.js'}
-    if allow_legacy and names in (old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected):
+    if allow_legacy and names in (old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected):
         expected = names
     if names != expected:
         raise ValueError('Candidate contains missing or unapproved files')
@@ -272,6 +282,7 @@ def build(output=None, replace=False):
             raise ValueError('Candidate exists; use --replace for a verified generated candidate')
         verify_candidate(output, allow_legacy=True)
     files['index.html'] = render_book(source)
+    files['evidence.html'] = render_evidence(files['evidence.html'])
     stage = Path(tempfile.mkdtemp(prefix='.book-stage-', dir=output.parent))
     try:
         for name, content in files.items():
@@ -282,7 +293,7 @@ def build(output=None, replace=False):
         actual = audit((stage/'index.html').read_text())
         if actual.events != audit(render_book(source).decode()).events:
             raise ValueError('Candidate semantic content drift')
-        report = dict(schemaVersion=2, stage='T07 vehicles/rescue and user-approved spread order',
+        report = dict(schemaVersion=2, stage='T08 connections, native network plan and separate clearance views',
                       sheets=11, panels=33, drawings=44, baselineSha256=digest(source),
                       semanticSha256=digest(json.dumps(checked.events, ensure_ascii=False).encode()),
                       content=checked.panels, semanticEvents=checked.events,

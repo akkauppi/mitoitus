@@ -548,3 +548,56 @@ The carriageway dimension remains separate and first, preserving comparison-scal
 checks. Mirrors remain omitted. Verified 67 unit tests and 70 responsive vehicle
 states, now requiring the body-width label in each bus preset with no annotation
 collisions/clipping. Candidate and explicit offline package rebuilt. Local only.
+
+### T08 complete — Connections (2026-11-12)
+
+Implemented `crossing-refuge`, native `walking-connections`, and two analytic
+views of `clear-route-continuity`. Crossing retains both 3 m lanes, 2.5 m refuge,
+8.5 m sum, 8 m island and original offset 4 m opening; six 0.5 m white stripes
+have 0.5 m gaps and run along the road, perpendicular to the walking direction.
+Vehicle arrows remain opposite; a flat walking arrow denotes continuation.
+Ground/kerb relief and short footway fragments are declared illustration assumptions.
+No furniture/actors obstruct the opening.
+
+Walking network preserves the original native SVG geometry, labels and equal
+metric axes. Route/direct emphasis changes CSS only, with URL/history/file support;
+it never creates a WebGL host. Browser measurement of the actual SVG path proves
+100 + 300 + 100 = 500 m versus 300 m direct, 200 m added. River, bridge and endpoint
+symbols remain schematic; no catchment, speed or guaranteed-accessibility claim.
+
+Pinch point measures 2.5 − assumed 1.1 = 1.4 m < 1.5 m. Separate paired height
+elevations preserve ≥2.2 m pedestrian / ≥3 m recommended under-building contexts
+and a single metric scale. Original 3 m horizontal extent is illustrative. Scale
+people stand beside the measured openings; neutral overhead fragments are not
+construction details. Front is an elevation, never advertised as a Section.
+`detail=pinch|height` selects the treatment while canonical `figure` stays `--v0`;
+no new source variant, legacy index or inventory drawing is invented.
+
+Validation: 71 unit tests; 40 connection browser states at 320/390/768/1024/1440 px,
+including all camera/detail/emphasis choices, complete noncrossing callouts,
+annotation collision/clipping checks, geometry/axis preservation, reload/history,
+one reused GL context, native-first no-context case, no external requests,
+WebGL failure and direct-file fallback. Whole shell: 110 responsive states, 33
+panels, 15 existing variants, canonical detail parity, keyboard/history/CAD and
+fallbacks. Twenty candidate tests cover explicit allowlists, source preservation,
+accepted presentation overrides, isolated build/rollback and deterministic archive.
+Candidate and offline package rebuilt. Reviewed references are retained below.
+Overview/print diorama still generation remains T15; hardware touch/GPU and physical
+junction clearance are not certified. No push/deployment or public-checkout change.
+
+### Accepted title/edition and clear-space correction (2026-11-12)
+
+User proposed adding “Planning” to the title, accepted “Rules of thumb. Fingers
+crossed.”, then requested a date-type version. Candidate header/static title and
+browser titles now use “Antti’s Dubious Little Planning Rulebook”; subtitle includes
+fixed “v2026-11-12”. Evidence-page browser title follows the name; evidence content,
+source dates and root historical files are unchanged. Supersedes original title
+retention; this is presentation branding, not updated source approval.
+
+User also reported that turning circles were labelled as wheelchairs. Both live
+circle anchors now say “Clear turning space”; a third “Wheelchair user” anchor is
+verified inside the adjacent figure's actual bounds. Canonical-fallback presentation
+labels become “Clear space · manual/powered” without changing any source dimensions
+or table wording. This is an explicitly accepted annotation override in the
+candidate builder, also covered by its raw-sheet preservation test. Accessibility
+regression passes 35 responsive camera states with all three turning callouts.

@@ -15,7 +15,7 @@ test('clear circles keep diameters and the contextual wheelchair remains outside
  assert.equal(model.recipe.defaultCamera,'plan');assert.deepEqual(model.recipe.allowedCameras,['iso','plan']);
  const wheelchair=model.group.children.find(o=>o.userData.asset==='wheelchairUser');assert.ok(wheelchair);
  const chair=bounds(wheelchair);assert.ok(chair.max.z<-.75,'chair is outside both measured disks');
- assert.equal(model.dimensions.length,2);dispose(model);
+ assert.equal(model.dimensions.length,2);assert.equal(model.labels.filter(l=>l.text==='Clear turning space').length,2);assert.ok(chair.containsPoint(new THREE.Vector3(...model.labels.find(l=>l.text==='Wheelchair user').point)));dispose(model);
 });
 test('ramp profile is a solid 6 m run / 0.30 m rise with contiguous 2 m landing',()=>{
  const model=createRecipe('ramps--v0'),ramp=model.group.getObjectByName('ramp'),landing=model.group.getObjectByName('landing');

@@ -94,3 +94,15 @@ Run `node lab/tests/vehicles-browser.cjs`, `node lab/tests/spread-order-browser.
 and `node lab/tests/shell-browser.cjs` from the worktree root, with the local server
 on port 8765. Rescue setup uses the same scale as the bands in the live scene;
 its retained historical SVG has its own explicitly enlarged setup plan.
+
+## T08, branding and accessibility callouts — 12 November 2026
+
+Connections now has a metric refuge diorama, a native vector route network with
+emphasis controls, and separate pinch/height treatments. See PROGRESS.md for
+verification and explicit assumptions. The accepted title/subtitle/date edition
+and corrected clear-space/figure callouts are included in this local candidate.
+Run `node lab/tests/connections-browser.cjs` and
+`node lab/tests/accessibility-browser.cjs` from the worktree root.
+Selected references: crossing, native network, pinch point and height-phone
+views under `references/connections-t08-*`; corrected turning callouts under
+`references/turning-clear-space-phone.png`. Overview/print stills remain T15.

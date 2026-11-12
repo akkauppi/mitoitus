@@ -21,10 +21,11 @@ export function accessibilityScene(panel){
    tile(group,{width:2*radius+.4,length:2*radius+.4,x,name:`${name}-tile`});
    clearDisk(group,{radius,x,name});
    dimensions.push(dimension([x-radius,.006,0],[x+radius,.006,0],`Ø${2*radius} m`,[0,0,radius+.5]));
-   labels.push({point:[x,.006,0],text:name==='wheelchair'?'Wheelchair':'Powered chair'});
+   labels.push({point:[x,.006,0],text:'Clear turning space'});
   }
   tile(group,{width:1,length:1.5,x:-1.75,z:-2,name:'wheelchair-context'});
   const wheelchair=createWheelchairUser();wheelchair.position.set(-1.75,0,-2);group.add(wheelchair);
+  labels.push({point:[-1.75,.9,-2],text:'Wheelchair user'});
   measurement={diameters:[1.5,2.5],radii:[.75,1.25]};
  }else if(panel==='ramps'){
   rampPrism(group,{run:1.6,rise:0,width:1.2,startX:-5.6,cutStart:true,name:'lower-landing-context'});
