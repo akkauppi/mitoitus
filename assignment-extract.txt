@@ -29,3 +29,6 @@ Theme 4 — supplied workbook, selected English wording:
 4. Vehicular traffic + essential vehicle functions
 Carriageway, vehicle passing, junctions, pick-up/drop-off, accessible parking spaces, servicing, deliveries, waste collection and rescue access
 Carriageway width and the dimensioned areas required for other vehicle functions and access to them. No long-term private car parking.
+
+Selected supplied W5 English wording — canonical w05.json:
+GROUP 2: Street sections and dimensioning: sections essential to the design (e.g. 2–3) showing the street and surrounding urban structure (W/H ratio). Show the use of space, transport modes, green infrastructure and key dimensions.

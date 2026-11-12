@@ -191,11 +191,137 @@
       "edition": "23 Apr 2024 · v1.3",
       "note": "Helsinki and Eastern, Central and Western Uusimaa rescue-service areas; obtained through Helsinki rescue service’s official index."
     },
+    "S26": {
+      "id": "S26",
+      "url": "https://raitiotieohje.fi/2-4-raitiotiepysakit/",
+      "sha256": "e386e7bce0f9b3c1cb4c38e646367471d5bcca1a21582e0566682b595fdb166f",
+      "retrieved_utc": "2026-11-12T10:59:18.410063+00:00",
+      "title": "Kaupunkiliikenne — regional tram guide §2.4 Raitiotiepysäkit",
+      "edition": "Retrieved 12 Nov 2026",
+      "note": "Distinguishes normal, minimum and approval-only values. Retains Helsinki-specific 0.27 m platform-height exception."
+    },
+    "S27": {
+      "id": "S27",
+      "url": "https://kaupunkiliikenne.fi/raitiotien-mitoitus-kadulla/",
+      "sha256": "62491161527a56c3f38ab80852d87ececf50b20938662249d88283abdb383dcc",
+      "retrieved_utc": "2026-11-12T10:59:18.409313+00:00",
+      "title": "Kaupunkiliikenne — Raitiotien mitoitus kadulla",
+      "edition": "Retrieved 12 Nov 2026",
+      "note": "Clearances refer to the ATU clearance-envelope edge. Curves and platform zones have separate geometry."
+    },
+    "S28": {
+      "id": "S28",
+      "url": "https://kaupunkiliikenne.fi/raitioteiden-suunnitteluohje/",
+      "sha256": "1fdb27a36f36405ccb446a95d1ad8c91cfff8651d49f9908fdfbabe1b64f6b11",
+      "retrieved_utc": "2026-11-12T10:59:18.382786+00:00",
+      "title": "Kaupunkiliikenne — regional tram guide, purpose and application",
+      "edition": "Retrieved 12 Nov 2026",
+      "note": "Normal dimensions are the starting point, especially in general planning; reduced approval-only values require a separate decision."
+    },
+    "S23": {
+      "id": "S23",
+      "url": "https://www.kirjastot.fi/sites/default/files/content/OKM20.pdf",
+      "sha256": "6baa84e50cadd8df9ba79b5fa2e8e08c84712851a8370c8c59b65cb62da6cfa0",
+      "retrieved_utc": "2026-11-12T10:59:18.423159+00:00",
+      "title": "Ministry of Education and Culture — Yleisten kirjastojen laatusuositus",
+      "edition": "2010 · publication 2010:20",
+      "note": "Dated useful-floor-area recommendation, not a minimum catchment population."
+    },
+    "S25": {
+      "id": "S25",
+      "url": "https://www.seinajoki.fi/wp-content/uploads/2020/04/15025-Selostus-KvHyv-20170220.pdf",
+      "sha256": "9aeab13062fe2b0335f8a97c92e0f8d7546fcffd998ed9df24c49dbf8cd86608",
+      "retrieved_utc": "2026-11-12T10:59:18.504419+00:00",
+      "title": "Seinäjoki — Kärki / Eskoo zoning report",
+      "edition": "13 Feb 2017 revision",
+      "note": "Population-growth trigger depends on existing local schools being full. Printed p. 11 / PDF p. 12."
+    },
+    "S24": {
+      "id": "S24",
+      "url": "https://www.hel.fi/static/public/hela/Sosiaali-_ja_terveyslautakunta/Suomi/Paatos/2020/Sote_2020-05-19_Sotelk_8_Pk/AC296F6D-9B08-CB06-9FCB-72477D100001/Sosiaali-_ja_terveyslautakunnan_esitys_kaupunginha.html",
+      "sha256": "17a7471f12a15514612196ab62689ddb0d79c99387e6f8df39944b43aea7a527",
+      "retrieved_utc": "2026-11-12T11:00:18.191860+00:00",
+      "title": "Helsinki Social Services and Health Care Committee — health-station procurement proposal",
+      "edition": "19 May 2020",
+      "note": "Additional central-city health-station unit: a local population-responsibility example, not a national threshold."
+    },
+    "S29": {
+      "id": "S29",
+      "url": "https://pyoraliikenne.hel.fi/pyorapysakointi/pyorapysakointi-yleisilla-alueilla/",
+      "sha256": "7f4d3391f9a839d7cb2dbde24b569f488a72f9b453e42eefe3253d6922eee100",
+      "retrieved_utc": "2026-11-12T11:00:18.515894+00:00",
+      "title": "Helsinki — Pyöräpysäköinti yleisillä alueilla",
+      "edition": "Retrieved 12 Nov 2026",
+      "note": "Typical bicycle envelope and rough one-row area allowance. Rack and special-cycle dimensions vary."
+    },
+    "S30": {
+      "id": "S30",
+      "url": "https://raitiotieohje.fi/3-1-raitiotien-geometria/",
+      "sha256": "968bfd0f0510ba9f7e6788a80382f9de44ba50702170f745df1d4c03f7c23c83",
+      "retrieved_utc": "2026-11-12T11:11:57.483406+00:00",
+      "title": "Kaupunkiliikenne — regional tram guide §3.1 Raitiotien geometria",
+      "edition": "Retrieved 12 Nov 2026",
+      "note": "Track centres, track gauge, and speed/cant-dependent curve radii; circular arcs do not include transitions."
+    },
+    "S31": {
+      "id": "S31",
+      "url": "https://kaupunkitilaohje.hel.fi/kortti/hulevesien-hallintarakenteet/",
+      "sha256": "52f1cc134d53a5800a85d585d63accdbe607eb1d96231fba687d80923b4902a8",
+      "retrieved_utc": "2026-11-12T11:17:41.339476+00:00",
+      "title": "Helsinki — Hulevesien hallintarakenteet",
+      "edition": "Retrieved 12 Nov 2026",
+      "note": "Municipal technical guidance for conveyance, detention, wetlands, infiltration and treatment chains."
+    },
+    "S32": {
+      "id": "S32",
+      "url": "https://www.hsy.fi/vesi-ja-viemarit/liittyminen-vesi-ja-viemariverkostoihin/hulevesiasiat/",
+      "sha256": "98679e86d61a2e94bbd9eb0e43d7ad0a864ff1b2951f835bc7d50db34fbee7d9",
+      "retrieved_utc": "2026-11-12T11:17:41.121043+00:00",
+      "title": "HSY — Hulevesien hallinta kiinteistöllä",
+      "edition": "Retrieved 12 Nov 2026",
+      "note": "Runoff prevention, green roofs, rain gardens, reuse and controlled release."
+    },
+    "S33": {
+      "id": "S33",
+      "url": "https://ilmasto-opas.fi/artikkelit/sadepuutarha-yhdistaa-hulevesien-hallinnan-vaiheet-luonnonmukaisesti",
+      "sha256": "79626dc3f2fdfef4b30ae51c4939f94e39a16c11ae9d3954bf8266d94f493b50",
+      "retrieved_utc": "2026-11-12T11:17:41.706762+00:00",
+      "title": "Ilmasto-opas — Sadepuutarha yhdistää hulevesien hallinnan vaiheet luonnonmukaisesti",
+      "edition": "4 Nov 2024",
+      "note": "Finnish climate-guide explanation of rain-garden processes; no universal basin depth given."
+    },
+    "S34": {
+      "id": "S34",
+      "url": "https://publications.vtt.fi/julkaisut/muut/2014/VTT_R_08223_13.pdf",
+      "sha256": "6375723b66fede676546b6ee71c72a211034d9a59d18db8b39d3ea22e44c96ed",
+      "retrieved_utc": "2026-11-12T11:17:41.197535+00:00",
+      "title": "VTT — Pervious pavement winter performance",
+      "edition": "2014 · VTT-R-08223-13",
+      "note": "Frost, water infiltration and maintenance in Finnish winter conditions. Layer depths are project-specific."
+    },
+    "S35": {
+      "id": "S35",
+      "url": "https://kaupunkiliikenne.fi/kalusto/",
+      "sha256": "d27ae07d93926a3e0325f20e95709240f3447c671c0129bb6b475dcefdf040f0",
+      "retrieved_utc": "2026-11-12T11:28:03.468240+00:00",
+      "title": "Kaupunkiliikenne — Kalusto, regional tram guide",
+      "edition": "Retrieved 12 Nov 2026",
+      "note": "Table 1 gives nominal five-part Artic XL dimensions as 34 × 2.4 m. These are the guide values used for the illustration, not a claim about every as-built vehicle."
+    },
+    "S36": {
+      "id": "S36",
+      "url": "https://www.hel.fi/static/liitteet/kaupunkiymparisto/asuminen-ja-ymparisto/kaavoitus/LMA_VSU_WSP.pdf",
+      "sha256": "d039bb4fbcdb5efbbb0dd2c668a9046b8c26cb5697ed3ef5d52570e54c2f4adf",
+      "retrieved_utc": "2026-11-12T11:29:17.219187+00:00",
+      "title": "Helsinki — Hietalahdenranta development-reservation drawings, LMA / VSU / WSP",
+      "edition": "11 Dec 2020 drawing",
+      "note": "Parking swept-path drawing lists its reference passenger-car body as 5.0 m long and 1.8 m wide. Only body dimensions are reused, not the project’s turning radius."
+    },
     "TKK": {
       "title": "TKK / YKS — Mitoitus",
       "edition": "28 Aug 2007",
       "url": "http://yks.tkk.fi/fi/opinnot/tyokalut/mitoitus.html",
-      "note": "Historical inspiration. Original HTML and 20 content drawings are preserved locally. Historical rules and numeric tables are not adopted as current standards."
+      "note": "Historical inspiration. Original HTML and 20 content drawings are preserved locally. Selected building dimensions, density examples, radius bands and recreation hierarchy are reproduced with their 2007 context; they are not current standards."
     },
     "UNITS": {
       "title": "NIST — Revised Unit Conversion Factors",
@@ -208,96 +334,15 @@
       "edition": "2026 course source",
       "url": "assignment-extract.txt",
       "note": "Verbatim selected English passages from canonical w04.json. Theme 4 restriction is from canonical w02.json, derived from the supplied theme workbook."
+    },
+    "W5": {
+      "title": "Supplied W5 English instructions — selected extract",
+      "edition": "2026 course source",
+      "url": "assignment-extract.txt",
+      "note": "Verbatim selected W5 section instruction. New helper explanations are assistant draft, not author wording."
     }
   },
   "claims": [
-    {
-      "id": "built-form",
-      "title": "Building types and boundaries",
-      "explanation": "The TKK reference lists slab, point, small apartment, row and detached types, and distinguishes plot, block and district floor-area ratios. New drawings are schematic. Equal floor area in different forms follows from summing the floor plates; it does not establish equal urban quality.",
-      "references": [
-        {
-          "source": "TKK",
-          "fragment": "",
-          "location": "Talotyypit; Tehokkuusluvut"
-        }
-      ]
-    },
-    {
-      "id": "density",
-      "title": "Floor-area ratio",
-      "explanation": "e = sum of counted floor areas / selected land area. Illustrative equal-floor calculation: 1,000 × 4 / 5,000 = 0.80. Floor-count and land-area inputs are assumptions, not permissions or a regulatory definition of counted floor space.",
-      "references": [
-        {
-          "source": "TKK",
-          "fragment": "#tehokkuus",
-          "location": "Tehokkuusluvut"
-        }
-      ]
-    },
-    {
-      "id": "scale",
-      "title": "Model conversion",
-      "explanation": "A metre is 1,000 millimetres. At scale 1:n, model mm = real m × 1,000 / n. Thus 3.5 m at 1:500 is 7 mm. The initial scale is an example, not the workshop’s asserted scale. The paper/cardboard instruction is verbatim supplied English.",
-      "references": [
-        {
-          "source": "W4",
-          "fragment": "",
-          "location": "Source paragraphs 18–19"
-        }
-      ]
-    },
-    {
-      "id": "walking",
-      "title": "Footway and clear widths",
-      "explanation": "Espoo: 2.5 m basic footway. SuRaKu card 1: 1.5 m clear passage, 1.8 m for two wheelchairs passing and 2.3 m for machine maintenance. Distinguish total route width from unobstructed passage.",
-      "references": [
-        {
-          "source": "S01",
-          "fragment": "#page=19",
-          "location": "Printed p. 18, §5.1"
-        },
-        {
-          "source": "S10",
-          "fragment": "#page=1",
-          "location": "Card 1, PDF p. 1"
-        }
-      ]
-    },
-    {
-      "id": "cycling",
-      "title": "Cycling arrangements",
-      "explanation": "Espoo: shared route 3–4 m; separated walking/cycling total 4 m, main routes at least 4.5 m; one-way cycle lane 1.75 m, with a 0.75 m minimum extra buffer if adjacent to parking. These are different facility types; retain their context.",
-      "references": [
-        {
-          "source": "S01",
-          "fragment": "#page=19",
-          "location": "Printed p. 18, §§5.2–5.4"
-        }
-      ]
-    },
-    {
-      "id": "staying",
-      "title": "Gradients, furniture and parking",
-      "explanation": "SuRaKu route crossfall: special/basic level 2%/3%; longitudinal gradient 5%/8%; ramps separate. Furniture belongs beside the route. Espoo 811A excludes cycle/scooter parking in the 5 m before a crossing, cycle crossing or intersecting cycle track. Capacity and handling space depend on layout.",
-      "references": [
-        {
-          "source": "S10",
-          "fragment": "#page=1",
-          "location": "Card 1, gradients; card 2, furniture"
-        },
-        {
-          "source": "S03",
-          "fragment": "",
-          "location": "Cycle-rack placement and handling space"
-        },
-        {
-          "source": "S11",
-          "fragment": "#page=1",
-          "location": "Notes beside the five layouts"
-        }
-      ]
-    },
     {
       "id": "turning",
       "title": "Wheelchair turning circles",
@@ -307,18 +352,6 @@
           "source": "S10",
           "fragment": "#page=5",
           "location": "Card 3, PDF p. 5; also card 4 p. 7 and card 7 p. 13"
-        }
-      ]
-    },
-    {
-      "id": "ramps",
-      "title": "Passing and ramp landings",
-      "explanation": "SuRaKu: route clear width 1.5 m, passing 1.8 m. Ramp recommendation ≤5%, maximum 8%; on long ramps >5%, straight intermediate landings ≥2 m every 6 m. The separate ramp width and turn details remain in the source. Example: run = rise / gradient = 0.30/0.05 = 6 m, excluding landings.",
-      "references": [
-        {
-          "source": "S10",
-          "fragment": "#page=6",
-          "location": "Cards 1–3; ramp profile and text on PDF pp. 5–6"
         }
       ]
     },
@@ -336,55 +369,6 @@
           "source": "S18",
           "fragment": "#page=1",
           "location": "Separate kerbside accessible-parking drawing"
-        }
-      ]
-    },
-    {
-      "id": "transit",
-      "title": "Tram corridors and bus-stop lengths",
-      "explanation": "Espoo light-rail reservation ≥8 m, stops separately; Helsinki’s draft tram card gives ≥6 m on a line section. They are not the same reservation. Espoo 031D gives 16 m for one bus, 32 m for two, using a 15 m bus; additional approach, junction and crossing clearances are shown separately.",
-      "references": [
-        {
-          "source": "S01",
-          "fragment": "#page=18",
-          "location": "Printed p. 17, §4.7"
-        },
-        {
-          "source": "S06",
-          "fragment": "",
-          "location": "Periaateratkaisu ja mitoitus; source marked draft"
-        },
-        {
-          "source": "S14",
-          "fragment": "#page=1",
-          "location": "Layouts A–C and junction-clearance details"
-        }
-      ]
-    },
-    {
-      "id": "vehicles",
-      "title": "Local collector and essential vehicle functions",
-      "explanation": "Espoo local-collector lane 3.0–3.25 m; when buses govern, ≥3.25 m. Turning depends on the vehicle and junction. The W4 brief lists servicing, deliveries, waste collection and rescue access, and excludes long-term private-car parking. Turning sketch is illustrative, not a computed path.",
-      "references": [
-        {
-          "source": "S01",
-          "fragment": "#page=17",
-          "location": "Printed pp. 15–16, §4.4"
-        },
-        {
-          "source": "S17",
-          "fragment": "#page=1",
-          "location": "Principle 2, design-vehicle check"
-        },
-        {
-          "source": "S05",
-          "fragment": "",
-          "location": "Junction principles"
-        },
-        {
-          "source": "W4",
-          "fragment": "",
-          "location": "Theme 4"
         }
       ]
     },
@@ -435,19 +419,272 @@
       ]
     },
     {
+      "id": "building-blocks",
+      "title": "Slab and point-block footprints",
+      "explanation": "TKK drawing: one slab module 22–30 m long and 10–12 m deep, repeated to make longer buildings. The new plan draws two 26 × 11 m modules. The square point-block variant is at most 20 × 20 m, drawn at that size. Both plans share a uniform scale; these are historical footprints, not current building rights.",
+      "references": [
+        {
+          "source": "TKK",
+          "fragment": "#talotyypit",
+          "location": "Lamellitalo and Pistetalo drawings"
+        }
+      ]
+    },
+    {
+      "id": "building-rows",
+      "title": "Small blocks and row houses",
+      "explanation": "TKK: small-apartment repeated module 8–10 m in each direction; row dwelling 4–8 m wide, building depth 8–11 m and garden depth approximately 5–15 m. The new plans draw four 9 × 9 m small-block modules and four 6 × 9.5 m row dwellings with 10 m gardens. The repeated module width is not the entire building length.",
+      "references": [
+        {
+          "source": "TKK",
+          "fragment": "#talotyypit",
+          "location": "Pienkerrostalo and Rivitalo drawings"
+        }
+      ]
+    },
+    {
+      "id": "building-detached",
+      "title": "Detached-house footprint",
+      "explanation": "TKK one-storey example: approximately 15 × 10 m house, plot approximately 500–1,000 m². The new plan uses a 25 × 30 m = 750 m² example plot. Plot shape and house position are editorial; the old boundary-setback dimension is not adopted as a current rule.",
+      "references": [
+        {
+          "source": "TKK",
+          "fragment": "#talotyypit",
+          "location": "Omakotitalo drawing"
+        }
+      ]
+    },
+    {
+      "id": "density",
+      "title": "Historic density examples and the denominator",
+      "explanation": "TKK gives e = total floor area / selected land area. Its table, attributed to Asuntoalueen mitoitus – tunnuslukuja, compiled by Tarja Behnke, lists detached: district .04–.10, block .10–.15, plot .05–.15, about 30 residents/ha; linked low-rise: about .20, .25–.35, about .35, about 50; row houses: .30, .35–.40, about .40, about 75; apartments up to 7 storeys: .40, average .65, about .70, about 100. These are historical examples, not a population formula. Land boundaries and occupancy must be stated.",
+      "references": [
+        {
+          "source": "TKK",
+          "fragment": "#tehokkuus",
+          "location": "Tehokkuus rakennustavan mukaan"
+        }
+      ]
+    },
+    {
+      "id": "green-hierarchy",
+      "title": "Historic recreation-area hierarchy",
+      "explanation": "TKK: plot play/stay within 50 m, 10 m² organised play per 100 m² residential floor area, minimum 100 m² and one play area per 3,000 floor-m². Neighbourhood park within 150 m, 25 m² per 100 residential floor-m², minimum 3,500–4,000 m². The following 1,500–2,000 m² sub-allocation has no stated purpose in the source and is omitted. District recreation within 500 m, minimum 10 ha including 0.6–1.2 ha play park; sizing depends on building density and nature. Recreation route length 3–10 km. This is the historical provision hierarchy, not modern RAMS maintenance classification. Bars compare distances, not network catchment areas.",
+      "references": [
+        {
+          "source": "TKK",
+          "fragment": "#viheralueet",
+          "location": "Viheralueet → Luokitus"
+        }
+      ]
+    },
+    {
+      "id": "services",
+      "title": "Public services: three different population measures",
+      "explanation": "Library: the 2010 ministry recommendation is about 100 m² useful floor area per 1,000 residents, with small municipalities often needing more per capita. The 10 × 10 m square visualises area only. Seinäjoki’s 2017 plan says population growth beyond 2,000 would bring a primary school and daycare; nearby schools were full. This is additional population and a local capacity trigger. Helsinki’s 2020 proposal assigns roughly 20,000 residents to an additional central-city health-station unit. It is a case population responsibility, not a minimum viable settlement. No universal service threshold is inferred; age structure, current capacity and catchment remain site inputs. TKK’s public-services section was unfinished; these are new sources.",
+      "references": [
+        {
+          "source": "S23",
+          "fragment": "#page=55",
+          "location": "Printed/PDF p. 55, useful floor-area recommendation"
+        },
+        {
+          "source": "S25",
+          "fragment": "#page=12",
+          "location": "Printed p. 11, paragraph before Virkistys"
+        },
+        {
+          "source": "S24",
+          "fragment": "",
+          "location": "Decision/proposal, item 2: central-city health-station area"
+        }
+      ]
+    },
+    {
+      "id": "walking",
+      "title": "Footway, clear widths and route gradients",
+      "explanation": "Espoo: 2.5 m basic footway. SuRaKu card 1: 1.5 m clear passage, 1.8 m wheelchair passing and 2.3 m machine maintenance. Route crossfall special/basic ≤2%/3%; longitudinal gradient ≤5%/8%. Ramps have separate guidance. Selectable width sections share one fixed scale; pavement thickness is illustrative. Light-grey filled front-elevation people are drawn exactly 1.75 m tall. Height and posture are declared illustration assumptions, not population percentiles. A person silhouette is not the accessible clear-space envelope. Four presets display 2.5, 1.5, 1.8 and 2.3 m at one fixed scale, shared with the cycling-width drawings.",
+      "references": [
+        {
+          "source": "S01",
+          "fragment": "#page=19",
+          "location": "Printed p. 18 §5.1"
+        },
+        {
+          "source": "S10",
+          "fragment": "#page=1",
+          "location": "Card 1, clear widths and gradients"
+        },
+        {
+          "source": "S09",
+          "fragment": "#page=11",
+          "location": "Printed p. 8, table 1: pedestrian design width .6 m"
+        }
+      ]
+    },
+    {
+      "id": "bike-parking",
+      "title": "Bicycle envelope and handling space",
+      "explanation": "Helsinki typical cycle envelope is 0.6 m wide, 2 m long, 1.2 m high. Its rough one-row allowance is number of cycles × (0.6 m × 4 m), including handling space. Our plan shows five envelopes plus the remaining 2 m handling strip, not a specified rack design. Some racks need more length; special/cargo cycles require separate assessment. Espoo 811A keeps cycle/scooter parking out of the 5 m before specified crossings.",
+      "references": [
+        {
+          "source": "S29",
+          "fragment": "",
+          "location": "Yleiset mitoitusperiaatteet; Pyöräpysäköinnin vaatima tila"
+        },
+        {
+          "source": "S11",
+          "fragment": "#page=1",
+          "location": "Parking exclusion note"
+        }
+      ]
+    },
+    {
+      "id": "ramps",
+      "title": "Ramp width, gradient and landings",
+      "explanation": "SuRaKu: ramp minimum width 0.9 m, recommended minimum 1.2 m; recommended gradient ≤5%, maximum 8%. On long ramps steeper than 5%, straight intermediate landings at least 2 m every 6 m. The drawing is an illustrative 0.30 m rise at 5%: horizontal run = 0.30 / .05 = 6 m, followed by a 2 m landing. Both axes use the same scale. A 2 m landing drawn here does not imply that this particular short 5% ramp triggers the long-ramp rule.",
+      "references": [
+        {
+          "source": "S10",
+          "fragment": "#page=5",
+          "location": "Card 3, PDF pp. 5–6"
+        }
+      ]
+    },
+    {
+      "id": "tram-corridor",
+      "title": "Tram line corridors and lateral clearances",
+      "explanation": "Espoo 2010 reserves at least 8 m for light rail, with stops separate. Helsinki’s draft street-space card gives at least 6 m for a line section. These are different source contexts. Regional guide: track centres on straight slab track at least 3 m; ballasted track minimum 3.1 m (3 m is approval-only). Normal separation from ATU edge to walking/cycling is 0.80 m at ≤40 km/h, 1.15 m at 50 km/h and 1.50 m above 50 km/h. Normal values are the general-planning starting point. Curves, poles, evacuation and crossings are additional design checks. Uncanted curve radii from the regional geometry table at 0.65 m/s² lateral acceleration: 48 m at 20 km/h, 107 m at 30 km/h, 190 m at 40 km/h. Transitions and clearance widening remain additional.",
+      "references": [
+        {
+          "source": "S01",
+          "fragment": "#page=18",
+          "location": "Printed p. 17 §4.7"
+        },
+        {
+          "source": "S06",
+          "fragment": "",
+          "location": "Line-section width; explicitly draft"
+        },
+        {
+          "source": "S27",
+          "fragment": "",
+          "location": "General principles and table 1, normal clearance column"
+        },
+        {
+          "source": "S28",
+          "fragment": "",
+          "location": "Normal / minimum / approval-only categories"
+        },
+        {
+          "source": "S30",
+          "fragment": "",
+          "location": "§3.1.1 track centres and §3.1.2 table 2, zero cant row"
+        }
+      ]
+    },
+    {
+      "id": "tram-width",
+      "title": "Tram stop cross-section",
+      "explanation": "Regional tram guide: normal side-platform width 3.5 m; straight dedicated double-track width between platforms 5.5 m. The derived two-sided example totals 12.5 m before outer paths/buffers; its longitudinal diagram extent is arbitrary. Clear passage normal ≥1.8 m, minimum 1.5 m; island platform minimum 5 m. Passenger-space guide: 1 m²/person, minimum .75 m²/person, dimensioned using peak-period boarding demand. These are not automatically cumulative independent strips; shelter, waiting and circulation must fit the platform. Curves and mixed-traffic stops differ.",
+      "references": [
+        {
+          "source": "S26",
+          "fragment": "",
+          "location": "§2.4, platform width and normal/minimum table"
+        },
+        {
+          "source": "S27",
+          "fragment": "",
+          "location": "Raitiotie pysäkkien kohdalla, 5.50 m"
+        }
+      ]
+    },
+    {
+      "id": "tram-length",
+      "title": "Tram stop length and levels",
+      "explanation": "Regional guide: light-rail flat service area normally 45 m, 35 m by project agreement; Helsinki city-tram-only stop 30 m for one or 61 m for two. Add access ramps and crossing waiting areas. Ramp maximum 5%; platform longitudinal gradient normally ≤2%, crossfall 1–2%. Height above rail generally .30 m, Helsinki normally .27 m; select the vehicle/network context. The example assumes .30 m rise from adjacent level: .30/.05 = 6 m ramp at each end, hence 45 + 6 + 6 = 57 m before crossing waiting areas. The source’s approximate 5–5.5 m ramps depend on actual road/platform levels; the drawing uses its explicit assumption, not that approximate range. The stop plan includes two nominal 34 × 2.4 m tram-body silhouettes based on the regional guide’s five-part Artic XL table. Bodies and stop geometry share a scale. Joint/window details are illustrative; these are not the ATU clearance envelopes.",
+      "references": [
+        {
+          "source": "S26",
+          "fragment": "",
+          "location": "§2.4 platform lengths, ramps, heights and slopes"
+        },
+        {
+          "source": "S35",
+          "fragment": "",
+          "location": "Table 1, Artic XL five-part nominal length/width"
+        }
+      ]
+    },
+    {
+      "id": "car-turn",
+      "title": "Historical car/van turning band",
+      "explanation": "TKK car/van diagram has 3 m inner and 6.5 m outer radius. The new graphic is an exact quarter annulus with a direction arrow and centre/radius lines. No wheelbase, body or steering trajectory is given in the source; the band therefore is not represented as a computed swept path. W4 lists servicing and excludes long-term private car parking. A separate original plan silhouette uses the 5.0 × 1.8 m reference car body listed in the Helsinki development drawing. It shares the radius-band scale, but is not placed on a simulated path. Mirrors, wheelbase and body detailing are not design geometry. Additional presets show one 3 m lane or two 3 m lanes, derived total 6 m, using the lower end of Espoo’s 3–3.25 m local-collector range. Plan length 18 m is illustrative. One/two-lane plans share a scale; kerbs, separation, parking and other modes are additional.",
+      "references": [
+        {
+          "source": "TKK",
+          "fragment": "#ajoneuvo",
+          "location": "Henkilö- & pakettiauton kääntösäde drawing"
+        },
+        {
+          "source": "W4",
+          "fragment": "",
+          "location": "Theme 4, supplied workbook excerpt"
+        },
+        {
+          "source": "S36",
+          "fragment": "#page=37",
+          "location": "Reference vehicle data on the parking swept-path drawing"
+        },
+        {
+          "source": "S01",
+          "fragment": "#page=17",
+          "location": "Printed p. 16, local-collector lane widths"
+        }
+      ]
+    },
+    {
+      "id": "bus-turn",
+      "title": "Historical bus turn and Espoo stop lengths",
+      "explanation": "TKK bus turn uses inner radius 8.1 m and outer radius 15.2 m, redrawn as a quarter-annulus reference. Espoo local-collector lanes are 3–3.25 m, minimum 3.25 m where buses govern. Espoo stop 031D uses a 15 m design bus, with 16 m one-bus and 32 m two-bus stop service lengths; approaches/crossings need the full drawing. The historic band and modern stop drawing are separate contexts. A separate original bus silhouette uses the Espoo 15 m design length and 2.6 m body width (Appendix B). It shares the radius-band scale. Mirrors are omitted; detailing is schematic. It does not establish that this vehicle follows the historical TKK band. Additional presets show one 3.25 m bus-governed lane or two such lanes, derived total 6.5 m, at one fixed scale. Plan length 18 m is illustrative; other street components remain additional.",
+      "references": [
+        {
+          "source": "TKK",
+          "fragment": "#ajoneuvo",
+          "location": "Linja-auton kääntösäde drawing"
+        },
+        {
+          "source": "S01",
+          "fragment": "#page=17",
+          "location": "Printed pp. 15–16"
+        },
+        {
+          "source": "S14",
+          "fragment": "#page=1",
+          "location": "Stop lengths and separate approach requirements"
+        },
+        {
+          "source": "S01",
+          "fragment": "#page=35",
+          "location": "Appendix B p. 3, vehicle body widths; main guide p. 16 design-bus length"
+        }
+      ]
+    },
+    {
       "id": "ground",
-      "title": "Planting strips and shared ground",
-      "explanation": "Espoo planting widths: trees ≥3 m (main streets ≥3.5 m); lawn/ground cover ≥2 m. These do not prove adequate soil volume. The checks for utilities, snow, sightlines, overhead wires and salt are a synthesis of the listed guides.",
+      "title": "Planting-strip widths and winter coordination",
+      "explanation": "Espoo 2010 planting widths: trees ≥3 m, main streets ≥3.5 m, low shrubs ≥2.5 m, lawn/ground cover ≥2 m. Bar thicknesses are illustrative. Width does not determine adequate soil volume. Coordination of roots/utilities, canopy/wires, snow/salt and rescue access is an editorial synthesis of the guides, not a new universal snow-storage dimension.",
       "references": [
         {
           "source": "S01",
           "fragment": "#page=20",
-          "location": "Printed pp. 10–11, 19"
+          "location": "Printed pp. 10–11 and 19"
         },
         {
           "source": "S04",
           "fragment": "",
-          "location": "Growing conditions and salt"
+          "location": "Growing conditions"
         },
         {
           "source": "S19",
@@ -462,75 +699,165 @@
       ]
     },
     {
-      "id": "budget",
-      "title": "Width budget and strip templates",
-      "explanation": "Total = Σ(width × count); remainder = available − total. Default: 2×2.5 + 2×1.75 + 2×3 + 2×3.25 = 21 m, leaving 3 m of an assumed 24 m street. Optional tram uses 8 m. The combination, street width, strip lengths and zero initial buffer are editorial assumptions; this is arithmetic, not a validated cross-section. The CAD export treats all rows as separate adjacent strips and makes no sharing allowance.",
+      "id": "section-ratio",
+      "title": "Street width-to-height ratio",
+      "explanation": "W5 explicitly asks for sections showing surrounding urban structure and W/H ratio. The helper defines the measured façade-to-façade W and stated reference H. Three geometric examples use H=12 m and W=12, 24, 36 m, giving W/H=1, 2, 3 at one graphic scale. Building depth is arbitrary. No optimal ratio or storey-height assumption is claimed. Unequal sides need both heights identified.",
       "references": [
         {
-          "source": "S01",
-          "fragment": "#page=17",
-          "location": "Default widths: printed pp. 16–19"
-        },
-        {
-          "source": "W4",
+          "source": "W5",
           "fragment": "",
-          "location": "Separate needs must be negotiated in the shared model"
+          "location": "Group 2: street sections and dimensioning"
         }
       ]
     },
     {
-      "id": "integration",
-      "title": "Checks beyond the sum",
-      "explanation": "Editorial synthesis: a cross-section sum does not establish junction operation, loading space, accessible continuity, below-ground compatibility, canopy clearance or a rescue arrangement. Check sections, plans and vertical envelopes together. Shared use must be justified rather than subtracted automatically.",
+      "id": "equal-density",
+      "title": "Equal floor-area ratio, different massing",
+      "explanation": "Geometric illustration: each plot is 32 × 32 = 1,024 m². Coverage 50%, 25%, 12.5% with 2, 4, 8 identical floor plates gives 1,024 m² floor area and e=1 for each. These are editorial configurations, not building rights or resident-density conversions. Different forms can have the same area ratio.",
       "references": [
         {
-          "source": "S01",
-          "fragment": "#page=8",
-          "location": "Street components and clearance, §3"
-        },
-        {
-          "source": "S11",
-          "fragment": "#page=1",
-          "location": "Parking/stop interfaces"
-        },
-        {
-          "source": "S14",
-          "fragment": "#page=1",
-          "location": "Stop layouts"
-        },
-        {
-          "source": "S19",
-          "fragment": "",
-          "location": "Above- and below-ground coordination"
-        },
-        {
-          "source": "S22",
-          "fragment": "#page=12",
-          "location": "Obstacles"
+          "source": "TKK",
+          "fragment": "#tehokkuus",
+          "location": "Floor-area ratio definition"
         }
       ]
     },
     {
-      "id": "assignment",
-      "title": "Shared-model discussion",
-      "explanation": "The questions and closing statements on the sheet are verbatim selected English W4 passages. The course sources remain authoritative. This helper adds no deadline, submission, assessment or allocation rule.",
+      "id": "steps",
+      "title": "Outdoor stair reference",
+      "explanation": "SuRaKu 2008 card 3 gives minimum stair width 1.2 m, rise 0.12 m and recommended outdoor relationship 2 × rise + tread = .66 m. Hence the example tread is .42 m; the profile uses equal scales and identical steps. Covered/heated stairs use .63 m instead. Rest landing recommended every 10–15 steps; edge contrast strip 30–40 mm. This dated reference is not a complete current building-regulation or guard/handrail specification.",
       "references": [
         {
-          "source": "W4",
-          "fragment": "",
-          "location": "Source paragraphs 35, 36, 37, 40, 44, 49"
+          "source": "S10",
+          "fragment": "#page=6",
+          "location": "Card 3, Portaat; Käsijohteet ja kaiteet"
         }
       ]
     },
     {
       "id": "cad",
-      "title": "CAD units, templates and limits",
-      "explanation": "All canonical geometry is stored in metres. DXF coordinates are multiplied by 1 for metres, 1,000 for millimetres or 1/0.3048 for international feet. DXF $INSUNITS is respectively 6, 4 or 2. Files use R2000 DXF. Coordinates and text are rounded to four decimals in the selected unit. SVG is a vector preview with user units matching the selection, not a physical-size print template. The evidence above is the proof for geometry; exact conversion does not make the source values more precise.",
+      "title": "CAD units, geometry and limits",
+      "explanation": "Canonical coordinates are metres. DXF factor / INSUNITS: m=1/6; mm=1,000/4; international ft=(1/.3048)/2. R2000 entities are rounded to four selected-unit decimals. SVG uses the selected drawing units in its viewBox; browser pixels are not print scale. Six template sets: historical building representatives; accessible clear space; historic car/bus inner/outer circles and quarter arcs; rescue circles and set-up; tram 45 m platforms and 5.5 m track zone; independent street strips. Actual example values, arbitrary lengths, extra allowances and evidence are labelled. No editable calculators or live width-budget export remain.",
       "references": [
         {
           "source": "UNITS",
           "fragment": "",
-          "location": "Conversion table, foot row"
+          "location": "Exact conversion"
+        },
+        {
+          "source": "TKK",
+          "fragment": "#talotyypit",
+          "location": "Representative footprint ranges"
+        },
+        {
+          "source": "S26",
+          "fragment": "",
+          "location": "Tram source dimensions"
+        },
+        {
+          "source": "S22",
+          "fragment": "#page=7",
+          "location": "Rescue reference dimensions"
+        },
+        {
+          "source": "S10",
+          "fragment": "#page=5",
+          "location": "Accessible clear-space dimensions"
+        }
+      ]
+    },
+    {
+      "id": "rain-gardens",
+      "title": "Rain gardens and vegetated swales",
+      "explanation": "Rain gardens combine temporary ponding, filtration, vegetation and, where conditions allow, infiltration. Swales convey water slowly; checks can increase storage. Drains and overflow provide discharge routes. The diagrams are conceptual: no filter depth, ponding depth or infiltration rate is specified. Soil, groundwater, contamination and maintenance need project-specific checks. These are design considerations, not additional course deliverables.",
+      "references": [
+        {
+          "source": "S33",
+          "fragment": "",
+          "location": "Description of the rain-garden processes"
+        },
+        {
+          "source": "S31",
+          "fragment": "",
+          "location": "Painanteet; Imeytyskaivannot ja biosuodatus"
+        },
+        {
+          "source": "S34",
+          "fragment": "#page=4",
+          "location": "Winter operation and maintenance considerations"
+        }
+      ]
+    },
+    {
+      "id": "ponds",
+      "title": "Dry basins, permanent ponds and wetlands",
+      "explanation": "Helsinki describes basins that empty between rains and basins with permanent water. Wetlands use shallow water and varied planted levels, typically tens of centimetres deep. Its indicative natural basin/wetland slopes are 1 vertical to 4–5 horizontal. The water-storage sections are conceptual. A separate dimensioned slope triangle shows 1 m vertical / 4 m horizontal = 25%; 1:5 means 20%. Live detention is the available volume above normal water level; full permanent water volume cannot be counted as empty storage. Outlet, overflow, banks and access must be included in the layout.",
+      "references": [
+        {
+          "source": "S31",
+          "fragment": "",
+          "location": "Hulevesien viivyttäminen: Viivytysaltaat; Kosteikot; Viivytyspainanteet"
+        }
+      ]
+    },
+    {
+      "id": "source-control",
+      "title": "Green roofs, permeable paving, reuse and treatment chains",
+      "explanation": "HSY lists green roofs, rain gardens and rainwater collection/reuse as runoff-reduction options, and surface or underground storage for gradual release. Permeable-pavement aggregate stores water in its voids; infiltration/drainage and clogging maintenance must be checked, including winter conditions. The roof and paving sections are conceptual, with no prescribed thickness or capacity. The matrix identifies design inputs rather than numerical requirements; roof wet load and storage availability require structural/hydrological design. A combined chain can reduce runoff, treat it, store it and discharge through controlled overflow.",
+      "references": [
+        {
+          "source": "S32",
+          "fragment": "",
+          "location": "Hulevesien käsittely ja ohjaaminen"
+        },
+        {
+          "source": "S34",
+          "fragment": "",
+          "location": "Executive summary and winter maintenance chapters"
+        },
+        {
+          "source": "S31",
+          "fragment": "",
+          "location": "Opening treatment-chain principles and permeable surfaces"
+        }
+      ]
+    },
+    {
+      "id": "street-cad",
+      "title": "Independent CAD width strips",
+      "explanation": "Espoo 2010 widths: basic footway 2.5 m, one-way cycle lane 1.75 m, tree strip 3 m, bus-governed local-collector lane 3.25 m and light-rail reservation 8 m. Each strip is arbitrarily 20 m long and drawn separately. Their combination is not a prescribed section; add separation, kerbs, snow, drainage, utilities and stops as applicable.",
+      "references": [
+        {
+          "source": "S01",
+          "fragment": "#page=17",
+          "location": "Printed pp. 16–19"
+        }
+      ]
+    },
+    {
+      "id": "cycling",
+      "title": "Cycling layout options at a fixed graphic scale",
+      "explanation": "Espoo 2010: one-way cycle lane 1.75 m, shared walk/cycle path 3–4 m, separated walk/cycle total 4 m (main route at least 4.5 m), parking-side buffer at least .75 m. Helsinki May 2014, printed p. 19: two-way track at footway level has effective width 2.5–4 m on main routes depending on volumes; quality corridors target at least 3.5 m. Other routes have a separate 2.2–2.5 m range. Our options draw 2.5 m and 3.5 m, not the full range. Walking and the road-side separation strip are additional; Helsinki specifies a road-side strip of at least 1 m, enlarged for snow. Different facility types and editions are not interchangeable. All five width options retain the same scale; figures do not imply crowd or traffic capacity. The light-grey rider is 1.65 m high including the illustrated helmet, with .60 m handlebars; height/posture are declared assumptions. A separate dashed .75 m design-user width comes from Helsinki 2014 table 1. Rider, envelope, lane and walking-panel figures use one uniform metric scale. Body width does not replace lateral movement clearance. Dot/cross symbols indicate towards/away in the cycle-only sections; rider posture is schematic.",
+      "references": [
+        {
+          "source": "S01",
+          "fragment": "#page=19",
+          "location": "Printed p. 18, §§5.2–5.4"
+        },
+        {
+          "source": "S09",
+          "fragment": "#page=22",
+          "location": "Printed p. 19, two-way track at footway level"
+        },
+        {
+          "source": "S09",
+          "fragment": "#page=11",
+          "location": "Printed p. 8, table 1: cyclist .75 m"
+        },
+        {
+          "source": "S29",
+          "fragment": "",
+          "location": "Typical cycle width .6 m"
         }
       ]
     }
