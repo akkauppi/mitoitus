@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-11-13",
+  "title": "Service-space reference supplement",
+  "status": "Assistant-drafted English synthesis from named primary sources. Dates and local scope are retained; this does not assert that dated targets are current national requirements.",
+  "sources": {
+    "R01": {
+      "title": "Helsinki — response on early-childhood space planning",
+      "edition": "6 November 2023, City Board explanatory report",
+      "scope": "Planning practices described in the 2023 report; not a new national regulation. The displayed meeting deferred the motion. The source calls its floor-area measure huoneistoala and excludes kitchens and technical rooms.",
+      "locator": "Explanatory report: indoor planning target and yard provision",
+      "url": "https://paatokset.hel.fi/fi/asia/hel-2023-003751/bd0b59f4-3825-43dc-9d74-eb1c19d5aeb0?decision=bd0b59f4-3825-43dc-9d74-eb1c19d5aeb0",
+      "sha256": "e5816d7728b877b16571e799e8480543de9b65e0fb9d50422fde97fbfeada980",
+      "bytes": 134645,
+      "content_type": "text/html; charset=utf-8",
+      "resolved_url": "https://paatokset.hel.fi/fi/asia/hel-2023-003751/bd0b59f4-3825-43dc-9d74-eb1c19d5aeb0?decision=bd0b59f4-3825-43dc-9d74-eb1c19d5aeb0",
+      "retrieved": "2026-11-13"
+    },
+    "R02": {
+      "title": "Espoo — Postipuu school and daycare needs assessment",
+      "edition": "29 March 2023, Growth and Learning Committee §56",
+      "scope": "Municipal yard targets and project-specific sports-space choices in the Postipuu needs assessment. The hall follows the cited Espoo 2016 gym guidance; field location and size belong to this project.",
+      "locator": "Shared-use spaces; Yard areas",
+      "url": "https://espoo.oncloudos.com/cgi/DREQUEST.PHP?id=2023883-4&page=meetingitem",
+      "sha256": "e476650250e8e516bb35537b40ad0dd8bc05420e08571f9dc471e9b48bcc9a29",
+      "bytes": 48118,
+      "content_type": "text/html; charset=iso-8859-1",
+      "resolved_url": "https://espoo.oncloudos.com/cgi/DREQUEST.PHP?id=2023883-4&page=meetingitem",
+      "retrieved": "2026-11-13"
+    },
+    "R03": {
+      "title": "Kauniainen — starting information for a Finnish-language school centre",
+      "edition": "7 June 2023, Education and Early Childhood Committee §38",
+      "scope": "New-school planning targets used in this investment study. Useful area and gross area are distinct quantities. Pupil forecasts determine capacity; the city does not give a universal residents-per-school ratio.",
+      "locator": "Pupil forecasts and dimensioning of new schools",
+      "url": "https://kauniainen10fi.oncloudos.com/cgi/DREQUEST.PHP?id=2023375-12&page=meetingitem",
+      "sha256": "a8d3927ce2103af4e506ee2d2b7fccdd7d465bec3ebeb26516e7fb383f430aba",
+      "bytes": 91869,
+      "content_type": "text/html; charset=UTF-8",
+      "resolved_url": "https://kauniainen10fi.oncloudos.com/cgi/DREQUEST.PHP?id=2023375-12&page=meetingitem",
+      "retrieved": "2026-11-13"
+    },
+    "R04": {
+      "title": "Tampere — Päiväkotien suunnitteluohje 2025",
+      "edition": "17 November 2025; revision 8 January 2026",
+      "scope": "Tampere daycare design guidance. The smaller yard figure applies where the 20 m² target is difficult to achieve in built urban surroundings.",
+      "locator": "Page 17, §§3.9.2–3.9.3",
+      "url": "https://tampereentilapalvelut.fi/wp-content/uploads/2026/01/TRE_Paivakotien-suunnitteluohje_2025-revA.pdf",
+      "sha256": "b6917b7ce8745f5bcf385d5a751b3302e130aa928eb613f2842b7e9e44770b13",
+      "bytes": 592517,
+      "content_type": "application/pdf",
+      "resolved_url": "https://tampereentilapalvelut.fi/wp-content/uploads/2026/01/TRE_Paivakotien-suunnitteluohje_2025-revA.pdf",
+      "retrieved": "2026-11-13"
+    },
+    "R05": {
+      "title": "Ministry of Education and Culture — Yleisten kirjastojen laatusuositus",
+      "edition": "2010:20",
+      "scope": "The approximately 100 useful m²/1,000 residents figure is in the new 2010 space recommendations, p.55; small municipalities may need more. The 80%/2 km access benchmark is an older 2001–04 recommendation reproduced on p.26, not a newly adopted 2010 threshold.",
+      "locator": "Page 55: useful area; page 26: earlier access benchmark",
+      "baseline_source_id": "S23",
+      "url": "https://www.kirjastot.fi/sites/default/files/content/OKM20.pdf",
+      "sha256": "6baa84e50cadd8df9ba79b5fa2e8e08c84712851a8370c8c59b65cb62da6cfa0",
+      "bytes": 1250300,
+      "content_type": "application/pdf",
+      "resolved_url": "https://www.kirjastot.fi/sites/default/files/content/OKM20.pdf",
+      "retrieved": "2026-11-13"
+    }
+  },
+  "serviceRows": [
+    {
+      "id": "daycare-indoor-helsinki",
+      "group": "Daycare",
+      "label": "Indoor area",
+      "value": "~8.25 m² / child present",
+      "basis": "Floor area¹ (huoneistoala)",
+      "context": "Helsinki · 2023",
+      "source": "R01",
+      "qualifier": "Target; excludes kitchens and technical rooms.",
+      "numbers": [
+        8.25
+      ],
+      "units": "m² huoneistoala / child simultaneously present",
+      "kind": "municipal planning target"
+    },
+    {
+      "id": "daycare-yard-helsinki",
+      "group": "Daycare",
+      "label": "Yard",
+      "value": "10–15 m² / child",
+      "basis": "Dense-centre exceptions",
+      "context": "Helsinki · 2023",
+      "source": "R01",
+      "qualifier": "The report explicitly excepts dense inner-city contexts; nearby green space is part of the planning context.",
+      "numbers": [
+        10,
+        15
+      ],
+      "units": "m² yard / child",
+      "kind": "municipal planning reference"
+    },
+    {
+      "id": "daycare-yard-espoo",
+      "group": "Daycare",
+      "label": "Play yard",
+      "value": "15 m² / place",
+      "basis": "Target",
+      "context": "Espoo · 2023",
+      "source": "R02",
+      "qualifier": "Growth and Learning sector target cited in the Postipuu assessment.",
+      "numbers": [
+        15
+      ],
+      "units": "m² play yard / early-childhood place",
+      "kind": "municipal target"
+    },
+    {
+      "id": "daycare-yard-tampere",
+      "group": "Daycare",
+      "label": "Play yard",
+      "value": "20 m² / child",
+      "basis": "Urban minimum 15 m²",
+      "context": "Tampere · 2025/26",
+      "source": "R04",
+      "fragment": "#page=17",
+      "qualifier": "20 m² is the target; at least 15 m² in built urban settings where achieving the target is difficult.",
+      "numbers": [
+        20,
+        15
+      ],
+      "units": "m² play yard / child",
+      "kind": "municipal design guidance"
+    },
+    {
+      "id": "daycare-activity-space",
+      "group": "Daycare",
+      "label": "Open activity space",
+      "value": "≥6 × 10 m",
+      "basis": "Contiguous within yard",
+      "context": "Tampere · 2025/26",
+      "source": "R04",
+      "fragment": "#page=17",
+      "qualifier": "Keep a continuous area for active games when arranging play equipment; it is within the yard, not an additional per-child allowance.",
+      "numbers": [
+        6,
+        10
+      ],
+      "units": "m clear activity area dimensions",
+      "kind": "municipal design guidance"
+    },
+    {
+      "id": "school-useful-area",
+      "group": "School",
+      "label": "Useful floor area",
+      "value": "7.2–8 m² / pupil",
+      "basis": "New-school target",
+      "context": "Kauniainen · 2023",
+      "source": "R03",
+      "qualifier": "Target used for new-school investment options in the 2023 study.",
+      "numbers": [
+        7.2,
+        8
+      ],
+      "units": "m² useful floor area / pupil",
+      "kind": "local planning target"
+    },
+    {
+      "id": "school-gross-area",
+      "group": "School",
+      "label": "Gross floor area",
+      "value": "~1.5 × useful area",
+      "basis": "Same planning study",
+      "context": "Kauniainen · 2023",
+      "source": "R03",
+      "qualifier": "Approximate gross-to-useful area conversion used by this study, not a general building factor.",
+      "numbers": [
+        1.5
+      ],
+      "units": "gross area / useful area",
+      "kind": "local planning assumption"
+    },
+    {
+      "id": "school-yard",
+      "group": "School",
+      "label": "Usable yard",
+      "value": "7 m² / pupil",
+      "basis": "Target",
+      "context": "Espoo · 2023",
+      "source": "R02",
+      "qualifier": "Children’s usable school yard target in the Postipuu needs assessment.",
+      "numbers": [
+        7
+      ],
+      "units": "m² usable school yard / pupil",
+      "kind": "municipal target"
+    },
+    {
+      "id": "school-sports-hall",
+      "group": "School",
+      "label": "Sports hall",
+      "value": "20 × 33 m",
+      "basis": "8 m clear height",
+      "context": "Postipuu · 2023",
+      "source": "R02",
+      "qualifier": "Hall chosen for the Postipuu school project using Espoo’s 2016 sports-hall dimensioning guidance; ancillary rooms are additional.",
+      "numbers": [
+        20,
+        33,
+        8
+      ],
+      "units": "m hall length/width/clear height",
+      "kind": "named project case"
+    },
+    {
+      "id": "school-playing-field",
+      "group": "School",
+      "label": "Playing field",
+      "value": "46–51 × 61–70 m",
+      "basis": "Within ~500 m of school",
+      "context": "Postipuu · 2023",
+      "source": "R02",
+      "qualifier": "Field size and maximum approximate distance stated for this project; no universal school catchment or sports standard is implied.",
+      "numbers": [
+        46,
+        51,
+        61,
+        70,
+        500
+      ],
+      "units": "m field dimensions and approximate school-to-field distance",
+      "kind": "named project case"
+    },
+    {
+      "id": "library-useful-area",
+      "group": "Library",
+      "label": "Useful floor area",
+      "value": "~100 m² / 1,000 residents",
+      "basis": "Small towns may need more",
+      "context": "Ministry · 2010",
+      "source": "R05",
+      "fragment": "#page=55",
+      "qualifier": "Useful space across municipal library provision, not a minimum population for a branch.",
+      "numbers": [
+        100,
+        1000
+      ],
+      "units": "m² useful library area / 1000 residents",
+      "kind": "dated national recommendation"
+    },
+    {
+      "id": "library-access",
+      "group": "Library",
+      "label": "Service-point access",
+      "value": "80% within 2 km",
+      "basis": "Urban-area benchmark",
+      "context": "2001–04 · reported 2010",
+      "source": "R05",
+      "fragment": "#page=26",
+      "qualifier": "Earlier urban-area service benchmark reproduced in the 2010 publication; local structure and mobile services matter. This is not a 2 km map circle guaranteeing route access.",
+      "numbers": [
+        80,
+        2
+      ],
+      "units": "percent of population and km distance to service point",
+      "kind": "historical access benchmark"
+    }
+  ],
+  "editorialDecisions": [
+    "Replace decorative resident tiles and the library area-square with semantic tables.",
+    "Keep the numbered green-distance diagram and all historical green provisions.",
+    "Move the Seinäjoki 2017 growth trigger and Helsinki 2020 health-station proposal to Sources. They are historical local cases, not population thresholds for new neighbourhoods.",
+    "Keep the baseline evidence register unchanged; this supplement is appended in the generated edition."
+  ]
+}
