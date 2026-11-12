@@ -353,6 +353,15 @@
       "edition": "9 Dec 2025 · §656",
       "note": "Official adoption record. Explains that guidance minima may be below market demand and that application in zoning is advisory; existing plan provisions require the relevant plan or deviation process."
     },
+    "S41": {
+      "id": "S41",
+      "url": "https://kaupunkitilaohje.vantaa.fi/fi/katutila/suojatiet-ja-pyoratien-jatkeet",
+      "sha256": "c174deef2f44b1070ee1937cdfbb2465182073f9fbd49e43f1d3690b02d525f5",
+      "retrieved_utc": "2026-11-12T12:08:45.571788+00:00",
+      "title": "Vantaa — Suojatiet ja pyörätien jatkeet",
+      "edition": "Retrieved 12 Nov 2026",
+      "note": "Crossing marking orientation and stripe/gap dimensions: white stripes along the carriageway, 500 mm width and spacing."
+    },
     "TKK": {
       "title": "TKK / YKS — Mitoitus",
       "edition": "28 Aug 2007",
@@ -905,7 +914,7 @@
     {
       "id": "crossing-refuge",
       "title": "Crossing refuge and its place in the street section",
-      "explanation": "Espoo 2010 §6 says a crossing-refuge island is at least 2.5 m wide, likewise a median crossed by a walking/cycling route. In this plan that dimension is measured along the pedestrian crossing. Two illustrative 3 m local-collector lanes plus the 2.5 m refuge give an 8.5 m span before outer kerbs/routes. The 4 m crossing-opening width, 8 m island length and schematic stripe dimensions are declared illustration assumptions, not dimensions taken from the source. The plan does not prescribe a full junction, kerb or tactile-warning detail. Coordination of kerb direction cues, drainage and the continuing clear route follows SuRaKu card 1. The drawing adds no course deliverable.",
+      "explanation": "Espoo 2010 §6 says a crossing-refuge island is at least 2.5 m wide, likewise a median crossed by a walking/cycling route. In this plan that dimension is measured along the pedestrian crossing. Two illustrative 3 m local-collector lanes plus the 2.5 m refuge give an 8.5 m span before outer kerbs/routes. The 4 m crossing-opening width and 8 m island length are declared illustration assumptions. White zebra stripes run longitudinally along the carriageway, perpendicular to the pedestrian travel direction in this plan. Their width and intervening gap are each 0.5 m, following Vantaa’s crossing guidance; the diagram shows 4 m stripe length matching its assumed crossing width. Vehicle direction arrows make the orientation explicit. The plan does not prescribe a full junction, kerb or tactile-warning detail. Coordination of kerb direction cues, drainage and the continuing clear route follows SuRaKu card 1. The drawing adds no course deliverable.",
       "references": [
         {
           "source": "S01",
@@ -916,6 +925,11 @@
           "source": "S10",
           "fragment": "#page=1",
           "location": "Card 1, crossing arrangements, direction cues and clear routes"
+        },
+        {
+          "source": "S41",
+          "fragment": "",
+          "location": "Suojatien merkitseminen: white carriageway-direction stripes; width and gap 500 mm"
         }
       ]
     },

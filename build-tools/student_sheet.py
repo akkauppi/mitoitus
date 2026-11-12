@@ -19,9 +19,13 @@ def add_student_sheet(ns):
     g += rect(170, 65, 2.5, 8, s, GREEN, 'crossing-island')
     g += rect(245, 65, 3, 8, s, GREY, 'crossing-right-lane')
     g += rect(170, 145, 2.5, 4, s, YELLOW, 'crossing-refuge-opening')
-    for y in range(153, 260, 20):
-        g += f'<rect x="80" y="{y}" width="90" height="10" fill="white"/>'
-        g += f'<rect x="245" y="{y}" width="90" height="10" fill="white"/>'
+    # L3 stripes run along the carriageway, perpendicular to walking across it.
+    # Vantaa guidance: 0.5 m stripe + 0.5 m gap. The crossing width is 4 m here.
+    for side,start in [('left',80),('right',245)]:
+        for i in range(3):
+            g += rect(start+i*s,145,.5,4,s,'white',f'crossing-stripe-{side}-{i}','zebra-stripe')
+    g += line(125,81,125,122,'dim')+'<path d="M125 122l-5-9h10Z" fill="#555"/>'
+    g += line(290,122,290,81,'dim')+'<path d="M290 81l-5 9h10Z" fill="#555"/>'
     g += line(45, 221, 370, 221, 'motion')
     g += '<path d="M370 221l-12-6v12Z" fill="#333"/>'
     g += txt(207.5, 191, 'Refuge', 'small-label', 'middle')
@@ -31,9 +35,9 @@ def add_student_sheet(ns):
     g += dim(80, 360, 335, 360, '3 + 2.5 + 3 = 8.5 m')
     g += bar(40, 391, 2, s)
     crossing = panel(
-        'Crossing refuge', '10 / CONNECTIONS · ESPOO 2010',
+        'Crossing refuge', '10 / CONNECTIONS · ESPOO 2010 / VANTAA',
         svg(g, 420, 'Example plan: two three-metre lanes separated by a two-point-five-metre refuge, measured along the pedestrian crossing',
-            'Refuge depth is along the crossing. Opening width 4 m and island length 8 m are illustration assumptions; markings are schematic.'),
+            'Refuge depth is along the crossing. White stripes follow the road; stripe/gap 0.5 m. Opening width 4 m and island length 8 m are example values.'),
         dl([('Refuge depth · Espoo', '≥2.5 m'), ('Example lanes', '2 × 3 m'), ('Derived crossing span', '8.5 m')])
         + note('The refuge adds to the carriageway width; it does not reduce either traffic lane. This is a local layout example, not a complete junction design.')
         + p('Keep the route through the island clear. Coordinate kerb cues, tactile warning, sightlines, drainage and the onward footway.'),
