@@ -9,6 +9,7 @@ export const ASSET_SPECS = Object.freeze({
   person: { height: 1.75, provenance: 'Existing rulebook illustration assumption.' },
   tree: { height: 5, crown: 3, provenance: 'Illustrative tree, not a mature species specification.' },
   car: { length: 5, width: 1.8, height: 1.5, provenance: 'Body plan: existing rulebook S36. Height and detailing: illustration assumptions.' },
+  bus: {length:15,width:2.6,height:3.2,provenance:'Existing Espoo 031D design-bus plan; original geometry, assumed height and detail.'},
   tram: { length: 34, width: 2.4, height: 3.4, provenance: 'Existing rulebook nominal body plan. Height, articulation and detailing: illustration assumptions.' },
   bicycle: { length: 2, width: 0.6, height: 1.2, provenance: 'Existing rulebook typical cycle envelope; original illustrative geometry.' },
   cyclist: {length:2,width:0.6,height:1.65,provenance:'Existing rider posture and handlebar illustration envelope; original stylized pose.'},
@@ -375,5 +376,18 @@ export function createTramSlice({length=5,centerZ=0}={}) {
   // Surface hatch identifies an illustrative cut, not a real vehicle front.
   for(let y=.7;y<2.8;y+=.3){const g=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-1.15,y,z+sign*.0075),new THREE.Vector3(1.15,y+.18,z+sign*.0075)]);const line=new THREE.LineSegments(g,new THREE.LineBasicMaterial());line.userData.edge=true;result.add(line);}
  }
+ return result;
+}
+
+/** Original 15 × 2.6 m design-bus illustration; 3.2 m height is assumed. */
+export function createBus(){
+ const result=group('bus');
+ box(result,[2.6,2.65,15],[0,1.825,0],'vehicle');
+ box(result,[2.50,.05,14.8],[0,3.175,0],'vehicle');
+ for(const side of [-1,1]){
+  for(let z=-6.3;z<=6.4;z+=1.8)box(result,[.012,1.12,1.5],[side*1.294,2.27,z],'glass');
+  for(const z of [-5.1,3.9,5.2]){const wheel=mesh(result,new THREE.CylinderGeometry(.5,.5,.16,24),'rubber',[side*1.20,.5,z],true);wheel.rotation.z=Math.PI/2;}
+ }
+ box(result,[2.35,1.2,.012],[0,2.2,7.494],'glass');
  return result;
 }

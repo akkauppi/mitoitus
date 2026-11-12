@@ -40,6 +40,21 @@ class CandidateTests(unittest.TestCase):
         for name in m.PUBLIC_FILES:
             self.assertEqual((self.output/name).read_bytes(), m.render_book((self.root/name).read_bytes()) if name == 'index.html' else m.source_path(self.root,name).read_bytes())
 
+    def test_approved_order_preserves_each_sheet_except_presentation_number(self):
+        import re
+        original = (self.root/'index.html').read_text()
+        rendered = m.render_book(original.encode()).decode()
+        pattern = r'<section class="sheet" id="([^"]+)".*?</section>'
+        before = {v[1]:v[0] for v in re.finditer(pattern, original, re.S)}
+        after = list(re.finditer(pattern, rendered, re.S))
+        self.assertEqual([v[1] for v in after],list(m.SPREAD_ORDER))
+        for index, sheet in enumerate(after,1):
+            expected = re.sub(r'(<div class="panel-top"><span>)\d{2}',
+                              lambda v:v[1]+f'{index:02}',before[sheet[1]])
+            self.assertEqual(sheet[0],expected)
+        tabs = re.search(r'<nav class="tabs"[^>]*>(.*?)</nav>',rendered,re.S)[1]
+        self.assertEqual(re.findall(r'<a href="#([^"]+)">',tabs),list(m.SPREAD_ORDER))
+
     def test_repeat_build_requires_explicit_replace_and_is_reproducible(self):
         first = m.build()
         archive = (self.output/m.OFFLINE).read_bytes()

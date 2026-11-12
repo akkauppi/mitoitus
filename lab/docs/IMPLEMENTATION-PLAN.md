@@ -34,8 +34,15 @@ visual composition; it does not replace the source register.
 
 ## 1. Product structure
 
-Keep **11 sheets, 33 panels and all 44 existing drawing variants** in their
-current order. Do not introduce a new landing page, hero area, calculator, course
+Keep **11 sheets, 33 panels and all 44 existing drawing variants**. Panel and
+variant order within each spread remains unchanged. On 12 November 2026 the user
+approved this new spread reading order, superseding the original current-order
+instruction: Buildings → Residents & services → Walking & cycling → Accessibility
+→ Connections → Tram & stops → Vehicles & turning → Parking → Street sections &
+details → Green & blue → Stormwater options. Existing source titles remain as
+supplied (for example “Land & population”). The candidate builder reorders static DOM,
+tabs, navigation arrays and spread numbers; hash identities are stable. Baseline
+HTML and inventory keep their historical ordering for content-parity checks. Do not introduce a new landing page, hero area, calculator, course
 task, numeric design editor or model-scale conversion table. Retain the title
 “Antti’s Dubious Little Rulebook” and current Aalto branding.
 

@@ -1,3 +1,4 @@
+import {vehicleScene,vehicleInfo} from './recipes/vehicles.js';
 import {buildScene} from '../scenes.js';
 import {routeScene,cycleParkingScene,ROUTE_ASSUMPTIONS} from './recipes/routes.js';
 import {accessibilityScene,ACCESSIBILITY_INFO} from './recipes/accessibility.js';
@@ -10,6 +11,8 @@ export const ROOT_RECIPE = Object.freeze({
 });
 export function recipeInfo(id) {
   if(id===ROOT_RECIPE.id)return ROOT_RECIPE;
+  const vehicle=/^(car-turn|bus-turn|rescue)--v(\d+)$/.exec(id);
+  if(vehicle)return {id,panelId:vehicle[1],sourceClaims:[vehicle[1]],...vehicleInfo(vehicle[1],Number(vehicle[2]))};
   const tram=/^(tram-corridor|tram-width|tram-length)--v0$/.exec(id);
   if(tram)return {id,panelId:tram[1],sourceClaims:[tram[1]],...TRAM_INFO[tram[1]]};
   const access=/^(turning|ramps|arrival)--v0$/.exec(id);
@@ -24,7 +27,7 @@ export function recipeInfo(id) {
 }
 export function createRecipe(id) {
   const recipe=recipeInfo(id);
-  const model=TRAM_INFO[recipe.panelId]?tramScene(recipe.panelId):ACCESSIBILITY_INFO[recipe.panelId]?accessibilityScene(recipe.panelId):id===ROOT_RECIPE.id?buildScene('roots'):recipe.panelId==='bike-parking'?cycleParkingScene():routeScene(recipe.panelId,Number(id.split('--v')[1]));
+  const model=['car-turn','bus-turn','rescue'].includes(recipe.panelId)?vehicleScene(recipe.panelId,Number(id.split('--v')[1])):TRAM_INFO[recipe.panelId]?tramScene(recipe.panelId):ACCESSIBILITY_INFO[recipe.panelId]?accessibilityScene(recipe.panelId):id===ROOT_RECIPE.id?buildScene('roots'):recipe.panelId==='bike-parking'?cycleParkingScene():routeScene(recipe.panelId,Number(id.split('--v')[1]));
   model.recipe=recipe;
   return model;
 }

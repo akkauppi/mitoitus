@@ -58,13 +58,14 @@ trunk, vehicle, glass, rubber, metal, furniture, rail and white.
 | Person | Height 1.75 | Neutral simple articulated silhouette; illustration assumption |
 | Tree | Default height 5, crown 3; parameters supported | Polygonal crown and branching trunk; no species claim |
 | Car | Width 1.8 × height 1.5 × length 5 | Sourced body plan; assumed height/detail |
+| Bus | Width 2.6 × height 3.2 × length 15 | Existing Espoo design-bus plan; height/detail assumed, mirrors omitted |
 | Tram | Width 2.4 × height 3.4 × length 34 | Sourced body plan; five illustrative body sections |
 | Bicycle | Width 0.6 × height 1.2 × length 2 | Existing nominal envelope, recognizable frame/wheels |
 | Manual wheelchair user | Width 0.72 × height 1.35 × length 1.20 | Original seated pose/device; illustration assumptions only |
 | Cyclist (T04) | Width 0.6 × height 1.65 × length 2 | Existing seated-posture/bar illustration envelope; natural pose |
 | Bench | Length 1.8, height 0.85 | Illustrative seat, back and frame |
 
-`ASSET_SPECS` in `assets.js` is the implementation catalogue. All eight assets are
+`ASSET_SPECS` in `assets.js` is the implementation catalogue. All nine assets are
 original procedural artwork; no external asset meshes are currently included.
 Geometry tests measure actual vertices, including wheels and protrusions.
 
@@ -135,6 +136,7 @@ new dimensioning recommendation. Keep original code/source and measured bounds.
 | Seated person / mobility-device context | Manual wheelchair user implemented after T05 | Derive a natural pose, not uniform shrinking; no claim that the silhouette validates a clear turning space. Omit if unnecessary. |
 | Bicycle and rider | Reuse (implemented T04) | Bike 0.6 × 2 m / 1.2 m height; existing rider posture 1.65 m with 0.60 m bars. Do not conflate the two envelopes. |
 | Car | Reuse | Body 5 × 1.8 m; current 1.5 m height/detail are assumptions. No mirrors or swept path implied. |
+| Bus | Width 2.6 × height 3.2 × length 15 | Existing Espoo design-bus plan; height/detail assumed, mirrors omitted |
 | Tram | Reuse | Body 34 × 2.4 m; current 3.4 m height/detail assumptions. No ATU derived from body. |
 | Design bus | Add in T07 | Existing body 15 × 2.6 m; height/detail explicitly assumed if modeled. Straight reference placement only. |
 | Rescue vehicle | Optional, not required | Use neutral setup/clearance outlines by default; no guessed appliance footprint or deployed boom. |

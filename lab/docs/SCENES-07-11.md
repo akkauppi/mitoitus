@@ -1,5 +1,10 @@
 # Scene plan: sheets 07–11
 
+Catalogue numbers below retain historical source identities. For the user-approved
+candidate reading order and current spread numbering, see IMPLEMENTATION-PLAN.md
+§1 (12 November 2026 amendment). Panel/variant order within each spread is unchanged.
+
+
 12 November 2026 · assistant implementation plan · no application changes.
 The refined prototype is the starting point; no particular palette is selected.
 These recipes preserve the current 15 panels and their order.

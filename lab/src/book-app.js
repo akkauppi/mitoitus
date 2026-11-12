@@ -3,6 +3,7 @@
 (() => {
   'use strict';
   const all = selector => [...document.querySelectorAll(selector)];
+  const tabs=document.querySelector('.tabs');
   const panels = all('.panel');
   const records = panels.map(panel => ({
     panel,
@@ -38,7 +39,7 @@
   let viewerPromise=null,bookViewer=null,viewerEpoch=0;
   async function syncViewer(state) {
     const epoch=++viewerEpoch;
-    const live=state.mode==='focus'&&['trees','walking','cycling','bike-parking','turning','ramps','arrival','tram-corridor','tram-width','tram-length'].includes(state.active.id)&&!document.body.classList.contains('wall')&&location.protocol!=='file:';
+    const live=state.mode==='focus'&&['trees','walking','cycling','bike-parking','turning','ramps','arrival','tram-corridor','tram-width','tram-length','car-turn','bus-turn','rescue'].includes(state.active.id)&&!document.body.classList.contains('wall')&&location.protocol!=='file:';
     $('book-style').closest('label').hidden=!live;
     if(!live){bookViewer?.suspend();return;}
     try {
@@ -73,7 +74,7 @@
     const selected = group ? group.querySelector('select').selectedIndex : 0;
     // A legacy variant is authoritative; T02 has only its corresponding whole figure.
     const figure = `${active.id}--v${selected}`;
-    const allowed = ['turning','arrival','tram-corridor','tram-length'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
+    const allowed = ['turning','arrival','tram-corridor','tram-length','car-turn','bus-turn','rescue'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
     const defaultCamera=['ramps','tram-width'].includes(active.id)?'front':['turning','arrival','tram-corridor'].includes(active.id)?'plan':['trees','walking','cycling','bike-parking','tram-length'].includes(active.id)?'iso':'plan';
     const camera = allowed.includes(q.get('camera')) ? q.get('camera') : defaultCamera;
     const style = ['paper', 'ink', 'soft'].includes(q.get('style')) ? q.get('style') : 'paper';
@@ -151,6 +152,13 @@
       button.onclick = () => navigate({ panel: record.id, figure: null });
       return button;
     }));
+    // Keep a margin so integer scroll rounding cannot clip fractional tab edges.
+    const activeTab=tabs.querySelector('[aria-current="page"]');
+    if(activeTab&&!document.body.classList.contains('wall')){
+      const a=activeTab.getBoundingClientRect(),n=tabs.getBoundingClientRect();
+      if(a.left<n.left+8)tabs.scrollLeft-=Math.ceil(n.left+8-a.left);
+      else if(a.right>n.right-8)tabs.scrollLeft+=Math.ceil(a.right-n.right+8);
+    }
     document.body.dataset.bookReady = 'true';
     syncViewer(current);
   }

@@ -82,3 +82,15 @@ are identified as future work. Existing app, published files and CAD are unchang
 by this planning pass. The current SVG export limitation stays open. No push or
 deployment is authorized. Inventory, relative links and wireframe rendering were
 checked; no implementation completion or performance result is inferred.
+
+## T07 and approved reading sequence — 12 November 2026
+
+Vehicles/rescue scenes and reordered candidate navigation are implemented locally.
+See PROGRESS.md for the requirement-by-requirement checks and limits. Reviewed
+reference renders: [bus lanes](references/vehicles-t07-bus.png),
+[car radius](references/vehicles-t07-car-radius.png),
+[rescue phone](references/vehicles-t07-rescue-phone.png).
+Run `node lab/tests/vehicles-browser.cjs`, `node lab/tests/spread-order-browser.cjs`
+and `node lab/tests/shell-browser.cjs` from the worktree root, with the local server
+on port 8765. Rescue setup uses the same scale as the bands in the live scene;
+its retained historical SVG has its own explicitly enlarged setup plan.

@@ -2,6 +2,7 @@
 import hashlib
 import json
 import os
+import re
 import shutil
 import tempfile
 import zipfile
@@ -24,6 +25,7 @@ RUNTIME_FILES.update({
     'runtime/viewer.js':'lab/src/viewer.js',
     'runtime/annotations.js':'lab/src/annotations.js',
     'runtime/registry.js':'lab/src/registry.js',
+    'runtime/recipes/vehicles.js':'lab/src/recipes/vehicles.js',
     'runtime/recipes/tram.js':'lab/src/recipes/tram.js',
     'runtime/recipes/accessibility.js':'lab/src/recipes/accessibility.js',
     'runtime/primitives/accessibility.js':'lab/src/primitives/accessibility.js',
@@ -137,8 +139,31 @@ def source_path(root, name):
     return root / RUNTIME_FILES.get(name, name)
 
 
+SPREAD_ORDER = ('built-form', 'land-population', 'walk-cycle', 'accessible',
+                'connections', 'tram', 'turning-vehicles', 'parking',
+                'section-details', 'green-blue', 'stormwater-options')
+
+
 def render_book(source):
     text = source.decode()
+    # Presentation-only reorder, explicitly accepted by the user. Keep source IDs.
+    pattern = r'<section class="sheet" id="([^"]+)".*?</section>'
+    sections = {match[1]: match[0] for match in re.finditer(pattern, text, re.S)}
+    if set(sections) != set(SPREAD_ORDER):
+        raise ValueError('Unexpected sheets while applying approved order')
+    ordered = []
+    for index, identity in enumerate(SPREAD_ORDER, 1):
+        ordered.append(re.sub(r'(<div class="panel-top"><span>)\d{2}',
+                              lambda m: m[1] + f'{index:02}', sections[identity]))
+    sequence = iter(ordered)
+    text = re.sub(pattern, lambda m: next(sequence), text, flags=re.S)
+    nav = re.search(r'<nav class="tabs"[^>]*>(.*?)</nav>', text, re.S)
+    links = {m[1]: m[0] for m in re.finditer(r'<a href="#([^"]+)">.*?</a>', nav[1], re.S)}
+    if set(links) != set(SPREAD_ORDER):
+        raise ValueError('Unexpected tabs while applying approved order')
+    tabs = '\n' + '\n'.join(re.sub(r'<span>\d{2}</span>', f'<span>{i:02}</span>', links[identity])
+                            for i, identity in enumerate(SPREAD_ORDER, 1)) + '\n'
+    text = text[:nav.start(1)] + tabs + text[nav.end(1):]
     text = text.replace('</head>', '<link rel="stylesheet" href="runtime/book.css"><script type="importmap">{"imports":{"three":"./vendor/build/three.module.js","three/addons/":"./vendor/examples/jsm/"}}</script></head>')
     text = text.replace('</body>', '<script src="runtime/book-app.js"></script></body>')
     return text.encode()
@@ -186,10 +211,11 @@ def verify_candidate(output, allow_legacy=False):
     expected = set(PUBLIC_FILES) | {OFFLINE, 'parity.json'}
     old_expected = set(BASELINE_FILES) | {OFFLINE, 'parity.json'}
     t02_expected = old_expected | set(T02_RUNTIME_FILES)
-    t05_expected = expected - {'runtime/recipes/tram.js'}
+    t06_expected = expected - {'runtime/recipes/vehicles.js'}
+    t05_expected = t06_expected - {'runtime/recipes/tram.js'}
     t04_expected = t05_expected - {'runtime/recipes/accessibility.js','runtime/primitives/accessibility.js'}
     t03_expected = t04_expected - {'runtime/recipes/routes.js','runtime/primitives/surfaces.js'}
-    if allow_legacy and names in (old_expected,t02_expected,t03_expected,t04_expected,t05_expected):
+    if allow_legacy and names in (old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected):
         expected = names
     if names != expected:
         raise ValueError('Candidate contains missing or unapproved files')
@@ -256,7 +282,7 @@ def build(output=None, replace=False):
         actual = audit((stage/'index.html').read_text())
         if actual.events != audit(render_book(source).decode()).events:
             raise ValueError('Candidate semantic content drift')
-        report = dict(schemaVersion=2, stage='T06 tram corridor, stop width and full stop examples',
+        report = dict(schemaVersion=2, stage='T07 vehicles/rescue and user-approved spread order',
                       sheets=11, panels=33, drawings=44, baselineSha256=digest(source),
                       semanticSha256=digest(json.dumps(checked.events, ensure_ascii=False).encode()),
                       content=checked.panels, semanticEvents=checked.events,

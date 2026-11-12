@@ -1,5 +1,10 @@
 # Scene implementation plan — sheets 01–06
 
+Catalogue numbers below retain historical source identities. For the user-approved
+candidate reading order and current spread numbering, see IMPLEMENTATION-PLAN.md
+§1 (12 November 2026 amendment). Panel/variant order within each spread is unchanged.
+
+
 Planning only · 12 November 2026 · assistant draft for later implementation. The user likes the refined visual direction; no individual palette has been
 selected. **Paper model is the working recommendation**, with the other two treatments retained. Follow [STYLE.md](STYLE.md) and [CALLOUTS.md](CALLOUTS.md).
 Do not push or deploy. This document changes no teaching content or application.

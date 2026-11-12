@@ -468,3 +468,50 @@ Canonical source drawings, tables and CAD are preserved.
 Validation: 62 unit tests; 18 candidate tests; 35 responsive tram camera states,
 including visible distinctions, noncrossing callouts, dimension proportions,
 source preservation, one context, reset and fallback checks. Local work only.
+
+### T07 complete — Vehicles & rescue (2026-11-12)
+
+Implemented `car-turn`, `bus-turn` and `rescue` in the existing single-context
+host. Both legacy 3-option groups keep their order, labels and URL values.
+Plan-default quarter annuli retain 3/6.5, 8.1/15.2, 5/10.5 and 5.5/12.5 m
+radius references. Reference vehicles remain detached from annuli, without a
+swept-path or turning-animation claim. New reusable original procedural bus:
+15 × 2.6 m existing design body, assumed 3.2 m height/detail, mirrors omitted.
+No external mesh or new asset licence dependency. Car and bus 18 m lane segments
+share one metric comparison frame across 3/6 and 3.25/6.5 m carriageways.
+
+Rescue minimum 13 × 6 m footprint and dashed 13 × 8 m target share the radius
+bands' metric scale in the live scene (the canonical fallback retains its original
+enlarged set-up plan and caption). The live companion explicitly states its
+scale. Route width/height 3.5/4.2 m, excluded 0.4 m driving / 1 m boom allowances,
+operational caveats and HIKLU 2024 v1.3 context remain. W4 parking restriction is
+visible; bus 16/32 m stop service lengths stay distinct from full-stop extents.
+
+Evidence: 66 unit tests, including actual annulus vertices/radial endpoints,
+body bounds/ground contact, all four lane widths/common frame and rescue bounds;
+19 candidate safety/parity/packaging tests; 70 responsive vehicle variant/camera
+states at 320/390/768/1024/1440 px, complete noncrossing callouts, unclipped and
+nonoverlapping annotation text, projected common lane scales, canonical details,
+legacy state, reset, one context, no external fetches and no-WebGL fallback.
+Selected reviewed references: `references/vehicles-t07-{car-radius,bus,rescue-phone}.png`.
+Candidate rebuilt and explicit offline package verified. No physical turning,
+vehicle clearance, rescue operation, touch hardware or GPU-performance validation
+is claimed. Overview/fallback stills and print/export integration remain T15.
+
+### Approved spread-order amendment (2026-11-12)
+
+User asked to review/rearrange the spreads and explicitly accepted: Buildings →
+Residents & services → Walking & cycling → Accessibility → Connections → Tram &
+stops → Vehicles & turning → Parking → Street sections & details → Green & blue
+→ Stormwater options. Supersedes initial requirement to keep spread order;
+existing canonical titles and within-spread panel/variant order are unchanged.
+Candidate static DOM order (also without JavaScript), navigation, tabs, keyboard shortcuts and
+spread counters follow this sequence. Stable hashes/evidence IDs and historical
+source inventory remain unchanged. No source baseline or public checkout edits.
+
+Order browser check passes all eleven spreads, numbers, next/previous, keyboard,
+history, old aliases and direct-file fallback. Shell regression passes 110
+responsive states, 33 focus panels and 15 variants, content parity keyed by stable
+claim, URL/history/CAD, no-JS and file fallback. Tab scrolling now leaves an 8 px
+margin to avoid fractional-pixel clipping. Residents & services remains blocked
+from publication pending its T13 review. Local commits only; no push/deployment.

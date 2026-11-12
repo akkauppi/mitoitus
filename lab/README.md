@@ -131,3 +131,21 @@ is explicitly blocked from publication pending substantial work in T13.
 Separate corridor-source comparisons, the compact width example and the full
 stop/ramp/vehicle example retain the original contexts. City-stop lengths share
 one metric scale with the long-stop model. See PROGRESS.md for checks.
+
+## Vehicles & rescue (T07) and reading order
+
+[Open Vehicles & turning](http://localhost:8765/lab/book/?mode=focus&panel=car-turn#turning-vehicles).
+Exact geometric radius bands remain separate from reference vehicle bodies.
+Car/bus lane examples share one framing envelope. The new original procedural
+bus preserves the existing 15 × 2.6 m body plan; 3.2 m height/detail are assumptions.
+Rescue turning bands and set-up rectangle share a metric scale in the live scene,
+with no inferred appliance/boom geometry. All canonical tables and caveats remain.
+
+The user-approved spread sequence now groups Connections with accessible routes,
+Parking with vehicles, and Green & blue with stormwater. Full sequence and scope
+are recorded in IMPLEMENTATION-PLAN.md §1. Historical inventory IDs, source
+wording and old links remain intact; candidate numbering/navigation follow the
+new order, including direct-file and print DOM order.
+
+Focused checks: `node lab/tests/vehicles-browser.cjs` and
+`node lab/tests/spread-order-browser.cjs` from the worktree root.

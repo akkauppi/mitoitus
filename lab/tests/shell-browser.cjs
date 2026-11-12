@@ -22,9 +22,9 @@ const out = path.join(__dirname,'../review'); fs.mkdirSync(out,{recursive:true})
   assert.equal(await page.locator('.panel').count(),33);
   assert.equal(await page.locator('.drawing svg').count(),44);
   // The shell adds controls outside canonical details. Preserve the actual DOM text/markup.
-  const details = await page.locator('.panel .details').evaluateAll(nodes => nodes.map(n=>n.innerHTML));
+  const details = await page.locator('.panel .details').evaluateAll(nodes => Object.fromEntries(nodes.map(n=>[n.closest('.panel').querySelector('.proof').getAttribute('href'),n.innerHTML])));
   const baseline = await browser.newPage(); await baseline.goto('http://127.0.0.1:8765/');
-  assert.deepEqual(details,await baseline.locator('.panel .details').evaluateAll(nodes=>nodes.map(n=>n.innerHTML)));
+  assert.deepEqual(details,await baseline.locator('.panel .details').evaluateAll(nodes=>Object.fromEntries(nodes.map(n=>[n.closest('.panel').querySelector('.proof').getAttribute('href'),n.innerHTML]))));
   await baseline.close();
   let states = 0;
   for (const width of [320,390,768,1024,1440]) {
@@ -35,7 +35,7 @@ const out = path.join(__dirname,'../review'); fs.mkdirSync(out,{recursive:true})
       assert.equal(await page.locator('.sheet:not([hidden]) .panel:visible').count(),3);
       assert.equal(await page.locator('.tabs [aria-current="page"]').getAttribute('href'),'#'+sheet.id);
       const tab = await page.locator('.tabs [aria-current="page"]').boundingBox();
-      assert.ok(tab.x>=0 && tab.x+tab.width<=width+1,'active sheet tab revealed');
+      assert.ok(tab.x>=0 && tab.x+tab.width<=width+1,`active sheet tab revealed ${width}/${sheet.id}: ${JSON.stringify(tab)}`);
       await page.locator('.sheet:not([hidden]) .explore').first().click();
       await fits(`${width}/${sheet.id}/focus`);
       assert.equal(await page.locator('.sheet:not([hidden]) .panel:visible').count(),1);
