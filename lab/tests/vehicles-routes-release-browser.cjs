@@ -1,5 +1,5 @@
 // Exercise the changed recipe sources with the current candidate shell, without
-// rebuilding another worker's candidate. Only these two module responses differ.
+// rebuilding another worker's candidate. Only the assigned recipe/asset module responses differ.
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'/home/antti/cityscape-cam/node_modules/playwright');
 const base='http://127.0.0.1:8765/lab/book/',root=path.resolve(__dirname,'..'),out=path.join(root,'review');
@@ -7,6 +7,7 @@ const base='http://127.0.0.1:8765/lab/book/',root=path.resolve(__dirname,'..'),o
  fs.mkdirSync(out,{recursive:true});
  const browser=await chromium.launch({headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader']}),page=await browser.newPage(),errors=[],loads=[];
  page.on('pageerror',e=>errors.push(e.message));
+ await page.route('**/lab/book/assets.js*',route=>route.fulfill({contentType:'text/javascript',body:fs.readFileSync(path.join(root,'assets.js'),'utf8')}));
  for(const name of ['vehicles','routes'])await page.route(`**/runtime/recipes/${name}.js*`,route=>{loads.push(name);return route.fulfill({contentType:'text/javascript',body:fs.readFileSync(path.join(root,`src/recipes/${name}.js`),'utf8')});});
  const ready=async id=>{await page.waitForFunction(id=>{const v=document.querySelector('.scene-viewport');return v?.dataset.recipe===id&&v.dataset.sceneReady==='true';},id);await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));};
  const check=async(expected)=>{
@@ -37,6 +38,6 @@ const base='http://127.0.0.1:8765/lab/book/',root=path.resolve(__dirname,'..'),o
   }
  }
  assert.ok(loads.includes('vehicles')&&loads.includes('routes'));assert.deepEqual(errors,[]);
- fs.writeFileSync(path.join(out,'vehicles-routes-release-results.json'),JSON.stringify({states,errors,sourceModuleOverrides:['vehicles.js','routes.js'],scope:'Current candidate shell with revised source recipes; no candidate rebuild or deployment',date:'2026-11-13'},null,2));
+ fs.writeFileSync(path.join(out,'vehicles-routes-release-results.json'),JSON.stringify({states,errors,sourceModuleOverrides:['vehicles.js','routes.js','assets.js'],scope:'Current candidate shell with revised source recipes; no candidate rebuild or deployment',date:'2026-11-13'},null,2));
  console.log(`PASS: ${states} source-recipe camera/viewport states; complete uncrossed callouts, uncut text and walking measurement labels.`);await browser.close();
 })().catch(e=>{console.error(e);process.exit(1);});

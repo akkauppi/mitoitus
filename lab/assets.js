@@ -216,10 +216,16 @@ export function createCar() {
     box(result, [0.008, 0.48, 0.055], [x, 1.15, -0.1], 'vehicle', false);
   }
   // Windscreens sit within the cabin silhouette, avoiding exaggerated body bounds.
-  const frontGlass = box(result, [1.33, 0.015, 0.69], [0, 1.155, 1.005], 'glass', false);
-  frontGlass.rotation.x = Math.atan2(0.68, 0.63);
-  const rearGlass = box(result, [1.33, 0.015, 0.62], [0, 1.155, -1.13], 'glass', false);
-  rearGlass.rotation.x = -Math.atan2(0.68, 0.43);
+  // Centre each pane on its actual cabin slope, then lift its inner face clear
+  // by 4.5 mm. The old centres left the front glass embedded in the shell.
+  const glassOffset=.012;
+  const frontAngle=Math.atan2(.68,.63),rearAngle=-Math.atan2(.68,.43);
+  const frontGlass = box(result, [1.33, .015, .69],
+    [0, 1.16+Math.cos(frontAngle)*glassOffset, 1.045+Math.sin(frontAngle)*glassOffset], 'glass', false);
+  frontGlass.rotation.x=frontAngle;frontGlass.name='car-front-windscreen';
+  const rearGlass = box(result, [1.33, .015, .62],
+    [0, 1.16+Math.cos(rearAngle)*glassOffset, -1.135+Math.sin(rearAngle)*glassOffset], 'glass', false);
+  rearGlass.rotation.x=rearAngle;rearGlass.name='car-rear-windscreen';
   for (const x of [-0.785, 0.785]) for (const z of [-1.55, 1.55]) wheel(result, x, 0.31, z, 0.31, 0.19);
   for (const x of [-0.58, 0.58]) {
     box(result, [0.34, 0.12, 0.008], [x, 0.57, 2.495], 'furniture', false);

@@ -43,21 +43,25 @@ HTML/table amendments and the registry's use of the new recipe metadata.
 
 ## Evidence
 
-- `node --test lab/tests/vehicles.test.mjs lab/tests/routes.test.mjs`: 19 tests
+- `node --test lab/tests/vehicles.test.mjs lab/tests/routes.test.mjs`: 20 tests
   passed. Added checks measure asset noses against analytic entry tangents,
   arrow tangency, detached gap, body dimensions and the four width purposes.
 - `node lab/tests/vehicles-routes-release-browser.cjs`: 24 camera/viewport states
   passed at 1440 and 390 px. All requested callouts are present; leader validation,
   text overlap, clipping and page-overflow checks passed.
-- Browser test uses the existing candidate shell and intercepts only its two
-  recipe module responses with current source files. It does not rebuild the
+- Browser test uses the existing candidate shell and intercepts its two recipe
+  modules and shared asset module with current source files. It does not rebuild the
   candidate or prove the final packaged release has these changes.
 - Inspected car Plan, bus oblique phone and clear-passage Front phone renders.
   Selected references: [car orientation](references/release-car-tangent-plan.png),
   [clear-passage label](references/release-clear-passage-phone.png).
 
-Observed follow-up items outside these recipe changes: the fixed phone gutter
-leaves a small model in a tall frame, especially for the long bus; the car's front
-windscreen sits low relative to its cabin slope, weakening the nose cue in Plan.
-These were reported to the root agent for the wider visual review. No independent
-physical-device or engineering-compliance check is claimed.
+The front and rear car windscreens were subsequently moved onto their actual
+cabin slopes, leaving 4.5 mm between each inner glass face and the shell. Raycasts
+from above confirm both panes are visible; body bounds remain 5 × 1.8 × 1.5 m.
+The selected car reference was refreshed after this correction.
+
+Observed follow-up item outside these changes: the fixed phone gutter leaves a
+small model in a tall frame, especially for the long bus. This was reported to
+the root agent for the wider visual review. No independent physical-device or
+engineering-compliance check is claimed.

@@ -1,5 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';import * as THREE from 'three';
 import {createRecipe,recipeInfo} from '../src/registry.js';
+import {createCar} from '../assets.js';
 const bounds=o=>new THREE.Box3().setFromObject(o,true),near=(a,b)=>assert.ok(Math.abs(a-b)<3e-6,`${a} != ${b}`);
 function checkBand(mesh,inner,outer){
  const p=mesh.geometry.attributes.position;let min=Infinity,max=0;
@@ -68,4 +69,25 @@ test('radius-reference noses and direction arrows follow the quarter-turn tangen
   near(bodyDimension.a[0],bodyDimension.b[0]);
   dispose(m);
  }
+});
+
+test('car windscreens sit visibly outside their cabin slopes without changing the envelope',()=>{
+ const car=createCar();car.updateMatrixWorld(true);
+ for(const [name,run,centre]of [
+  ['car-front-windscreen',.63,new THREE.Vector3(0,1.16,1.045)],
+  ['car-rear-windscreen',-.43,new THREE.Vector3(0,1.16,-1.135)],
+ ]){
+  const glass=car.getObjectByName(name),normal=new THREE.Vector3(0,Math.abs(run),Math.sign(run)*.68).normalize();
+  const positions=glass.geometry.attributes.position;
+  for(let i=0;i<positions.count;i++){
+   const point=new THREE.Vector3().fromBufferAttribute(positions,i).applyMatrix4(glass.matrixWorld);
+   const clearance=point.sub(centre).dot(normal);
+   assert.ok(clearance>.0044&&clearance<.0196,`${name}: glass lies outside the shell with a small gap`);
+  }
+  const ray=new THREE.Raycaster(new THREE.Vector3(0,5,glass.position.z),new THREE.Vector3(0,-1,0));
+  const meshes=[];car.traverse(o=>{if(o.isMesh)meshes.push(o);});
+  assert.equal(ray.intersectObjects(meshes,false)[0].object,glass,`${name}: visible in the plan view`);
+ }
+ const size=bounds(car).getSize(new THREE.Vector3());near(size.x,1.8);near(size.y,1.5);near(size.z,5);near(bounds(car).min.y,0);
+ dispose({group:car});
 });
