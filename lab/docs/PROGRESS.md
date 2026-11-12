@@ -639,3 +639,11 @@ packaging boundaries. Updated candidate and explicit offline package. Human site
 accessibility, physical GPUs/touch and final print/export remain unverified/T15.
 Local work only; no push/deployment. Reviewed current references replace the initial
 T08 design as the current recommendation; old screenshots retain historical names.
+
+
+### Pending user review — Check every link (2026-11-12)
+
+User says the panel needs rework and asks to move to the next task. Record
+`walking-connections` as unaccepted: revisit teaching value, diagram and clarity
+before release. Current visuals remain a draft, not an approved replacement.
+No further connection changes in this step; T09 is the next assigned goal.

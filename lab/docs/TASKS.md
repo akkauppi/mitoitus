@@ -143,6 +143,14 @@ source files intact, record the explicit editorial amendments, and verify native
 fallback, annotations and responsive framing. Do not decorate a measured clear
 route with obstructing scale assets.
 
+## Pending review — Check every link
+
+User instruction, 12 November 2026: **“Check every link” needs rework.** Panel
+`walking-connections` remains an unaccepted teaching/visual draft. Revisit the
+lesson, diagram and clarity before release; do not treat the current weakest-link
+schematic as approved. Resume after the next assigned task. This is separate from
+the existing Residents & services publication blocker.
+
 ## T09 — Building footprints
 
 **Depends:** T04. **Panels:** `building-blocks`, `building-rows`,
