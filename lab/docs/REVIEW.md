@@ -106,3 +106,12 @@ Run `node lab/tests/connections-browser.cjs` and
 Selected references: crossing, native network, pinch point and height-phone
 views under `references/connections-t08-*`; corrected turning callouts under
 `references/turning-clear-space-phone.png`. Overview/print stills remain T15.
+
+## Current connection redesign — 12 November 2026
+
+Supersedes the initial T08 split-view and distance-emphasis screenshots above.
+Current review references: `connections-continuity-phone.png` and
+`connections-corridor-phone.png` (plus desktop companions). The route lesson is
+static; the clear-space illustration is one positive corridor. See PROGRESS.md
+for user authority, editorial provenance, checks and limits. Initial T08 reference
+files are historical evidence, not the current recommendation.

@@ -209,39 +209,37 @@ Read [STYLE.md](STYLE.md), [CALLOUTS.md](CALLOUTS.md) and [PIPELINE.md](PIPELINE
   retain vehicle arrows. Verify 3+2.5+3, stripe/gap spacing and clear refuge opening.
   Do not shrink lanes, imply complete tactile/junction details or place decoration in the route.
 
-### 10.2 Route length, not radius · claim `walking-connections`
+### 10.2 Check every link · claim `walking-connections`
 
-- **Question:** why can nearby endpoints still require a longer actual walking route?
-- **Drawing/default:** retain a clear metric **2D network plan**, optionally on a
-  shallow decorative base; depth is secondary and no miniature city is needed.
-- **Values/context:** direct distance 300 m; route 100 + 300 + 100 = 500 m;
-  added distance 200 m. References TKK historical proximity context and W4;
-  the network is explicitly an invented geometric example, not a catchment threshold.
-- **Callouts (≤4):** Entrance → start; Destination → end; Bridge → crossing node;
-  Walking route → accessible polyline segment. Keep direct-line label distinct.
-- **Assets/comparison:** shared route polyline, bridge/barrier glyph and endpoint dots.
-  Compare direct versus available route by emphasis toggle, never by changing geometry.
-  River/bridge/icon sizes stay schematic; omit enormous out-of-scale people or trees.
-- **Preservation/checks:** test polyline length, equal plan axes and the 200 m difference.
-  No walking-speed/time, service viability, actual site or accessibility guarantee is added;
-  retain entrance, opening-hours, slope, winter and connection considerations.
+**Current user-approved direction, 12 November 2026:** continuity and weakest
+links, replacing the overly obvious interactive 500/300 m comparison. A static
+native vector schematic follows a gate and crossing to the actual entrance.
+The short dashed spur terminates at the building wall, not at an entrance.
+Gate hours, crossing continuity and accessible approach are questions to check,
+not asserted site conditions. Opening hours, slopes, barriers and winter maintenance
+come from the retained source discussion; all new editorial text is an assistant
+draft. No metric scale, invented threshold or guaranteed accessible route.
 
-### 10.3 Clear space in 3D · claim `clear-route-continuity`
+Source baseline remains intact. The original 300/500/200 m table and practical
+notes are retained in a Sources-only history drawer. No emphasis controls or WebGL
+are needed for this panel. Both native/file fallback and phone labels are checked.
 
-- **Question:** where does the smallest usable passage occur horizontally and vertically?
-- **Drawing/default:** separate pinch-point plan/oblique and paired height elevations.
-  Default pinch-point diorama; height comparison remains selectable rather than overlaid.
-- **Values/context:** 2.5 m pavement − assumed 1.1 m intrusion = 1.4 m clear;
-  source clear width ≥1.5 m, passing ≥1.8 m; clear height ≥2.2 m; beneath building
-  ≥3 m recommended. References S10 p.1, S01 p.12. Path length 12 m, obstacle length
-  1.4 m and height-envelope horizontal width 3 m are existing illustration assumptions.
-- **Callouts (≤3):** Obstacle → intrusion face; Clear passage → narrow opening;
-  Lowest obstruction → underside, only in height mode. People retain 1.75 m.
-- **Assets/comparison:** shared obstacle, clearance outline and canopy/building fragment;
-  keep ≥2.2 and ≥3 m as distinct contexts, not an adjustable interchangeable limit.
-- **Preservation/checks:** show that 1.4 < 1.5 without turning it into current-code
-  certification. Elevations need no fake cut plane. Keep furniture, doors, branches,
-  signs and snow considerations; do not transfer pedestrian values to cycling or vehicles.
+### 10.3 Keep the whole corridor clear · claim `clear-route-continuity`
+
+**Current review supersedes the initial T08 split pinch/height views.** One
+compact 6 m illustrative route segment combines the following sourced contexts:
+≥1.5 m clear width, a ≥1.8 m passing widening, ≥2.2 m pedestrian overhead clearance,
+and ≥3 m recommended under a building. Furniture stands outside the clear ribbon.
+No 1.4 m failing passage appears as a usable design example. Source tables and
+practical caveats are unchanged; overhead fragments are illustration assumptions,
+not structural specifications. Widening length 1.2 m is illustrative; the drawing
+does not validate complete passing/manoeuvring geometry or regulatory compliance.
+
+Default oblique view is framed along the route for readable width/height context
+on phones. Plan/Front remain optional camera presets of the **same** model;
+there is no separate height mode or artificial cut. Callouts: clear corridor,
+furniture outside, overhead clearance and under building. All dimensional anchors,
+passage bounds, furniture separation and preset annotation layouts are checked.
 
 ## 11 — Parking (`parking`)
 

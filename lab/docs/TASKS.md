@@ -128,13 +128,20 @@ contexts preserved. W4 parking restriction stays visible.
 **Depends:** T04–T05. **Panels:** `crossing-refuge`, `walking-connections`,
 `clear-route-continuity`.
 
-Create the crossing with correct marking orientation; retain the route network
-as a clear 2D plan; make separate horizontal-pinch and height examples. Use exact
-route polyline length, not straight-line distance. Clearance elevations are not cuts.
+Create the crossing with correct marking orientation. **User review amendment,
+12 November 2026:** keep the route panel as a static native weakest-link teaching
+schematic, replacing the interactive distance comparison. Show gate availability,
+crossing continuity and the actual entrance; no new thresholds. Retain earlier
+source values in Sources history. Integrate width and height into one positive
+clear corridor, with furniture outside and distinct source height contexts.
 
-**Done:** refuge sums to 8.5 m; stripe/gap 0.5 m; route 500 versus 300 m;
-2.5−1.1 = 1.4 m; height examples keep their distinct contexts. Do not decorate a
-measured clear route with obstructing scale assets.
+**Done:** refuge sums to 8.5 m; stripe/gap 0.5 m; weakest-link schematic is static,
+readable and clearly an assistant draft; clear ribbon ≥1.5 m, passing width ≥1.8 m,
+height ≥2.2 m and under-building ≥3 m recommendation are correctly distinguished.
+The former 1.4 m failing case and separate detail controls are superseded. Keep
+source files intact, record the explicit editorial amendments, and verify native
+fallback, annotations and responsive framing. Do not decorate a measured clear
+route with obstructing scale assets.
 
 ## T09 — Building footprints
 

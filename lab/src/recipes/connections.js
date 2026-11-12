@@ -1,11 +1,9 @@
 import * as THREE from 'three';
-import {createPerson} from '../../assets.js';
 import {box,surfaceStrip,flatArrow,outline} from '../primitives/surfaces.js';
 const dim=(a,b,label,offset=[0,0,0])=>({a,b,label,offset});
 export const CONNECTION_INFO={
  'crossing-refuge':{defaultCamera:'plan',allowedCameras:['iso','plan'],caseTitle:'CROSSING REFUGE · PLAN EXAMPLE',description:'Two 3 metre lanes plus a 2.5 metre refuge: 8.5 metres along the crossing.',explanation:['Refuge depth is along the crossing. White stripes follow the road; stripe/gap 0.5 m. Opening width 4 m and island length 8 m are example values.','The refuge adds to both traffic lanes. Keep the crossing opening clear; tactile details, sightlines, drainage and onward footways need coordination.'],assumptions:['Original opening/length example retained, including its offset along the island. Ground relief, 0.06 m island relief and short onward footway fragments are illustrations, not kerb or junction specifications.']},
- 'clear-route-continuity':{defaultCamera:'plan',allowedCameras:['iso','plan'],caseTitle:'PINCH POINT · PLAN EXAMPLE',description:'2.5 metre pavement minus assumed 1.1 metre intrusion leaves 1.4 metres clear.',explanation:['2.5 − 1.1 = 1.4 m < 1.5 m. Nominal pavement width is not clear passage.','Measure the narrowest usable space, including furniture, door swings, branches, signs and seasonal snow. Outdoor pedestrian values are distinct from cycling, tram and vehicle envelopes.'],assumptions:['Path length 12 m, obstacle length 1.4 m and encroachment 1.1 m are existing illustration assumptions. Obstacle height 0.8 m and base relief are illustrative.']},
- 'clear-route-continuity-height':{defaultCamera:'front',allowedCameras:['iso','front'],caseTitle:'CLEAR HEIGHT · PAIRED ELEVATIONS',description:'Pedestrian route clear height at least 2.2 metres; under building or building part at least 3 metres recommended. One metric scale.',explanation:['Route: ≥2.2 m clear height. Under building / building part: ≥3 m recommended. These are distinct contexts, not interchangeable limits.','Both elevations share one scale; people are 1.75 m, placed beside the measured openings. This is an elevation, not a cut section.'],assumptions:['Height-envelope horizontal width 3 m is the existing illustration assumption. Canopy thickness 0.16 m, slab depth 1.5 m and ground relief are illustrative; no structural or construction detail is prescribed.']},
+ 'clear-route-continuity':{defaultCamera:'iso',allowedCameras:['iso','plan','front'],caseTitle:'ONE CONTINUOUS CLEAR CORRIDOR',description:'A continuous 1.5 metre clear pedestrian corridor with 2.2 metre overhead clearance and a separate 3 metre under-building recommendation.',explanation:['Keep width and height clear together, along the whole route. The blue ribbon shows ≥1.5 m clear width; the widened passing place shows ≥1.8 m.','Ordinary pedestrian clear height: ≥2.2 m. Under a building or building part: ≥3 m recommended. These remain distinct contexts. Furniture sits outside the clear ribbon.'],assumptions:['Assistant illustration draft. Route segment 6 m, pavement width 2.5 m, passing-place length 1.2 m, furniture, suspended overhead fragments and ground relief are assumed. Their layout illustrates the retained source dimensions, not a complete compliant design.']},
 };
 export function connectionScene(panel){
  const group=new THREE.Group(),dimensions=[],labels=[];let measurement,target=[0,.5,0],camera=[1.3,1.15,1.6];
@@ -24,23 +22,17 @@ export function connectionScene(panel){
   labels.push({point:[0,0,0],text:'Refuge'},{point:[4.95,0,1.5],text:'Walking route'},{point:[-2.75,0,3.4],text:'Lane'},{point:[1.5,.004,1.5],text:'Zebra marking'});
   measurement={lanes:3,refuge:2.5,total:8.5,opening:4,islandLength:8,stripe:.5,gap:.5};
  }else if(panel==='clear-route-continuity'){
-  box(group,12,.24,2.5,0,-.18,0,'soil','path-base');surfaceStrip(group,{width:12,length:2.5,name:'pavement'});
-  box(group,1.4,.8,1.1,-7/15,.4,-.7,'vehicle','obstacle');
-  outline(group,[[-7/6,.008,-.15],[7/30,.008,-.15],[7/30,.008,1.25],[-7/6,.008,1.25],[-7/6,.008,-.15]],'clear-passage');
-  dimensions.push(dim([6,0,-1.25],[6,0,1.25],'2.5 m total',[.7,0,0]),dim([7/30,0,-.15],[7/30,0,1.25],'1.4 m clear',[1,0,0]),dim([-7/15,.8,-1.25],[-7/15,.8,-.15],'1.1 m intrusion',[0,.2,0]));
-  labels.push({point:[-7/15,.8,-.7],text:'Obstacle'},{point:[-.4,0,.55],text:'Clear passage'});
-  measurement={width:2.5,intrusion:1.1,clear:1.4,length:12,obstacleLength:1.4};
- }else if(panel==='clear-route-continuity-height'){
-  for(const [x,height,name]of [[-2.5,2.2,'route'],[2.5,3,'building']]){
-   box(group,4.4,.24,1.5,x+(x<0?-.4:.4),-.18,0,'soil',name+'-base');
-   surfaceStrip(group,{width:3,length:1.5,x,name:name+'-floor'});
-   box(group,3,.16,1.5,x,height+.08,0,'paving',name+'-canopy');
-   outline(group,[[x-1.5,0,.75],[x-1.5,height,.75],[x+1.5,height,.75],[x+1.5,0,.75]],name+'-envelope');
-   const person=createPerson();person.position.set(x<0?-4.6:4.6,0,0);group.add(person);
-   dimensions.push(dim([x+1.5,0,.75],[x+1.5,height,.75],name==='route'?'≥2.2 m':'≥3 m recommended',[.3,0,0]));
-   labels.push({point:[x,height,.75],text:name==='route'?'Route clearance':'Under building'});
-  }
-  measurement={routeHeight:2.2,buildingHeight:3,width:3};target=[0,1.5,0];
+  box(group,6,.24,2.5,0,-.18,0,'soil','path-base');surfaceStrip(group,{width:6,length:2.5,name:'pavement'});
+  box(group,6,.006,1.5,0,.003,0,'clearance','continuous-clear-ribbon');
+  box(group,1.2,.008,1.8,-2,.004,0,'clearance','passing-place');
+  box(group,.8,.7,.42,-.8,.35,-1.04,'furniture','furniture-outside');
+  // Overhead fragments are held clear of the same route, not a separate elevation.
+  box(group,.3,.12,1.5,-.3,2.26,0,'metal','ordinary-overhead');
+  box(group,1,.16,2.5,1.7,3.08,0,'paving','building-overhead');
+  for(const x of [-3,.6,2.8])outline(group,[[x,0,-.75],[x,2.2,-.75],[x,2.2,.75],[x,0,.75]],'clear-envelope');
+  dimensions.push(dim([-3,0,-.75],[-3,0,.75],'≥1.5 m clear',[-.6,0,0]),dim([-2,0,-.9],[-2,0,.9],'≥1.8 m passing',[0,0,0]),dim([-.3,0,.75],[-.3,2.2,.75],'≥2.2 m clear',[.7,0,0]),dim([1.7,0,1.25],[1.7,3,1.25],'≥3 m recommended',[.8,0,0]));
+  labels.push({point:[-1.2,.008,.4],text:'Clear corridor'},{point:[-.8,.7,-1.04],text:'Furniture outside'},{point:[-.3,2.2,0],text:'Overhead clearance'},{point:[1.7,3,0],text:'Under building'});
+  measurement={clearWidth:1.5,passingWidth:1.8,routeHeight:2.2,buildingHeight:3,length:6,pavementWidth:2.5};target=[0,1.3,0];camera=[-2.6,1.6,1.1];
  }else throw new Error('Unknown connection scene');
  group.updateMatrixWorld(true);return {group,dimensions,labels,measurement,meta:{target,camera}};
 }

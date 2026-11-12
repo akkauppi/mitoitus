@@ -49,6 +49,7 @@ class CandidateTests(unittest.TestCase):
         rendered = m.render_book(original.encode()).decode()
         pattern = r'<section class="sheet" id="([^"]+)".*?</section>'
         before = {v[1]:v[0] for v in re.finditer(pattern, original, re.S)}
+        before['connections'] = m.redesign_connections(before['connections'])
         after = list(re.finditer(pattern, rendered, re.S))
         self.assertEqual([v[1] for v in after],list(m.SPREAD_ORDER))
         for index, sheet in enumerate(after,1):

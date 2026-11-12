@@ -154,11 +154,19 @@ Focused checks: `node lab/tests/vehicles-browser.cjs` and
 
 [Open Connections](http://localhost:8765/lab/book/?mode=focus&panel=crossing-refuge#connections).
 The crossing keeps 3 + 2.5 + 3 = 8.5 m with road-aligned 0.5 m stripes/gaps.
-The walking network stays native SVG; emphasis switches between the 500 m route
-and 300 m direct distance without changing geometry. Clear-route focus has
-separate Pinch point / Clear heights controls (`detail=pinch|height`), retaining
-one canonical source figure and all existing notes. No decorative object occupies
-the measured clear passages. Focused checks: `node lab/tests/connections-browser.cjs`.
+After user review, the route panel is a static **Check every link** diagram:
+gate availability, a usable crossing, and the actual entrance determine whether a
+connection works. Its questions are assistant editorial drafts grounded in the
+retained source discussion; no new distance threshold is introduced. The earlier
+500/300 m example is retained under Sources, not used as the main lesson.
+
+**Keep the whole corridor clear** combines width and height in one positive
+example: ≥1.5 m clear ribbon, ≥1.8 m passing widening, ≥2.2 m overhead clearance,
+and the distinct ≥3 m recommended under-building context. Furniture stays outside
+the ribbon. The previous ambiguous 1.4 m failing example and detail toggles are
+removed; old detail links open the unified scene. The 6 m segment and fragment
+shapes are illustrative, not a complete compliance demonstration.
+Focused checks: `node lab/tests/connections-browser.cjs`.
 
 Candidate branding is now **Antti’s Dubious Little Planning Rulebook**,
 **Rules of thumb. Fingers crossed. · v2026-11-12**, as approved by the user.

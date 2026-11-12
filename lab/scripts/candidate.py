@@ -8,6 +8,7 @@ import tempfile
 import zipfile
 from html.parser import HTMLParser
 from pathlib import Path
+from connection_editorial import redesign_connections
 
 ROOT = Path(__file__).resolve().parents[2]
 KINDS = ('buildings', 'accessible', 'turning', 'rescue', 'tram', 'parking', 'street')
@@ -160,6 +161,7 @@ def render_book(source):
         raise ValueError('Unexpected sheets while applying approved order')
     # User correction: circles denote clear space, never the wheelchair itself.
     sections['accessible'] = sections['accessible'].replace('>Wheelchair</text>', '>Clear space · manual</text>').replace('>Powered chair</text>', '>Clear space · powered</text>')
+    sections['connections'] = redesign_connections(sections['connections'])
     ordered = []
     for index, identity in enumerate(SPREAD_ORDER, 1):
         ordered.append(re.sub(r'(<div class="panel-top"><span>)\d{2}',

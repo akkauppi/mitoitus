@@ -287,3 +287,13 @@ approval or physical-device acceptance. Record unresolved visual/export issues
 honestly. Completing the implementation does **not** lift the publication hold.
 The final handoff is a clean local commit, review entry points and a concise list
 of remaining limits. Release remains a separate user decision.
+
+## Connection review amendment — 12 November 2026
+
+The user rejected the unnecessary route-distance interactivity and ambiguous
+1.4 m passage, and selected continuity/weakest links as the route lesson. This
+explicitly supersedes the initial T08 recipes: adopt a static editorial schematic
+about gates, crossings and the actual entrance; retain the earlier source example
+under Sources. Combine clear width/passing width/height in one positive corridor
+view. New prompts are assistant drafts, not checked author wording; no new standard
+or current-code claim. See current SCENES-07-11.md §§10.2–10.3 and PROGRESS.md.

@@ -601,3 +601,41 @@ labels become “Clear space · manual/powered” without changing any source di
 or table wording. This is an explicitly accepted annotation override in the
 candidate builder, also covered by its raw-sheet preservation test. Accessibility
 regression passes 35 responsive camera states with all three turning callouts.
+
+### Connection redesign after user review — 2026-11-12 (current)
+
+User rejected the overly interactive/obvious distance example and asked to
+reconsider clear space wholly, integrating views and explaining the misleading
+1.4 m passage. User selected **continuity and weakest links** as the new route
+lesson. This supersedes T08's emphasis controls and separate pinch/height views.
+
+Route is now **Check every link**, a static native vector schematic through a gate
+and crossing to the actual entrance. A dashed spur hits a wall, illustrating why
+building proximity alone is insufficient. Visible prompts ask about availability,
+continuation and entrance usability. All new text is an assistant editorial draft
+using the retained narrative about barriers, opening hours, slopes, entrances and
+winter maintenance; there is no invented site, catchment threshold or assurance of
+accessibility. Earlier 300/500/200 m source details are retained in Sources history.
+
+**Keep the whole corridor clear** is one model: a positive 1.5 m clear ribbon,
+1.8 m passing widening, 2.2 m overhead allowance and distinct 3 m recommended
+under-building height. Furniture remains outside the ribbon. The ambiguous 1.4 m
+failure example is removed from the main view and static fallback. A compact 6 m
+assumed segment and end-oriented oblique framing improve phone legibility; passing
+length 1.2 m, pavement 2.5 m, furniture and suspended fragments are assumptions,
+not a full design/compliance demonstration. Plan/Front are optional views of the
+same geometry. Old detail/emphasis query parameters no longer change the content.
+
+The explicit build-only `connection_editorial.py` transform records these deliberate
+presentation/content overrides. Baseline HTML, source evidence and CAD remain
+preserved. New questions are not represented as checked source author text.
+
+Validation: 70 unit tests; 30 responsive connection states covering static network,
+all unified camera presets, four complete callouts, annotation collisions/clipping,
+visible dimension contexts, one context, reset/reload, no-WebGL and file fallback.
+Twenty builder tests and 110 shell states (33 panels/15 legacy variants) preserve
+source details, including the network's retained reference drawer, navigation and
+packaging boundaries. Updated candidate and explicit offline package. Human site
+accessibility, physical GPUs/touch and final print/export remain unverified/T15.
+Local work only; no push/deployment. Reviewed current references replace the initial
+T08 design as the current recommendation; old screenshots retain historical names.

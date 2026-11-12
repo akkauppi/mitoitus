@@ -280,8 +280,11 @@ The same package served locally enables interactive 3D. This is a deliberate
 compatibility requirement, not permission to claim full direct-file 3D support.
 
 
-T08 keeps `figure=clear-route-continuity--v0` as the single canonical source
-figure. `detail=pinch|height` selects its analytic treatment; only the runtime
-recipe ID gains `-height`. This creates no source variant or inventory drawing.
-`emphasis=route|direct` styles the native walking-network SVG without mutating its
-geometry. Native network focus needs no WebGL; controls also work under file://.
+The connection review supersedes T08's route emphasis and separate pinch/height
+selection. `walking-connections` is now one static weakest-link SVG and editorial
+draft, with earlier source details retained in a Sources-only history drawer.
+`clear-route-continuity--v0` is one combined corridor. Historical `detail` and
+`emphasis` query parameters are ignored; the old internal `-height` recipe alias
+resolves to the same unified geometry. No source variants are added. The candidate
+builder's explicit `connection_editorial.py` transform preserves baseline source
+files while adopting the user-requested presentation/content amendments.

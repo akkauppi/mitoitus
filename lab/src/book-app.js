@@ -74,13 +74,12 @@
     const selected = group ? group.querySelector('select').selectedIndex : 0;
     // A legacy variant is authoritative; T02 has only its corresponding whole figure.
     const figure = `${active.id}--v${selected}`;
-    const detail=active.id==='clear-route-continuity'&&q.get('detail')==='height'?'height':'pinch';
-    const sceneId=figure+(active.id==='clear-route-continuity'&&detail==='height'?'-height':'');
-    const allowed = active.id==='clear-route-continuity'?(detail==='height'?['iso','front']:['iso','plan']):active.id==='crossing-refuge'?['iso','plan']:active.id==='walking-connections'?['plan']: ['turning','arrival','tram-corridor','tram-length','car-turn','bus-turn','rescue'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
-    const defaultCamera=active.id==='clear-route-continuity'&&detail==='height'?'front':['ramps','tram-width'].includes(active.id)?'front':['turning','arrival','tram-corridor'].includes(active.id)?'plan':['trees','walking','cycling','bike-parking','tram-length'].includes(active.id)?'iso':'plan';
+    const sceneId=figure;
+    const allowed = active.id==='clear-route-continuity'?['iso','plan','front']:active.id==='crossing-refuge'?['iso','plan']:active.id==='walking-connections'?['plan']: ['turning','arrival','tram-corridor','tram-length','car-turn','bus-turn','rescue'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
+    const defaultCamera=active.id==='clear-route-continuity'?'iso':['ramps','tram-width'].includes(active.id)?'front':['turning','arrival','tram-corridor'].includes(active.id)?'plan':['trees','walking','cycling','bike-parking','tram-length'].includes(active.id)?'iso':'plan';
     const camera = allowed.includes(q.get('camera')) ? q.get('camera') : defaultCamera;
     const style = ['paper', 'ink', 'soft'].includes(q.get('style')) ? q.get('style') : 'paper';
-    return { sheet, active, figure, sceneId, detail, emphasis:q.get('emphasis')==='direct'?'direct':'route', camera, style, mode: q.get('mode') === 'focus' ? 'focus' : 'overview' };
+    return { sheet, active, figure, sceneId, camera, style, mode: q.get('mode') === 'focus' ? 'focus' : 'overview' };
   }
   function navigate(changes, method = 'pushState') {
     const url = new URL(location.href);
@@ -114,16 +113,7 @@
     drawing.tabIndex = 0;
     drawing.setAttribute('role', 'group');
     drawing.setAttribute('aria-label', `${record.title}: static illustration`);
-    if(record.id==='clear-route-continuity'||record.id==='walking-connections'){
-      const controls=document.createElement('div');controls.className='connection-controls';controls.hidden=true;controls.setAttribute('role','group');
-      const network=record.id==='walking-connections';controls.setAttribute('aria-label',network?'Distance emphasis':'Clearance illustration');
-      for(const [value,label]of network?[['route','Walking route · 500 m'],['direct','Direct distance · 300 m']]:[['pinch','Pinch point'],['height','Clear heights']]){
-        const option=document.createElement('button');option.textContent=label;option.dataset.connectionChoice=value;
-        option.onclick=()=>navigate(network?{emphasis:value}:{detail:value,camera:null});controls.append(option);
-      }
-      drawing.prepend(controls);
-      if(network){record.panel.classList.add('connection-network');const note=document.createElement('p');note.className='network-note';note.textContent='Direct distance crosses the barrier; it is not the available walking route.';drawing.append(note);}
-    }
+    if(record.id==='walking-connections')record.panel.classList.add('connection-network');
     const button = document.createElement('button');
     button.className = 'explore'; button.textContent = 'Explore →';
     button.setAttribute('aria-label', `Explore ${record.title}`);
@@ -148,13 +138,6 @@
       record.panel.hidden = focused && record.sheet === sheet && record !== active;
       record.panel.classList.toggle('focused-panel', focused && record === active);
     }
-    for(const record of records){
-      const controls=record.panel.querySelector('.connection-controls');if(!controls)continue;
-      controls.hidden=!(focused&&record===active)||document.body.classList.contains('wall');
-      record.panel.dataset.emphasis=current.emphasis;
-      for(const button of controls.querySelectorAll('button'))button.setAttribute('aria-pressed',String(button.dataset.connectionChoice===(record.id==='walking-connections'?current.emphasis:current.detail)));
-    }
-    if(active.id==='clear-route-continuity'&&url.searchParams.has('detail')){url.searchParams.set('detail',current.detail);history.replaceState(history.state,'',url);}
     $('book-title').textContent = sheet.getAttribute('aria-label');
     document.title=sheet.getAttribute('aria-label')+' — '+document.querySelector('.brand>span').firstChild.textContent;
     $('book-count').textContent = `${String(sheets.indexOf(sheet) + 1).padStart(2, '0')} / 11`;

@@ -13,7 +13,7 @@ export const ROOT_RECIPE = Object.freeze({
 export function recipeInfo(id) {
   if(id===ROOT_RECIPE.id)return ROOT_RECIPE;
   const connection=/^(crossing-refuge|clear-route-continuity)--v0(-height)?$/.exec(id);
-  if(connection){const key=connection[1]+(connection[2]||'');if(!CONNECTION_INFO[key])throw new Error(`Unknown recipe: ${id}`);return {id,panelId:connection[1],sourceClaims:[connection[1]],...CONNECTION_INFO[key]};}
+  if(connection){if(connection[2]&&connection[1]!=='clear-route-continuity')throw new Error(`Unknown recipe: ${id}`);const key=connection[1];if(!CONNECTION_INFO[key])throw new Error(`Unknown recipe: ${id}`);return {id,panelId:connection[1],sourceClaims:[connection[1]],...CONNECTION_INFO[key]};}
   const vehicle=/^(car-turn|bus-turn|rescue)--v(\d+)$/.exec(id);
   if(vehicle)return {id,panelId:vehicle[1],sourceClaims:[vehicle[1]],...vehicleInfo(vehicle[1],Number(vehicle[2]))};
   const tram=/^(tram-corridor|tram-width|tram-length)--v0$/.exec(id);
@@ -30,7 +30,7 @@ export function recipeInfo(id) {
 }
 export function createRecipe(id) {
   const recipe=recipeInfo(id);
-  const model=CONNECTION_INFO[recipe.panelId+(id.endsWith('-height')?'-height':'')]?connectionScene(recipe.panelId+(id.endsWith('-height')?'-height':'')):['car-turn','bus-turn','rescue'].includes(recipe.panelId)?vehicleScene(recipe.panelId,Number(id.split('--v')[1])):TRAM_INFO[recipe.panelId]?tramScene(recipe.panelId):ACCESSIBILITY_INFO[recipe.panelId]?accessibilityScene(recipe.panelId):id===ROOT_RECIPE.id?buildScene('roots'):recipe.panelId==='bike-parking'?cycleParkingScene():routeScene(recipe.panelId,Number(id.split('--v')[1]));
+  const model=CONNECTION_INFO[recipe.panelId]?connectionScene(recipe.panelId):['car-turn','bus-turn','rescue'].includes(recipe.panelId)?vehicleScene(recipe.panelId,Number(id.split('--v')[1])):TRAM_INFO[recipe.panelId]?tramScene(recipe.panelId):ACCESSIBILITY_INFO[recipe.panelId]?accessibilityScene(recipe.panelId):id===ROOT_RECIPE.id?buildScene('roots'):recipe.panelId==='bike-parking'?cycleParkingScene():routeScene(recipe.panelId,Number(id.split('--v')[1]));
   model.recipe=recipe;
   return model;
 }

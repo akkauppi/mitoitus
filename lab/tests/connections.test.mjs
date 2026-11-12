@@ -9,17 +9,12 @@ test('refuge keeps both 3m lanes, 2.5m island, 8.5m span and the original offset
  for(const [name,axis]of [['left-traffic','z'],['right-traffic','z'],['walking-direction','x']]){const b=bounds(m.group.getObjectByName(name));assert.ok(b.max[axis]-b.min[axis]>(axis==='x'?10:.9));}
  assert.equal(m.labels.length,4);dispose(m);
 });
-test('pinch geometry retains a real 1.4m clear gap beside assumed intrusion',()=>{
- const m=createRecipe('clear-route-continuity--v0'),p=bounds(m.group.getObjectByName('pavement')),o=bounds(m.group.getObjectByName('obstacle'));
- near(p.max.x-p.min.x,12);near(p.max.z-p.min.z,2.5);near(o.max.x-o.min.x,1.4);near(o.max.z-o.min.z,1.1);near(o.min.z,p.min.z);near(p.max.z-o.max.z,1.4);
- const clear=m.dimensions.find(d=>d.label==='1.4 m clear');near(new THREE.Vector3(...clear.a).distanceTo(new THREE.Vector3(...clear.b)),1.4);assert.equal(m.group.children.filter(o=>o.userData.asset).length,0);dispose(m);
-});
-test('height elevations preserve distinct 2.2/3m contexts with scale people outside openings',()=>{
- const m=createRecipe('clear-route-continuity--v0-height');
- for(const [name,height]of [['route',2.2],['building',3]]){const canopy=bounds(m.group.getObjectByName(name+'-canopy')),floor=bounds(m.group.getObjectByName(name+'-floor'));near(canopy.min.y-floor.max.y,height);near(canopy.max.x-canopy.min.x,3);}
- const people=m.group.children.filter(o=>o.userData.asset==='person');assert.equal(people.length,2);
- for(const person of people){const b=bounds(person);near(b.max.y-b.min.y,1.75);near(b.min.y,0);assert.ok(b.max.x<-4||b.min.x>4,'people beside the measured openings');}
- assert.equal(m.recipe.defaultCamera,'front');assert.ok(m.recipe.explanation.join().includes('recommended'));assert.ok(!m.recipe.allowedCameras.includes('section'));dispose(m);
+test('one corridor keeps width, passing space and both overhead contexts clear',()=>{
+ const m=createRecipe('clear-route-continuity--v0'),p=bounds(m.group.getObjectByName('pavement')),r=bounds(m.group.getObjectByName('continuous-clear-ribbon')),passing=bounds(m.group.getObjectByName('passing-place')),furniture=bounds(m.group.getObjectByName('furniture-outside'));
+ near(p.max.x-p.min.x,6);near(p.max.z-p.min.z,2.5);near(r.max.z-r.min.z,1.5);near(r.max.x-r.min.x,6);near(passing.max.z-passing.min.z,1.8);assert.ok(furniture.max.z<r.min.z,'furniture remains outside the corridor');
+ near(bounds(m.group.getObjectByName('ordinary-overhead')).min.y-p.max.y,2.2);near(bounds(m.group.getObjectByName('building-overhead')).min.y-p.max.y,3);
+ assert.equal(m.recipe.defaultCamera,'iso');assert.ok(m.recipe.explanation.join().includes('recommended'));assert.equal(m.group.getObjectByName('obstacle'),undefined);assert.equal(m.labels.length,4);
+ for(const d of m.dimensions)assert.ok(!d.label.includes('1.4'));dispose(m);
 });
 test('connection geometry and anchors are finite and reject invented source variants',()=>{
  for(const id of ['crossing-refuge--v1','crossing-refuge--v0-height','clear-route-continuity--v1'])assert.throws(()=>recipeInfo(id));
