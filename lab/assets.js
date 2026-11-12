@@ -82,20 +82,92 @@ function wheel(parent, x, y, z, radius, width) {
   hub.rotation.z = Math.PI / 2;
 }
 
-export function createPerson() {
+export function createPerson({ pose = 'standing' } = {}) {
+  if (!['standing', 'walking', 'waiting'].includes(pose)) throw new RangeError(`Unknown person pose: ${pose}`);
   const result = group('person');
-  // Restrained, neutral scale figure: no hair, clothing textures or facial detail.
-  box(result, [0.15, 0.10, 0.27], [-0.11, 0.05, 0.035], 'person', false);
-  box(result, [0.15, 0.10, 0.27], [0.11, 0.05, -0.035], 'person', false);
-  rod(result, [-0.11, 0.10, 0.02], [-0.10, 0.90, 0], 0.068, 'person');
-  rod(result, [0.11, 0.10, -0.04], [0.10, 0.90, 0], 0.068, 'person');
-  const torso = mesh(result, new THREE.CylinderGeometry(0.27, 0.20, 0.58, 4), 'person', [0, 1.14, 0]);
-  torso.rotation.y = Math.PI / 4;
-  torso.scale.set(1, 1, 0.63);
-  rod(result, [-0.21, 1.34, 0], [-0.27, 0.86, 0.045], 0.055, 'person');
-  rod(result, [0.21, 1.34, 0], [0.27, 0.86, -0.045], 0.055, 'person');
-  rod(result, [0, 1.40, 0], [0, 1.51, 0], 0.07, 'person');
-  mesh(result, new THREE.SphereGeometry(0.13, 12, 8), 'person', [0, 1.62, 0]);
+  result.userData.pose = pose;
+  // Architectural entourage, not a population/clearance standard. A 0.23 m
+  // shaped head, sloping shoulders and clothing taper keep the human silhouette
+  // legible without faces, joint balls or an oversized toy-like head.
+  // Rings are [height, half-width, half-depth, optional depth offset].
+  function form(name, rings) {
+    const sides = 12, vertices = [], indices = [];
+    rings.forEach(([y, rx, rz, z = 0]) => {
+      for (let i = 0; i < sides; i++) {
+        const angle = i * Math.PI * 2 / sides;
+        vertices.push(Math.cos(angle) * rx, y, Math.sin(angle) * rz + z);
+      }
+    });
+    for (let ring = 0; ring < rings.length - 1; ring++) {
+      for (let i = 0; i < sides; i++) {
+        const a = ring * sides + i, b = ring * sides + (i + 1) % sides;
+        indices.push(a, a + sides, b, b, a + sides, b + sides);
+      }
+    }
+    // The first and last ring have a closed cap even when their radius is not 0.
+    for (let i = 1; i < sides - 1; i++) indices.push(0, i, i + 1);
+    const top = (rings.length - 1) * sides;
+    for (let i = 1; i < sides - 1; i++) indices.push(top, top + i + 1, top + i);
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    geometry.setIndex(indices);
+    geometry.computeVertexNormals();
+    const part = mesh(result, geometry, 'person');
+    part.name = name;
+    return part;
+  }
+  function limb(name, from, to, radiusStart, radiusEnd, depth = 0.9) {
+    const a = new THREE.Vector3(...from), b = new THREE.Vector3(...to);
+    const direction = b.clone().sub(a), length = direction.length();
+    const part = form(name, [
+      [0, radiusStart * 0.88, radiusStart * depth * 0.88],
+      [length * 0.12, radiusStart, radiusStart * depth],
+      [length * 0.76, radiusEnd * 1.08, radiusEnd * depth * 1.08],
+      [length, radiusEnd, radiusEnd * depth],
+    ]);
+    part.position.copy(a);
+    part.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.normalize());
+    return part;
+  }
+
+  form('torso', [
+    [0.965, 0.157, 0.100], [1.055, 0.150, 0.105],
+    [1.285, 0.183, 0.120], [1.395, 0.195, 0.106],
+    [1.445, 0.125, 0.082], [1.475, 0.067, 0.064],
+  ]);
+  form('pelvis', [[0.83, 0.137, 0.085], [0.90, 0.157, 0.106], [1.005, 0.150, 0.102]]);
+  form('neck', [[1.448, 0.052, 0.052], [1.548, 0.050, 0.048]]);
+  form('head', [
+    [1.52, 0.050, 0.057, 0.014], [1.555, 0.075, 0.078, 0.009],
+    [1.635, 0.089, 0.087], [1.69, 0.082, 0.080, -0.003],
+    [1.735, 0.052, 0.054, -0.004], [1.75, 0, 0, -0.004],
+  ]);
+
+  for (const side of [-1, 1]) {
+    const name = side < 0 ? 'left' : 'right';
+    const footZ = pose === 'walking' ? -side * 0.19 : side * -0.035;
+    const footX = side * (side < 0 ? 0.095 : 0.12);
+    const knee = [side * 0.095, 0.48, pose === 'walking' ? -side * 0.10 + 0.025 : 0.012];
+    const ankle = [footX, 0.105, footZ];
+    limb(`${name}-thigh`, [side * 0.085, 0.91, 0], knee, 0.080, 0.058, 1.10);
+    limb(`${name}-calf`, [knee[0], 0.51, knee[2]], ankle, 0.060, 0.042, 1.04);
+    const shoe = form(`${name}-shoe`, [
+      [0, 0.054, 0.117, 0.035], [0.027, 0.057, 0.125, 0.040],
+      [0.070, 0.050, 0.107, 0.033], [0.105, 0.035, 0.062, 0.005],
+    ]);
+    shoe.position.set(footX, 0, footZ);
+
+    const shoulder = [side * 0.178, 1.390, 0];
+    const elbow = [side * 0.225, 1.145, pose === 'walking' ? side * 0.065 : -0.018];
+    let wrist = [side * 0.229, 0.90, pose === 'walking' ? side * 0.145 : 0.024];
+    if (pose === 'waiting' && side > 0) wrist = [0.155, 1.025, 0.13];
+    limb(`${name}-upper-arm`, shoulder, elbow, 0.065, 0.045);
+    limb(`${name}-forearm`, [elbow[0], elbow[1] + 0.025, elbow[2]], wrist, 0.045, 0.031);
+    const handEnd = pose === 'waiting' && side > 0
+      ? [0.13, 0.97, 0.145]
+      : [wrist[0] - side * 0.006, 0.79, wrist[2] + 0.014];
+    limb(`${name}-hand`, wrist, handEnd, 0.035, 0.022, 0.68);
+  }
   return result;
 }
 

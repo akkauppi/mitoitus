@@ -35,21 +35,21 @@ export function buildScene(key) {
     surface(group,3,18,1,0,'grass');surface(group,3,18,4,0,'road');
     for(const z of [-7,-3,1,5]) box(group,.06,.012,1.5,-1.75,.012,z,'white',false);
     for(const z of [-5.7,1.2,6.4])place(group,createTree({height:5,crown:2.7}),1,0,z);
-    place(group,createPerson(),-4.3,0,1.2);place(group,createPerson(),-3.7,0,-4.5,.3);
-    place(group,createPerson(),-4.75,0,4,-.3);place(group,createBicycle(),-2.4,0,-3.8);
+    place(group,createPerson({pose:'walking'}),-4.3,0,1.2);place(group,createPerson(),-3.7,0,-4.5,.3);
+    place(group,createPerson({pose:'walking'}),-4.75,0,4,-.3);place(group,createBicycle(),-2.4,0,-3.8);
     place(group,createBicycle(),-1.05,0,4.2,Math.PI);place(group,createCar(),4,0,-3);
     place(group,createBench(),1,0,-1.8,Math.PI/2);
     [[-5.5,-3,'2.5 m'],[-3,-.5,'2.5 m'],[-.5,2.5,'3 m'],[2.5,5.5,'3 m']].forEach(([a,b,label])=>dimensions.push(dim([a,0,9],[b,0,9],label,[0,0,1.3])));
     labels.push({point:[-4.25,0,-7.5],text:'Footway'},{point:[-1.75,0,-7.5],text:'Cycle track'},{point:[1,0,-7.5],text:'Trees'},{point:[4,0,5],text:'Traffic'});
   }else if(key==='tram'){
-    box(group,12.5,.75,45,0,-.56,0,'soil');box(group,12.5,.35,45,0,-1.11,0,'subsoil');
+    box(group,12.5,.75,45,0,-.495,0,'soil');box(group,12.5,.35,45,0,-1.045,0,'subsoil');
     surface(group,5.5,45,0,0,'grass');
-    surface(group,3.5,45,-4.5,0,'paving',.3);surface(group,3.5,45,4.5,0,'paving',.3);
+    box(group,3.5,.42,45,-4.5,.09,0,'paving');box(group,3.5,.42,45,4.5,.09,0,'paving');
     // Rail geometry is decorative: gauge and centre spacing are declared drawing assumptions.
     for(const x of [-2,-1,1,2])box(group,.055,.04,45,x,-.02,0,'rail');
     for(const x of [-2.93,2.93])box(group,.18,.015,45,x,.31,0,'white',false);
     place(group,createTram(),-1.5,0,-2);
-    for(const [x,z] of [[-4.5,-15],[-4.2,-3],[-5,7],[3.6,-9],[4.2,4],[4,13]]) place(group,createPerson(),x,.3,z);
+    for(const [x,z] of [[-4.5,-15],[-4.2,-3],[-5,7],[3.6,-9],[4.2,4],[4,13]]) place(group,createPerson({pose:'waiting'}),x,.3,z);
     for(const z of [-10,10])place(group,createBench(),4.7,.3,z);
     // Compact open shelter with a visually permeable frame.
     for(const z of [-3,3])for(const x of [4,5.5])box(group,.07,2.5,.07,x,1.55,z,'metal');
@@ -67,7 +67,7 @@ export function buildScene(key) {
     dimensions.push(dim([-2.5,0,2.5],[2.5,0,2.5],'5 m',[0,0,1]));
     dimensions.push(dim([2.5,0,-2.5],[2.5,0,2.5],'5 m',[1,0,0]));
     dimensions.push(dim([2.5,0,2.5],[2.5,-1,2.5],'1 m',[1.25,0,1.25]));
-    labels.push({point:[0,-.5,2.51],text:'25 m³ soil'},{point:[.3,4.4,-.3],text:'Scale tree · 5 m'});
+    labels.push({point:[0,-.5,2.51],text:'25 m³ soil'},{point:[.3,4.4,-.3],text:'Tree · 5 m'});
   }
   group.updateMatrixWorld(true);
   return {group,dimensions,labels,meta:SCENES[key]};

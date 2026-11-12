@@ -29,8 +29,26 @@ collision-free labels or vector visual fidelity.
 - Replace peg-like people with more stylish, naturally proportioned silhouettes.
 - Retain light-grey metric scale and existing dimensional content.
 
-This iteration is being implemented locally. The first iteration remains a
-Git checkpoint; acceptance and further visual feedback remain open.
+Implemented locally: a reusable routing solver reserves outside piles, tries
+parallel45° inner segments, falls back to validated minimum-distance matching,
+and draws horizontal tails plus anchor dots. Mobile uses one outside pile;
+desktop can use either side. Orbit/resize update metric anchors and routing.
+Revised people use natural proportions with standing/walking/waiting poses.
+Tram platforms now have solid sides. Narrow-screen dimension collisions are
+resolved, touch instructions match controls, and Front accurately names the
+elevation preset. SVG export includes source context and matches image clipping.
+
+Second-iteration checks:36 Node tests pass, including180 deterministic randomized
+callout clouds and human proportions. Browser checks cover81 combinations across
+1440,390 and320px viewports, with text overlap and leader intersection checks,
+plus48 orbit states and15 zoom steps. No runtime external requests. All existing
+baseline reference files remain unchanged. Selected rendered references are in
+[references/](references/). User acceptance of these refinements remains pending.
+
+Known remaining limitation: SVG export can lose contour edges behind coplanar
+faces due to SVGRenderer painter ordering. It is a draft export, not a faithful
+print replacement. The interactive WebGL view has the intended edges. No
+production-sheet conversion, physical-device check or publication was done.
 
 ## Repeating verification
 

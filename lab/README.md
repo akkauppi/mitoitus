@@ -18,7 +18,7 @@ installation is needed for preview: pinned Three.js files are checked in. ES
 modules require an HTTP server; double-clicking the HTML is not supported.
 
 Choose a scene, then compare Paper model, Contour drawing and Pastel relief using
-the same geometry. Drag to orbit, scroll to zoom, or use the 3D/Plan/Section
+the same geometry. Drag to orbit, scroll to zoom, or use the 3D/Plan/Front
 buttons. With the drawing focused, arrow keys orbit, +/− zoom and Home resets.
 On touch devices use two fingers to manipulate the model; one finger scrolls the
 page. Scene/style/view presets are bookmarkable. Free camera position is not.
@@ -49,6 +49,7 @@ Detailed dimensions and illustration assumptions: [scene evidence](SCENE-EVIDENC
 Style rules and delegation template: [STYLE.md](docs/STYLE.md).
 Code / SolidCraft / Blender comparison and third-party asset options:
 [PIPELINE.md](docs/PIPELINE.md).
+Outside-label algorithm and extension rules: [CALLOUTS.md](docs/CALLOUTS.md).
 Iteration record and verification limits: [REVIEW.md](docs/REVIEW.md).
 
 ## Development
@@ -59,7 +60,7 @@ npm test
 ```
 
 `assets.js` owns repeated metric objects; `scenes.js` owns arrangement, dimensions
-and provenance links; `styles.js` owns the semantic palettes; `viewer.js` owns
+and provenance links; `styles.js` owns the semantic palettes; `callouts.js` owns the independently tested outside-label routing; `viewer.js` owns
 camera, responsive rendering, projected SVG annotations and vector export.
 `lab.css` owns presentation and readable screen-space type. Keep those boundaries
 when delegating another scene. Do not copy a separate renderer into each sheet.

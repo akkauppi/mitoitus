@@ -1,0 +1,740 @@
+{
+  "date": "2026-11-12",
+  "browser": "153.0.8010.12",
+  "states": [
+    {
+      "viewport": 1440,
+      "scene": "street",
+      "style": "paper",
+      "view": "iso",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 1440,
+      "scene": "street",
+      "style": "paper",
+      "view": "plan",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 1440,
+      "scene": "street",
+      "style": "paper",
+      "view": "section",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 1440,
+      "scene": "street",
+      "style": "ink",
+      "view": "iso",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 1440,
+      "scene": "street",
+      "style": "ink",
+      "view": "plan",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 1440,
+      "scene": "street",
+      "style": "ink",
+      "view": "section",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 1440,
+      "scene": "street",
+      "style": "soft",
+      "view": "iso",
+      "drawCalls": 299,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 1440,
+      "scene": "street",
+      "style": "soft",
+      "view": "plan",
+      "drawCalls": 299,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 1440,
+      "scene": "street",
+      "style": "soft",
+      "view": "section",
+      "drawCalls": 299,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 1440,
+      "scene": "tram",
+      "style": "paper",
+      "view": "iso",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 1440,
+      "scene": "tram",
+      "style": "paper",
+      "view": "plan",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 1440,
+      "scene": "tram",
+      "style": "paper",
+      "view": "section",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 1440,
+      "scene": "tram",
+      "style": "ink",
+      "view": "iso",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 1440,
+      "scene": "tram",
+      "style": "ink",
+      "view": "plan",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 1440,
+      "scene": "tram",
+      "style": "ink",
+      "view": "section",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 1440,
+      "scene": "tram",
+      "style": "soft",
+      "view": "iso",
+      "drawCalls": 459,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 1440,
+      "scene": "tram",
+      "style": "soft",
+      "view": "plan",
+      "drawCalls": 459,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 1440,
+      "scene": "tram",
+      "style": "soft",
+      "view": "section",
+      "drawCalls": 459,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 1440,
+      "scene": "roots",
+      "style": "paper",
+      "view": "iso",
+      "drawCalls": 40,
+      "labels": 5,
+      "callouts": 2
+    },
+    {
+      "viewport": 1440,
+      "scene": "roots",
+      "style": "paper",
+      "view": "plan",
+      "drawCalls": 40,
+      "labels": 3,
+      "callouts": 1
+    },
+    {
+      "viewport": 1440,
+      "scene": "roots",
+      "style": "paper",
+      "view": "section",
+      "drawCalls": 40,
+      "labels": 4,
+      "callouts": 2
+    },
+    {
+      "viewport": 1440,
+      "scene": "roots",
+      "style": "ink",
+      "view": "iso",
+      "drawCalls": 40,
+      "labels": 5,
+      "callouts": 2
+    },
+    {
+      "viewport": 1440,
+      "scene": "roots",
+      "style": "ink",
+      "view": "plan",
+      "drawCalls": 40,
+      "labels": 3,
+      "callouts": 1
+    },
+    {
+      "viewport": 1440,
+      "scene": "roots",
+      "style": "ink",
+      "view": "section",
+      "drawCalls": 40,
+      "labels": 4,
+      "callouts": 2
+    },
+    {
+      "viewport": 1440,
+      "scene": "roots",
+      "style": "soft",
+      "view": "iso",
+      "drawCalls": 74,
+      "labels": 5,
+      "callouts": 2
+    },
+    {
+      "viewport": 1440,
+      "scene": "roots",
+      "style": "soft",
+      "view": "plan",
+      "drawCalls": 74,
+      "labels": 3,
+      "callouts": 1
+    },
+    {
+      "viewport": 1440,
+      "scene": "roots",
+      "style": "soft",
+      "view": "section",
+      "drawCalls": 74,
+      "labels": 4,
+      "callouts": 2
+    },
+    {
+      "viewport": 390,
+      "scene": "street",
+      "style": "paper",
+      "view": "iso",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 390,
+      "scene": "street",
+      "style": "paper",
+      "view": "plan",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 390,
+      "scene": "street",
+      "style": "paper",
+      "view": "section",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 390,
+      "scene": "street",
+      "style": "ink",
+      "view": "iso",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 390,
+      "scene": "street",
+      "style": "ink",
+      "view": "plan",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 390,
+      "scene": "street",
+      "style": "ink",
+      "view": "section",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 390,
+      "scene": "street",
+      "style": "soft",
+      "view": "iso",
+      "drawCalls": 299,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 390,
+      "scene": "street",
+      "style": "soft",
+      "view": "plan",
+      "drawCalls": 299,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 390,
+      "scene": "street",
+      "style": "soft",
+      "view": "section",
+      "drawCalls": 299,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 390,
+      "scene": "tram",
+      "style": "paper",
+      "view": "iso",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 390,
+      "scene": "tram",
+      "style": "paper",
+      "view": "plan",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 390,
+      "scene": "tram",
+      "style": "paper",
+      "view": "section",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 390,
+      "scene": "tram",
+      "style": "ink",
+      "view": "iso",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 390,
+      "scene": "tram",
+      "style": "ink",
+      "view": "plan",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 390,
+      "scene": "tram",
+      "style": "ink",
+      "view": "section",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 390,
+      "scene": "tram",
+      "style": "soft",
+      "view": "iso",
+      "drawCalls": 459,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 390,
+      "scene": "tram",
+      "style": "soft",
+      "view": "plan",
+      "drawCalls": 459,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 390,
+      "scene": "tram",
+      "style": "soft",
+      "view": "section",
+      "drawCalls": 459,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 390,
+      "scene": "roots",
+      "style": "paper",
+      "view": "iso",
+      "drawCalls": 40,
+      "labels": 5,
+      "callouts": 2
+    },
+    {
+      "viewport": 390,
+      "scene": "roots",
+      "style": "paper",
+      "view": "plan",
+      "drawCalls": 40,
+      "labels": 3,
+      "callouts": 1
+    },
+    {
+      "viewport": 390,
+      "scene": "roots",
+      "style": "paper",
+      "view": "section",
+      "drawCalls": 40,
+      "labels": 4,
+      "callouts": 2
+    },
+    {
+      "viewport": 390,
+      "scene": "roots",
+      "style": "ink",
+      "view": "iso",
+      "drawCalls": 40,
+      "labels": 5,
+      "callouts": 2
+    },
+    {
+      "viewport": 390,
+      "scene": "roots",
+      "style": "ink",
+      "view": "plan",
+      "drawCalls": 40,
+      "labels": 3,
+      "callouts": 1
+    },
+    {
+      "viewport": 390,
+      "scene": "roots",
+      "style": "ink",
+      "view": "section",
+      "drawCalls": 40,
+      "labels": 4,
+      "callouts": 2
+    },
+    {
+      "viewport": 390,
+      "scene": "roots",
+      "style": "soft",
+      "view": "iso",
+      "drawCalls": 74,
+      "labels": 5,
+      "callouts": 2
+    },
+    {
+      "viewport": 390,
+      "scene": "roots",
+      "style": "soft",
+      "view": "plan",
+      "drawCalls": 74,
+      "labels": 3,
+      "callouts": 1
+    },
+    {
+      "viewport": 390,
+      "scene": "roots",
+      "style": "soft",
+      "view": "section",
+      "drawCalls": 74,
+      "labels": 4,
+      "callouts": 2
+    },
+    {
+      "viewport": 320,
+      "scene": "street",
+      "style": "paper",
+      "view": "iso",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 320,
+      "scene": "street",
+      "style": "paper",
+      "view": "plan",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 320,
+      "scene": "street",
+      "style": "paper",
+      "view": "section",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 320,
+      "scene": "street",
+      "style": "ink",
+      "view": "iso",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 320,
+      "scene": "street",
+      "style": "ink",
+      "view": "plan",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 320,
+      "scene": "street",
+      "style": "ink",
+      "view": "section",
+      "drawCalls": 154,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 320,
+      "scene": "street",
+      "style": "soft",
+      "view": "iso",
+      "drawCalls": 299,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 320,
+      "scene": "street",
+      "style": "soft",
+      "view": "plan",
+      "drawCalls": 299,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 320,
+      "scene": "street",
+      "style": "soft",
+      "view": "section",
+      "drawCalls": 299,
+      "labels": 8,
+      "callouts": 4
+    },
+    {
+      "viewport": 320,
+      "scene": "tram",
+      "style": "paper",
+      "view": "iso",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 320,
+      "scene": "tram",
+      "style": "paper",
+      "view": "plan",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 320,
+      "scene": "tram",
+      "style": "paper",
+      "view": "section",
+      "drawCalls": 243,
+      "labels": 6,
+      "callouts": 3
+    },
+    {
+      "viewport": 320,
+      "scene": "tram",
+      "style": "ink",
+      "view": "iso",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 320,
+      "scene": "tram",
+      "style": "ink",
+      "view": "plan",
+      "drawCalls": 243,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 320,
+      "scene": "tram",
+      "style": "ink",
+      "view": "section",
+      "drawCalls": 243,
+      "labels": 6,
+      "callouts": 3
+    },
+    {
+      "viewport": 320,
+      "scene": "tram",
+      "style": "soft",
+      "view": "iso",
+      "drawCalls": 459,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 320,
+      "scene": "tram",
+      "style": "soft",
+      "view": "plan",
+      "drawCalls": 459,
+      "labels": 7,
+      "callouts": 3
+    },
+    {
+      "viewport": 320,
+      "scene": "tram",
+      "style": "soft",
+      "view": "section",
+      "drawCalls": 459,
+      "labels": 6,
+      "callouts": 3
+    },
+    {
+      "viewport": 320,
+      "scene": "roots",
+      "style": "paper",
+      "view": "iso",
+      "drawCalls": 40,
+      "labels": 5,
+      "callouts": 2
+    },
+    {
+      "viewport": 320,
+      "scene": "roots",
+      "style": "paper",
+      "view": "plan",
+      "drawCalls": 40,
+      "labels": 3,
+      "callouts": 1
+    },
+    {
+      "viewport": 320,
+      "scene": "roots",
+      "style": "paper",
+      "view": "section",
+      "drawCalls": 40,
+      "labels": 4,
+      "callouts": 2
+    },
+    {
+      "viewport": 320,
+      "scene": "roots",
+      "style": "ink",
+      "view": "iso",
+      "drawCalls": 40,
+      "labels": 5,
+      "callouts": 2
+    },
+    {
+      "viewport": 320,
+      "scene": "roots",
+      "style": "ink",
+      "view": "plan",
+      "drawCalls": 40,
+      "labels": 3,
+      "callouts": 1
+    },
+    {
+      "viewport": 320,
+      "scene": "roots",
+      "style": "ink",
+      "view": "section",
+      "drawCalls": 40,
+      "labels": 4,
+      "callouts": 2
+    },
+    {
+      "viewport": 320,
+      "scene": "roots",
+      "style": "soft",
+      "view": "iso",
+      "drawCalls": 74,
+      "labels": 5,
+      "callouts": 2
+    },
+    {
+      "viewport": 320,
+      "scene": "roots",
+      "style": "soft",
+      "view": "plan",
+      "drawCalls": 74,
+      "labels": 3,
+      "callouts": 1
+    },
+    {
+      "viewport": 320,
+      "scene": "roots",
+      "style": "soft",
+      "view": "section",
+      "drawCalls": 74,
+      "labels": 4,
+      "callouts": 2
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "svg": "valid XML; paths and labels; no raster images",
+  "fallback": "verified",
+  "limits": "Headless Chromium/software WebGL; no physical-device touch or GPU performance assessment"
+}

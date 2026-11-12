@@ -16,7 +16,7 @@ Local commits are permitted; pushing and deploying are on hold.
 1. One world unit is one metre; Y is up, vehicle travel is along Z. Asset origins
    sit on the ground. No vertical exaggeration, arbitrary object resizing or
    camera-dependent geometric scaling. Preserve measured car/tram body plans.
-2. Use an orthographic camera. The 3D, plan and section presets use the same
+2. Use an orthographic camera. The 3D, plan and front-elevation presets use the same
    metric scene. Auto-framing differs by scene; a scene is internally to scale,
    but separate scenes do not share a fixed pixels-per-metre scale.
 3. Use opaque, flat colour regions and a small semantic palette. No image
@@ -88,7 +88,7 @@ Do not prematurely turn educational examples into a general CAD application.
 > part of the task. Use existing asset functions and metre coordinates. State
 > every assumed height, depth and placement in provenance. Add meaningful
 > geometry assertions for sourced dimensions; run npm test. Capture desktop
-> and narrow-phone views in all three treatments, plus plan and section. Check
+> and narrow-phone views in all three treatments, plus plan and front elevation. Check
 > labels, proportions, source links, page overflow and SVG export. Describe
 > limitations and make a focused local commit. Do not push or deploy.
 
@@ -100,3 +100,20 @@ objects. Verify dimension lines measure what the captions say. Keep decorative
 objects out of the measured clear space where that would imply a false design.
 A screenshot pass is not physical-device, accessibility or design-compliance
 certification. User style selection is the next decision, before bulk conversion.
+
+## Iteration 02 refinements
+
+User requested orderly outside label piles with two-segment noncrossing leaders
+and dot anchors. `callouts.js` now owns a pure screen-space solver, independent
+of Three.js and content. See [CALLOUTS.md](CALLOUTS.md) for the routing contract.
+Keep the visible image inside its reserved gutters when zoomed; label text and
+lines remain SVG. Reframe or reduce active labels if the solver reports no fit;
+never display a crossing fallback. Dimensions remain separate metric annotations.
+
+People now have a0.23m shaped head, tapered torso/pelvis, knees/elbows, understated
+shoes and standing/walking/waiting poses. These are chosen illustration
+proportions, not sourced population measurements. Height remains1.75m.
+
+The former Section button is now Front: it is an elevation, not a cutting plane.
+SVG export preserves clipping and embeds source/draft context in its description,
+but painter-order line occlusion remains a known draft-export limitation.
