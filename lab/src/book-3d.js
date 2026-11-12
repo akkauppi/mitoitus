@@ -32,11 +32,12 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
       if(next!==drawing)attach(next);
       const recipe=recipeInfo(recipeId);active=true;frame.hidden=failed;
       const selected=drawing.querySelector('[data-variant]:not([hidden]) svg .sub')||drawing.querySelector('figure svg .sub');
-      frame.querySelector('.scene-case').textContent=selected?.textContent||'';
-      frame.querySelector('.scene-case').hidden=!selected;
+      frame.querySelector('.scene-case').textContent=recipe.caseTitle||selected?.textContent||'';
+      frame.querySelector('.scene-case').hidden=!(recipe.caseTitle||selected);
 
-      companion.replaceChildren();companion.hidden=!recipe.retainedTextSelector;
+      companion.replaceChildren();companion.hidden=!(recipe.retainedTextSelector||recipe.explanation);
       if(recipe.retainedTextSelector)for(const original of drawing.querySelectorAll(recipe.retainedTextSelector)){if(original===selected)continue;const p=document.createElement('p');p.textContent=original.textContent;companion.append(p);}
+      for(const text of recipe.explanation||[]){const p=document.createElement('p');p.textContent=text;companion.append(p);}
       frame.setAttribute('aria-label',`${recipe.panelId} diorama`);
       viewport.setAttribute('aria-label',(recipe.description||'Soil 5 by 5 metres, 1 metre deep, 25 cubic metres.')+' Arrow keys orbit, plus/minus zoom, Home resets.');
       provenance.textContent='Diorama artwork: assistant draft. '+recipe.assumptions.join(' ');

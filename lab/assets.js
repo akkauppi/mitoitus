@@ -237,7 +237,7 @@ export function createTram() {
       box(result, [0.008, 1.88, 0.035], [x, 1.66, z - 0.9], 'vehicle', false);
     }
     if (section % 2 === 0) {
-      for (const x of [-0.94, 0.94]) for (const dz of [-1.6, 1.6]) wheel(result, x, 0.40, z + dz, 0.40, 0.22);
+      for (const x of [-0.525, 0.525]) for (const dz of [-1.6, 1.6]) wheel(result, x, 0.40, z + dz, 0.40, 0.22);
     }
     if (section < 4) {
       box(result, [2.18, 2.45, 0.5], [0, 1.76, z + 3.45], 'rubber', false);
@@ -340,5 +340,40 @@ export function createWheelchairUser() {
  box(result,[.45,.36,.045],[0,.65,-.30],'rubber');
  box(result,[.30,.025,.16],[0,.085,.60],'metal');
  rod(result,[-.23,.27,-.22],[.23,.27,-.22],.018,'metal');
+ return result;
+}
+
+/** Crop the full nominal tram along Z; never rescale it to fit a short scene. */
+export function createTramSlice({length=5,centerZ=0}={}) {
+ if(!(length>0&&length<=34)||Math.abs(centerZ)+length/2>17)throw new RangeError('Tram crop outside source body');
+ const original=createTram(),result=new THREE.Group();result.userData.asset='tramSlice';result.userData.crop={length,centerZ};
+ original.updateMatrixWorld(true);
+ function clip(polygon,boundary,sign){
+  const out=[];for(let i=0;i<polygon.length;i++){
+   const a=polygon[i],b=polygon[(i+1)%polygon.length],insideA=sign*(a.z-boundary)>=-1e-9,insideB=sign*(b.z-boundary)>=-1e-9;
+   if(insideA)out.push(a);
+   if(insideA!==insideB){const t=(boundary-a.z)/(b.z-a.z);out.push(a.clone().lerp(b,t));}
+  }return out;
+ }
+ original.traverse(o=>{
+  if(!o.isMesh)return;const source=o.geometry.index?o.geometry.toNonIndexed():o.geometry.clone(),p=source.attributes.position,vertices=[];
+  for(let i=0;i<p.count;i+=3){
+   let polygon=[0,1,2].map(j=>new THREE.Vector3().fromBufferAttribute(p,i+j).applyMatrix4(o.matrixWorld));
+   polygon=clip(clip(polygon,centerZ-length/2,1),centerZ+length/2,-1);
+   for(let j=1;j<polygon.length-1;j++)for(const v of [polygon[0],polygon[j],polygon[j+1]])vertices.push(v.x,v.y,v.z-centerZ);
+  }
+  source.dispose();if(!vertices.length)return;
+  const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));geometry.computeVertexNormals();
+  const part=new THREE.Mesh(geometry,o.material.clone());part.userData={...o.userData};
+  if(o.children.some(child=>child.userData.edge)){const edge=new THREE.LineSegments(new THREE.EdgesGeometry(geometry,30),new THREE.LineBasicMaterial());edge.userData.edge=true;part.add(edge);}
+  result.add(part);
+ });
+ original.traverse(o=>{o.geometry?.dispose();o.material?.dispose();});
+ for(const sign of [-1,1]){
+  const z=sign*(length/2-.008);
+  box(result,[2.4,2.48,.014],[0,1.76,z],'vehicle');
+  // Surface hatch identifies an illustrative cut, not a real vehicle front.
+  for(let y=.7;y<2.8;y+=.3){const g=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-1.15,y,z+sign*.0075),new THREE.Vector3(1.15,y+.18,z+sign*.0075)]);const line=new THREE.LineSegments(g,new THREE.LineBasicMaterial());line.userData.edge=true;result.add(line);}
+ }
  return result;
 }

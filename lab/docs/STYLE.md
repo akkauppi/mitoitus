@@ -166,3 +166,9 @@ with the core measured run/rise/landing unchanged.
 Dimension text has no opaque background or halo. Clip line intervals against the
 actual text glyph bounds with a small gap; preserve dimension endpoints. Do not
 restore a paper-coloured patch to hide a collision with a model or annotation.
+
+Short vehicle scenes may clip the original metric vehicle mesh longitudinally.
+Never scale its length to fit. Use a pastel vehicle-role cap with fine diagonal
+hatching at each cut, and explicitly explain the cut outside the viewport.
+Keep nominal body dimensions separate from platform/service lengths and access
+ramps. Tracks provide scale, not proof of swept-path or clearance compliance.

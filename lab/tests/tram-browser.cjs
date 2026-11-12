@@ -16,6 +16,8 @@ const allowed={'tram-corridor':['plan','iso'],'tram-width':['front','iso','plan'
   for(const [index,panel]of ['tram-corridor','tram-width','tram-length'].entries()){
    await page.locator('.panel-selector button').nth(index).click();await ready(panel);
    assert.equal(await page.locator('.scene-toolbar [data-camera]:visible').count(),allowed[panel].length);
+   const explanation=await page.locator('.scene-companion').textContent();
+   for(const term of panel==='tram-length'?['45 m','57 m','30 m','61 m','34 × 2.4 m']:['cut','1.0 m'])assert.ok(explanation.includes(term),'visible explanation '+term);
    for(const camera of allowed[panel]){
     await page.locator(`.scene-toolbar [data-camera="${camera}"]`).click();await ready(panel);
     const data=await page.evaluate(async()=>{

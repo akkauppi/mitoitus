@@ -25,3 +25,12 @@ test('full stop preserves service length, ramps, bodies and separate city exampl
  for(const [name,length]of [['city-single',30],['city-pair',61]]){const b=bounds(m.group.getObjectByName(name));near(b.max.z-b.min.z,length);}
  assert.equal(m.labels.length,4);assert.ok(m.recipe.assumptions.join().includes('0.27'));dispose(m);
 });
+test('short scenes use metric tram cuts and four rails with a one metre inside gauge',()=>{
+ for(const [panel,length,count]of [['tram-corridor',1.5,4],['tram-width',5,2]]){
+  const m=createRecipe(panel+'--v0'),cuts=m.group.children.filter(o=>o.userData.asset==='tramSlice'),rails=m.group.children.filter(o=>o.name==='rail');
+  assert.equal(cuts.length,count);assert.equal(rails.length,count*2);
+  for(const cut of cuts){const b=bounds(cut);near(b.max.z-b.min.z,length);near(b.max.x-b.min.x,2.4);assert.deepEqual(cut.scale.toArray(),[1,1,1]);cut.traverse(o=>{if(o.geometry)for(const v of o.geometry.attributes.position.array)assert.ok(Number.isFinite(v));});}
+  for(let i=0;i<rails.length;i+=2){const a=bounds(rails[i]),b=bounds(rails[i+1]);near(b.min.x-a.max.x,1);near(a.max.z-a.min.z,length);}
+  assert.ok(m.recipe.explanation.join(' ').includes('cut'));dispose(m);
+ }
+});

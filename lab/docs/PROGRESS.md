@@ -447,3 +447,24 @@ checkout are unchanged. Residents & services remains a publication blocker.
 No push/deployment. Next task: T07 vehicles/rescue.
 
 Preview: http://localhost:8765/lab/book/?mode=focus&panel=tram-length#tram
+
+### T06 review refinement — tracks, cuts and stop-length distinctions (2026-11-12)
+
+User requested clearer light-rail/city-tram length cases and more scale objects in
+corridor and stop-width scenes. Both short scenes now contain two tracks and two
+nominal-width tram sections per reservation. Sections are clipped from the original
+34 m procedural vehicle at source coordinates, never shortened by scaling; hatched
+pastel cut faces distinguish them from vehicle fronts. Cut widths use the nominal
+2.4 m envelope. Full-stop scene also gains rails. Rail heads are 50 mm illustrative
+geometry with 1,000 mm clear inside gauge, supported by S35's retained vehicle page;
+3 m track centres and wheel/detail geometry remain illustration assumptions, not
+an ATU calculation. All meshes retain existing semantic palette roles.
+
+Permanent assistant-draft companion text distinguishes 45 m flat service platform,
+57 m example with two 6 m ramps (crossing waits additional), separate city service
+length cases 30/61 m, and 34 m vehicle bodies. It remains visible with Sources off.
+Canonical source drawings, tables and CAD are preserved.
+
+Validation: 62 unit tests; 18 candidate tests; 35 responsive tram camera states,
+including visible distinctions, noncrossing callouts, dimension proportions,
+source preservation, one context, reset and fallback checks. Local work only.
