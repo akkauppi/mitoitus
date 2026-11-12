@@ -240,10 +240,34 @@ def read_public(root, source=False):
     return result
 
 
+def offline_files(files):
+    """Adapt only the archive entry page; a ZIP cannot download itself inside itself.
+
+    Return a new byte mapping. Source files, poster/data/CAD bytes and the online
+    entry page remain unchanged. The body flag also suppresses dynamic ZIP links.
+    """
+    result = dict(files)
+    source = files['index.html'].decode()
+    def offline_body(match):
+        opening = match[0]
+        if re.search(r'''\sdata-offline-edition=["']true["']''', opening):
+            return opening
+        if 'data-offline-edition' in opening:
+            raise ValueError('Conflicting offline-edition marker')
+        return opening.replace('<body', '<body data-offline-edition="true"', 1)
+    source, bodies = re.subn(r'<body\b[^>]*>', offline_body, source)
+    if bodies != 1:
+        raise ValueError('Offline entry page must have exactly one body')
+    source = re.sub(r'''<a\b(?=[^>]*\shref\s*=\s*["']downloads/rulebook-offline\.zip["'])[^>]*>.*?</a>''', '', source, flags=re.S)
+    result['index.html'] = source.encode()
+    return result
+
+
 def write_archive(path, files):
     """Write only the exact approved runtime set; never enumerate a source tree."""
     if set(files) != set(PUBLIC_FILES):
         raise ValueError('Archive must contain exactly the public allowlist')
+    files = offline_files(files)
     if sum(map(len, files.values())) > MAX_ARCHIVE_BYTES:
         raise ValueError('Archive exceeds 32 MiB uncompressed budget')
     with zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED) as archive:

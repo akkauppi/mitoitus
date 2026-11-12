@@ -80,6 +80,23 @@ class CandidateTests(unittest.TestCase):
         with zipfile.ZipFile(m.package()) as archive:
             self.assertIn('posters/manifest.json',archive.namelist())
             self.assertIn('runtime/posters.js',archive.namelist())
+            offline = archive.read('index.html').decode()
+            self.assertIn('data-offline-edition="true"',offline)
+            self.assertNotIn('href="downloads/rulebook-offline.zip"',offline)
+        self.assertIn('href="downloads/rulebook-offline.zip"',rendered)
+
+    def test_offline_transform_changes_only_entry_body_marker_and_self_download_anchors(self):
+        original = {
+            'index.html': b'''<!doctype html><html><body class="book"><p>Keep downloads/rulebook-offline.zip as literal text.</p><a href="downloads/rulebook-offline.zip" download>Offline <b>ZIP</b></a>\n<a class="download" href='downloads/rulebook-offline.zip'>Second ZIP</a><a href="downloads/mitoitus-cad-m.zip">CAD</a><a href="evidence.html">Evidence</a></body></html>''',
+            'posters/example.svg': b'<svg>poster bytes</svg>',
+            'downloads/parking-m.dxf': b'unchanged CAD bytes\x00\x01',
+        }
+        expected = dict(original)
+        expected['index.html'] = b'''<!doctype html><html><body data-offline-edition="true" class="book"><p>Keep downloads/rulebook-offline.zip as literal text.</p>\n<a href="downloads/mitoitus-cad-m.zip">CAD</a><a href="evidence.html">Evidence</a></body></html>'''
+        source_snapshot = dict(original)
+        self.assertEqual(m.offline_files(original),expected)
+        self.assertEqual(original,source_snapshot)
+        self.assertEqual(m.offline_files(expected),expected)
 
     def test_stale_posters_block_build_without_replacing_output(self):
         m.build()
@@ -229,11 +246,12 @@ class CandidateTests(unittest.TestCase):
         (self.root/'downloads/rogue.txt').write_text('not public')
         m.build()
         exported = m.package(allow_legacy_preview=True)
+        expected = m.offline_files(m.read_public(self.output))
         with zipfile.ZipFile(exported) as archive:
             self.assertEqual(archive.namelist(),sorted(m.PUBLIC_FILES))
             self.assertNotIn(m.OFFLINE,archive.namelist())
             for name in m.PUBLIC_FILES:
-                self.assertEqual(archive.read(name),(self.output/name).read_bytes())
+                self.assertEqual(archive.read(name),expected[name])
         self.assertEqual(exported.read_bytes(),(self.output/m.OFFLINE).read_bytes())
 
     def test_rogue_archive_input_and_size_budget_rejected(self):

@@ -41,6 +41,14 @@ the development tree. SVG bytes and hash records are retained under `lab/posters
 the build maps them to public `posters/`. The package has no test output, source
 captures, node_modules or private course data. CAD bytes remain unchanged.
 
+The archive intentionally does not contain another copy of itself. Packaging
+uses `offline_files(files)` to change only its `index.html`: mark the body with
+`data-offline-edition="true"` and remove static links to the offline ZIP. The
+classic book shell also omits its dynamic ZIP entry when that marker is present.
+All other archive members remain byte-identical to the web candidate. Ordinary
+export and the candidate's downloadable ZIP use this same transformation and
+remain byte-identical to each other; the online edition retains its ZIP links.
+
 ## Layout and offline controls
 
 Compact capture frames are 320 × 420 CSS pixels, with 2× raster geometry;
