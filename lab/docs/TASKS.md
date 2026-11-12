@@ -239,6 +239,10 @@ chart proportionality, all original tables and qualifiers preserved;
 no inferred resident counts from FAR or new service thresholds. No unnecessary
 WebGL or 3D bars. Native SVG output remains available.
 
+T13 content/structure work implemented locally; [review and evidence](T13-POPULATION.md).
+The earlier services blocker is superseded by the explicit measures/dates/cards
+review above. Overall publication remains blocked, including retired fallbacks.
+
 ## T14 — Parking
 
 **Depends:** T04, T07. **Panels:** `parking-layout`, `parking-area`, `parking-norms`.
@@ -252,6 +256,12 @@ accounting cannot appear as a 3.5 m manoeuvring aisle. Existing 44/77 counts,
 rounding, mapped locations and separate conditions stay intact.
 
 ## T15 — Posters, export, wall, print and offline packaging
+
+**13 November user amendment:** old 2D illustrations are retired. Replace them
+with reviewed current-scene renders (or new native SVG data graphics); do not use
+old figures as fallback, print or release content. The package exporter is blocked
+while legacy markers remain. Preserve originals in Git/source history only.
+
 
 **Depends:** all scene tasks, T01 allowlist. **Scope:** output pipelines and profiles.
 

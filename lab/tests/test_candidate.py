@@ -50,6 +50,7 @@ class CandidateTests(unittest.TestCase):
         pattern = r'<section class="sheet" id="([^"]+)".*?</section>'
         before = {v[1]:v[0] for v in re.finditer(pattern, original, re.S)}
         before['connections'] = m.redesign_connections(before['connections'])
+        before['land-population'] = m.redesign_population(before['land-population'])
         after = list(re.finditer(pattern, rendered, re.S))
         self.assertEqual([v[1] for v in after],list(m.SPREAD_ORDER))
         for index, sheet in enumerate(after,1):
@@ -57,9 +58,14 @@ class CandidateTests(unittest.TestCase):
                               lambda v:v[1]+f'{index:02}',before[sheet[1]])
             if sheet[1] == 'accessible':
                 expected = expected.replace('>Wheelchair</text>', '>Clear space · manual</text>').replace('>Powered chair</text>', '>Clear space · powered</text>')
-            self.assertEqual(sheet[0],expected)
+            self.assertEqual(sheet[0].replace(' data-legacy-visual="true"',''),expected)
         tabs = re.search(r'<nav class="tabs"[^>]*>(.*?)</nav>',rendered,re.S)[1]
         self.assertEqual(re.findall(r'<a href="#([^"]+)">',tabs),list(m.SPREAD_ORDER))
+
+    def test_retired_legacy_visuals_block_publishable_export(self):
+        self.assertFalse(m.build()['publicationReady'])
+        with self.assertRaisesRegex(ValueError,'Legacy 2D visuals are retired'):
+            m.package()
 
     def test_candidate_title_subtitle_and_fixed_date_edition(self):
         original = (self.root/'index.html').read_bytes()
@@ -161,11 +167,11 @@ class CandidateTests(unittest.TestCase):
             rogue.parent.mkdir(parents=True,exist_ok=True)
             rogue.write_text('private development data')
             with self.assertRaises(ValueError): m.build(replace=True)
-            with self.assertRaises(ValueError): m.package()
+            with self.assertRaises(ValueError): m.package(allow_legacy_preview=True)
             rogue.unlink()
         (self.output/'index.html').write_text('edited')
         with self.assertRaisesRegex(ValueError,'edited'): m.build(replace=True)
-        with self.assertRaises(ValueError): m.package()
+        with self.assertRaises(ValueError): m.package(allow_legacy_preview=True)
 
     def test_archive_exact_contents_and_bytes_exclude_development_and_old_zip(self):
         rogue = self.root/'lab/node_modules/secret.txt'
@@ -173,7 +179,7 @@ class CandidateTests(unittest.TestCase):
         rogue.write_text('not public')
         (self.root/'downloads/rogue.txt').write_text('not public')
         m.build()
-        exported = m.package()
+        exported = m.package(allow_legacy_preview=True)
         with zipfile.ZipFile(exported) as archive:
             self.assertEqual(archive.namelist(),sorted(m.PUBLIC_FILES))
             self.assertNotIn(m.OFFLINE,archive.namelist())
@@ -210,18 +216,18 @@ class CandidateTests(unittest.TestCase):
         path = self.output/'style.css'
         path.unlink()
         path.symlink_to(SOURCE/'style.css')
-        with self.assertRaisesRegex(ValueError,'symlink'): m.package()
+        with self.assertRaisesRegex(ValueError,'symlink'): m.package(allow_legacy_preview=True)
         external = Path(self.temp.name)/'external'
         external.mkdir()
         (self.root/'lab/.build').symlink_to(external,target_is_directory=True)
-        with self.assertRaises(ValueError): m.package()
+        with self.assertRaises(ValueError): m.package(allow_legacy_preview=True)
 
     def test_package_failure_preserves_previous_archive(self):
         m.build()
-        output = m.package()
+        output = m.package(allow_legacy_preview=True)
         before = output.read_bytes()
         with patch.object(m,'write_archive',side_effect=OSError('disk failure')):
-            with self.assertRaises(OSError): m.package()
+            with self.assertRaises(OSError): m.package(allow_legacy_preview=True)
         self.assertEqual(output.read_bytes(), before)
         self.assertEqual(list(output.parent.glob('.archive-*')),[])
 

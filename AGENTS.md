@@ -12,6 +12,15 @@ under Sources and in documentation. Preserve useful source qualifications and
 numeric distinctions; express them briefly where needed to interpret a value.
 Apply this rule to every new scene and review existing text before adding more.
 
+## Legacy visualization retirement
+
+User direction, 13 November 2026: old 2D illustrations are retired from the
+publishable edition, including fallback, print and offline output. Keep originals
+in Git history/source preservation only. New native SVG charts are allowed;
+they must follow the accepted visual style. Use reviewed renders of current
+scenes for static fallbacks. Do not release a package containing legacy figures.
+T15 must complete this migration before any publication gate can pass.
+
 The current task is local only: commits are allowed; do not push, deploy, publish,
 or synchronize this branch to a hosted service. This instruction supersedes prior
 publication permission for the duration of the visual iteration.

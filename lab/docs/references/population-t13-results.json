@@ -1,0 +1,16 @@
+{
+  "states": 15,
+  "checks": [
+    "exact human counts on equal 0.4ha tiles",
+    "source densities unchanged",
+    "circle radius ratios",
+    "all density and hierarchy table rows",
+    "separate service measures and qualifiers",
+    "metric area equivalent",
+    "native SVG without WebGL",
+    "responsive labels",
+    "Sources/reset/navigation",
+    "direct-file and no-JS",
+    "legacy export link withheld"
+  ]
+}

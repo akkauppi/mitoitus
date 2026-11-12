@@ -35,3 +35,15 @@ body:not(.sources-on) [data-reference-note]{display:none}
 .scene-host [data-hint]{visibility:hidden}.scene-host:focus-within [data-hint]{visibility:visible}
 
 .metric-companion{margin:16px 12px 12px;padding-top:12px;border-top:1px solid var(--line)}.metric-companion[hidden]{display:none}.metric-companion p{font-size:13px;margin:0 0 10px}.metric-companion svg{display:block;width:100%;height:auto;min-height:0!important;max-height:160px!important}
+
+/* T13 native data graphics: pictogram sizes are symbolic; all area tiles equal. */
+.population-land{fill:var(--diagram-grass,#c0d1b0);stroke:#58605d;stroke-width:.7}.population-earth{fill:#d1b5a0;stroke:#58605d;stroke-width:.7}.population-person{fill:#dddcd6;stroke:#7c857d;stroke-width:.25;stroke-linejoin:round}.population-house,.library-tile{fill:#dfb29d;stroke:#58605d;stroke-width:1}.house-roof{fill:none;stroke:#58605d;stroke-width:1.6}.population-category{font:14px Arial;fill:#42594a}.population-value{font:600 17px Arial;fill:#35463d}.population-unit{font:11px Arial}.population-small{font:12px Arial;fill:#42594a}.distance-ring{fill:#c0d1b018;stroke:#7d9873;stroke-width:1}.distance-radius,.distance-leader{fill:none;stroke:#758777;stroke-width:.8}.distance-target{fill:#a9c4a2;stroke:#58605d;stroke-width:.6}
+[data-panel-id="density"] .drawing svg,[data-panel-id="green-hierarchy"] .drawing svg{min-height:0!important;max-height:650px!important}
+[data-panel-id="services"] .drawing svg{min-height:0!important;max-height:340px!important}
+.service-case{padding:14px;margin-bottom:14px;background:#f7f5ef;border:1px solid var(--line);border-radius:4px}.service-case h3{font:12px Arial;margin:0 0 10px;color:#687b64}.service-case p{font-size:12px}.service-case .specs>div{border:0;padding:0}.service-case .specs dt{font-size:13px}.service-case .specs dd{font-size:18px}
+
+.distance-dot{fill:#526b5c;stroke:#faf9f3;stroke-width:.6}
+
+@media(max-width:729px){[data-panel-id="density"] .population-tiles{max-height:none!important}}
+
+.distance-tag circle{fill:#e3eadb;stroke:#6d8666;stroke-width:1}.distance-tag text{font:600 16px Arial;fill:#35463d}.distance-circles .population-small{font-size:16px}.distance-circles .population-value{font-size:18px}

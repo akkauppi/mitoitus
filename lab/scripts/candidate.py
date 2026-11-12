@@ -9,6 +9,7 @@ import zipfile
 from html.parser import HTMLParser
 from pathlib import Path
 from connection_editorial import redesign_connections
+from population_editorial import redesign_population
 
 ROOT = Path(__file__).resolve().parents[2]
 KINDS = ('buildings', 'accessible', 'turning', 'rescue', 'tram', 'parking', 'street')
@@ -170,6 +171,7 @@ def render_book(source):
     # User correction: circles denote clear space, never the wheelchair itself.
     sections['accessible'] = sections['accessible'].replace('>Wheelchair</text>', '>Clear space · manual</text>').replace('>Powered chair</text>', '>Clear space · powered</text>')
     sections['connections'] = redesign_connections(sections['connections'])
+    sections['land-population'] = redesign_population(sections['land-population'])
     ordered = []
     for index, identity in enumerate(SPREAD_ORDER, 1):
         ordered.append(re.sub(r'(<div class="panel-top"><span>)\d{2}',
@@ -183,6 +185,10 @@ def render_book(source):
     tabs = '\n' + '\n'.join(re.sub(r'<span>\d{2}</span>', f'<span>{i:02}</span>', links[identity])
                             for i, identity in enumerate(SPREAD_ORDER, 1)) + '\n'
     text = text[:nav.start(1)] + tabs + text[nav.end(1):]
+    # Retired originals are preview-only until reviewed modern posters replace them.
+    text = re.sub(r'<svg\b([^>]*)>', lambda m: m[0] if any(k in m[1] for k in ('population-tiles','distance-circles','library-equivalent')) else '<svg data-legacy-visual="true"'+m[1]+'>', text)
+    if 'data-legacy-visual="true"' in text:
+        text = re.sub(r'<a\b[^>]*href="downloads/rulebook-offline\.zip"[^>]*>.*?</a>', '', text, flags=re.S)
     text = text.replace('</head>', '<link rel="stylesheet" href="runtime/book.css"><script type="importmap">{"imports":{"three":"./vendor/build/three.module.js","three/addons/":"./vendor/examples/jsm/"}}</script></head>')
     text = text.replace('</body>', '<script src="runtime/book-app.js"></script></body>')
     return text.encode()
@@ -308,7 +314,8 @@ def build(output=None, replace=False):
         actual = audit((stage/'index.html').read_text())
         if actual.events != audit(render_book(source).decode()).events:
             raise ValueError('Candidate semantic content drift')
-        report = dict(schemaVersion=2, stage='T12 conceptual stormwater cutaways',
+        report = dict(schemaVersion=2, stage='T13 population, distance and service graphics', publicationReady=False,
+                      legacyVisualsRetired=True, legacyFallbackReplacementPending=True,
                       sheets=11, panels=33, drawings=44, baselineSha256=digest(source),
                       semanticSha256=digest(json.dumps(checked.events, ensure_ascii=False).encode()),
                       content=checked.panels, semanticEvents=checked.events,
@@ -322,10 +329,12 @@ def build(output=None, replace=False):
             shutil.rmtree(stage)
 
 
-def package(output=None):
+def package(output=None, allow_legacy_preview=False):
     candidate = safe_path(ROOT/'lab/book', ROOT/'lab/book')
     output = safe_path(output or ROOT/'lab/.build/rulebook-offline.zip', ROOT/'lab/.build/rulebook-offline.zip')
     verify_candidate(candidate)
+    if not allow_legacy_preview and 'data-legacy-visual="true"' in (candidate/'index.html').read_text():
+        raise ValueError('Legacy 2D visuals are retired: replace static fallbacks before exporting a publishable package')
     output.parent.mkdir(parents=True, exist_ok=True)
     handle, name = tempfile.mkstemp(prefix='.archive-', dir=output.parent)
     os.close(handle)

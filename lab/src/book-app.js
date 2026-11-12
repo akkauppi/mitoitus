@@ -15,6 +15,8 @@
   // User-approved editorial presentation, 2026-11-13. Full original paragraphs
   // remain in Sources; numeric tables and canonical source files are untouched.
   const quickNotes={
+    'services':['Small municipalities may need more space per resident.','Nearby schools already full.','Additional central-city unit.'],
+    'green-hierarchy':['Residential floor area. Check actual walking routes.'],
     'building-rows':['Dimensions refer to one repeating unit.'],
     'building-detached':[null],
     'walking':['Keep furniture, signs, snow and door swings outside the clear route.'],
@@ -46,9 +48,15 @@
   };
   for(const record of records){
     const notes=quickNotes[record.id];if(!notes)continue;
-    const paragraphs=[...record.panel.querySelectorAll('.details > p:not(.source-meta)')];
+    const paragraphs=[...record.panel.querySelectorAll(record.id==='services'?'.service-case > p':'.details > p:not(.source-meta)')];
     paragraphs.forEach((original,index)=>{if(index>=notes.length)return;original.dataset.referenceNote='';const text=notes[index];if(text){const brief=document.createElement('p');brief.className='quick-note';brief.textContent=text;original.after(brief);}});
   }
+  function adaptPopulationGraphics(){
+    const chart=document.querySelector('.population-tiles');if(!chart)return;
+    const narrow=innerWidth<730;chart.setAttribute('viewBox',narrow?'0 0 220 760':'0 0 440 398');
+    [...chart.querySelectorAll('[data-density]')].forEach((g,i)=>{if(narrow)g.setAttribute('transform',`translate(${-220*(i%2)} ${(i-Math.floor(i/2))*185})`);else g.removeAttribute('transform');});
+  }
+  adaptPopulationGraphics();
   const byId = new Map(records.map(record => [record.id, record]));
   const header = document.createElement('div');
   header.className = 'book-heading';
@@ -61,7 +69,7 @@
   const tools = document.querySelector('.tools');
   const downloads = document.createElement('details');
   downloads.className = 'book-menu';
-  downloads.innerHTML = '<summary>Downloads</summary><div><button class="book-cad">CAD reference files</button><a href="downloads/rulebook-offline.zip" download>Offline sheets + CAD ↓</a><a href="evidence.html">Evidence index ↗</a></div>';
+  downloads.innerHTML = '<summary>Downloads</summary><div><button class="book-cad">CAD reference files</button><a href="evidence.html">Evidence index ↗</a></div>';
   tools.append(downloads);
   downloads.querySelector('button').onclick = () => { downloads.open = false; openCAD(); };
   const view = document.createElement('details');
@@ -112,7 +120,7 @@
     // A legacy variant is authoritative; T02 has only its corresponding whole figure.
     const figure = `${active.id}--v${selected}`;
     const sceneId=figure;
-    const allowed = ['rain-gardens','ponds','source-control'].includes(active.id)?['iso','section']:active.id==='ground'?['iso','plan']:active.id==='stormwater'?['iso','plan','section']:active.id==='trees'?['iso','plan','front','section']:active.id==='section-ratio'?['section','iso']:active.id==='equal-density'?['iso','plan']:active.id==='steps'?['iso','plan','section']:['building-blocks','building-rows','building-detached'].includes(active.id)?['plan','iso']:active.id==='clear-route-continuity'?['iso','plan','front']:active.id==='crossing-refuge'?['iso','plan']:active.id==='walking-connections'?['plan']: ['turning','arrival','tram-corridor','tram-length','car-turn','bus-turn','rescue'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
+    const allowed = ['density','green-hierarchy','services'].includes(active.id)?['plan']:['rain-gardens','ponds','source-control'].includes(active.id)?['iso','section']:active.id==='ground'?['iso','plan']:active.id==='stormwater'?['iso','plan','section']:active.id==='trees'?['iso','plan','front','section']:active.id==='section-ratio'?['section','iso']:active.id==='equal-density'?['iso','plan']:active.id==='steps'?['iso','plan','section']:['building-blocks','building-rows','building-detached'].includes(active.id)?['plan','iso']:active.id==='clear-route-continuity'?['iso','plan','front']:active.id==='crossing-refuge'?['iso','plan']:active.id==='walking-connections'?['plan']: ['turning','arrival','tram-corridor','tram-length','car-turn','bus-turn','rescue'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
     const defaultCamera=active.id==='ponds'?'section':['rain-gardens','source-control'].includes(active.id)?'iso':active.id==='section-ratio'?'section':['steps','equal-density','ground','stormwater'].includes(active.id)?'iso':['clear-route-continuity','building-blocks','building-rows','building-detached'].includes(active.id)?'iso':['ramps','tram-width'].includes(active.id)?'front':['turning','arrival','tram-corridor'].includes(active.id)?'plan':['trees','walking','cycling','bike-parking','tram-length'].includes(active.id)?'iso':'plan';
     const camera = allowed.includes(q.get('camera')) ? q.get('camera') : defaultCamera;
     const style = ['paper', 'ink', 'soft'].includes(q.get('style')) ? q.get('style') : 'paper';
@@ -209,7 +217,7 @@
   $('book-next').onclick = () => move(1);
   $('book-style').onchange = event => navigate({ style: event.target.value }, 'replaceState');
   addEventListener('hashchange', render);
-  addEventListener('resize',()=>syncViewer(current));
+  addEventListener('resize',()=>{adaptPopulationGraphics();syncViewer(current);});
   $('wall-exit').addEventListener('click',render);
   addEventListener('popstate', () => { render(); if (current.mode === 'overview' && origin) requestAnimationFrame(() => { byId.get(origin.id)?.panel.querySelector('.explore')?.focus({preventScroll:true}); window.scrollTo(0, origin.y); }); });
   addEventListener('change', event => { if (event.target.closest('[data-variant-group]')) render(); });

@@ -22,7 +22,7 @@ const out = path.join(__dirname,'../review'); fs.mkdirSync(out,{recursive:true})
   assert.equal(await page.locator('.panel').count(),33);
   assert.equal(await page.locator('.drawing svg').count(),44);
   // Original source paragraphs survive the concise editorial presentation.
-  const canonicalDetails=nodes=>Object.fromEntries(nodes.map(n=>{const panel=n.closest('.panel'),copy=(panel.querySelector('.retained-reference')||n).cloneNode(true);copy.querySelectorAll('.quick-note').forEach(p=>p.remove());copy.querySelectorAll('[data-reference-note]').forEach(p=>p.removeAttribute('data-reference-note'));return[panel.querySelector('.proof').getAttribute('href'),copy.innerHTML];}));
+  const canonicalDetails=nodes=>Object.fromEntries(nodes.map(n=>{const panel=n.closest('.panel'),copy=(panel.querySelector('.retained-reference')||n).cloneNode(true);copy.querySelectorAll('.editorial-heading').forEach(p=>p.remove());copy.querySelectorAll('.service-case').forEach(p=>p.replaceWith(...p.childNodes));copy.querySelectorAll('.quick-note').forEach(p=>p.remove());copy.querySelectorAll('[data-reference-note]').forEach(p=>p.removeAttribute('data-reference-note'));return[panel.querySelector('.proof').getAttribute('href'),copy.innerHTML];}));
   const details = await page.locator('.panel .details').evaluateAll(canonicalDetails);
   const baseline = await browser.newPage(); await baseline.goto('http://127.0.0.1:8765/');
   assert.deepEqual(details,await baseline.locator('.panel .details').evaluateAll(canonicalDetails));
@@ -90,7 +90,7 @@ const out = path.join(__dirname,'../review'); fs.mkdirSync(out,{recursive:true})
   assert.equal(await page.locator('[data-cad="tram"]').getAttribute('href'),'downloads/tram-mm.dxf');
   await page.click('#close-cad');
   await page.locator('.book-menu summary').filter({hasText:'Downloads'}).click();
-  assert.equal(await page.locator('.book-menu a[download]').getAttribute('href'),'downloads/rulebook-offline.zip');
+  assert.equal(await page.locator('a[href="downloads/rulebook-offline.zip"]').count(),0,'legacy fallback package is withheld');
   await page.keyboard.press('Escape');
   await go('?mode=focus&panel=trees&view=wall#green-blue'); assert.ok(await page.locator('body').evaluate(b=>b.classList.contains('wall')));
   await page.click('#wall-exit'); assert.equal(new URL(page.url()).searchParams.get('view'),'desktop');

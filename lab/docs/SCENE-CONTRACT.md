@@ -345,3 +345,13 @@ vegetation primitives. Diagram coordinates have no physical dimensions or
 computed capacity; the metric bank-slope triangle is a separate native SVG. See
 [T12-STORMWATER.md](T12-STORMWATER.md) for interfaces, options, evidence and limits.
 This supersedes planned-only recipes for the three stormwater-options panels.
+
+
+## T13 current implementation and user amendments — 13 November 2026
+
+Resident figures on equal 0.4 ha tiles and numbered distance circles supersede
+the planned bar-only treatment. Services now separates dated space provision,
+local growth/capacity and proposed population responsibility. See
+[T13-POPULATION.md](T13-POPULATION.md) for source review, editorial changes and tests.
+Old 2D fallback illustrations are retired from release; export is blocked until
+T15 supplies reviewed replacements. This supersedes earlier package instructions.

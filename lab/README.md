@@ -12,7 +12,7 @@ plan for another model to implement. Start with
 [TASKS.md](docs/TASKS.md). The [layout wireframes](docs/LAYOUT.svg) show Overview,
 Focus, phone, wall and print. All 33 panels and 44 baseline drawings are mapped in
 [the inventory](docs/scene-inventory.json) and the two scene catalogues.
-The three-scene lab remains the visual reference. T01–T12 are implemented in
+The three-scene lab remains the visual reference. T01–T13 are implemented in
 the isolated candidate; the remaining handoff tasks are still planned.
 Do not run the old recursive ZIP packager in this worktree.
 
@@ -67,13 +67,13 @@ Iteration record and verification limits: [REVIEW.md](docs/REVIEW.md).
 
 ## Candidate build (T01)
 
-T01–T12 are complete locally. The candidate has Overview/Focus layouts and live
+T01–T13 are complete locally. The candidate has Overview/Focus layouts and live
 metric dioramas, with baseline SVG fallbacks and canonical details. From the
 worktree root, run `python3 lab/scripts/build-book.py` for the first build, or
 `python3 lab/scripts/build-book.py --replace` to replace an intact generated
 candidate. `python3 lab/scripts/package-book.py` exports the explicitly allowlisted
 ZIP into `lab/.build/`. See [PROGRESS.md](docs/PROGRESS.md) for commands, verification
-and limits. Preview the candidate at http://localhost:8765/lab/book/. T13 is next; publication remains on hold.
+and limits. Preview the candidate at http://localhost:8765/lab/book/. T14 is next; publication remains on hold.
 
 ## Rooting-volume canary (T03)
 
@@ -212,3 +212,13 @@ explanations and duplicate source graphics stay under Sources.
 [Open Stormwater options](http://localhost:8765/lab/book/?mode=focus&panel=rain-gardens#stormwater-options).
 Rain garden/swale, dry basin/wet pond and roof/paving have conceptual cutaways.
 The bank-slope triangle remains separately metric. [Evidence and limits](docs/T12-STORMWATER.md).
+
+## Population and services (T13)
+
+[Preview](http://localhost:8765/lab/book/?mode=focus&panel=density#land-population):
+equal 0.4 ha resident tiles, numbered distance circles and three distinct service
+measures. [Source review and evidence](docs/T13-POPULATION.md).
+
+**Export hold:** old 2D figures are retired from the publishable edition. Normal
+offline export is blocked until T15 replaces the remaining local-preview legacy
+fallbacks. Earlier package instructions above are superseded by this hold.

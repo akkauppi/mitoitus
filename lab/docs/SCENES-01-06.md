@@ -322,3 +322,13 @@ camera scale based on the maximum 4 m route width; never zoom narrow choices up.
 - **Checks / preservation:** exact annuli, rectangle/target bounds and explicit
   scale distinction; keep route width 3.5 m, height 4.2 m, excluded 0.4/1 m
   allowances and all operational caveats. HIKLU 2024 v1.3 remains the source context.
+
+
+## T13 current implementation and user amendments — 13 November 2026
+
+Resident figures on equal 0.4 ha tiles and numbered distance circles supersede
+the planned bar-only treatment. Services now separates dated space provision,
+local growth/capacity and proposed population responsibility. See
+[T13-POPULATION.md](T13-POPULATION.md) for source review, editorial changes and tests.
+Old 2D fallback illustrations are retired from release; export is blocked until
+T15 supplies reviewed replacements. This supersedes earlier package instructions.
