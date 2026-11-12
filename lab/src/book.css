@@ -47,3 +47,9 @@ body:not(.sources-on) [data-reference-note]{display:none}
 @media(max-width:729px){[data-panel-id="density"] .population-tiles{max-height:none!important}}
 
 .distance-tag circle{fill:#e3eadb;stroke:#6d8666;stroke-width:1}.distance-tag text{font:600 16px Arial;fill:#35463d}.distance-circles .population-small{font-size:16px}.distance-circles .population-value{font-size:18px}
+
+body[data-mode="overview"] #parking{grid-template-columns:repeat(2,minmax(0,1fr))}.panel-selector:has(button:nth-child(2):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}
+.parking-norms-chart .norm-label{font:18px Arial;fill:#42594a}.parking-norms-chart .norm-context{font:16px Arial;fill:#687b64}.parking-norms-chart .norm-value{font:600 22px Arial;fill:#35463d}.norm-bar-helsinki{fill:#dfb29d;stroke:#58605d;stroke-width:.7}.norm-bar-espoo{fill:#a9cbd6;stroke:#58605d;stroke-width:.7}
+[data-panel-id="parking-norms"] .drawing svg{min-height:0!important;max-height:480px!important}@media(max-width:729px){body[data-mode="overview"] #parking{grid-template-columns:1fr}}
+
+[data-panel-id="parking-layout"] .details>.quick-note:last-child{font-weight:600}

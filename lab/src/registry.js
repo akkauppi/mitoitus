@@ -1,3 +1,4 @@
+import {parkingScene,PARKING_INFO} from './recipes/parking.js';
 import {conceptualStormwaterScene,stormwaterInfo} from './recipes/stormwater.js';
 import {plantingScene,storageScene,LANDSCAPE_INFO} from './recipes/landscape.js';
 import {ratioScene,equalDensityScene,stepsScene,rootSectionModel,SECTION_INFO} from './recipes/sections.js';
@@ -16,6 +17,7 @@ export const ROOT_RECIPE = Object.freeze({
   measurements:{soilWidth:5,soilLength:5,soilDepth:1,soilVolume:25},
 });
 export function recipeInfo(id) {
+  if(id==='parking-layout--v0'||id==='parking-area--v0')return {id,panelId:'parking-layout',sourceClaims:['parking-layout','parking-area'],...PARKING_INFO};
   if(id===ROOT_RECIPE.id)return ROOT_RECIPE;
   const conceptual=/^(rain-gardens|ponds|source-control)--v0$/.exec(id);
   if(conceptual)return {id,panelId:conceptual[1],sourceClaims:[conceptual[1]],...stormwaterInfo(conceptual[1])};
@@ -43,7 +45,7 @@ export function recipeInfo(id) {
 }
 export function createRecipe(id) {
   const recipe=recipeInfo(id);
-  const model=['rain-gardens','ponds','source-control'].includes(recipe.panelId)?conceptualStormwaterScene(recipe.panelId):recipe.panelId==='ground'?plantingScene():recipe.panelId==='stormwater'?storageScene():recipe.panelId==='section-ratio'?ratioScene():recipe.panelId==='equal-density'?equalDensityScene():recipe.panelId==='steps'?stepsScene():BUILDING_INFO[recipe.panelId]?buildingScene(recipe.panelId):CONNECTION_INFO[recipe.panelId]?connectionScene(recipe.panelId):['car-turn','bus-turn','rescue'].includes(recipe.panelId)?vehicleScene(recipe.panelId,Number(id.split('--v')[1])):TRAM_INFO[recipe.panelId]?tramScene(recipe.panelId):ACCESSIBILITY_INFO[recipe.panelId]?accessibilityScene(recipe.panelId):id===ROOT_RECIPE.id?rootSectionModel(buildScene('roots')):recipe.panelId==='bike-parking'?cycleParkingScene():routeScene(recipe.panelId,Number(id.split('--v')[1]));
+  const model=recipe.panelId==='parking-layout'?parkingScene():['rain-gardens','ponds','source-control'].includes(recipe.panelId)?conceptualStormwaterScene(recipe.panelId):recipe.panelId==='ground'?plantingScene():recipe.panelId==='stormwater'?storageScene():recipe.panelId==='section-ratio'?ratioScene():recipe.panelId==='equal-density'?equalDensityScene():recipe.panelId==='steps'?stepsScene():BUILDING_INFO[recipe.panelId]?buildingScene(recipe.panelId):CONNECTION_INFO[recipe.panelId]?connectionScene(recipe.panelId):['car-turn','bus-turn','rescue'].includes(recipe.panelId)?vehicleScene(recipe.panelId,Number(id.split('--v')[1])):TRAM_INFO[recipe.panelId]?tramScene(recipe.panelId):ACCESSIBILITY_INFO[recipe.panelId]?accessibilityScene(recipe.panelId):id===ROOT_RECIPE.id?rootSectionModel(buildScene('roots')):recipe.panelId==='bike-parking'?cycleParkingScene():routeScene(recipe.panelId,Number(id.split('--v')[1]));
   model.recipe=recipe;
   return model;
 }

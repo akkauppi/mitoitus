@@ -325,3 +325,13 @@ vegetation primitives. Diagram coordinates have no physical dimensions or
 computed capacity; the metric bank-slope triangle is a separate native SVG. See
 [T12-STORMWATER.md](T12-STORMWATER.md) for interfaces, options, evidence and limits.
 This supersedes planned-only recipes for the three stormwater-options panels.
+
+
+## T14 implementation and panel consolidation — 13 November 2026
+
+User removed the standalone parking-area panel as not worth its space. Area
+accounting is now a view of the eight-bay module, preserving the full 7 m aisle.
+Parking has two panels; current candidate has 32 panels / 43 drawings, while the
+source inventory remains 33 / 44. Old area-panel links alias the combined model.
+The 2025 norm chart is new native SVG. See [T14-PARKING.md](T14-PARKING.md) for
+source scope, arithmetic, preservation and verification. Export remains held.

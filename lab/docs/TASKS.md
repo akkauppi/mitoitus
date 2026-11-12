@@ -255,6 +255,10 @@ Preserve the W4 no-long-term-private-car-parking instruction.
 accounting cannot appear as a 3.5 m manoeuvring aisle. Existing 44/77 counts,
 rounding, mapped locations and separate conditions stay intact.
 
+T14 implemented locally; [evidence and user amendment](T14-PARKING.md). The user
+removed the standalone accounting panel; it is folded into Bays & manoeuvring.
+Current candidate: 32 panels / 43 drawings; historical source inventory: 33 / 44.
+
 ## T15 — Posters, export, wall, print and offline packaging
 
 **13 November user amendment:** old 2D illustrations are retired. Replace them

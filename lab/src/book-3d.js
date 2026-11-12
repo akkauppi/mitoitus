@@ -4,7 +4,7 @@ import {recipeInfo} from './registry.js';
 
 /** One movable host; canonical figures and variant controls remain in each panel. */
 export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
-  let drawing=initialDrawing,fallback=[],active=false,failed=false,host,categoryRecipe=null,categoryDefault=-1;
+  let drawing=initialDrawing,fallback=[],active=false,failed=false,host,categoryRecipe=null,categoryDefault=-1,currentInfo=null;
   const frame=document.createElement('section');frame.className='scene-host';
   frame.innerHTML='<p class="scene-case source-meta"></p><div class="scene-toolbar" role="group" aria-label="Model view"><button data-camera="iso">3D</button><button data-camera="plan">Plan</button><button data-camera="front">Front</button><button data-camera="section">Section</button><button data-reset>Reset</button></div><label class="scene-category" hidden>Compare planting<select aria-label="Planting category"><option value="-1">All four · same scale</option></select></label><div class="scene-viewport" tabindex="0" role="group"><canvas aria-hidden="true"></canvas><svg aria-hidden="true"></svg></div><div class="scene-options"><label><input type="checkbox" data-dimensions checked> Dimensions</label><label><input type="checkbox" data-callouts checked> Callouts</label><span data-hint></span></div>';
   const provenance=document.createElement('p');provenance.className='source-meta scene-provenance';frame.append(provenance);
@@ -28,13 +28,15 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
   const listeners=[];
   function listen(el,type,handler){el.addEventListener(type,handler);listeners.push(()=>el.removeEventListener(type,handler));}
   for(const button of frame.querySelectorAll('[data-camera]'))listen(button,'click',()=>host?.setCamera(button.dataset.camera));
-  listen(frame.querySelector('.scene-category select'),'change',event=>host?.setCategory(Number(event.target.value)));
+  function updateSummary(){const text=currentInfo?.categoryFacts?.[Number(frame.querySelector('.scene-category select').value)]??currentInfo?.quickFact??'';summary.textContent=text;summary.hidden=!text;}
+  function selectCategory(value){frame.querySelector('.scene-category select').value=String(value);host?.setCategory(value);updateSummary();}
+  listen(frame.querySelector('.scene-category select'),'change',event=>selectCategory(Number(event.target.value)));
   listen(frame.querySelector('[data-reset]'),'click',()=>{frame.querySelector('.scene-category select').value=String(categoryDefault);host?.setCategory(categoryDefault);host?.reset();});
   for(const input of frame.querySelectorAll('input'))listen(input,'change',()=>host?.setAnnotations({dimensions:frame.querySelector('input[data-dimensions]').checked,callouts:frame.querySelector('input[data-callouts]').checked}));
   return {
     show({drawing:next=drawing,recipeId='trees--v0',camera='iso',style='paper'}={}){
       if(next!==drawing)attach(next);
-      const recipe=recipeInfo(recipeId);active=true;frame.hidden=failed;
+      const recipe=recipeInfo(recipeId);currentInfo=recipe;active=true;frame.hidden=failed;
       const category=frame.querySelector('.scene-category');category.hidden=!recipe.categoryOptions;
       categoryDefault=recipe.categoryDefault??-1;category.firstChild.textContent=recipe.categoryPrompt||'Compare planting';
       category.querySelector('select').setAttribute('aria-label',recipe.categoryPrompt||'Planting category');
@@ -48,7 +50,7 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
       frame.querySelector('.scene-case').textContent=recipe.caseTitle||selected?.textContent||'';
       frame.querySelector('.scene-case').hidden=!(recipe.caseTitle||selected);
 
-      summary.textContent=recipe.quickFact||'';summary.hidden=!recipe.quickFact;
+      updateSummary();
       companion.replaceChildren();companion.hidden=!(recipe.retainedTextSelector||recipe.explanation);
       if(recipe.retainedTextSelector)for(const original of drawing.querySelectorAll(recipe.retainedTextSelector)){if(original===selected)continue;const p=document.createElement('p');p.textContent=original.textContent;companion.append(p);}
       for(const text of recipe.explanation||[]){const p=document.createElement('p');p.textContent=text;companion.append(p);}
@@ -73,7 +75,8 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
       if(failed){availability(false);return;}
       host.show({recipeId,camera,style});
     },
-    suspend(){active=false;host?.suspend();availability(false);},
+    setCategory:selectCategory,
+    suspend(){active=false;categoryRecipe=null;currentInfo=null;host?.suspend();availability(false);},
     inspect:()=>host?.inspect()||{failed:true,active:false},
     dispose(){active=false;listeners.forEach(remove=>remove());host?.dispose();restoreFallback();frame.remove();status.remove();},
   };

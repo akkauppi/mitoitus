@@ -43,7 +43,8 @@
     'crossing-refuge':['Add the refuge to both traffic lanes.','Check kerbs, tactile cues, sightlines, drainage and onward footways.'],
     'walking-connections':['Check every link to the entrance.','Check barriers, opening hours, slopes and winter access.',null],
     'clear-route-continuity':['Measure clear width and height along the whole route. Keep furniture, doors, branches, signs and snow outside it.',null],
-    'parking-layout':['Allow for door opening, end bays, columns and manoeuvring. ¹ Transfer access is additional.'],
+    'parking-norms':['Espoo: ≥0.5 space/dwelling; use the larger count. Core: mapped central area, typically within 300 m of station or centre.','Espoo: ≥5% of required spaces for visitors. Helsinki C1/C2/C3: add 30 to denominators.'],
+    'parking-layout':['Allow for door opening, end bays, columns and manoeuvring. ¹ Transfer access is additional.','W4: no long-term private-car parking.'],
     'parking-area':['Include entrances, row ends, paths, accessible spaces, planting, snow and drainage.','12.5 m² is the bay only. Garages also need ramps, structure and vertical circulation.','Draw the layout and count usable spaces.'],
   };
   for(const record of records){
@@ -84,7 +85,7 @@
   let viewerPromise=null,bookViewer=null,viewerEpoch=0;
   async function syncViewer(state) {
     const epoch=++viewerEpoch;
-    const live=state.mode==='focus'&&['rain-gardens','ponds','source-control','ground','stormwater','trees','walking','cycling','bike-parking','turning','ramps','arrival','tram-corridor','tram-width','tram-length','car-turn','bus-turn','rescue','crossing-refuge','clear-route-continuity','building-blocks','building-rows','building-detached','section-ratio','equal-density','steps'].includes(state.active.id)&&!document.body.classList.contains('wall')&&location.protocol!=='file:';
+    const live=state.mode==='focus'&&['parking-layout','rain-gardens','ponds','source-control','ground','stormwater','trees','walking','cycling','bike-parking','turning','ramps','arrival','tram-corridor','tram-width','tram-length','car-turn','bus-turn','rescue','crossing-refuge','clear-route-continuity','building-blocks','building-rows','building-detached','section-ratio','equal-density','steps'].includes(state.active.id)&&!document.body.classList.contains('wall')&&location.protocol!=='file:';
     $('book-style').closest('label').hidden=!live;
     if(!live){bookViewer?.suspend();return;}
     try {
@@ -97,6 +98,7 @@
         bookViewer.show({drawing:current.active.panel.querySelector('.drawing'),recipeId:current.sceneId,camera,style:current.style});
       }});
       bookViewer.show({drawing:state.active.panel.querySelector('.drawing'),recipeId:state.sceneId,camera:state.camera,style:state.style});
+      if(state.areaAccounting){bookViewer.setCategory(1);state.areaAccounting=false;}
       document.body.dataset.viewerState=JSON.stringify(bookViewer.inspect());
     }catch(error){
       // Failed module loads leave the complete original figure and facts available.
@@ -113,18 +115,18 @@
     const url = new URL(location.href), q = url.searchParams;
     const wanted = aliases[url.hash.slice(1)] || url.hash.slice(1);
     const sheet = sheets.find(s => s.id === wanted) || sheets[0];
-    const record = byId.get(q.get('panel'));
+    const record = byId.get(q.get('panel')==='parking-area'?'parking-layout':q.get('panel'));
     const active = record?.sheet === sheet ? record : records.find(r => r.sheet === sheet);
     const group = active.panel.querySelector('[data-variant-group]');
     const selected = group ? group.querySelector('select').selectedIndex : 0;
     // A legacy variant is authoritative; T02 has only its corresponding whole figure.
     const figure = `${active.id}--v${selected}`;
     const sceneId=figure;
-    const allowed = ['density','green-hierarchy','services'].includes(active.id)?['plan']:['rain-gardens','ponds','source-control'].includes(active.id)?['iso','section']:active.id==='ground'?['iso','plan']:active.id==='stormwater'?['iso','plan','section']:active.id==='trees'?['iso','plan','front','section']:active.id==='section-ratio'?['section','iso']:active.id==='equal-density'?['iso','plan']:active.id==='steps'?['iso','plan','section']:['building-blocks','building-rows','building-detached'].includes(active.id)?['plan','iso']:active.id==='clear-route-continuity'?['iso','plan','front']:active.id==='crossing-refuge'?['iso','plan']:active.id==='walking-connections'?['plan']: ['turning','arrival','tram-corridor','tram-length','car-turn','bus-turn','rescue'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
+    const allowed = ['density','green-hierarchy','services','parking-norms'].includes(active.id)?['plan']:active.id==='parking-layout'?['plan','iso']:['rain-gardens','ponds','source-control'].includes(active.id)?['iso','section']:active.id==='ground'?['iso','plan']:active.id==='stormwater'?['iso','plan','section']:active.id==='trees'?['iso','plan','front','section']:active.id==='section-ratio'?['section','iso']:active.id==='equal-density'?['iso','plan']:active.id==='steps'?['iso','plan','section']:['building-blocks','building-rows','building-detached'].includes(active.id)?['plan','iso']:active.id==='clear-route-continuity'?['iso','plan','front']:active.id==='crossing-refuge'?['iso','plan']:active.id==='walking-connections'?['plan']: ['turning','arrival','tram-corridor','tram-length','car-turn','bus-turn','rescue'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
     const defaultCamera=active.id==='ponds'?'section':['rain-gardens','source-control'].includes(active.id)?'iso':active.id==='section-ratio'?'section':['steps','equal-density','ground','stormwater'].includes(active.id)?'iso':['clear-route-continuity','building-blocks','building-rows','building-detached'].includes(active.id)?'iso':['ramps','tram-width'].includes(active.id)?'front':['turning','arrival','tram-corridor'].includes(active.id)?'plan':['trees','walking','cycling','bike-parking','tram-length'].includes(active.id)?'iso':'plan';
     const camera = allowed.includes(q.get('camera')) ? q.get('camera') : defaultCamera;
     const style = ['paper', 'ink', 'soft'].includes(q.get('style')) ? q.get('style') : 'paper';
-    return { sheet, active, figure, sceneId, camera, style, mode: q.get('mode') === 'focus' ? 'focus' : 'overview' };
+    return { sheet, active, figure, sceneId, camera, style, areaAccounting:q.get('panel')==='parking-area', mode: q.get('mode') === 'focus' ? 'focus' : 'overview' };
   }
   function navigate(changes, method = 'pushState') {
     const url = new URL(location.href);

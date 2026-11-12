@@ -12,7 +12,7 @@ plan for another model to implement. Start with
 [TASKS.md](docs/TASKS.md). The [layout wireframes](docs/LAYOUT.svg) show Overview,
 Focus, phone, wall and print. All 33 panels and 44 baseline drawings are mapped in
 [the inventory](docs/scene-inventory.json) and the two scene catalogues.
-The three-scene lab remains the visual reference. T01–T13 are implemented in
+The three-scene lab remains the visual reference. T01–T14 are implemented in
 the isolated candidate; the remaining handoff tasks are still planned.
 Do not run the old recursive ZIP packager in this worktree.
 
@@ -67,13 +67,13 @@ Iteration record and verification limits: [REVIEW.md](docs/REVIEW.md).
 
 ## Candidate build (T01)
 
-T01–T13 are complete locally. The candidate has Overview/Focus layouts and live
+T01–T14 are complete locally. The candidate has Overview/Focus layouts and live
 metric dioramas, with baseline SVG fallbacks and canonical details. From the
 worktree root, run `python3 lab/scripts/build-book.py` for the first build, or
 `python3 lab/scripts/build-book.py --replace` to replace an intact generated
 candidate. `python3 lab/scripts/package-book.py` exports the explicitly allowlisted
 ZIP into `lab/.build/`. See [PROGRESS.md](docs/PROGRESS.md) for commands, verification
-and limits. Preview the candidate at http://localhost:8765/lab/book/. T14 is next; publication remains on hold.
+and limits. Preview the candidate at http://localhost:8765/lab/book/. T15 is next; publication remains on hold.
 
 ## Rooting-volume canary (T03)
 
@@ -222,3 +222,10 @@ measures. [Source review and evidence](docs/T13-POPULATION.md).
 **Export hold:** old 2D figures are retired from the publishable edition. Normal
 offline export is blocked until T15 replaces the remaining local-preview legacy
 fallbacks. Earlier package instructions above are superseded by this hold.
+
+## Parking (T14)
+
+[Preview Parking](http://localhost:8765/lab/book/?mode=focus&panel=parking-layout#parking).
+The user removed the standalone accounting panel; its arithmetic is folded into
+the bay model. The current candidate has 32 panels / 43 drawings; the source
+inventory remains historical at 33 / 44. [Evidence](docs/T14-PARKING.md).

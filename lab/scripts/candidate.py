@@ -10,6 +10,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from connection_editorial import redesign_connections
 from population_editorial import redesign_population
+from parking_editorial import redesign_parking
 
 ROOT = Path(__file__).resolve().parents[2]
 KINDS = ('buildings', 'accessible', 'turning', 'rescue', 'tram', 'parking', 'street')
@@ -27,6 +28,7 @@ RUNTIME_FILES.update({
     'runtime/viewer.js':'lab/src/viewer.js',
     'runtime/annotations.js':'lab/src/annotations.js',
     'runtime/registry.js':'lab/src/registry.js',
+    'runtime/recipes/parking.js':'lab/src/recipes/parking.js',
     'runtime/recipes/stormwater.js':'lab/src/recipes/stormwater.js',
     'runtime/primitives/conceptual.js':'lab/src/primitives/conceptual.js',
     'runtime/recipes/landscape.js':'lab/src/recipes/landscape.js',
@@ -172,6 +174,7 @@ def render_book(source):
     sections['accessible'] = sections['accessible'].replace('>Wheelchair</text>', '>Clear space · manual</text>').replace('>Powered chair</text>', '>Clear space · powered</text>')
     sections['connections'] = redesign_connections(sections['connections'])
     sections['land-population'] = redesign_population(sections['land-population'])
+    sections['parking'] = redesign_parking(sections['parking'])
     ordered = []
     for index, identity in enumerate(SPREAD_ORDER, 1):
         ordered.append(re.sub(r'(<div class="panel-top"><span>)\d{2}',
@@ -186,7 +189,7 @@ def render_book(source):
                             for i, identity in enumerate(SPREAD_ORDER, 1)) + '\n'
     text = text[:nav.start(1)] + tabs + text[nav.end(1):]
     # Retired originals are preview-only until reviewed modern posters replace them.
-    text = re.sub(r'<svg\b([^>]*)>', lambda m: m[0] if any(k in m[1] for k in ('population-tiles','distance-circles','library-equivalent')) else '<svg data-legacy-visual="true"'+m[1]+'>', text)
+    text = re.sub(r'<svg\b([^>]*)>', lambda m: m[0] if any(k in m[1] for k in ('population-tiles','distance-circles','library-equivalent','parking-norms-chart')) else '<svg data-legacy-visual="true"'+m[1]+'>', text)
     if 'data-legacy-visual="true"' in text:
         text = re.sub(r'<a\b[^>]*href="downloads/rulebook-offline\.zip"[^>]*>.*?</a>', '', text, flags=re.S)
     text = text.replace('</head>', '<link rel="stylesheet" href="runtime/book.css"><script type="importmap">{"imports":{"three":"./vendor/build/three.module.js","three/addons/":"./vendor/examples/jsm/"}}</script></head>')
@@ -236,7 +239,8 @@ def verify_candidate(output, allow_legacy=False):
     expected = set(PUBLIC_FILES) | {OFFLINE, 'parity.json'}
     old_expected = set(BASELINE_FILES) | {OFFLINE, 'parity.json'}
     t02_expected = old_expected | set(T02_RUNTIME_FILES)
-    t11_expected = expected - {'runtime/recipes/stormwater.js','runtime/primitives/conceptual.js'}
+    t13_expected = expected - {'runtime/recipes/parking.js'}
+    t11_expected = t13_expected - {'runtime/recipes/stormwater.js','runtime/primitives/conceptual.js'}
     t10_expected = t11_expected - {'runtime/recipes/landscape.js'}
     t09_review_expected = t10_expected - {'runtime/recipes/sections.js','runtime/primitives/sections.js'}
     t09_expected = t09_review_expected - {'runtime/primitives/massing.js'}
@@ -246,7 +250,7 @@ def verify_candidate(output, allow_legacy=False):
     t05_expected = t06_expected - {'runtime/recipes/tram.js'}
     t04_expected = t05_expected - {'runtime/recipes/accessibility.js','runtime/primitives/accessibility.js'}
     t03_expected = t04_expected - {'runtime/recipes/routes.js','runtime/primitives/surfaces.js'}
-    if allow_legacy and names in (old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected,t11_expected):
+    if allow_legacy and names in (old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected,t11_expected,t13_expected):
         expected = names
     if names != expected:
         raise ValueError('Candidate contains missing or unapproved files')
@@ -314,9 +318,10 @@ def build(output=None, replace=False):
         actual = audit((stage/'index.html').read_text())
         if actual.events != audit(render_book(source).decode()).events:
             raise ValueError('Candidate semantic content drift')
-        report = dict(schemaVersion=2, stage='T13 population, distance and service graphics', publicationReady=False,
+        report = dict(schemaVersion=2, stage='T14 parking; standalone accounting panel merged', publicationReady=False,
                       legacyVisualsRetired=True, legacyFallbackReplacementPending=True,
-                      sheets=11, panels=33, drawings=44, baselineSha256=digest(source),
+                      sheets=11, panels=32, drawings=43, sourcePanels=33, sourceDrawings=44,
+                      panelAliases={'parking-area':'parking-layout'}, renderedPanels=[p['claim'] for p in actual.panels], baselineSha256=digest(source),
                       semanticSha256=digest(json.dumps(checked.events, ensure_ascii=False).encode()),
                       content=checked.panels, semanticEvents=checked.events,
                       fileSha256={name:digest((stage/name).read_bytes()) for name in (*PUBLIC_FILES, OFFLINE)})

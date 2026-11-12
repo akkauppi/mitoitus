@@ -1,0 +1,30 @@
+{
+  "states": 25,
+  "lifecycleCycles": 10,
+  "geometryCounts": [
+    139,
+    139,
+    139,
+    139,
+    139,
+    139,
+    139,
+    139,
+    139,
+    139
+  ],
+  "checks": [
+    "eight bays and full aisle",
+    "constant comparison frame",
+    "no 3.5m aisle label",
+    "area highlights and arithmetic",
+    "W4 instruction",
+    "removed-panel alias and Sources",
+    "44/77 proportional native chart",
+    "six norm rows",
+    "responsive annotations",
+    "single context and stable resources",
+    "file fallback",
+    "zero external requests"
+  ]
+}

@@ -19,13 +19,13 @@ const out = path.join(__dirname,'../review'); fs.mkdirSync(out,{recursive:true})
   };
   await go('');
   assert.equal(await page.locator('.sheet').count(),11);
-  assert.equal(await page.locator('.panel').count(),33);
-  assert.equal(await page.locator('.drawing svg').count(),44);
+  assert.equal(await page.locator('.panel').count(),32);
+  assert.equal(await page.locator('.drawing svg').count(),43);
   // Original source paragraphs survive the concise editorial presentation.
   const canonicalDetails=nodes=>Object.fromEntries(nodes.map(n=>{const panel=n.closest('.panel'),copy=(panel.querySelector('.retained-reference')||n).cloneNode(true);copy.querySelectorAll('.editorial-heading').forEach(p=>p.remove());copy.querySelectorAll('.service-case').forEach(p=>p.replaceWith(...p.childNodes));copy.querySelectorAll('.quick-note').forEach(p=>p.remove());copy.querySelectorAll('[data-reference-note]').forEach(p=>p.removeAttribute('data-reference-note'));return[panel.querySelector('.proof').getAttribute('href'),copy.innerHTML];}));
   const details = await page.locator('.panel .details').evaluateAll(canonicalDetails);
   const baseline = await browser.newPage(); await baseline.goto('http://127.0.0.1:8765/');
-  assert.deepEqual(details,await baseline.locator('.panel .details').evaluateAll(canonicalDetails));
+  const originalDetails=await baseline.locator('.panel .details').evaluateAll(canonicalDetails);delete originalDetails['evidence.html#parking-area'];assert.deepEqual(details,originalDetails);
   await baseline.close();
   let states = 0;
   for (const width of [320,390,768,1024,1440]) {
@@ -33,7 +33,7 @@ const out = path.join(__dirname,'../review'); fs.mkdirSync(out,{recursive:true})
     for (const sheet of inventory.sheets) {
       await go(`?keep=sentinel#${sheet.id}`);
       await fits(`${width}/${sheet.id}/overview`);
-      assert.equal(await page.locator('.sheet:not([hidden]) .panel:visible').count(),3);
+      assert.equal(await page.locator('.sheet:not([hidden]) .panel:visible').count(),sheet.id==='parking'?2:3);
       assert.equal(await page.locator('.tabs [aria-current="page"]').getAttribute('href'),'#'+sheet.id);
       const tab = await page.locator('.tabs [aria-current="page"]').boundingBox();
       assert.ok(tab.x>=0 && tab.x+tab.width<=width+1,`active sheet tab revealed ${width}/${sheet.id}: ${JSON.stringify(tab)}`);
@@ -52,7 +52,7 @@ const out = path.join(__dirname,'../review'); fs.mkdirSync(out,{recursive:true})
   await page.setViewportSize({width:1440,height:1000});
   for (const sheet of inventory.sheets) for (const panel of sheet.panels) {
     await go(`?mode=focus&panel=${panel.id}&keep=yes#${sheet.id}`);
-    assert.equal(await page.locator('.focused-panel').getAttribute('data-panel-id'),panel.id);
+    assert.equal(await page.locator('.focused-panel').getAttribute('data-panel-id'),panel.id==='parking-area'?'parking-layout':panel.id);
     await fits(`panel/${panel.id}`);
   }
   for (const [group,count,sheet,panel] of [['walking',4,'walk-cycle','walking'],['cycling',5,'walk-cycle','cycling'],['car-layout',3,'turning-vehicles','car-turn'],['bus-layout',3,'turning-vehicles','bus-turn']]) {
@@ -104,7 +104,7 @@ const out = path.join(__dirname,'../review'); fs.mkdirSync(out,{recursive:true})
   assert.equal(await page.locator('[data-panel-id="cycling"] .explore:focus').count(),1);
   // No-JS and file:// both retain the complete reference, with no WebGL dependency.
   const nojs = await browser.newPage({javaScriptEnabled:false}); await nojs.goto(base);
-  assert.equal(await nojs.locator('.panel:visible').count(),33); await nojs.close();
+  assert.equal(await nojs.locator('.panel:visible').count(),32); await nojs.close();
   const file = await browser.newPage(); const fileErrors=[];file.on('pageerror',e=>fileErrors.push(e.message));
   await file.goto('file://'+path.resolve(__dirname,'../book/index.html')+'?mode=focus&panel=walking&layout-walking=1#walk-cycle');
   await file.waitForSelector('body[data-book-ready]');assert.equal(await file.locator('#walking-select').inputValue(),'1');
@@ -112,6 +112,6 @@ const out = path.join(__dirname,'../review'); fs.mkdirSync(out,{recursive:true})
   assert.deepEqual(fileErrors,[]);await file.close();
   assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
   fs.writeFileSync(path.join(out,'shell-results.json'),JSON.stringify({responsiveStates:states,focusedPanels:33,variants:15,widths:[320,390,768,1024,1440],errors,external,fileFallback:'passed',noJS:'33 panels visible'},null,2));
-  console.log(`PASS: ${states} responsive states; 33 focused panels; 15 variants; content parity; URL/history/keyboard/CAD; no-JS and file fallback.`);
+  console.log(`PASS: ${states} responsive states; 32 focused panels plus retired-panel alias; 15 variants; content parity; URL/history/keyboard/CAD; no-JS and file fallback.`);
   await browser.close();
 })().catch(error => { console.error(error); process.exit(1); });

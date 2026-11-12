@@ -33,7 +33,7 @@ class CandidateTests(unittest.TestCase):
 
     def test_build_captures_all_content_and_variants(self):
         report = m.build()
-        self.assertEqual((report['sheets'],report['panels'],report['drawings']), (11,33,44))
+        self.assertEqual((report['sheets'],report['panels'],report['drawings']), (11,32,43))
         self.assertEqual(report['semanticEvents'], m.audit((self.root/'index.html').read_text()).events)
         groups = {p['group']:len(p['options']) for p in report['content'] if p['group']}
         self.assertEqual(groups, {'walking':4,'cycling':5,'car-layout':3,'bus-layout':3})
@@ -51,6 +51,7 @@ class CandidateTests(unittest.TestCase):
         before = {v[1]:v[0] for v in re.finditer(pattern, original, re.S)}
         before['connections'] = m.redesign_connections(before['connections'])
         before['land-population'] = m.redesign_population(before['land-population'])
+        before['parking'] = m.redesign_parking(before['parking'])
         after = list(re.finditer(pattern, rendered, re.S))
         self.assertEqual([v[1] for v in after],list(m.SPREAD_ORDER))
         for index, sheet in enumerate(after,1):
