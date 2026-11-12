@@ -10,9 +10,14 @@ export function clearDisk(parent,{radius,x=0,z=0,name}){
  mesh.userData.clearRadius=radius;return mesh;
 }
 /** Exact horizontal run/rise, solid to a common decorative base datum. */
-export function rampPrism(parent,{run,rise,width,startX=0,base=-.18,name='ramp'}){
- const shape=new THREE.Shape();shape.moveTo(startX,base);shape.lineTo(startX+run,base);shape.lineTo(startX+run,rise);shape.lineTo(startX,0);shape.closePath();
+export function rampPrism(parent,{run,rise,width,startX=0,startY=0,base=-.18,cutStart=false,cutEnd=false,name='ramp'}){
+ const shape=new THREE.Shape(),endX=startX+run,endY=startY+rise;
+ shape.moveTo(startX,base);shape.lineTo(endX,base);
+ if(cutEnd){shape.lineTo(endX-.08,base+(endY-base)/3);shape.lineTo(endX+.08,base+2*(endY-base)/3);}
+ shape.lineTo(endX,endY);shape.lineTo(startX,startY);
+ if(cutStart){shape.lineTo(startX+.08,base+2*(startY-base)/3);shape.lineTo(startX-.08,base+(startY-base)/3);}
+ shape.closePath();
  const geometry=new THREE.ExtrudeGeometry(shape,{depth:width,bevelEnabled:false,curveSegments:1});
  const mesh=solid(parent,geometry,[0,0,-width/2],'paving',name);
- mesh.userData.profile={run,rise,width,startX,base};return mesh;
+ mesh.userData.profile={run,rise,width,startX,startY,base,cutStart,cutEnd};return mesh;
 }

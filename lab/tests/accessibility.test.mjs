@@ -6,14 +6,15 @@ import {STYLES} from '../styles.js';
 const close=(a,b)=>assert.ok(Math.abs(a-b)<2e-6,`${a} != ${b}`);
 const bounds=o=>new THREE.Box3().setFromObject(o,true);
 function dispose(model){const g=new Set(),m=new Set();model.group.traverse(o=>{if(o.geometry)g.add(o.geometry);if(o.material)m.add(o.material);});g.forEach(o=>o.dispose());m.forEach(o=>o.dispose());}
-test('clear circles are 1.5/2.5 m diameters and contain no furniture or device',()=>{
+test('clear circles keep diameters and the contextual wheelchair remains outside',()=>{
  const model=createRecipe('turning--v0');
  for(const [name,diameter]of [['wheelchair',1.5],['powered-chair',2.5]]){
   const disk=model.group.getObjectByName(name),size=bounds(disk).getSize(new THREE.Vector3());
   close(size.x,diameter);close(size.z,diameter);close(disk.userData.clearRadius,diameter/2);
  }
  assert.equal(model.recipe.defaultCamera,'plan');assert.deepEqual(model.recipe.allowedCameras,['iso','plan']);
- assert.equal(model.group.children.filter(o=>o.userData.asset).length,0);
+ const wheelchair=model.group.children.find(o=>o.userData.asset==='wheelchairUser');assert.ok(wheelchair);
+ const chair=bounds(wheelchair);assert.ok(chair.max.z<-.75,'chair is outside both measured disks');
  assert.equal(model.dimensions.length,2);dispose(model);
 });
 test('ramp profile is a solid 6 m run / 0.30 m rise with contiguous 2 m landing',()=>{
@@ -26,8 +27,12 @@ test('ramp profile is a solid 6 m run / 0.30 m rise with contiguous 2 m landing'
  for(let i=0;i<vertices.count;i++){
   const x=vertices.getX(i),y=vertices.getY(i);assert.ok(Math.abs(y-p.base)<2e-6||Math.abs(y-(x-p.startX)*p.rise/p.run)<2e-6,'vertices use exact slope or base');
  }
- const person=model.group.children.find(o=>o.userData.asset==='person');close(bounds(person).min.y,.3);
- close(bounds(person).max.y-bounds(person).min.y,1.75);
+ const person=model.group.children.find(o=>o.userData.asset==='wheelchairUser');close(bounds(person).min.y,.3);
+ close(bounds(person).max.y-bounds(person).min.y,1.35);
+ const lower=model.group.getObjectByName('lower-landing-context'),next=model.group.getObjectByName('next-ramp-context');
+ close(bounds(lower).max.x,r.min.x);close(bounds(lower).max.y,0);
+ close(bounds(next).min.x,l.max.x);close(next.userData.profile.startY,l.max.y);
+ assert.equal(lower.userData.profile.cutStart,true);assert.equal(next.userData.profile.cutEnd,true);
  assert.equal(model.recipe.defaultCamera,'front');assert.ok(!model.recipe.allowedCameras.includes('section'));dispose(model);
 });
 test('arrival keeps bay/bench clear rectangles separate and bench outside clear space',()=>{
@@ -36,7 +41,9 @@ test('arrival keeps bay/bench clear rectangles separate and bench outside clear 
  assert.ok(b.max.x<c.min.x,'independent vignettes have separate ground tiles');
  const bench=model.group.children.find(o=>o.userData.asset==='bench'),seat=bounds(bench);
  assert.ok(seat.max.z<=c.min.z+2e-6,'bench does not occupy measured clear space');
- assert.equal(model.group.children.filter(o=>['person','car'].includes(o.userData.asset)).length,0);
+ const car=bounds(model.group.children.find(o=>o.userData.asset==='car')),chair=bounds(model.group.children.find(o=>o.userData.asset==='wheelchairUser'));
+ for(const actor of [car,chair]){assert.ok(actor.min.x>=b.min.x-2e-6&&actor.max.x<=b.max.x+2e-6);assert.ok(actor.min.z>=b.min.z-2e-6&&actor.max.z<=b.max.z+2e-6);}
+ assert.ok(car.max.x<chair.min.x,'illustrative adjacent bodies do not intersect');
  assert.ok(model.recipe.assumptions.join().includes('depth 1.5 m'));
  dispose(model);
 });

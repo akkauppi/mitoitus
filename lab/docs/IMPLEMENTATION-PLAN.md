@@ -254,6 +254,13 @@ outputs and other development material. Before any new package is built, replace
 that with an explicit public-artifact allowlist and output directory. Do not run
 the old packager “just to see” from this experimental worktree.
 
+## Publication blocker added by the user
+
+Residents & services (`services`) needs substantial work before publication.
+T13 must address its explanatory structure and source context, not only graphics.
+Preserve current source text until deliberate amendments are agreed. Final release
+review cannot mark this panel ready solely on rendering or geometry tests.
+
 ## 7. Definition of complete
 
 The implementation is ready for final user review when all 33 panels/44 drawings

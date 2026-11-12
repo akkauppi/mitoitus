@@ -20,8 +20,8 @@ const allowed={turning:['plan','iso'],ramps:['front','iso','plan'],arrival:['pla
     await page.locator(`.scene-toolbar [data-camera="${camera}"]`).click();await ready(panel);
     const data=await page.evaluate(async()=>{
      const v=document.querySelector('.scene-viewport'),svg=v.querySelector('svg'),d=JSON.parse(v.dataset.callouts),rect=svg.getBoundingClientRect();
-     const length=e=>Math.hypot(Number(e.getAttribute('x2'))-Number(e.getAttribute('x1')),Number(e.getAttribute('y2'))-Number(e.getAttribute('y1')));
-     return{status:svg.dataset.calloutStatus,items:d.items.length,issues:(await import('./callouts.js')).validateCallouts(d.items,d),dimensions:[...svg.querySelectorAll('line.dimension-line')].filter((e,i)=>i%3===0).map(length),texts:[...svg.querySelectorAll('text')].map(e=>{const r=e.getBoundingClientRect();return{text:e.textContent,x:r.x-rect.x,y:r.y-rect.y,w:r.width,h:r.height};}),w:rect.width,h:rect.height};
+     const length=e=>{const a=JSON.parse(e.dataset.a),b=JSON.parse(e.dataset.b);return Math.hypot(b.x-a.x,b.y-a.y);};
+     return{status:svg.dataset.calloutStatus,items:d.items.length,issues:(await import('./callouts.js')).validateCallouts(d.items,d),dimensions:[...svg.querySelectorAll('g.dimension-measure')].map(length),texts:[...svg.querySelectorAll('text')].map(e=>{const r=e.getBoundingClientRect();return{text:e.textContent,x:r.x-rect.x,y:r.y-rect.y,w:r.width,h:r.height};}),w:rect.width,h:rect.height};
     });
     assert.equal(data.status,'ok');assert.equal(data.items,2,`all ${panel} callouts`);assert.deepEqual(data.issues,[]);
     for(const t of data.texts)assert.ok(t.x>=-1&&t.y>=-1&&t.x+t.w<=data.w+1&&t.y+t.h<=data.h+1,'text clipping '+t.text);

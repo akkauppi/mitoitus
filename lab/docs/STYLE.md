@@ -60,10 +60,11 @@ trunk, vehicle, glass, rubber, metal, furniture, rail and white.
 | Car | Width 1.8 × height 1.5 × length 5 | Sourced body plan; assumed height/detail |
 | Tram | Width 2.4 × height 3.4 × length 34 | Sourced body plan; five illustrative body sections |
 | Bicycle | Width 0.6 × height 1.2 × length 2 | Existing nominal envelope, recognizable frame/wheels |
+| Manual wheelchair user | Width 0.72 × height 1.35 × length 1.20 | Original seated pose/device; illustration assumptions only |
 | Cyclist (T04) | Width 0.6 × height 1.65 × length 2 | Existing seated-posture/bar illustration envelope; natural pose |
 | Bench | Length 1.8, height 0.85 | Illustrative seat, back and frame |
 
-`ASSET_SPECS` in `assets.js` is the implementation catalogue. All seven assets are
+`ASSET_SPECS` in `assets.js` is the implementation catalogue. All eight assets are
 original procedural artwork; no external asset meshes are currently included.
 Geometry tests measure actual vertices, including wheels and protrusions.
 
@@ -131,7 +132,7 @@ new dimensioning recommendation. Keep original code/source and measured bounds.
 | Asset / primitive | Reuse or add | Dimensional contract and use |
 | --- | --- | --- |
 | Person: standing/walking/waiting | Reuse | 1.75 m; current head/body proportions; all neutral light grey. |
-| Seated person / mobility-device context | Optional add in T05 | Derive a natural pose, not uniform shrinking; no claim that the silhouette validates a clear turning space. Omit if unnecessary. |
+| Seated person / mobility-device context | Manual wheelchair user implemented after T05 | Derive a natural pose, not uniform shrinking; no claim that the silhouette validates a clear turning space. Omit if unnecessary. |
 | Bicycle and rider | Reuse (implemented T04) | Bike 0.6 × 2 m / 1.2 m height; existing rider posture 1.65 m with 0.60 m bars. Do not conflate the two envelopes. |
 | Car | Reuse | Body 5 × 1.8 m; current 1.5 m height/detail are assumptions. No mirrors or swept path implied. |
 | Tram | Reuse | Body 34 × 2.4 m; current 3.4 m height/detail assumptions. No ATU derived from body. |
@@ -151,3 +152,17 @@ Use named functions/recipe data instead of unrelated duplicated meshes. Keep the
 asset palette in `styles.js`, and annotations in the shared adapter. Blender or
 SolidCraft imports must pass the same bounds, material-role, silhouette and
 fallback/export checks as procedural assets; neither is a required dependency.
+
+## Wheelchair and dimension-label amendments
+
+User instructions after T05 supersede the earlier omitted-avatar/bay-car choices:
+use the manual wheelchair user on the ramp landing, beside the car in the bay,
+and in appropriate route examples. Keep the measured turning disks and bench-end
+rectangle free; the turning figure is adjacent context. Chair/device dimensions
+and placement are illustration assumptions recorded in ASSET_SPECS and scene
+provenance. The ramp's truncated adjoining segments are illustrative context,
+with the core measured run/rise/landing unchanged.
+
+Dimension text has no opaque background or halo. Clip line intervals against the
+actual text glyph bounds with a small gap; preserve dimension endpoints. Do not
+restore a paper-coloured patch to hide a collision with a model or annotation.

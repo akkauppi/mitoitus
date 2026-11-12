@@ -108,6 +108,10 @@ This sheet stays primarily 2D. Population, floor-area ratios and service measure
 
 ### 02C — Residents & services · `services`
 
+**Publication blocker (user, 12 November 2026): substantial revision required.**
+The recipe below is only an initial visual idea. Rework the page structure and
+review source contexts/qualifiers before release; a cosmetic pass is insufficient.
+
 - **Question / treatment:** what does useful library floor area look like, and why
   are the other service examples different measures? 2D metric area tile plus text.
 - **Geometry:** existing 10 × 10 m square represents approximately 100 m² useful
@@ -189,7 +193,8 @@ camera scale based on the maximum 4 m route width; never zoom narrow choices up.
 - **Camera / variants:** side-profile default for measurement, axonometric optional;
   equal horizontal/vertical scales. Do not add an 8% generated variant by default.
 - **Callouts / assets:** “Ramp” → slope; “Landing” → level top; “Rise” → vertical
-  endpoint. Reuse person on landing and a new reusable ramp prism, with solid sides.
+  endpoint. Reuse the manual wheelchair user on the landing (user amendment after T05)
+  and the shared solid ramp prism; adjoining cut-ended context is illustrative.
 - **Checks / preservation:** 0.30/6 = 5%, actual landing length and no exaggerated
   vertical scale. All five specification rows persist; the >5% landing rule does not become a claim that this 5% example requires that interval. Source S10.
 

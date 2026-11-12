@@ -106,3 +106,16 @@ shown maturity.
 Every proposed scene remains assistant-drafted. No new student task, dimensioning
 obligation, legal-compliance claim or publication approval follows from this
 visual iteration.
+
+## Wheelchair and adjoining ramp context — 12 November 2026
+
+User-requested original manual-chair/user illustration: overall width 0.72 m,
+length 1.20 m and seated height 1.35 m, all assistant illustration assumptions. The
+body retains the accepted adult head/torso proportions; these dimensions are not
+a manufacturer model, population measure or clearance requirement. Context
+placements on walking routes, beside the reference car, outside turning disks
+and on the ramp landing do not validate passing or transfer manoeuvres.
+
+The ramp retains its 6 m run, 0.30 m rise and 2 m landing. The broken-ended lower
+landing 1.6 m and next segment 2.2 m / 0.11 m rise are illustrative continuation geometry
+requested by the user, not newly adopted source dimensions.

@@ -12,6 +12,7 @@ export const ASSET_SPECS = Object.freeze({
   tram: { length: 34, width: 2.4, height: 3.4, provenance: 'Existing rulebook nominal body plan. Height, articulation and detailing: illustration assumptions.' },
   bicycle: { length: 2, width: 0.6, height: 1.2, provenance: 'Existing rulebook typical cycle envelope; original illustrative geometry.' },
   cyclist: {length:2,width:0.6,height:1.65,provenance:'Existing rider posture and handlebar illustration envelope; original stylized pose.'},
+  wheelchairUser: {width:.72,length:1.2,height:1.35,provenance:'Original manual-wheelchair and seated-person illustration; all dimensions assumed, not a device/clearance standard.'},
   bench: { length: 1.8, height: 0.85, provenance: 'Illustrative furniture dimensions, not a product specification.' },
 });
 
@@ -306,4 +307,38 @@ export function createCyclist() {
     box(result,[.12,.06,.22],[foot[0],foot[1]-.03,foot[2]+.04],'person',false);
   }
   return result;
+}
+
+/** A seated adult in an illustrative manual chair; feet/base at Y=0, forward +Z.
+ * Chair .72 × 1.20 m and seated height 1.35 m are illustration assumptions.
+ */
+export function createWheelchairUser() {
+ const result=group('wheelchairUser');
+ // Retain the accepted head/torso proportions without scaling a standing figure.
+ const source=createPerson();
+ for(const name of ['head','neck','torso','pelvis']){
+  const part=source.getObjectByName(name);part.position.y-=.4;result.add(part);
+ }
+ source.traverse(part=>{part.geometry?.dispose();part.material?.dispose();});
+ for(const sign of [-1,1]){
+  const tire=mesh(result,new THREE.TorusGeometry(.28,.02,8,40),'rubber',[sign*.32,.30,-.22]);tire.rotation.y=Math.PI/2;tire.name=`rear-wheel-${sign}`;
+  const rim=mesh(result,new THREE.TorusGeometry(.24,.01,8,40),'metal',[sign*.35,.30,-.22]);rim.rotation.y=Math.PI/2;rim.name=`push-rim-${sign}`;
+  for(let i=0;i<8;i++){const angle=i*Math.PI/4;rod(result,[sign*.32,.30,-.22],[sign*.32,.30+Math.sin(angle)*.27,-.22+Math.cos(angle)*.27],.008,'metal',5);}
+  const caster=mesh(result,new THREE.CylinderGeometry(.08,.08,.035,16),'rubber',[sign*.23,.08,.48]);caster.rotation.z=Math.PI/2;
+  rod(result,[sign*.23,.18,.48],[sign*.23,.40,.12],.018,'metal');
+  rod(result,[sign*.23,.20,-.25],[sign*.23,.43,.15],.018,'metal');
+  rod(result,[sign*.22,.43,-.30],[sign*.22,.84,-.30],.018,'metal');
+  rod(result,[sign*.22,.84,-.30],[sign*.22,.84,-.42],.025,'rubber');
+  box(result,[.045,.045,.38],[sign*.235,.67,-.03],'rubber',false);
+  rod(result,[sign*.17,1.00,0],[sign*.22,.77,.12],.048,'person');
+  rod(result,[sign*.22,.77,.12],[sign*.25,.66,.04],.035,'person');
+  rod(result,[sign*.09,.51,-.06],[sign*.11,.48,.33],.067,'person');
+  rod(result,[sign*.11,.48,.33],[sign*.12,.16,.43],.046,'person');
+  box(result,[.12,.07,.23],[sign*.12,.125,.48],'person',false);
+ }
+ box(result,[.45,.04,.42],[0,.42,-.08],'rubber');
+ box(result,[.45,.36,.045],[0,.65,-.30],'rubber');
+ box(result,[.30,.025,.16],[0,.085,.60],'metal');
+ rod(result,[-.23,.27,-.22],[.23,.27,-.22],.018,'metal');
+ return result;
 }

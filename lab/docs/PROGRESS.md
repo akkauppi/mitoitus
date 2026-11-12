@@ -336,3 +336,52 @@ original CAD and the separately published checkout remain unchanged. No push or
 deployment. Next task: T06 tram scenes.
 
 Preview: http://localhost:8765/lab/book/?mode=focus&panel=turning#accessible
+
+## User refinements after T05 — 12 November 2026
+
+The user requested wheelchair figures, a car with a wheelchair beside it in the
+accessibility bay, cut-ended ramp context, a wheelchair user on the ramp landing,
+and dimension lines that leave the model visible under their labels.
+
+- Added reusable `createWheelchairUser()`: an original stylized manual chair with
+  spoked rear wheels/push rims, casters, seat/back and footplate. The seated person
+  retains the accepted head/torso geometry and proportions, with separately posed
+  arms/legs. Overall 0.72 × 1.20 m and 1.35 m seated height are illustration
+  assumptions, not a device or clearance standard.
+- Added it to the basic footway and wheelchair-passing route cases, without
+  changing route widths or their common comparison frame. In Turning, the figure
+  is on a separate context tile outside both measured disks.
+- Added the existing 5 × 1.8 m car and a wheelchair user beside it inside the
+  3.6 × 5 m courtyard bay. Their drawn bodies do not intersect. No new transfer,
+  door-opening or manoeuvring allowance is implied. The bench-end clear rectangle
+  stays empty and its assumed depth remains labelled.
+- Replaced the ramp's standing figure with the wheelchair user on the upper
+  landing, facing along the route. Added an illustrative 1.6 m lower landing and
+  2.2 m next ramp segment (0.11 m rise), with jagged truncated end faces. Core
+  source geometry stays 6 m / 0.30 m / 2 m. Continuation dimensions are recorded
+  assumptions, not an added source requirement or the T10 section tool.
+- Dimension labels now use transparent glyphs with no opaque rectangles or halos.
+  The shared adapter measures actual glyph boxes and removes the intersecting
+  intervals from dimension/extension lines. Small dimensions put text beside the
+  short span rather than exaggerating its length. Measurement endpoints remain
+  unchanged. Both the candidate book and the original lab use this adapter.
+
+Checks: 58 Node tests, 18 build/archive tests; 35 accessibility, 150 route,
+15 root-view/lifecycle states and the 81-state original lab suite pass. Six
+additional dimension views assert no background patches, no text halos and no
+line/text intersections. Geometry tests cover chair bounds/proportions, placement
+outside circles, car/chair separation/containment, landing contact and cut-ended
+continuation joins. Desktop/phone renders were visually inspected. Course check
+passes. The allowlisted candidate archive is 74 files / 907,341 bytes.
+
+Commands: `npm --prefix lab test`, the existing candidate/accessibility/routes/
+viewer/browser checks, plus `node lab/tests/dimension-browser.cjs`. Source geometry,
+CAD and publication boundaries remain unchanged. No push or deployment.
+
+### Explicit outstanding publication blocker
+
+The user says Residents & services requires “a lot of work before publishing.”
+This is recorded in T13, the full plan and the `services` scene catalogue. It
+requires substantial structural/source-context review before release; a cosmetic
+restyle or passing visualization tests cannot resolve it. No services content
+was rewritten in this refinement task. T06 remains the next implementation task.

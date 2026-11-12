@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {createPerson,createCyclist,createBicycle} from '../../assets.js';
+import {createPerson,createCyclist,createBicycle,createWheelchairUser} from '../../assets.js';
 import {box,surfaceStrip,tileRow} from '../primitives/surfaces.js';
 
 export const WALKING_WIDTHS=[2.5,1.5,1.8,2.3];
@@ -7,7 +7,7 @@ export const CYCLING_WIDTHS=[1.75,2.5,3.5,3,4];
 // Union of all nine route examples, their actors and dimension offsets. This is
 // a framing envelope, not a clearance volume or another adopted dimension.
 export const ROUTE_FRAME={min:[-2,-.30,-3],max:[2,1.85,3.9]};
-export const ROUTE_ASSUMPTIONS=['Longitudinal extent 6 m and decorative ground thickness are illustration assumptions. People 1.75 m, riders 1.65 m with 0.60 m bars. Actor placement does not verify capacity or clearance.'];
+export const ROUTE_ASSUMPTIONS=['Longitudinal extent 6 m and decorative ground thickness are illustration assumptions. People 1.75 m, riders 1.65 m with 0.60 m bars. Manual chair/user dimensions .72 × 1.20 m and 1.35 m seated height are illustration assumptions. Actor placement does not verify capacity or clearance.'];
 function place(group,object,x,z,rotation=0){object.position.set(x,0,z);object.rotation.y=rotation;group.add(object);}
 function arrow(group,x,z,reverse=false){
  // Direction mark is flat and does not enlarge the measured strip.
@@ -21,7 +21,7 @@ export function routeScene(panel,index) {
  box(group,width,.24,6,0,-.18,0,'soil','route-base');
  surfaceStrip(group,{width,length:6,role:walking?'paving':'cycle',name:'measured-route'});
  if(walking){
-  const fractions=width>=1.8?[-.24,.24]:[0];fractions.forEach((f,i)=>place(group,createPerson({pose:i?'walking':'standing'}),f*width,i?1.2:-.7));
+  const fractions=width>=1.8?[-.24,.24]:[0];fractions.forEach((f,i)=>place(group,(index===0||index===2)&&i===0?createWheelchairUser():createPerson({pose:i?'walking':'standing'}),f*width,i?1.2:-.7));
  }else{
   const positions=index===0?[.5]:index<3?[.25,.75]:index===4?[.64,.85]:[.65];
   positions.forEach((f,i)=>{const x=(f-.5)*width;place(group,createCyclist(),x,i?.8:-.7,i?Math.PI:0);arrow(group,x,i?-1.8:1.8,Boolean(i));});

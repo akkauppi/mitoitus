@@ -119,3 +119,8 @@ Browser checks use Playwright if already available. The check script accepts a
 `PLAYWRIGHT_MODULE` path when installed outside this project; see REVIEW.md for
 the actual verification environment. No browser automation dependency is needed
 to use the lab.
+
+The post-T05 refinements add a manual wheelchair user to relevant scenes, a car
+with wheelchair beside it in the accessibility bay, and cut-ended ramp context.
+Dimension labels now use line gaps without opaque patches. Residents & services
+is explicitly blocked from publication pending substantial work in T13.

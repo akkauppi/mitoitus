@@ -188,6 +188,15 @@ empty capacity; no automatic infiltration promise or hydraulic simulation.
 Quantitative slope example and qualitative sections cannot be mistaken for one
 metric model. No new tank/substrate dimensions.
 
+## Publication blocker — Residents & services
+
+User instruction recorded 12 November 2026: the Residents & services page needs
+“a lot of work before publishing.” Treat panel `services` as requiring substantive
+content/structure/source-context review in T13, not a cosmetic restyle. Review
+its differing measures, denominators, editions and qualifiers; agree any content
+amendments deliberately rather than inventing new service thresholds. This item
+must be resolved before final release review, even if the rest of the visuals pass.
+
 ## T13 — Population, provision and services
 
 **Depends:** T02, T09. **Panels:** `density`, `green-hierarchy`, `services`.
@@ -196,7 +205,8 @@ Restyle these primarily as crisp 2D information graphics with matching palette,
 linework and text. Use the exact historical values and denominator definitions.
 The library square is an area equivalent, not a building design.
 
-**Done:** chart proportionality, all original tables and qualifiers preserved;
+**Done:** the services publication blocker above is resolved and documented;
+chart proportionality, all original tables and qualifiers preserved;
 no inferred resident counts from FAR or new service thresholds. No unnecessary
 WebGL or 3D bars. Native SVG output remains available.
 
