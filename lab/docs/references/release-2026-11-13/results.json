@@ -1,0 +1,26 @@
+{
+  "overviewStates": 55,
+  "focusStates": 150,
+  "widths": [
+    320,
+    390,
+    768,
+    1024,
+    1440
+  ],
+  "panels": 30,
+  "sheets": 11,
+  "wall": "11 seam-safe spreads",
+  "pdfs": [
+    "rulebook-desktop-plain.pdf",
+    "rulebook-desktop-sources.pdf",
+    "rulebook-wall-plain.pdf",
+    "rulebook-wall-sources.pdf"
+  ],
+  "offline": "current poster / category / variant checks pass",
+  "noWebGL": "current posters",
+  "noJS": "30 panels visible",
+  "errors": [],
+  "external": [],
+  "failures": []
+}

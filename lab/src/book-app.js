@@ -10,16 +10,14 @@
     id: panel.querySelector('.proof').getAttribute('href').split('#')[1],
     sheet: panel.closest('.sheet'),
     title: panel.querySelector('h2').textContent,
-    count: panel.querySelectorAll('.drawing svg').length,
+    count: Math.max(1, panel.querySelectorAll('.drawing-variant').length),
   }));
   // User-approved editorial presentation, 2026-11-13. Full original paragraphs
   // remain in Sources; numeric tables and canonical source files are untouched.
   const quickNotes={
-    'services':['Small municipalities may need more space per resident.','Nearby schools already full.','Additional central-city unit.'],
     'green-hierarchy':['Residential floor area. Check actual walking routes.'],
     'building-rows':['Dimensions refer to one repeating unit.'],
     'building-detached':[null],
-    'walking':['Keep furniture, signs, snow and door swings outside the clear route.'],
     'cycling':['¹ At footway level, with walking separate. Allow movement clearance beyond the 0.75 m user envelope.'],
     'bike-parking':['0.6 × 4 m includes handling. Check cargo cycles separately.'],
     'turning':['Keep furniture and door swings outside the clear circle.'],
@@ -33,7 +31,6 @@
     'rescue':['Add 0.4 m driving and 1 m boom allowances. Check loads, slopes, reach, trees, wires and snow.'],
     'trees':['Stone reduces water storage in structural soil.','Coordinate crowns, connected rooting space, groundwater and utilities.'],
     'ground':['Check rooting volume separately.','Keep snow clear of walking, turning and rescue space; route meltwater.'],
-    'stormwater':['Check soil, groundwater and design rainfall.'],
     'rain-gardens':['Rain gardens collect, store and filter runoff; infiltration depends on soil and groundwater.','Swales slow and convey runoff. Check dams add storage.','Drainage: underdrain or controlled outlet.','Keep overflow and maintenance access. Check contaminated ground and winter operation.'],
     'ponds':[null,'Wetlands have shallow, planted levels; ponds can retain permanent water.','Count storage above normal water level.','Show inlet, outlet, overflow, safe banks and maintenance access. Include banks and flood extent.'],
     'source-control':['Reduce runoff → slow/filter → store → controlled discharge and overflow.','Plan for clogging and winter maintenance. Count pore space for storage.'],
@@ -41,7 +38,6 @@
     'equal-density':['Keep plot, block and district land areas separate.'],
     'steps':['Outdoors: 2r + t = 0.66 m; covered/heated: 0.63 m. Keep risers and treads identical.','Coordinate landings, handrails, guards and an accessible route.'],
     'crossing-refuge':['Add the refuge to both traffic lanes.','Check kerbs, tactile cues, sightlines, drainage and onward footways.'],
-    'walking-connections':['Check every link to the entrance.','Check barriers, opening hours, slopes and winter access.',null],
     'clear-route-continuity':['Measure clear width and height along the whole route. Keep furniture, doors, branches, signs and snow outside it.',null],
     'parking-norms':['Espoo: ≥0.5 space/dwelling; use the larger count. Core: mapped central area, typically within 300 m of station or centre.','Espoo: ≥5% of required spaces for visitors. Helsinki C1/C2/C3: add 30 to denominators.'],
     'parking-layout':['Allow for door opening, end bays, columns and manoeuvring. ¹ Transfer access is additional.','W4: no long-term private-car parking.'],
@@ -70,7 +66,8 @@
   const tools = document.querySelector('.tools');
   const downloads = document.createElement('details');
   downloads.className = 'book-menu';
-  downloads.innerHTML = '<summary>Downloads</summary><div><button class="book-cad">CAD reference files</button><a href="evidence.html">Evidence index ↗</a></div>';
+  downloads.innerHTML = '<summary>Downloads</summary><div><a href="downloads/rulebook-offline.zip" download>Offline rulebook ZIP</a><button class="book-cad">CAD reference files</button><a href="evidence.html">Evidence index ↗</a></div>';
+  if(document.body.dataset.offlineEdition==='true')downloads.querySelector('a[download]').remove();
   tools.append(downloads);
   downloads.querySelector('button').onclick = () => { downloads.open = false; openCAD(); };
   const view = document.createElement('details');
@@ -115,7 +112,8 @@
     const url = new URL(location.href), q = url.searchParams;
     const wanted = aliases[url.hash.slice(1)] || url.hash.slice(1);
     const sheet = sheets.find(s => s.id === wanted) || sheets[0];
-    const record = byId.get(q.get('panel')==='parking-area'?'parking-layout':q.get('panel'));
+    const panelAliases={'parking-area':'parking-layout','walking-connections':'clear-route-continuity','stormwater':'ground'};
+    const record = byId.get(panelAliases[q.get('panel')]||q.get('panel'));
     const active = record?.sheet === sheet ? record : records.find(r => r.sheet === sheet);
     const group = active.panel.querySelector('[data-variant-group]');
     const selected = group ? group.querySelector('select').selectedIndex : 0;
@@ -143,7 +141,7 @@
   function enter(record) {
     origin = { id: record.id, y: scrollY };
     navigate({ mode: 'focus', panel: record.id, figure: null });
-    record.panel.querySelector('.drawing').focus({ preventScroll: true });
+    (record.panel.querySelector('.drawing')||record.panel.querySelector('h2')).focus({ preventScroll: true });
     window.scrollTo(0, 0);
   }
   function leave() {
@@ -157,15 +155,14 @@
   for (const record of records) {
     record.panel.dataset.panelId = record.id;
     const drawing = record.panel.querySelector('.drawing');
-    drawing.tabIndex = 0;
-    drawing.setAttribute('role', 'group');
-    drawing.setAttribute('aria-label', `${record.title}: static illustration`);
-    if(record.id==='walking-connections')record.panel.classList.add('connection-network');
+    record.panel.classList.toggle('data-panel',!drawing);
+    record.panel.querySelector('h2').tabIndex=-1;
+    if(drawing){drawing.tabIndex=0;drawing.setAttribute('role','group');drawing.setAttribute('aria-label',`${record.title}: illustration`);}
     const button = document.createElement('button');
     button.className = 'explore'; button.textContent = 'Explore →';
     button.setAttribute('aria-label', `Explore ${record.title}`);
     button.onclick = () => enter(record);
-    drawing.after(button);
+    (drawing||record.panel.querySelector('.details')).after(button);
   }
   function render() {
     current = resolve();

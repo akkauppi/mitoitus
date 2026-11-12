@@ -1,231 +1,65 @@
-# Mitoitus diorama lab
+# Mitoitus diorama edition
 
-Local visual exploration, started 12 November 2026 from published baseline
-`93bb622`. **No push or deployment until the user explicitly releases this hold.**
-The existing sheets, content, evidence and downloads remain unchanged.
+Current handoff: [release record](docs/RELEASE.md). The user authorized completion,
+push and release on 13 November 2026, superseding the visual iteration’s local-only
+hold. Historical T01–T14 implementation records remain in [PROGRESS.md](docs/PROGRESS.md).
 
-## Full-edition implementation handoff
+Thirty panels across eleven spreads combine original metric dioramas, current
+static posters and concise sourced tables. The two unaccepted panels (route-link
+continuity and shallow stormwater storage) are omitted; parking accounting is
+part of the bay panel. The historical inventory remains 33 panels/44 drawings for
+source auditing. Every published illustration is from the current edition.
 
-The user accepted the revised visual direction and requested a full layout/scene
-plan for another model to implement. Start with
-[IMPLEMENTATION-PLAN.md](docs/IMPLEMENTATION-PLAN.md), then
-[TASKS.md](docs/TASKS.md). The [layout wireframes](docs/LAYOUT.svg) show Overview,
-Focus, phone, wall and print. All 33 panels and 44 baseline drawings are mapped in
-[the inventory](docs/scene-inventory.json) and the two scene catalogues.
-The three-scene lab remains the visual reference. T01–T14 are implemented in
-the isolated candidate; the remaining handoff tasks are still planned.
-Do not run the old recursive ZIP packager in this worktree.
+## Preview and checks
 
-## Preview
-
-From this worktree:
+From the repository root:
 
 ```sh
-cd lab
-npm run dev
+npm ci --prefix lab --ignore-scripts
+python3 lab/scripts/build-book.py
+python3 -m http.server 8765 --bind 127.0.0.1
 ```
 
-Open **http://localhost:8765/lab/**. The server binds only to loopback. No build or
-installation is needed for preview: pinned Three.js files are checked in. ES
-modules require an HTTP server; double-clicking the HTML is not supported.
-
-Choose a scene, then compare Paper model, Contour drawing and Pastel relief using
-the same geometry. Drag to orbit, scroll to zoom, or use the 3D/Plan/Front
-buttons. With the drawing focused, arrow keys orbit, +/− zoom and Home resets.
-On touch devices use two fingers to manipulate the model; one finger scrolls the
-page. Scene/style/view presets are bookmarkable. Free camera position is not.
-SVG export captures geometry and enabled labels from the current view; shadows
-are intentionally omitted. The dimensions also remain ordinary accessible text.
-
-## Local Git arrangement
-
-- Main public checkout: `/home/antti/mitoitus-public`, preserved at `93bb622`.
-- Experimental worktree: `/home/antti/mitoitus-diorama`.
-- Local branch: `experiment/diorama-style`; no upstream configured.
-- Do not sync this directory into the public checkout or private course mirror.
-
-A worktree is sufficient for the current design iteration: separate files and
-commits, shared history, easy eventual review. A GitHub fork would be useful if
-this becomes a separately maintained product; it adds no needed isolation now.
-Nothing here authorizes publication. A local commit does not trigger Pages.
-
-## Original lab scope (historical)
-
-Three scenes: a composed walking/cycling street, the existing tram-stop width and
-length example, and the existing soil-volume illustration. These are experiments,
-not replacements for all eleven reference sheets. All new visuals and editorial
-text are assistant drafts. The refined visual direction is accepted; the complete
-book is planned and remains to be implemented and reviewed.
-
-Six original procedural assets: person, tree, car, tram, bicycle and bench.
-Detailed dimensions and illustration assumptions: [scene evidence](SCENE-EVIDENCE.md).
-Style rules and delegation template: [STYLE.md](docs/STYLE.md).
-Code / SolidCraft / Blender comparison and third-party asset options:
-[PIPELINE.md](docs/PIPELINE.md).
-Outside-label algorithm and extension rules: [CALLOUTS.md](docs/CALLOUTS.md).
-Iteration record and verification limits: [REVIEW.md](docs/REVIEW.md).
-
-## Candidate build (T01)
-
-T01–T14 are complete locally. The candidate has Overview/Focus layouts and live
-metric dioramas, with baseline SVG fallbacks and canonical details. From the
-worktree root, run `python3 lab/scripts/build-book.py` for the first build, or
-`python3 lab/scripts/build-book.py --replace` to replace an intact generated
-candidate. `python3 lab/scripts/package-book.py` exports the explicitly allowlisted
-ZIP into `lab/.build/`. See [PROGRESS.md](docs/PROGRESS.md) for commands, verification
-and limits. Preview the candidate at http://localhost:8765/lab/book/. T15 is next; publication remains on hold.
-
-## Rooting-volume canary (T03)
-
-[Open the integrated diorama](http://localhost:8765/lab/book/?mode=focus&panel=trees#green-blue).
-One shared viewer supplies 3D/Plan/Front/Section, outside callouts and metric dimensions.
-The reference figure remains available without WebGL and in direct-file, overview,
-wall and print use. T10 adds a genuine capped Section view. See PROGRESS.md for the
-host API, lifecycle tests and remaining limits.
-
-## Width comparisons (T04)
-
-[Open walking and cycling](http://localhost:8765/lab/book/?mode=focus&panel=walking#walk-cycle).
-All nine route choices share one comparison frame. Switching variants preserves
-scale, orientation and zoom; the cycle-parking panel explains the area allowance.
-One viewer/context moves between supported panels. See PROGRESS.md for tests.
-
-## Accessibility scenes (T05)
-
-[Open Accessibility](http://localhost:8765/lab/book/?mode=focus&panel=turning#accessible).
-Paired clear circles, the unexaggerated 5% ramp and separate bay/bench vignettes
-retain measured clear areas and source context. Plan/Front defaults are chosen
-per scene, with 3D available. See PROGRESS.md for geometry and browser evidence.
-
-## Development
+Open http://127.0.0.1:8765/lab/book/. On subsequent builds, use `--replace`.
 
 ```sh
-npm ci --ignore-scripts
-npm test
+npm test --prefix lab
+python3 -m unittest discover -s lab/tests -p 'test_*.py'
+node lab/tests/release-browser.cjs
+node lab/tests/viewer-browser.cjs
+SOURCE_OVERRIDE=0 node lab/tests/poster-state-release-browser.cjs
+python3 lab/scripts/prepare-release.py
+python3 lab/scripts/verify-release.py lab/.build/release
 ```
 
-`assets.js` owns repeated metric objects; `scenes.js` owns arrangement, dimensions
-and provenance links; `styles.js` owns the semantic palettes; `callouts.js` owns the independently tested outside-label routing; `viewer.js` owns
-camera, responsive rendering, projected SVG annotations and vector export.
-`lab.css` owns presentation and readable screen-space type. Keep those boundaries
-when delegating another scene. Do not copy a separate renderer into each sheet.
+Browser checks use the installed Playwright module, overridable with
+`PLAYWRIGHT_MODULE`. No browser-test dependency is included in the public artifact.
+The repository root is historical source input; the generated `lab/book` is the
+current candidate. GitHub Pages publishes only `lab/.build/release`.
 
-Three.js is pinned to 0.187.0. To deliberately refresh vendored files after a
-reviewed dependency change, run `npm run vendor`. Keep the MIT licence and hash
-manifest. The preview makes no external font, CDN, API or asset requests.
+## Maintenance boundaries
 
-Browser checks use Playwright if already available. The check script accepts a
-`PLAYWRIGHT_MODULE` path when installed outside this project; see REVIEW.md for
-the actual verification environment. No browser automation dependency is needed
-to use the lab.
+- `assets.js`: shared metric people, wheelchair, vehicles, trees and furniture.
+- `src/recipes/`, `src/primitives/`: scene geometry and explicit assumptions.
+- `src/viewer.js`, `src/annotations.js`, `callouts.js`: one renderer, dimensions
+  and noncrossing outside labels.
+- `src/book-app.js`, `src/book-3d.js`, `src/posters.js`: shared page/variant/view state.
+- `src/book.css`, `src/release.css`, `src/posters.css`: screen, wall and print layouts.
+- `scripts/`: checked editorial transformations, poster capture and allowlisted output.
+- `data/release-data.json`: additional service values with primary-source provenance.
 
-The post-T05 refinements add a manual wheelchair user to relevant scenes, a car
-with wheelchair beside it in the accessibility bay, and cut-ended ramp context.
-Dimension labels now use line gaps without opaque patches. Residents & services
-is explicitly blocked from publication pending substantial work in T13.
+After changing a scene, asset or annotation styling, run
+`node lab/scripts/capture-posters.cjs` with the preview server running. Inspect the
+resulting posters and commit their manifest with the scene changes. The builder
+rejects stale poster inputs and modified vendor/source/CAD files. Code-only
+navigation changes do not require recapturing geometry.
 
-## Tram scenes (T06)
+Read [STYLE.md](docs/STYLE.md), [SCENE-CONTRACT.md](docs/SCENE-CONTRACT.md) and
+[CALLOUTS.md](docs/CALLOUTS.md) before extending a scene. Keep main views concise;
+[quick-reference writing](docs/QUICK-REFERENCE-WRITING.md) governs all new text.
+Use [SERVICES-RELEASE.md](docs/SERVICES-RELEASE.md) for the current population and
+service tables, and [T15-POSTERS.md](docs/T15-POSTERS.md) for static output.
 
-[Open Tram & stops](http://localhost:8765/lab/book/?mode=focus&panel=tram-length#tram).
-Separate corridor-source comparisons, the compact width example and the full
-stop/ramp/vehicle example retain the original contexts. City-stop lengths share
-one metric scale with the long-stop model. See PROGRESS.md for checks.
-
-## Vehicles & rescue (T07) and reading order
-
-[Open Vehicles & turning](http://localhost:8765/lab/book/?mode=focus&panel=car-turn#turning-vehicles).
-Exact geometric radius bands remain separate from reference vehicle bodies.
-Car/bus lane examples share one framing envelope. The new original procedural
-bus preserves the existing 15 × 2.6 m body plan; 3.2 m height/detail are assumptions.
-Rescue turning bands and set-up rectangle share a metric scale in the live scene,
-with no inferred appliance/boom geometry. All canonical tables and caveats remain.
-
-The user-approved spread sequence now groups Connections with accessible routes,
-Parking with vehicles, and Green & blue with stormwater. Full sequence and scope
-are recorded in IMPLEMENTATION-PLAN.md §1. Historical inventory IDs, source
-wording and old links remain intact; candidate numbering/navigation follow the
-new order, including direct-file and print DOM order.
-
-Focused checks: `node lab/tests/vehicles-browser.cjs` and
-`node lab/tests/spread-order-browser.cjs` from the worktree root.
-
-## Connections (T08)
-
-[Open Connections](http://localhost:8765/lab/book/?mode=focus&panel=crossing-refuge#connections).
-The crossing keeps 3 + 2.5 + 3 = 8.5 m with road-aligned 0.5 m stripes/gaps.
-After user review, the route panel is a static **Check every link** diagram:
-gate availability, a usable crossing, and the actual entrance determine whether a
-connection works. Its questions are assistant editorial drafts grounded in the
-retained source discussion; no new distance threshold is introduced. The earlier
-500/300 m example is retained under Sources, not used as the main lesson.
-
-**Keep the whole corridor clear** combines width and height in one positive
-example: ≥1.5 m clear ribbon, ≥1.8 m passing widening, ≥2.2 m overhead clearance,
-and the distinct ≥3 m recommended under-building context. Furniture stays outside
-the ribbon. The previous ambiguous 1.4 m failing example and detail toggles are
-removed; old detail links open the unified scene. The 6 m segment and fragment
-shapes are illustrative, not a complete compliance demonstration.
-Focused checks: `node lab/tests/connections-browser.cjs`.
-
-Candidate branding is now **Antti’s Dubious Little Planning Rulebook**,
-**Rules of thumb. Fingers crossed. · v2026-11-12**, as approved by the user.
-The date is a fixed edition stamp, not the build clock or source-validity date.
-Accessibility circle callouts now identify clear turning space; the wheelchair
-callout terminates on the actual figure. Overview/fallback labels likewise identify
-clear space, with the existing manual/powered distinction retained.
-
-## Building footprints (T09)
-
-[Open Building types](http://localhost:8765/lab/book/?mode=focus&panel=building-blocks#built-form).
-All five existing typologies retain their metric footprints, gardens and plot
-areas. Following user review, 3D is now the default: schematic massing, simple
-facades, original trees/cars/people and teal stair-room accents enrich the drawings.
-Plan remains available at the same shared scale. Heights are illustrative
-(slab 12 m, point block 18 m, small block/rows 6 m, detached walls/eaves 3.2 m plus a low gabled roof), not TKK values.
-The preserved original TKK GIFs were inspected: slab stairs repeat per module,
-the square point core meets an edge, and external stairs serve paired small-block
-units. Their model dimensions and all facade rhythms remain assumptions. The small
-blocks now use a covered luhtitalo entrance gallery joining both open stair flights/landings to upper
-doors, with a labelled 9 m body depth. Gallery dimensions and the detached house’s
-eaved roof are user-requested illustrative additions.
-Source ranges, footprints, house placement, tables and fallback SVGs remain intact.
-
-Run `node lab/tests/buildings-browser.cjs` from the worktree root for the focused
-responsive, comparison-scale, source-preservation and fallback checks.
-“Check every link” remains unaccepted and recorded for rework before release.
-
-T10 section geometry, review amendments and verification: [implementation record](docs/T10-SECTIONS.md).
-
-## Planting and shallow storage (T11)
-
-[Planting widths](http://localhost:8765/lab/book/?mode=focus&panel=ground#green-blue)
-show four minimums at one scale, with optional single-category detail.
-[Storage](http://localhost:8765/lab/book/?mode=focus&panel=stormwater#green-blue)
-shows the actual 0.20 m depth, with Plan and true Section.
-See [T11 evidence](docs/T11-LANDSCAPE.md) for assumptions and checks.
-
-Writing rule: [quick reference first](docs/QUICK-REFERENCE-WRITING.md). Long scene
-explanations and duplicate source graphics stay under Sources.
-
-## Stormwater cutaways (T12)
-
-[Open Stormwater options](http://localhost:8765/lab/book/?mode=focus&panel=rain-gardens#stormwater-options).
-Rain garden/swale, dry basin/wet pond and roof/paving have conceptual cutaways.
-The bank-slope triangle remains separately metric. [Evidence and limits](docs/T12-STORMWATER.md).
-
-## Population and services (T13)
-
-[Preview](http://localhost:8765/lab/book/?mode=focus&panel=density#land-population):
-equal 0.4 ha resident tiles, numbered distance circles and three distinct service
-measures. [Source review and evidence](docs/T13-POPULATION.md).
-
-**Export hold:** old 2D figures are retired from the publishable edition. Normal
-offline export is blocked until T15 replaces the remaining local-preview legacy
-fallbacks. Earlier package instructions above are superseded by this hold.
-
-## Parking (T14)
-
-[Preview Parking](http://localhost:8765/lab/book/?mode=focus&panel=parking-layout#parking).
-The user removed the standalone accounting panel; its arithmetic is folded into
-the bay model. The current candidate has 32 panels / 43 drawings; the source
-inventory remains historical at 33 / 44. [Evidence](docs/T14-PARKING.md).
+The original prototype remains in `lab/index.html` for development only. Do not
+ship it, the root legacy figures, review images, node_modules or private sources.
+Do not use the old recursive ZIP packager.

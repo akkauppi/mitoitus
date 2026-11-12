@@ -21,25 +21,35 @@ they must follow the accepted visual style. Use reviewed renders of current
 scenes for static fallbacks. Do not release a package containing legacy figures.
 T15 must complete this migration before any publication gate can pass.
 
-The current task is local only: commits are allowed; do not push, deploy, publish,
-or synchronize this branch to a hosted service. This instruction supersedes prior
-publication permission for the duration of the visual iteration.
+## Current release authorization — 13 November 2026
+
+The user explicitly set the goal to finish, test, push and release the rulebook.
+This supersedes the earlier local-only hold and task-by-task implementation limit.
+Complete T15/T16 and the release corrections before publishing through the existing
+GitHub Pages repository. Do not deploy unfinished candidates. No private course
+files or original source captures may enter the public repository.
+
+Release corrections: remove the unaccepted “Check every link” panel; rework or
+omit unclear stormwater storage; replace every retired illustration in all public
+outputs; correct turning-vehicle orientation; use technical headings; distinguish
+walking-width contexts; expand sourced residents/services data and remove visuals
+that do not help; use square corners throughout the interface.
 
 The baseline at 93bb622 is preserved. Work in `lab/`; retain the existing reference
 sheets, evidence, offline packages and CAD unchanged. Do not import the private
 course repository or original source captures into this public-source repository.
 
 Read `lab/README.md`, `lab/docs/IMPLEMENTATION-PLAN.md` and `lab/docs/STYLE.md`
-before extending the prototype. The current handoff is planning only; implement
-the bounded tasks only when assigned implementation by the user.
+before extending the prototype. The original planning-only/task-by-task restriction is superseded by the current
+release authorization above.
 New illustration assumptions and English editorial text remain assistant drafts.
 The user accepted the refined prototype as the visual direction on 12 November
 2026. The full-edition layout and recipes are an implementation plan, not
 already implemented or separately reviewed panels. Use metric geometry,
 label source dimensions separately from contextual assets, and record asset licences.
 
-Make focused local commits. Do not automatically propagate experiments to
-`/home/antti/mitoitus-public` or `/home/antti/cscape/mitoitus/site`.
+Make focused commits. Release only the verified public artifact through the existing
+repository workflow. Leave the private `/home/antti/cscape/mitoitus/site` mirror alone.
 
 Do not run the existing recursive `build-tools/package_downloads.py` in this
 worktree: it would include development files. Follow T01/T15 for explicit

@@ -1,3 +1,6 @@
+> Historical T13 implementation record. The 13 November release supersedes the
+> resident tiles, library square and service cards; see [SERVICES-RELEASE.md](SERVICES-RELEASE.md).
+
 # T13 — Population, distances and service measures
 
 13 November 2026 · local implementation · assistant artwork/editorial draft.

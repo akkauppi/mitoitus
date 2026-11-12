@@ -6,7 +6,7 @@ import {buildingScene,BUILDING_INFO} from './recipes/buildings.js';
 import {connectionScene,CONNECTION_INFO} from './recipes/connections.js';
 import {vehicleScene,vehicleInfo} from './recipes/vehicles.js';
 import {buildScene} from '../scenes.js';
-import {routeScene,cycleParkingScene,ROUTE_ASSUMPTIONS} from './recipes/routes.js';
+import {routeScene,cycleParkingScene,ROUTE_ASSUMPTIONS,routeCaseInfo} from './recipes/routes.js';
 import {accessibilityScene,ACCESSIBILITY_INFO} from './recipes/accessibility.js';
 import {tramScene,TRAM_INFO} from './recipes/tram.js';
 export const ROOT_RECIPE = Object.freeze({
@@ -39,9 +39,9 @@ export function recipeInfo(id) {
   if(!match)throw new Error(`Unknown recipe: ${id}`);
   const panel=match[1],index=Number(match[2]),count=panel==='walking'?4:panel==='cycling'?5:1;
   if(index>=count)throw new Error(`Unknown recipe: ${id}`);
-  return {id,panelId:panel,sourceClaims:[panel],defaultCamera:'iso',allowedCameras:['iso','plan','front'],
+  return {id,panelId:panel,sourceClaims:[panel],...routeCaseInfo(panel,index),defaultCamera:'iso',allowedCameras:['iso','plan','front'],
     assumptions:panel==='bike-parking'?['Five bicycle envelopes 0.6 × 2 m; handling depth 2 m; bicycle form and decorative base are illustrations, not rack specifications.']:ROUTE_ASSUMPTIONS,
-    description:panel==='bike-parking'?'Five cycles and handling space: 3 by 4 metres, 12 square metres, 2.4 square metres per cycle.':`${panel==='walking'?'Walking width':'Cycle facility'} source case ${index+1}.`};
+    description:panel==='bike-parking'?'Five cycles and handling space: 3 by 4 metres, 12 square metres, 2.4 square metres per cycle.':routeCaseInfo(panel,index).description||`${panel==='walking'?'Walking width':'Cycle facility'} source case ${index+1}.`};
 }
 export function createRecipe(id) {
   const recipe=recipeInfo(id);

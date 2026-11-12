@@ -1,61 +1,62 @@
-ANTTI’S DUBIOUS LITTLE RULEBOOK — Mitoitus
+ANTTI’S DUBIOUS LITTLE PLANNING RULEBOOK — Mitoitus
+Rules of thumb. Fingers crossed. · v2026-11-13
 
 Live: https://akkauppi.github.io/mitoitus/
-Eleven English engineering reference sheets with Finnish source dimensions:
-building types; land and population; walking/cycling; accessibility; trams/stops;
-vehicles/turning; green/blue; stormwater options; sections/details; connections; parking.
 
-Open index.html directly or serve this folder with any static HTTP server.
-No runtime packages, trackers, external fonts or API connections.
-Sources are OFF on every new load; S toggles them. F toggles fullscreen.
-Tabs/arrows select all sheets; keys 1–9 and 0 select sheets 1–10. Dropdowns and arrows above selected drawings
-browse walking, cycling and one/two-lane motor-traffic layouts in place.
-Width alternatives retain one graphic scale; each is a dated source case.
-Selected layouts are saved in the URL for bookmarking, sharing and reloading.
-The offline pack (downloads/rulebook-offline.zip) includes sheets, evidence and CAD.
-Printing from desktop or wall view produces one A3 landscape page per sheet.
-People are light grey, 1.75 m tall; rider posture is 1.65 m high with 0.60 m bars.
-These are declared illustration assumptions, not human-capacity standards.
-Vehicle plans use cited body dimensions. Mirrors and swept paths are not implied.
+Eleven reference spreads: buildings; residents/services; walking/cycling;
+accessibility; connections; tram/stops; vehicles/turning; parking; sections;
+green/blue; stormwater options. Thirty panels combine technical dimensions,
+dated source tables and original outlined pastel dioramas.
 
-The 3-screen view spans three 16:10 panels on a 4800 × 1000 reference canvas,
-preserving space at seams. Use ?view=wall or ?view=desktop for a fixed mode.
-The browser must already span the array; the site does not configure devices.
-Print uses A3 landscape, all sheets, with the currently selected drawing variants.
+Overview provides reviewed static illustrations. Focus opens one shared 3D
+viewer with plan, elevation and section views where supported. Source dates,
+local scope and dimensional denominators remain attached to the references.
+Sources starts off; S toggles it. Arrow keys navigate spreads outside a model.
+Inside a model, arrows orbit, +/- zoom and Home resets. One finger scrolls;
+two fingers manipulate the model. No runtime fonts, CDNs, trackers or APIs.
 
-CAD: seven reference sets in metres, millimetres or international feet. Twenty-one
-DXF/SVG pairs and three ZIP bundles include evidence and assumptions. No live
-calculators or model-scale conversion table. CAD files remain full-size 1:1
-geometry in their declared units.
-Turning bands are radius references, not computed vehicle swept paths.
-Source editions, historical examples and publisher-marked drafts remain labelled.
-English synthesis and original diagrams are assistant drafts; supplied W4/W5
-quotes are identified separately. Municipal documents are linked, not republished.
+The offline ZIP works from index.html without a server, using current static
+figures and selectable variants. Serve the extracted folder over HTTP for 3D.
+Print produces eleven A3 landscape pages, including when Focus is open. Sources
+adds source links to print; full provenance is in the evidence index. Wall view
+uses fixed 1600-pixel cards within a 4800×1000 three-screen canvas. Two-panel
+spreads use two screen positions. Physical printing and hardware array use are
+separate from automated PDF/layout checks.
 
-MAINTENANCE
-build-tools/build_sheets.py: source of the 33 panels and 44 SVG drawings
-build-tools/student_sheet.py / parking_sheet.py: additional sheet sources
-build-tools/scale_figures.py: original filled metric people/cyclists/vehicle artwork
-index.html: generated sheets and controls
-style.css: desktop, mobile, wall and print layouts
-app.js: navigation, layout selection and download links
-cad.js: canonical CAD geometry in metres and DXF/SVG writers
-cad-base.js: validated R2000 DXF skeletons for each unit
-evidence.html / evidence.json: claims, editions, assumptions and source URLs
-assignment-extract.txt: minimal supplied English W4/W5 excerpts
-downloads/: reference geometry and evidence bundles
-assets/aalto-logo.svg: existing course branding asset
+CAD downloads retain seven reference sets in three units (21 DXF/SVG pairs and
+three bundles), unchanged from the source edition. Turning bands are geometric
+radius references. Metric assets and illustrative building heights are recorded
+in the evidence/docs. No computed swept-path or hydraulic simulation is implied.
 
-Rebuild the sheets after editing their generator, CSS or JavaScript:
-  python3 build-tools/build_sheets.py
-This refreshes the asset hashes used to prevent stale browser caches.
-Rebuild static drawings after editing cad.js:
-  node build-tools/build_cad.cjs
-Rebuild CAD ZIPs after editing drawings or evidence:
-  python3 build-tools/package_downloads.py
-Only Python and Node standard libraries are needed. Regenerating cad-base.js
-requires ezdxf; it is unnecessary for ordinary edits.
+CURRENT BUILD AND RELEASE
 
-The preserved TKK originals and private course tree are outside this repository.
-Source documents and Aalto identity remain attributable to their owners; links
-and branding do not imply endorsement of this teaching synthesis.
+Source development lives in lab/. The root index.html, style.css, app.js and
+build-tools/ preserve the historical source edition used by the checked builder;
+they are NOT the published artifact. Do not deploy the repository root or run
+the old recursive package_downloads.py. Historical 2D figures are retired from
+all published, fallback, print and offline outputs.
+
+  npm ci --prefix lab --ignore-scripts
+  npm test --prefix lab
+  python3 -m unittest discover -s lab/tests -p 'test_*.py'
+  python3 lab/scripts/build-book.py --replace
+  node lab/tests/release-browser.cjs
+  python3 lab/scripts/prepare-release.py
+  python3 lab/scripts/verify-release.py lab/.build/release
+
+For first build omit --replace. Serve this checkout with
+  python3 -m http.server 8765 --bind 127.0.0.1
+then open http://127.0.0.1:8765/lab/book/.
+
+When scene geometry or annotation styling changes, recapture reviewed posters:
+  node lab/scripts/capture-posters.cjs
+Review the resulting figures and commit their manifest and assets. The build
+rejects stale posters, altered source inventory, vendor drift and unapproved
+archive files. Current service data is in lab/data/release-data.json; source
+PDFs are linked rather than republished.
+
+GitHub Pages uses .github/workflows/pages.yml to publish only the validated
+lab/.build/release artifact. Publishing requires the task's user authorization.
+See AGENTS.md, lab/docs/RELEASE.md and lab/docs/STYLE.md for the handoff.
+
+Private course sources and original source captures remain outside this repo.

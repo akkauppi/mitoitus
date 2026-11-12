@@ -841,3 +841,15 @@ Parking has two panels; current candidate has 32 panels / 43 drawings, while the
 source inventory remains 33 / 44. Old area-panel links alias the combined model.
 The 2025 norm chart is new native SVG. See [T14-PARKING.md](T14-PARKING.md) for
 source scope, arithmetic, preservation and verification. Export remains held.
+
+### Release completion — 13 November 2026
+
+The user explicitly authorized the remaining work, push and release. This
+supersedes the local-only hold recorded in earlier entries. Current scope,
+accepted editorial changes, T15/T16 checks, artifact workflow and verification
+limits are consolidated in [RELEASE.md](RELEASE.md). The active edition has
+30 panels across 11 spreads; the 33/44 baseline inventory remains historical.
+New static outputs replace all retired illustrations. Current service tables
+supersede T13’s pictograms and library-square/card layout. Two unaccepted panels
+are omitted; parking accounting remains integrated. No private course files or
+original source captures enter the source repository or deployed artifact.

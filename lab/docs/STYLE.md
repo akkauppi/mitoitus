@@ -10,7 +10,7 @@ Keep the existing dimensional content. Explore small, legible 3D dioramas with
 pastel colours, edges, ground depth, scale people/trees/cars/trams and responsive
 views. Even when geometry is 3D, the result should look like vector graphics.
 Document repeated assets and the process so future models can extend the system.
-Local commits are permitted; pushing and deploying are on hold.
+Publishing follows explicit task authorization; the 13 November 2026 release goal supersedes the earlier local-only hold.
 
 ## Invariants
 

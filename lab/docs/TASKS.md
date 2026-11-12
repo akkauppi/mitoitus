@@ -1,3 +1,7 @@
+> Current release work is authorized by the user’s 13 November 2026 goal.
+> The earlier local-only/task-by-task hold below is historical and superseded.
+> See [RELEASE.md](RELEASE.md) for current scope, checks and publication status.
+
 # Implementation tasks for the next model
 
 Planning only · 12 November 2026. Read [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md)
@@ -316,3 +320,15 @@ claim. **Do not push/deploy.** A later explicit release instruction is required.
 > make a local commit. Do not push, deploy, synchronize the public checkout, or
 > run the current recursive ZIP packager. Continue to the next bounded task only
 > within the scope I assign; report concrete blockers instead of inventing content.
+
+## T15–T16 release amendment — 13 November 2026
+
+The user assigned the complete remaining work and explicitly authorized push and
+release. The earlier requirement to stop for a separate deployment instruction
+is superseded. Current acceptance inventory: 11 spreads, 30 panels, 37 live recipes,
+45 illustrated variants/category states and 3 native charts. The baseline 33/44
+inventory remains a source-preservation check; it is not the current panel count.
+
+T15 outputs and T16 whole-book checks are recorded in [RELEASE.md](RELEASE.md),
+including the user-directed omissions and expanded services data. That record
+owns current publication state and remaining verification limits.

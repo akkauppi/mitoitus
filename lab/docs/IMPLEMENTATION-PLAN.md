@@ -1,3 +1,7 @@
+> Current release work is authorized by the user’s 13 November 2026 goal.
+> The earlier local-only/task-by-task hold below is historical and superseded.
+> See [RELEASE.md](RELEASE.md) for current scope, checks and publication status.
+
 # Mitoitus: full diorama edition
 
 Implementation handoff · 12 November 2026 · based on local commit `4b5adc6`.
