@@ -38,7 +38,7 @@
   let viewerPromise=null,bookViewer=null,viewerEpoch=0;
   async function syncViewer(state) {
     const epoch=++viewerEpoch;
-    const live=state.mode==='focus'&&['trees','walking','cycling','bike-parking'].includes(state.active.id)&&!document.body.classList.contains('wall')&&location.protocol!=='file:';
+    const live=state.mode==='focus'&&['trees','walking','cycling','bike-parking','turning','ramps','arrival'].includes(state.active.id)&&!document.body.classList.contains('wall')&&location.protocol!=='file:';
     $('book-style').closest('label').hidden=!live;
     if(!live){bookViewer?.suspend();return;}
     try {
@@ -73,8 +73,9 @@
     const selected = group ? group.querySelector('select').selectedIndex : 0;
     // A legacy variant is authoritative; T02 has only its corresponding whole figure.
     const figure = `${active.id}--v${selected}`;
-    const allowed = ['trees','walking','cycling','bike-parking'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
-    const camera = allowed.includes(q.get('camera')) ? q.get('camera') : ['trees','walking','cycling','bike-parking'].includes(active.id)?'iso':'plan';
+    const allowed = ['turning','arrival'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
+    const defaultCamera=active.id==='ramps'?'front':['turning','arrival'].includes(active.id)?'plan':['trees','walking','cycling','bike-parking'].includes(active.id)?'iso':'plan';
+    const camera = allowed.includes(q.get('camera')) ? q.get('camera') : defaultCamera;
     const style = ['paper', 'ink', 'soft'].includes(q.get('style')) ? q.get('style') : 'paper';
     return { sheet, active, figure, camera, style, mode: q.get('mode') === 'focus' ? 'focus' : 'overview' };
   }

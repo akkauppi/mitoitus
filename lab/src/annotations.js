@@ -14,11 +14,6 @@ function annotations(){
   if(free===undefined)return; y=free;occupied.push({x,y,w,h});
   if(Math.hypot(x-p.x,y-p.y)>12)line(p,{x,y},'leader');overlay.append(svg('rect',{x:x-w/2,y:y-11,width:w,height:h,class:'label-bg'}));overlay.append(svg('text',{x,y:y+4,'text-anchor':'middle',class:kind==='dim'?'dim-label':'scene-label'},text));
  }
- if(dimensions)for(const d of model.dimensions){
-  const a=project(d.a),b=project(d.b),off=new THREE.Vector3(...d.offset),aa=project(new THREE.Vector3(...d.a).add(off).toArray()),bb=project(new THREE.Vector3(...d.b).add(off).toArray());
-  const length=Math.hypot(bb.x-aa.x,bb.y-aa.y);if(length<3)continue;line(a,aa,'extension-line');line(b,bb,'extension-line');line(aa,bb,'dimension-line');
-  const ux=(bb.x-aa.x)/length,uy=(bb.y-aa.y)/length;for(const p of [aa,bb])line({x:p.x-3*(ux-uy),y:p.y-3*(uy+ux)},{x:p.x+3*(ux-uy),y:p.y+3*(uy+ux)},'dimension-line');label(d.label,{x:(aa.x+bb.x)/2,y:(aa.y+bb.y)/2},'dim');
- }
  if(labels){
   const narrow=width<650,clipLeft=narrow?0:148,clipRight=narrow?124:148;
   canvas.style.clipPath=`inset(0 ${clipRight}px 0 ${clipLeft}px)`;
@@ -32,10 +27,17 @@ function annotations(){
   for(const item of layout.items){
    const group=svg('g',{'data-callout':item.id});group.append(svg('polyline',{points:item.points.map(p=>`${p.x},${p.y}`).join(' '),class:'callout-leader'}));
    const end=item.points[2];group.append(svg('circle',{cx:end.x,cy:end.y,r:2.6,class:'callout-dot'}));
-   const r=item.label,x=item.side==='left'?r.x+r.width:r.x;
+   const r=item.label;occupied.push({x:r.x+r.width/2,y:r.y+r.height/2,w:r.width,h:r.height});
+   const x=item.side==='left'?r.x+r.width:r.x;
    group.append(svg('text',{x,y:r.y+r.height/2+4,'text-anchor':item.side==='left'?'end':'start',class:'scene-label callout-text'},item.text));overlay.append(group);
   }
  }else{canvas.style.clipPath='none';overlay.dataset.calloutStatus='off';viewport.dataset.callouts='';}
+ if(dimensions)for(const d of model.dimensions){
+  const a=project(d.a),b=project(d.b),off=new THREE.Vector3(...d.offset),aa=project(new THREE.Vector3(...d.a).add(off).toArray()),bb=project(new THREE.Vector3(...d.b).add(off).toArray());
+  const length=Math.hypot(bb.x-aa.x,bb.y-aa.y);if(length<3)continue;line(a,aa,'extension-line');line(b,bb,'extension-line');line(aa,bb,'dimension-line');
+  const ux=(bb.x-aa.x)/length,uy=(bb.y-aa.y)/length;for(const p of [aa,bb])line({x:p.x-3*(ux-uy),y:p.y-3*(uy+ux)},{x:p.x+3*(ux-uy),y:p.y+3*(uy+ux)},'dimension-line');label(d.label,{x:(aa.x+bb.x)/2,y:(aa.y+bb.y)/2},'dim');
+ }
+
 }
 
 annotations();

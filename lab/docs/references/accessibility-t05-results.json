@@ -1,0 +1,17 @@
+{
+  "states": 35,
+  "widths": [
+    320,
+    390,
+    768,
+    1024,
+    1440
+  ],
+  "contexts": 1,
+  "commonCircleScale": "passed",
+  "equalRampAxes": "passed",
+  "facts": "unchanged",
+  "fallbacks": "passed",
+  "errors": [],
+  "external": []
+}

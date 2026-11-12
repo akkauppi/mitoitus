@@ -32,11 +32,12 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
       const recipe=recipeInfo(recipeId);active=true;frame.hidden=failed;
       const selected=drawing.querySelector('[data-variant]:not([hidden]) svg .sub')||drawing.querySelector('figure svg .sub');
       frame.querySelector('.scene-case').textContent=selected?.textContent||'';
+      frame.querySelector('.scene-case').hidden=!selected;
 
       frame.setAttribute('aria-label',`${recipe.panelId} diorama`);
       viewport.setAttribute('aria-label',(recipe.description||'Soil 5 by 5 metres, 1 metre deep, 25 cubic metres.')+' Arrow keys orbit, plus/minus zoom, Home resets.');
       provenance.textContent='Diorama artwork: assistant draft. '+recipe.assumptions.join(' ');
-      for(const button of frame.querySelectorAll('[data-camera]'))button.setAttribute('aria-pressed',String(button.dataset.camera===camera));
+      for(const button of frame.querySelectorAll('[data-camera]')){button.hidden=!recipe.allowedCameras.includes(button.dataset.camera);button.setAttribute('aria-pressed',String(button.dataset.camera===camera));}
       if(failed){availability(false);return;}
       host.show({recipeId,camera,style});
     },

@@ -267,3 +267,72 @@ assistive technology, print and array acceptance remain separate checks.
 Preview: http://localhost:8765/lab/book/?mode=focus&panel=walking#walk-cycle
 Use its source-case dropdown and panel selector to compare the widths. No push
 or deployment. Next task: T05 accessibility scenes.
+
+## T05 complete — 12 November 2026
+
+The Accessibility sheet now has live `turning`, `ramps` and `arrival` recipes,
+using the existing single-context host. Canonical specifications, source dates,
+practical guidance and fallbacks are retained without rewriting their details.
+
+- Turning: paired 1.5 / 2.5 m diameter clear disks on separate neutral tiles,
+  at one scale. Plan is the default, with 3D available. No furniture or guessed
+  mobility-device silhouettes occupy the measured circles.
+- Ramps: a solid 6 m horizontal run rises 0.30 m (5%), joining a full 2 m landing.
+  The chosen 1.2 m width is the existing recommended case. The 1.75 m scale person
+  stands on the landing. Front is the default elevation; Plan and 3D are available.
+  Both axes retain metre scale. No Section or invented 8% variant is offered.
+- Parking/seating: independent 3.6 × 5 m courtyard bay and bench-end vignette.
+  The bench is outside the measured 0.9 × 1.5 m space. Its 1.5 m depth remains
+  explicitly labelled “example”; no car/transfer-lift capability is implied.
+  Plan is the default, with 3D available. Original slope/rest-spacing/seating
+  guidance stays in the complete facts column.
+
+`src/primitives/accessibility.js` supplies reusable clear-disk and exact solid
+ramp-profile primitives. The new semantic `clearance` fill is defined for all three
+shared palettes. Camera availability and Reset/Home follow each recipe instead
+of forcing an unhelpful Front view or defaulting every scene to 3D.
+
+The shared annotation layer now reserves semantic callout rectangles before
+placing dimension text. A browser test caught “Landing” colliding with the rise
+label at 320 px; the general layout change resolves it without moving metric
+anchors. Existing routing still rejects intersecting callout leaders.
+
+### T05 checks
+
+```sh
+npm --prefix lab test
+python3 -m unittest discover -s lab/tests -p 'test_candidate.py'
+node lab/tests/accessibility-browser.cjs
+node lab/tests/routes-browser.cjs
+node lab/tests/viewer-browser.cjs
+node lab/tests/shell-browser.cjs
+python3 lab/scripts/build-book.py --replace
+python3 lab/scripts/package-book.py
+```
+
+Passed: 56 Node tests and 18 build/archive regressions. New geometry checks cover
+actual circle diameters/radii, empty clear spaces, exact ramp profile vertices,
+run/rise/landing joints and scale-person ground contact, separate arrival tiles,
+bench exclusion, measurement anchors, finite geometry and all shared palette roles.
+
+The accessibility browser suite passes 35 allowed camera states across
+320/390/768/1024/1440 px. It verifies common-scale circle diameter ratios, projected
+5% rise/run with equal axes in Front, complete noncrossing callouts, text collisions/
+clipping, correct camera/reset/state behavior, one shared context, canonical details,
+source-only assumptions, invalid Section normalization and WebGL/file fallbacks.
+Desktop and phone examples were visually inspected and retained under
+`docs/references/`. Headless Chromium checks do not establish physical touch,
+assistive-technology, physical array or printing acceptance.
+
+All earlier browser suites still pass: 150 route/parking states with fixed scale,
+15 rooting-volume camera states and its lifecycle/context-loss checks, and 110
+shell states / 33 panels / 15 original variants. Course checker passed: 6 weeks,
+38 items, 46 source hashes. No page JavaScript errors or external runtime requests
+were observed. No design-compliance certification or device manoeuvring test is
+implied by geometric checks.
+
+The allowlisted offline candidate is 74 files / 905,339 bytes. Root sources,
+original CAD and the separately published checkout remain unchanged. No push or
+deployment. Next task: T06 tram scenes.
+
+Preview: http://localhost:8765/lab/book/?mode=focus&panel=turning#accessible

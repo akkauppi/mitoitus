@@ -48,7 +48,7 @@ Local commits are permitted; pushing and deploying are on hold.
 
 Colour values live only in `styles.js`. Every mesh has `userData.role`; every
 outline has `userData.edge`. Scene code must not add an unregistered colour.
-Current roles: paving, cycle, road, grass, soil, subsoil, root, person, foliage,
+Current roles: clearance, paving, cycle, road, grass, soil, subsoil, root, person, foliage,
 trunk, vehicle, glass, rubber, metal, furniture, rail and white.
 
 ## Asset catalogue
@@ -141,9 +141,9 @@ new dimensioning recommendation. Keep original code/source and measured bounds.
 | Bench / shelter | Bench reused; shelter module if needed | Decorative furniture dimensions recorded; keep measured clear passages open. No new compliant-product claim. |
 | Ground / surface strip / bay grid | Shared primitives | Exact endpoints, contiguous solids, no floating slabs; decorative base excluded from measured volume. |
 | Footprint / plot / floor plate | Add in T09–10 | Exact existing plans; display relief is not building height. Schematic floor spacing stays separate from metric geometry. |
-| Ramp / steps | Add in T05/T10 | Exact run, rise, landing and repeats; matching actual cut faces; no decorative slope exaggeration. |
+| Ramp / steps | Ramp implemented T05; steps in T10 | Exact run, rise, landing and repeats; matching actual cut faces; no decorative slope exaggeration. |
 | Kerb / rail / markings | Shared optional context | Preserve source-defined plan markings. Record assumed vertical details; decorative rails do not imply a clearance envelope. |
-| Clearance / radius geometry | Shared SVG or geometry | Exact numeric radius/diameter and axes. No polygonal approximation that changes the measured limit; no motion simulation. |
+| Clearance / radius geometry | Clear disks implemented T05; other references follow | Exact numeric radius/diameter and axes. No polygonal approximation that changes the measured limit; no motion simulation. |
 | Soil / water / conceptual section stack | Add in T10–12 | Metric blocks only for adopted volume examples; conceptual layers carry no measured thickness/capacity. |
 | Route / barrier / process arrows | Shared SVG | Metric route lengths where adopted; symbols and process arrows are semantic, not hydraulic or traffic simulations. |
 

@@ -12,7 +12,7 @@ plan for another model to implement. Start with
 [TASKS.md](docs/TASKS.md). The [layout wireframes](docs/LAYOUT.svg) show Overview,
 Focus, phone, wall and print. All 33 panels and 44 baseline drawings are mapped in
 [the inventory](docs/scene-inventory.json) and the two scene catalogues.
-The three-scene lab remains the visual reference. T01–T04 are implemented in
+The three-scene lab remains the visual reference. T01–T05 are implemented in
 the isolated candidate; the remaining handoff tasks are still planned.
 Do not run the old recursive ZIP packager in this worktree.
 
@@ -67,14 +67,14 @@ Iteration record and verification limits: [REVIEW.md](docs/REVIEW.md).
 
 ## Candidate build (T01)
 
-T01–T04 are complete. The candidate has Overview/Focus layouts and a live
-rooting-volume, walking, cycling and cycle-parking dioramas, with baseline SVG
+T01–T05 are complete. The candidate has Overview/Focus layouts and a live
+rooting-volume, route, cycle-parking and accessibility dioramas, with baseline SVG
 fallbacks and canonical details. From the
 worktree root, run `python3 lab/scripts/build-book.py` for the first build, or
 `python3 lab/scripts/build-book.py --replace` to replace an intact generated
 candidate. `python3 lab/scripts/package-book.py` exports the explicitly allowlisted
 ZIP into `lab/.build/`. See [PROGRESS.md](docs/PROGRESS.md) for commands, verification
-and limits. Preview the candidate at http://localhost:8765/lab/book/. T05 is next.
+and limits. Preview the candidate at http://localhost:8765/lab/book/. T06 is next.
 
 ## Rooting-volume canary (T03)
 
@@ -90,6 +90,13 @@ host API, lifecycle tests and remaining limits.
 All nine route choices share one comparison frame. Switching variants preserves
 scale, orientation and zoom; the cycle-parking panel explains the area allowance.
 One viewer/context moves between supported panels. See PROGRESS.md for tests.
+
+## Accessibility scenes (T05)
+
+[Open Accessibility](http://localhost:8765/lab/book/?mode=focus&panel=turning#accessible).
+Paired clear circles, the unexaggerated 5% ramp and separate bay/bench vignettes
+retain measured clear areas and source context. Plan/Front defaults are chosen
+per scene, with 3D available. See PROGRESS.md for geometry and browser evidence.
 
 ## Development
 

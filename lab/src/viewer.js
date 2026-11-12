@@ -131,7 +131,7 @@ export function createSceneHost({canvas,overlay,viewport,onCameraChange=()=>{},o
   function keydown(event) {
     if(!active||lost||!model||event.target!==viewport)return;
     const spherical=new THREE.Spherical().setFromVector3(new THREE.Vector3().subVectors(camera.position,controls.target));
-    if(event.key==='Home')setCamera('iso',true);
+    if(event.key==='Home')setCamera(model.recipe.defaultCamera,true);
     else if(event.key==='+'||event.key==='=')camera.zoom=Math.min(3,camera.zoom*1.1);
     else if(event.key==='-')camera.zoom=Math.max(.65,camera.zoom/1.1);
     else if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)){
@@ -148,7 +148,7 @@ export function createSceneHost({canvas,overlay,viewport,onCameraChange=()=>{},o
   return {
     show,resize,suspend,
     setCamera:key=>setCamera(key,true),
-    reset:()=>setCamera('iso',true),
+    reset:()=>setCamera(model?.recipe.defaultCamera||'iso',true),
     setAnnotations:settings=>{dimensions=settings.dimensions??dimensions;labels=settings.callouts??labels;queue();},
     inspect:()=>({...diagnostics,camera:cameraKey,style:styleKey,recipe:model?.recipe.id||null,lost,geometries:renderer.info.memory.geometries}),
     dispose(){if(disposed)return;suspend();disposed=true;diagnostics.disposed=true;

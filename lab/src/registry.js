@@ -1,5 +1,6 @@
 import {buildScene} from '../scenes.js';
 import {routeScene,cycleParkingScene,ROUTE_ASSUMPTIONS} from './recipes/routes.js';
+import {accessibilityScene,ACCESSIBILITY_INFO} from './recipes/accessibility.js';
 export const ROOT_RECIPE = Object.freeze({
   id:'trees--v0', panelId:'trees', sourceClaims:['trees'],
   defaultCamera:'iso', allowedCameras:['iso','plan','front'],
@@ -8,6 +9,8 @@ export const ROOT_RECIPE = Object.freeze({
 });
 export function recipeInfo(id) {
   if(id===ROOT_RECIPE.id)return ROOT_RECIPE;
+  const access=/^(turning|ramps|arrival)--v0$/.exec(id);
+  if(access)return {id,panelId:access[1],sourceClaims:[access[1]],...ACCESSIBILITY_INFO[access[1]]};
   const match=/^(walking|cycling|bike-parking)--v(\d+)$/.exec(id);
   if(!match)throw new Error(`Unknown recipe: ${id}`);
   const panel=match[1],index=Number(match[2]),count=panel==='walking'?4:panel==='cycling'?5:1;
@@ -18,7 +21,7 @@ export function recipeInfo(id) {
 }
 export function createRecipe(id) {
   const recipe=recipeInfo(id);
-  const model=id===ROOT_RECIPE.id?buildScene('roots'):recipe.panelId==='bike-parking'?cycleParkingScene():routeScene(recipe.panelId,Number(id.split('--v')[1]));
+  const model=ACCESSIBILITY_INFO[recipe.panelId]?accessibilityScene(recipe.panelId):id===ROOT_RECIPE.id?buildScene('roots'):recipe.panelId==='bike-parking'?cycleParkingScene():routeScene(recipe.panelId,Number(id.split('--v')[1]));
   model.recipe=recipe;
   return model;
 }
