@@ -18,6 +18,17 @@ PUBLIC_FILES = (
     *(f'downloads/mitoitus-cad-{unit}.zip' for unit in UNITS),
 )
 RUNTIME_FILES = {'runtime/book-app.js': 'lab/src/book-app.js', 'runtime/book.css': 'lab/src/book.css'}
+T02_RUNTIME_FILES = tuple(RUNTIME_FILES)
+RUNTIME_FILES.update({
+    'runtime/book-3d.js':'lab/src/book-3d.js',
+    'runtime/viewer.js':'lab/src/viewer.js',
+    'runtime/annotations.js':'lab/src/annotations.js',
+    'runtime/registry.js':'lab/src/registry.js',
+    **{name:f'lab/{name}' for name in ('scenes.js','assets.js','styles.js','callouts.js')},
+    **{f'vendor/{name}':f'lab/vendor/{name}' for name in (
+        'build/three.module.js','build/three.core.js','examples/jsm/controls/OrbitControls.js',
+        'examples/jsm/renderers/SVGRenderer.js','examples/jsm/renderers/Projector.js','LICENSE','manifest.json')},
+})
 BASELINE_FILES = PUBLIC_FILES
 PUBLIC_FILES = (*PUBLIC_FILES, *RUNTIME_FILES)
 OFFLINE = 'downloads/rulebook-offline.zip'
@@ -123,7 +134,7 @@ def source_path(root, name):
 
 def render_book(source):
     text = source.decode()
-    text = text.replace('</head>', '<link rel="stylesheet" href="runtime/book.css"></head>')
+    text = text.replace('</head>', '<link rel="stylesheet" href="runtime/book.css"><script type="importmap">{"imports":{"three":"./vendor/build/three.module.js","three/addons/":"./vendor/examples/jsm/"}}</script></head>')
     text = text.replace('</body>', '<script src="runtime/book-app.js"></script></body>')
     return text.encode()
 
@@ -169,8 +180,9 @@ def verify_candidate(output, allow_legacy=False):
     names = {p.relative_to(output).as_posix() for p in paths if p.is_file()}
     expected = set(PUBLIC_FILES) | {OFFLINE, 'parity.json'}
     old_expected = set(BASELINE_FILES) | {OFFLINE, 'parity.json'}
-    if allow_legacy and names == old_expected:
-        expected = old_expected
+    t02_expected = old_expected | set(T02_RUNTIME_FILES)
+    if allow_legacy and names in (old_expected,t02_expected):
+        expected = names
     if names != expected:
         raise ValueError('Candidate contains missing or unapproved files')
     if report.get('schemaVersion') == 2:
@@ -212,6 +224,10 @@ def build(output=None, replace=False):
     output = safe_path(output or ROOT/'lab/book', ROOT/'lab/book')
     inventory = json.loads((ROOT/'lab/docs/scene-inventory.json').read_text())
     files = read_public(ROOT, source=True)
+    vendor = json.loads(files['vendor/manifest.json'])
+    for name, expected_hash in vendor['sha256'].items():
+        if digest(files['vendor/' + name]) != expected_hash:
+            raise ValueError(f'Vendored dependency drift: {name}')
     source = files['index.html']
     if digest(source) != inventory['baselineSha256']:
         raise ValueError('Baseline changed: review inventory deliberately before rebuilding')
@@ -232,7 +248,7 @@ def build(output=None, replace=False):
         actual = audit((stage/'index.html').read_text())
         if actual.events != audit(render_book(source).decode()).events:
             raise ValueError('Candidate semantic content drift')
-        report = dict(schemaVersion=2, stage='T02 static book shell; 3D integration starts at T03',
+        report = dict(schemaVersion=2, stage='T03 rooting-volume live viewer with canonical static fallback',
                       sheets=11, panels=33, drawings=44, baselineSha256=digest(source),
                       semanticSha256=digest(json.dumps(checked.events, ensure_ascii=False).encode()),
                       content=checked.panels, semanticEvents=checked.events,

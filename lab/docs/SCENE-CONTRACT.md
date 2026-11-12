@@ -1,7 +1,9 @@
 # Proposed scene and application contract
 
-Planning specification · 12 November 2026. These APIs/files do **not** exist yet.
-Implement the minimum contract below; do not build a generic modelling editor.
+Specification · 12 November 2026. T01–T03 now implement the candidate shell and
+rooting-volume host; PROGRESS.md records the actual interfaces and checks. Other
+recipes, comparison framing and cut support below remain proposed future work.
+Implement the minimum contract; do not build a generic modelling editor.
 Existing source text and dimensional evidence stay authoritative.
 
 ## File boundaries

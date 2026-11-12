@@ -1,0 +1,77 @@
+{
+  "states": [
+    {
+      "width": 320,
+      "camera": "iso"
+    },
+    {
+      "width": 320,
+      "camera": "plan"
+    },
+    {
+      "width": 320,
+      "camera": "front"
+    },
+    {
+      "width": 390,
+      "camera": "iso"
+    },
+    {
+      "width": 390,
+      "camera": "plan"
+    },
+    {
+      "width": 390,
+      "camera": "front"
+    },
+    {
+      "width": 768,
+      "camera": "iso"
+    },
+    {
+      "width": 768,
+      "camera": "plan"
+    },
+    {
+      "width": 768,
+      "camera": "front"
+    },
+    {
+      "width": 1024,
+      "camera": "iso"
+    },
+    {
+      "width": 1024,
+      "camera": "plan"
+    },
+    {
+      "width": 1024,
+      "camera": "front"
+    },
+    {
+      "width": 1440,
+      "camera": "iso"
+    },
+    {
+      "width": 1440,
+      "camera": "plan"
+    },
+    {
+      "width": 1440,
+      "camera": "front"
+    }
+  ],
+  "suspendResumeCycles": 20,
+  "contexts": 1,
+  "activeResizeTargets": 1,
+  "geometryCount": 41,
+  "orbitChecks": 16,
+  "styles": 3,
+  "disposal": "passed",
+  "contextLoss": "passed",
+  "noWebGL": "passed",
+  "staleImport": "passed",
+  "idle": "no continuous rendering",
+  "errors": [],
+  "external": []
+}

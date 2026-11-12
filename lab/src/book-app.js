@@ -34,6 +34,31 @@
   print.textContent = 'Print'; print.onclick = () => window.print(); tools.append(print);
   $('book-fullscreen').onclick = full;
   $('book-view').onclick = () => { setView(document.body.classList.contains('wall') ? 'desktop' : 'wall'); view.open = false; render(); };
+  const viewerModuleURL = new URL('book-3d.js', document.currentScript.src);
+  let viewerPromise=null,bookViewer=null,viewerEpoch=0;
+  async function syncViewer(state) {
+    const epoch=++viewerEpoch;
+    const live=state.mode==='focus'&&state.active.id==='trees'&&!document.body.classList.contains('wall')&&location.protocol!=='file:';
+    $('book-style').closest('label').hidden=!live;
+    if(!live){bookViewer?.suspend();return;}
+    try {
+      viewerPromise ||= import(viewerModuleURL.href);
+      const module=await viewerPromise;
+      if(epoch!==viewerEpoch)return;
+      bookViewer ||= module.createBookViewer({drawing:byId.get('trees').panel.querySelector('.drawing'),onCameraChange:camera=>{
+        const url=new URL(location.href);url.searchParams.set('camera',camera);history.replaceState(history.state,'',url);
+        current.camera=camera;document.body.dataset.camera=camera;
+        bookViewer.show({camera,style:current.style});
+      }});
+      bookViewer.show({camera:state.camera,style:state.style});
+      document.body.dataset.viewerState=JSON.stringify(bookViewer.inspect());
+    }catch(error){
+      // Failed module loads leave the complete original figure and facts available.
+      document.body.dataset.viewerUnavailable='true';
+    }
+  }
+  addEventListener('pagehide',()=>{viewerEpoch++;bookViewer?.dispose();bookViewer=null;});
+  addEventListener('pageshow',event=>{if(event.persisted)render();});
   let origin = null;
   let current = null;
   const aliases = { 'transit-access': 'tram', 'fit-street': 'section-details', 'section-scale': 'section-details' };
@@ -48,7 +73,8 @@
     const selected = group ? group.querySelector('select').selectedIndex : 0;
     // A legacy variant is authoritative; T02 has only its corresponding whole figure.
     const figure = `${active.id}--v${selected}`;
-    const camera = ['iso', 'plan', 'front', 'section'].includes(q.get('camera')) ? q.get('camera') : 'plan';
+    const allowed = active.id==='trees'?['iso','plan','front']:['iso','plan','front','section'];
+    const camera = allowed.includes(q.get('camera')) ? q.get('camera') : active.id==='trees'?'iso':'plan';
     const style = ['paper', 'ink', 'soft'].includes(q.get('style')) ? q.get('style') : 'paper';
     return { sheet, active, figure, camera, style, mode: q.get('mode') === 'focus' ? 'focus' : 'overview' };
   }
@@ -125,6 +151,7 @@
       return button;
     }));
     document.body.dataset.bookReady = 'true';
+    syncViewer(current);
   }
   $('back-to-sheet').onclick = leave;
   $('book-overview').onclick = leave;
@@ -133,6 +160,8 @@
   $('book-next').onclick = () => move(1);
   $('book-style').onchange = event => navigate({ style: event.target.value }, 'replaceState');
   addEventListener('hashchange', render);
+  addEventListener('resize',()=>syncViewer(current));
+  $('wall-exit').addEventListener('click',render);
   addEventListener('popstate', () => { render(); if (current.mode === 'overview' && origin) requestAnimationFrame(() => { byId.get(origin.id)?.panel.querySelector('.explore')?.focus({preventScroll:true}); window.scrollTo(0, origin.y); }); });
   addEventListener('change', event => { if (event.target.closest('[data-variant-group]')) render(); });
   addEventListener('click', event => { if (event.target.closest('[data-variant-step]')) render(); });
@@ -145,7 +174,7 @@
     if (event.target.closest('.book-menu')) { event.stopImmediatePropagation(); return; }
     if (event.target.closest('.drawing') && ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','+','-','='].includes(event.key)) {
       // T03 will attach camera handling here; prevent the sheet handler meanwhile.
-      event.stopImmediatePropagation();
+      if(!event.target.closest('.scene-viewport'))event.stopImmediatePropagation();
     }
   }, true);
   render();

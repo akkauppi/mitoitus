@@ -67,7 +67,7 @@ export function buildScene(key) {
     dimensions.push(dim([-2.5,0,2.5],[2.5,0,2.5],'5 m',[0,0,1]));
     dimensions.push(dim([2.5,0,-2.5],[2.5,0,2.5],'5 m',[1,0,0]));
     dimensions.push(dim([2.5,0,2.5],[2.5,-1,2.5],'1 m',[1.25,0,1.25]));
-    labels.push({point:[0,-.5,2.51],text:'25 m³ soil'},{point:[.3,4.4,-.3],text:'Tree · 5 m'});
+    labels.push({point:[0,-.5,2.5],text:'25 m³ soil'},{point:[.3,4.4,-.3],text:'Tree · 5 m'});
   }
   group.updateMatrixWorld(true);
   return {group,dimensions,labels,meta:SCENES[key]};
