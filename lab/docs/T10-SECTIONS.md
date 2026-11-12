@@ -68,3 +68,28 @@ still T15. Reference captures and browser result JSON are in `references/`.
 Original source content, evidence IDs, variant order and approved spread order
 remain intact. “Check every link” remains explicitly unaccepted pending rework;
 Residents & services still requires substantial work before publication (T13).
+
+## Landing correction after review
+
+The user identified an extra top tread before the landing. The rendered landing
+now begins at the sixth riser (x=2.10 m) and ends at the next flight (x=3.30 m):
+the complete flat is 1.20 m, including the original top tread. The source six-step
+profile and its 0.12/0.42 increments remain intact in the retained reference.
+The rendered lower flight ends at that riser, avoiding overlapping solids and an
+artificial seam across the landing. Its plan run is therefore 2.10 m; this
+supersedes the preceding description of a separate additional landing.
+
+## Equal-density 3D follow-up
+
+User subsequently requested 3D with scale features, superseding the fixed-plan-only
+presentation above. Default is now 3D with assumed 3 m floor-to-floor massing
+(6/12/24 m), plus a full-scale tree, car and person on each plot's open side.
+Those heights are explicitly labelled illustration assumptions, not source values.
+The metric Plan option remains, hiding the massing to expose exact footprints;
+all 32 × 32 m plots and 1,024 m² floor-area totals are unchanged. Separate floor
+cards remain explicitly unscaled. The common comparison envelope applies to both
+views and all three plots; no height dimension presents the assumption as a rule.
+
+Follow-up checks: 90 unit tests, 35 responsive analytical panel camera states and
+20 candidate tests. Landing tests establish the complete flat as x=2.10–3.30 m;
+3D tests verify assumed heights, context scale/placement and Plan visibility.

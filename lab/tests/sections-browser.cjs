@@ -9,7 +9,7 @@ const base='http://127.0.0.1:8765/lab/book/',out=path.join(__dirname,'../review'
  const facts=await page.locator('#section-details .details').evaluateAll(ns=>ns.map(n=>n.innerHTML)),figures=await page.locator('#section-details figure').evaluateAll(ns=>ns.map(n=>n.innerHTML));let states=0;const ratios=[];
  for(const width of [320,390,768,1024,1440]){
   await page.setViewportSize({width,height:1100});
-  for(const [index,panel,cameras,anchors]of [[0,'section-ratio',['section','iso'],3],[1,'equal-density',['plan'],3],[2,'steps',['iso','plan','section'],4]]){
+  for(const [index,panel,cameras,anchors]of [[0,'section-ratio',['section','iso'],3],[1,'equal-density',['iso','plan'],3],[2,'steps',['iso','plan','section'],4]]){
    await page.locator('.panel-selector button').nth(index).click();await ready(panel+'--v0');
    for(const camera of cameras){
     await page.locator(`.scene-toolbar [data-camera="${camera}"]`).click();await ready(panel+'--v0');
@@ -26,7 +26,7 @@ const base='http://127.0.0.1:8765/lab/book/',out=path.join(__dirname,'../review'
     }else if(panel==='equal-density'){
      assert.equal(d.sections.length,0);assert.equal(d.dimensions.length,3);assert.ok(d.dimensions.every(v=>Math.abs(v-d.dimensions[0])<1e-7),'same metric plot scale');
      const floors=await page.locator('.floor-stack').evaluateAll(ns=>ns.map(n=>n.querySelectorAll('i').length));assert.deepEqual(floors,[2,4,8]);assert.ok((await page.locator('.floor-schematic').textContent()).includes('no vertical metre scale'));
-     await page.locator('.scene-viewport').focus();const position=await page.locator('.scene-viewport').getAttribute('data-camera-position');await page.keyboard.press('ArrowRight');assert.equal(new URL(page.url()).hash,'#section-details');assert.equal(await page.locator('.scene-viewport').getAttribute('data-camera-position'),position,'metric plan stays locked');
+     await page.locator('.scene-viewport').focus();const position=await page.locator('.scene-viewport').getAttribute('data-camera-position');await page.keyboard.press('ArrowRight');await ready(panel+'--v0');assert.equal(new URL(page.url()).hash,'#section-details');assert.notEqual(await page.locator('.scene-viewport').getAttribute('data-camera-position'),position,'3D illustration supports keyboard orbit');
     }else{
      assert.ok(d.texts.some(t=>t.text==='1.2 m landing'));assert.equal(await page.locator('.retained-profile').count(),1);
      if(camera==='section'){assert.equal(d.sections.length,3);assert.ok(Math.abs(d.dimensions[0]/d.dimensions[1]-.12/.42)<1e-7,'rise/tread use equal metric axes');}else assert.equal(d.sections.length,0);

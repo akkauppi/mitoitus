@@ -39,7 +39,7 @@ test('all three ratio cuts keep 12m height, exact facade widths and a shared loc
  assert.equal(m.sections.length,6);dispose(m);
 });
 test('equal-floor-area geometry retains every denominator, coverage and 1024m² total in both layouts',()=>{
- const m=createRecipe('equal-density--v0');assert.equal(m.recipe.fixedPlan,true);assert.deepEqual(m.recipe.allowedCameras,['plan']);
+ const m=createRecipe('equal-density--v0');assert.equal(m.recipe.defaultCamera,'iso');assert.deepEqual(m.recipe.allowedCameras,['iso','plan']);m.applyView('plan');
  for(const narrow of [false,true]){m.layout(narrow);for(let i=0;i<3;i++){
   const example=m.group.children[i],p=bounds(example.getObjectByName('plot')),f=bounds(example.getObjectByName('footprint')),data=FAR_EXAMPLES[i];
   near(p.max.x-p.min.x,32);near(p.max.z-p.min.z,32);near((p.max.x-p.min.x)*(p.max.z-p.min.z),1024);near(f.max.x-f.min.x,32);near(f.max.z-f.min.z,data.depth);near(f.min.z,p.min.z);
@@ -50,8 +50,8 @@ test('main stair flight keeps six equal rises/treads beside separate illustrativ
  const m=createRecipe('steps--v0'),rises=[],treads=[];
  for(let i=1;i<STEP_PROFILE.length;i++){const a=STEP_PROFILE[i-1],b=STEP_PROFILE[i];if(b[1]>a[1]+1e-7&&Math.abs(b[0]-a[0])<1e-7)rises.push(b[1]-a[1]);if(b[0]>a[0]+1e-7&&Math.abs(b[1]-a[1])<1e-7)treads.push(b[0]-a[0]);}
  assert.equal(rises.length,6);assert.equal(treads.length,6);rises.forEach(r=>near(r,.12));treads.forEach(t=>near(t,.42));near(2*.12+.42,.66);
- const full=bounds(m.group.getObjectByName('full-stair'));near(full.max.x,2.52);near(full.max.y,.72);near(full.max.z-full.min.z,1.2);
- m.applyView('section');const cut=m.sections[0];near(bounds(cut.getObjectByName('body')).max.z,0);near(capArea(cut.getObjectByName('cap')),.42*.12*21);for(const l of m.labels)assert.ok(validateCapAnchor(l.text==='Landing'?m.sections[1]:cut,l.point));assert.equal(m.dimensions.length,3);
+ const full=bounds(m.group.getObjectByName('full-stair'));near(full.max.x,2.1);near(full.max.y,.72);near(full.max.z-full.min.z,1.2);
+ m.applyView('section');const cut=m.sections[0];near(bounds(cut.getObjectByName('body')).max.z,0);near(capArea(cut.getObjectByName('cap')),.42*.12*21-.42*.72);for(const l of m.labels)assert.ok(validateCapAnchor(l.text==='Landing'?m.sections[1]:cut,l.point));assert.equal(m.dimensions.length,3);
  const person=m.group.children.find(o=>o.userData.asset==='person'),b=bounds(person);near(b.min.y,0);near(b.max.y,1.75);assert.ok(b.max.x<0);dispose(m);
 });
 test('section models have finite geometry, registered roles and valid recipe identities',()=>{
@@ -70,12 +70,17 @@ test('street sections retain depth and scale context, with cropped backs and hei
 });
 test('illustrative step landing and cut continuation connect without altering the original six-step kernel',()=>{
  const m=createRecipe('steps--v0'),original=bounds(m.group.getObjectByName('full-stair')),landing=m.group.getObjectByName('illustrative-landing'),next=m.group.getObjectByName('next-flight-cut'),l=bounds(landing),n=bounds(next);
- assert.ok(landing.userData.contextExtension&&next.userData.contextExtension);near(l.min.x,original.max.x);near(l.max.x-l.min.x,1.2);near(l.max.y,original.max.y);near(n.min.x,l.max.x);assert.ok(n.max.x>4.56,'broken cut continuation end');
- assert.equal(m.measurement.count,6);near(m.measurement.mainFlightRun,2.52);assert.ok(m.recipe.explanation.join().includes('does not prescribe'));m.applyView('section');assert.ok(validateCapAnchor(m.sections[1],m.labels.find(l=>l.text==='Landing').point));assert.equal(m.labels.length,4);dispose(m);
+ assert.ok(landing.userData.contextExtension&&next.userData.contextExtension);near(l.min.x,original.max.x);near(l.max.x-l.min.x,1.2);near(l.max.y,original.max.y);near(l.min.x,2.1);near(l.max.x,3.3); // Entire flat between consecutive risers is 1.2 m.
+near(n.min.x,l.max.x);assert.ok(n.max.x>4.14,'broken cut continuation end');
+ assert.equal(m.measurement.count,6);near(m.measurement.mainFlightRun,2.1);assert.ok(m.recipe.explanation.join().includes('does not prescribe'));m.applyView('section');assert.ok(validateCapAnchor(m.sections[1],m.labels.find(l=>l.text==='Landing').point));assert.equal(m.labels.length,4);dispose(m);
 });
 
 test('cropped outer ends use the cut material while exterior faces remain separately closed',()=>{
  for(const side of ['left','right']){const group=new THREE.Group(),solid=cutPrism(group,{profile:rectangleProfile(-2,0,2,12),zMin:-8,zMax:8,role:'sectionExterior',capRole:'cutBuilding',croppedSide:side});
  const body=solid.getObjectByName('body'),cap=solid.getObjectByName('cap'),end=solid.getObjectByName('cropped-end');assert.equal(body.userData.role,'sectionExterior');assert.equal(cap.userData.role,'cutBuilding');assert.equal(end.userData.role,'cutBuilding');assert.ok(end.userData.croppedCut);near(Math.abs(meshVolume(body)+meshVolume(cap)+meshVolume(end)),384);near(capArea(end),96);dispose({group});}
  assert.throws(()=>cutPrism(new THREE.Group(),{profile:rectangleProfile(0,0,1,1),zMin:-1,zMax:1,croppedSide:'bad'}));
+});
+
+test('equal floor area 3D uses explicit illustrative storeys and full-scale context on every plot',()=>{
+ const m=createRecipe('equal-density--v0');m.applyView('iso');for(const [i,g]of m.group.children.entries()){const mass=g.getObjectByName('footprint-massing');near(bounds(mass).max.y,FAR_EXAMPLES[i].floors*3);assert.ok(mass.visible);const actors=g.children.filter(o=>o.userData.asset);assert.deepEqual(actors.map(o=>o.userData.asset).sort(),['car','person','tree']);for(const a of actors){const b=bounds(a);near(b.min.y,0);assert.ok(b.min.z>0&&b.max.z<16);}}m.applyView('plan');for(const g of m.group.children)assert.equal(g.getObjectByName('footprint-massing').visible,false);dispose(m);
 });

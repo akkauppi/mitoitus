@@ -1,14 +1,15 @@
 import * as THREE from 'three';
 import {createPerson,createTree,createCar} from '../../assets.js';
 import {box,outline} from '../primitives/surfaces.js';
+import {buildingMass} from '../primitives/massing.js';
 import {plotSurface,footprint} from '../primitives/footprints.js';
 import {cutPrism,solidPrism,rectangleProfile,validateCapAnchor} from '../primitives/sections.js';
 const dim=(a,b,label,offset=[0,0,0])=>({a,b,label,offset});
 export const FAR_EXAMPLES=[{coverage:.5,floors:2,depth:16},{coverage:.25,floors:4,depth:8},{coverage:.125,floors:8,depth:4}];
 export const SECTION_INFO={
  'section-ratio':{heightDimensionsOpposite:true,defaultCamera:'section',allowedCameras:['section','iso'],cutViews:['section','iso'],noShadows:true,caseTitle:'THREE INDEPENDENT STREET SECTIONS · ONE SCALE',description:'Three sections: height 12 metres in every example, facade widths 12, 24 and 36 metres; width/height 1, 2 and 3.',sectionNote:'The section cuts through the middle; the front half is removed. Each comparison has its own local ground datum at 0 m. Rows are separate diagrams, not terrain levels.',explanation:['H = 12 m throughout. Façade-to-façade W = 12 / 24 / 36 m, so W/H = 1 / 2 / 3. All three sections share one metric scale.','Street-space width includes the whole space between façades; these comparisons prescribe no traffic-lane allocation or preferred ratio.'],assumptions:['Nominal building-strip width 3 m follows the original illustration. Longitudinal prism extent 16 m (8 m retained behind the cut), scale-context placement, diagram-row separation and base relief are illustrative. Trees 5 m, people 1.75 m and car body 5 × 1.8 m provide illustrative scale. No metre storey heights or floor counts are inferred.']},
- 'equal-density':{defaultCamera:'plan',allowedCameras:['plan'],fixedPlan:true,noShadows:true,caseTitle:'EQUAL FLOOR AREA · THREE METRIC PLOT PLANS',description:'Three 32 by 32 metre plots. Coverage 50, 25 and 12.5 percent times 2, 4 and 8 floors each yields 1024 square metres and FAR 1.',explanation:['Every plot: 32 × 32 m = 1,024 m². Footprints: 512 / 256 / 128 m²; 2 / 4 / 8 identical floors give 1,024 m² floor area in each case.','Plans are metric. The separate floor-count diagrams use schematic vertical spacing and imply no metre building heights, daylight, population or usable-open-space result.'],floorExamples:FAR_EXAMPLES,assumptions:['These are the retained editorial geometry examples. Flat footprint relief is decorative. No assumed metre storey height is used; actual counted floor areas and land-area denominators must be checked separately.']},
- steps:{retainedGraphicSelector:'figure svg',defaultCamera:'iso',allowedCameras:['iso','plan','section'],cutViews:['section'],caseTitle:'SIX-STEP FLIGHT · ILLUSTRATIVE LANDING',description:'The original six steps, each 0.12 metre rise and 0.42 metre tread, at equal metric scales; source minimum width 1.2 metres.',sectionNote:'The section cuts lengthways through the middle of the stair. Front half removed; the full stair width is 1.2 m. Hatching marks the actual cap.',explanation:['Six identical rises/treads: 0.12 m / 0.42 m. Outdoor relation: 2 × rise + tread = 0.66 m; covered/heated stairs use the separate 0.63 m relation.','The original six-step flight is extended with a 1.2 m illustrative landing and a cut fragment of the following flight; this does not prescribe a landing after six steps. Handrails, guarding, landings and a continuous accessible alternative still need coordination.'],assumptions:['The 1.2 m landing length, cut continuation and 1.75 m person are illustration assumptions; the source resting-landing recommendation remains every 10–15 steps. Ground relief is decorative. The edge cue is a graphic line, not a dimensioned contrast strip or complete stair design.']},
+ 'equal-density':{defaultCamera:'iso',allowedCameras:['iso','plan'],noShadows:true,caseTitle:'EQUAL FLOOR AREA · ONE SCALE',description:'Three 32 by 32 metre plots. Coverage 50, 25 and 12.5 percent times 2, 4 and 8 floors each yields 1024 square metres and FAR 1.',explanation:['Every plot: 32 × 32 m = 1,024 m². Footprints: 512 / 256 / 128 m²; 2 / 4 / 8 identical floors give 1,024 m² floor area in each case.','Plans and 3D share metric geometry. Each diagram has its own ground datum. Building heights assume 3 m per floor for illustration; this is not a source specification or a daylight, population or usable-open-space result.'],floorExamples:FAR_EXAMPLES,assumptions:['These are the retained editorial geometry examples. Flat footprint relief is decorative. User requested 3D massing with scale context: assumed floor-to-floor height 3 m, trees 5 m, people 1.75 m and cars 5 × 1.8 m. Actual counted floor areas and land-area denominators must be checked separately.']},
+ steps:{retainedGraphicSelector:'figure svg',defaultCamera:'iso',allowedCameras:['iso','plan','section'],cutViews:['section'],caseTitle:'SIX-STEP FLIGHT · ILLUSTRATIVE LANDING',description:'The original six steps, each 0.12 metre rise and 0.42 metre tread, at equal metric scales; source minimum width 1.2 metres.',sectionNote:'The section cuts lengthways through the middle of the stair. Front half removed; the full stair width is 1.2 m. Hatching marks the actual cap.',explanation:['Six identical rises/treads: 0.12 m / 0.42 m. Outdoor relation: 2 × rise + tread = 0.66 m; covered/heated stairs use the separate 0.63 m relation.','The final tread forms part of the complete 1.2 m illustrative landing. A cut fragment shows the following flight; this does not prescribe a landing after six steps. Handrails, guarding, landings and a continuous accessible alternative still need coordination.'],assumptions:['The 1.2 m landing length, cut continuation and 1.75 m person are illustration assumptions; the source resting-landing recommendation remains every 10–15 steps. Ground relief is decorative. The edge cue is a graphic line, not a dimensioned contrast strip or complete stair design.']},
 };
 // Paired zigzags denote cropped building backs; the street facades stay straight.
 export function brokenBuildingProfile(left,right,side){
@@ -34,34 +35,36 @@ export function ratioScene(){
  });};model.layout(false);return model;
 }
 export function equalDensityScene(){
- const group=new THREE.Group(),plots=[];const model={group,dimensions:[],labels:[],measurement:{plotArea:1024,floorAreas:[1024,1024,1024]},comparison:{id:'equal-floor-area',bounds:null},meta:{target:[0,0,0],camera:[0,1,.0001]}};
- FAR_EXAMPLES.forEach((example,i)=>{const g=new THREE.Group();g.name='far-example-'+i;g.userData={...example,plotArea:1024,footprintArea:32*example.depth,floorArea:32*example.depth*example.floors};group.add(g);plotSurface(g,{width:32,length:32,name:'plot'});footprint(g,{width:32,length:example.depth,z:-16+example.depth/2,name:'footprint',ground:false});plots.push(g);});
+ const group=new THREE.Group(),plots=[],masses=[];let plan=false,narrowLayout=false;const model={group,dimensions:[],labels:[],measurement:{plotArea:1024,floorAreas:[1024,1024,1024]},comparison:{id:'equal-floor-area',bounds:null},meta:{target:[0,8,0],camera:[.65,.8,1.4]}};
+ FAR_EXAMPLES.forEach((example,i)=>{const g=new THREE.Group();g.name='far-example-'+i;g.userData={...example,plotArea:1024,footprintArea:32*example.depth,floorArea:32*example.depth*example.floors};group.add(g);plotSurface(g,{width:32,length:32,name:'plot'});const {plate}=footprint(g,{width:32,length:example.depth,z:-16+example.depth/2,name:'footprint',ground:false});masses.push(buildingMass(g,plate,{height:example.floors*3}));const tree=createTree(),car=createCar(),person=createPerson({pose:'walking'});tree.position.set(-10,0,9);car.position.set(5,0,10);person.position.set(0,0,6);g.add(tree,car,person);plots.push(g);});
  model.layout=narrow=>{
-  model.dimensions=[];model.labels=[];
-  plots.forEach((g,i)=>{const x=narrow?0:(i-1)*40,z=narrow?(i-1)*40:0;g.position.set(x,0,z);model.dimensions.push(dim([x-16,0,z+16],[x+16,0,z+16],'32 m plot',[0,0,2]));model.labels.push({point:[x,.12,z-16+FAR_EXAMPLES[i].depth/2],text:`${FAR_EXAMPLES[i].coverage*100}% · ${FAR_EXAMPLES[i].floors} floors`});});
-  model.comparison.bounds=narrow?{min:[-19,-.3,-59],max:[19,.3,59]}:{min:[-59,-.3,-19],max:[59,.3,19]};group.updateMatrixWorld(true);
- };model.layout(false);return model;
+  narrowLayout=narrow;model.dimensions=[];model.labels=[];
+  plots.forEach((g,i)=>{const x=narrow?0:(i-1)*40,z=narrow&&plan?(i-1)*40:0,y=narrow&&!plan?(2-i)*40:0;g.position.set(x,y,z);model.dimensions.push(dim([x-16,y,z+16],[x+16,y,z+16],'32 m plot',[0,0,2]));model.labels.push({point:[x,y+(plan?.12:FAR_EXAMPLES[i].floors*3),z-16+FAR_EXAMPLES[i].depth/2],text:`${FAR_EXAMPLES[i].coverage*100}% · ${FAR_EXAMPLES[i].floors} floors`});});
+  model.comparison.bounds=narrow?(plan?{min:[-19,-.3,-59],max:[19,24,59]}:{min:[-19,-.3,-19],max:[19,87,19]}):{min:[-59,-.3,-19],max:[59,24,19]};group.updateMatrixWorld(true);
+ };model.applyView=view=>{plan=view==='plan';masses.forEach(m=>m.visible=!plan);model.layout(narrowLayout);};model.layout(false);return model;
 }
 export const STEP_PROFILE=(()=>{const points=[[0,0],[0,.12]];for(let i=0;i<6;i++){points.push([(i+1)*.42,(i+1)*.12]);if(i<5)points.push([(i+1)*.42,(i+2)*.12]);}points.push([2.52,0]);return points;})();
 export function stepsScene(){
  const group=new THREE.Group(),full=new THREE.Group(),cut=new THREE.Group();group.add(full,cut);
- solidPrism(full,{profile:STEP_PROFILE,zMin:-.6,zMax:.6,name:'full-stair',role:'paving'});
- const section=cutPrism(cut,{profile:STEP_PROFILE,zMin:-.6,zMax:.6,name:'stair-section',role:'paving',capRole:'cutPaving',hatch:.1});
- const landingProfile=rectangleProfile(2.52,0,3.72,.72),continuationProfile=[[3.72,0],[3.72,.84],[4.14,.84],[4.14,.96],[4.56,.96],[4.56,.8],[4.48,.65],[4.64,.5],[4.48,.35],[4.56,.2],[4.56,0]];
+ // The final source tread is part of the landing, not an extra flat before it.
+ const flightProfile=[...STEP_PROFILE.slice(0,-2),[2.1,0]];
+ solidPrism(full,{profile:flightProfile,zMin:-.6,zMax:.6,name:'full-stair',role:'paving'});
+ const section=cutPrism(cut,{profile:flightProfile,zMin:-.6,zMax:.6,name:'stair-section',role:'paving',capRole:'cutPaving',hatch:.1});
+ const landingProfile=rectangleProfile(2.1,0,3.3,.72),continuationProfile=[[3.72,0],[3.72,.84],[4.14,.84],[4.14,.96],[4.56,.96],[4.56,.8],[4.48,.65],[4.64,.5],[4.48,.35],[4.56,.2],[4.56,0]].map(([x,y])=>[x-.42,y]);
  for(const [name,profile]of [['illustrative-landing',landingProfile],['next-flight-cut',continuationProfile]])solidPrism(full,{profile,zMin:-.6,zMax:.6,role:'paving',name}).userData.contextExtension=true;
  const landingSection=cutPrism(cut,{profile:landingProfile,zMin:-.6,zMax:.6,role:'paving',capRole:'cutPaving',name:'landing-section',hatch:.1});
  const nextSection=cutPrism(cut,{profile:continuationProfile,zMin:-.6,zMax:.6,role:'paving',capRole:'cutPaving',name:'next-flight-section',hatch:.1});
  landingSection.userData.contextExtension=true;nextSection.userData.contextExtension=true;
  box(group,6.5,.24,3.4,1.8,-.12,0,'soil','stair-context-base');
  const person=createPerson();person.position.set(-.7,0,1.3);group.add(person);
- const cuttingLine=outline(group,STEP_PROFILE.slice(1,-1).map(([x,y])=>[x,y+.003,0]),'section-plane-line');
+ const cuttingLine=outline(group,flightProfile.slice(1,-1).map(([x,y])=>[x,y+.003,0]),'section-plane-line');
  const edge=outline(group,[[.42,.242,-.6],[.42,.242,.6]],'contrast-edge-cue');
- const model={group,sections:[section,landingSection,nextSection],dimensions:[],labels:[],measurement:{rise:.12,tread:.42,count:6,width:1.2,mainFlightRise:.72,mainFlightRun:2.52,landingRun:1.2},meta:{target:[1.6,.7,0],camera:[1.2,.9,1.8]}};
+ const model={group,sections:[section,landingSection,nextSection],dimensions:[],labels:[],measurement:{rise:.12,tread:.42,count:6,width:1.2,mainFlightRise:.72,mainFlightRun:2.1,landingRun:1.2},meta:{target:[1.6,.7,0],camera:[1.2,.9,1.8]}};
  model.applyView=view=>{const active=view==='section';full.visible=!active;cut.visible=active;edge.visible=!active;cuttingLine.visible=active||view==='plan';
   const z=active?0:.6;
-  model.dimensions=[dim([.84,.24,z],[.84,.36,z],'0.12 m rise',[.4,0,.3]),dim([.84,.36,z],[1.26,.36,z],'0.42 m tread',[0,.25,.3]),dim([2.52,.72,z],[3.72,.72,z],'1.2 m landing',[0,.25,.3])];
-  if(!active)model.dimensions.push(dim([2.52,0,-.6],[2.52,0,.6],'≥1.2 m width',[.4,0,0]));
-  model.labels=[{point:[.84,.30,z],text:'Riser'},{point:[1.05,.36,z],text:'Tread'},{point:[.42,.24,z],text:'Contrast edge'},{point:[3.12,.72,z],text:'Landing'}];
+  model.dimensions=[dim([.84,.24,z],[.84,.36,z],'0.12 m rise',[.4,0,.3]),dim([.84,.36,z],[1.26,.36,z],'0.42 m tread',[0,.25,.3]),dim([2.1,.72,z],[3.3,.72,z],'1.2 m landing',[0,.25,.3])];
+  if(!active)model.dimensions.push(dim([2.1,0,-.6],[2.1,0,.6],'≥1.2 m width',[.4,0,0]));
+  model.labels=[{point:[.84,.30,z],text:'Riser'},{point:[1.05,.36,z],text:'Tread'},{point:[.42,.24,z],text:'Contrast edge'},{point:[2.7,.72,z],text:'Landing'}];
   if(active&&model.labels.some(l=>!validateCapAnchor(l.text==='Landing'?landingSection:section,l.point)))throw new Error('Step anchor outside cap');
  };group.updateMatrixWorld(true);model.applyView('iso');return model;
 }

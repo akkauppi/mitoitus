@@ -155,3 +155,8 @@ Shared analytical caps, true Section views, metric comparisons and user review
 amendments are implemented and tested locally. See [T10-SECTIONS.md](T10-SECTIONS.md)
 for the API, material convention, exact dimensions, assumptions, evidence and
 remaining limitations. This supersedes planned-only descriptions for these panels.
+
+User follow-up: corrected the complete stair landing to 1.20 m including the top
+tread, and added equal-density 3D massing with scale context. Heights are explicit
+3 m/floor assumptions; metric plans and floor-area arithmetic remain intact. See
+[T10 follow-up evidence](T10-SECTIONS.md).
