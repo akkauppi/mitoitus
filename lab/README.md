@@ -64,6 +64,15 @@ Code / SolidCraft / Blender comparison and third-party asset options:
 Outside-label algorithm and extension rules: [CALLOUTS.md](docs/CALLOUTS.md).
 Iteration record and verification limits: [REVIEW.md](docs/REVIEW.md).
 
+## Candidate build (T01)
+
+T01 is complete; the candidate currently retains the baseline layout. From the
+worktree root, run `python3 lab/scripts/build-book.py` for the first build, or
+`python3 lab/scripts/build-book.py --replace` to replace an intact generated
+candidate. `python3 lab/scripts/package-book.py` exports the explicitly allowlisted
+ZIP into `lab/.build/`. See [PROGRESS.md](docs/PROGRESS.md) for commands, verification
+and limits. T02 has not started.
+
 ## Development
 
 ```sh
