@@ -1,7 +1,7 @@
 # Proposed scene and application contract
 
-Specification · 12 November 2026. T01–T08 now implement the candidate shell, rooting-volume host,
-shared walking/cycling comparison frame, accessibility, tram, vehicle/rescue and connection scenes; PROGRESS.md records the actual interfaces and checks. Other
+Specification · 12 November 2026. T01–T09 now implement the candidate shell, rooting-volume host,
+shared walking/cycling comparison frame, accessibility, tram, vehicle/rescue, connection and building-footprint scenes; PROGRESS.md records the actual interfaces and checks. Other
 recipes and cut support below remain proposed future work.
 Implement the minimum contract; do not build a generic modelling editor.
 Existing source text and dimensional evidence stay authoritative.
@@ -288,3 +288,11 @@ draft, with earlier source details retained in a Sources-only history drawer.
 resolves to the same unified geometry. No source variants are added. The candidate
 builder's explicit `connection_editorial.py` transform preserves baseline source
 files while adopting the user-requested presentation/content amendments.
+
+
+T09 uses `primitives/footprints.js` for decorative plaques, repeated modules and
+plot surfaces. All three `building-*--v0` models share `BUILDING_FRAME` and the
+`building-footprints` comparison ID, including camera/zoom continuity. Their
+source figure identities and overview SVGs remain unchanged. Plan is default;
+3D shows drawing relief only. `building` / `buildingAlt` are palette roles, not
+building-use or structural classifications.

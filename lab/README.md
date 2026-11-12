@@ -174,3 +174,17 @@ The date is a fixed edition stamp, not the build clock or source-validity date.
 Accessibility circle callouts now identify clear turning space; the wheelchair
 callout terminates on the actual figure. Overview/fallback labels likewise identify
 clear space, with the existing manual/powered distinction retained.
+
+## Building footprints (T09)
+
+[Open Building types](http://localhost:8765/lab/book/?mode=focus&panel=building-blocks#built-form).
+All five existing typologies are retained: slab, point block, small block,
+row house and detached house. Three plan-first reliefs use one comparison frame,
+including gardens and the illustrative 750 m² plot. Display plaques are only
+0.12 m thick and imply no building height, roof or storey count. Source ranges,
+chosen drawing dimensions, original house placement within the plot, tables and
+fallback SVGs remain intact. Plan/3D presets keep one metric scale across panels.
+
+Run `node lab/tests/buildings-browser.cjs` from the worktree root for the focused
+responsive, comparison-scale, source-preservation and fallback checks.
+“Check every link” remains unaccepted and recorded for rework before release.

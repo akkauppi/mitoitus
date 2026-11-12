@@ -148,7 +148,7 @@ route with obstructing scale assets.
 User instruction, 12 November 2026: **“Check every link” needs rework.** Panel
 `walking-connections` remains an unaccepted teaching/visual draft. Revisit the
 lesson, diagram and clarity before release; do not treat the current weakest-link
-schematic as approved. Resume after the next assigned task. This is separate from
+schematic as approved. Track this separately from T09; revisit when assigned. This is separate from
 the existing Residents & services publication blocker.
 
 ## T09 — Building footprints

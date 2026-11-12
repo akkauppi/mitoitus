@@ -647,3 +647,50 @@ User says the panel needs rework and asks to move to the next task. Record
 `walking-connections` as unaccepted: revisit teaching value, diagram and clarity
 before release. Current visuals remain a draft, not an approved replacement.
 No further connection changes in this step; T09 is the next assigned goal.
+
+### T09 complete — Building footprints (2026-11-12)
+
+Implemented `building-blocks`, `building-rows` and `building-detached` in the
+existing single-context viewer, with Plan default and an optional common oblique
+view. All five original types are present simultaneously within their respective
+panels. Shared `footprints.js` supplies plaques, repeated modules and garden/plot
+surfaces. New `building`/`buildingAlt` semantic palette roles keep illustration
+colour independent of transport assets. All geometry is original procedural
+artwork; no external meshes or new licence dependencies.
+
+Preserved drawn dimensions: slab 2 × 26 × 11 m (52 m overall, 572 m²); point block
+20 × 20 m (400 m²); four 9 × 9 m small blocks (36 m overall); four 6 × 9.5 m row
+units (24 m overall), each with a 6 × 10 m / 60 m² garden; detached footprint
+15 × 10 m / 150 m² in a 25 × 30 m / 750 m² example plot. Source ranges and
+upper limits remain verbatim in canonical details, with actual geometry labels
+explicitly marked “drawn”. Detached placement retains the original 35/6 m left
+and 70/6 m top offsets within the plot. Module/garden edges align.
+
+Relief is a 0.12 m decorative plaque on display bases, not building height.
+Plaques contact their base/plot surface. No roofs, setbacks, new floor counts,
+people-as-height-proxies or inferred resident numbers were introduced. The source
+“one storey” statement remains text only. Form layouts are independent references,
+not a composed site plan. `BUILDING_FRAME` fixes scale across all three scenes;
+no per-panel auto-fit. Original overview SVGs and source details are retained.
+
+Validation: 74 unit tests, including measured mesh bounds/areas, module counts,
+garden alignment, original house placement, actual base contact, finite geometry,
+measurement endpoints and shared bounds/palette roles. Thirty browser states
+cover 320/390/768/1024/1440 px, Plan/3D and all three panels: projected pixels per
+metre and camera frames agree, every callout/dimension remains present, leaders
+are uncrossed, text is unclipped/nonoverlapping, and page width fits. Adjusted
+camera/zoom persists between panels; reset/reload and single-context behavior
+pass. Original overview scales are checked by actual SVG screen matrices as well
+as source scale attributes. WebGL failure and file fallback retain content.
+
+Whole-shell regression: 110 responsive states, 33 panels, 15 existing variants,
+canonical detail parity, URL/history/keyboard/CAD, no-JS and direct-file fallback.
+Twenty candidate build/packaging tests pass; explicit candidate and offline ZIP
+rebuilt. Vendor/CAD/source originals remain unchanged. Selected references:
+`references/buildings-t09-{blocks,rows,rows-phone,detached-phone}.png` and
+`references/buildings-t09-results.json`. Overview diorama stills, wall/print/export
+integration remain T15; physical display/GPU/touch validation is not claimed.
+
+“Check every link” remains on the unaccepted rework list, untouched in T09. The
+Residents & services publication blocker also remains open. Local commit only;
+no push, deployment or published-checkout synchronization.

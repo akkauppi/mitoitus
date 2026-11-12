@@ -49,7 +49,7 @@ Local commits are permitted; pushing and deploying are on hold.
 Colour values live only in `styles.js`. Every mesh has `userData.role`; every
 outline has `userData.edge`. Scene code must not add an unregistered colour.
 Current roles: clearance, paving, cycle, road, grass, soil, subsoil, root, person, foliage,
-trunk, vehicle, glass, rubber, metal, furniture, rail and white.
+trunk, building, buildingAlt, vehicle, glass, rubber, metal, furniture, rail and white.
 
 ## Asset catalogue
 
@@ -180,3 +180,10 @@ roof, with no opaque shell coplanar behind the windows. Keep visible pillar face
 at least 10 mm proud of glass and inside the nominal 2.6 m envelope. Use restrained
 chamfers, real wheel-arch notches and simple hubs/doors rather than stacked boxes
 and window decals. These details and the 3.2 m height remain illustration assumptions.
+
+
+Building-footprint plaques use `building` and `buildingAlt` palette roles. The
+secondary fill marks repetition; it does not imply a different material or use.
+`footprints.js` keeps 0.12 m relief decorative, with no storeys/roof/height model.
+All three building panels share one comparison frame; never auto-fit their types
+individually. Preserve garden joints and relative house placement inside the plot.

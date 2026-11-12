@@ -115,3 +115,17 @@ Current review references: `connections-continuity-phone.png` and
 static; the clear-space illustration is one positive corridor. See PROGRESS.md
 for user authority, editorial provenance, checks and limits. Initial T08 reference
 files are historical evidence, not the current recommendation.
+
+## T09 — Building footprint review (12 November 2026)
+
+Plan-first reliefs now cover all five original types at one common metric scale.
+Source ranges and drawn examples remain distinct; decorative plaque height carries
+no building-height or storey information. Reference set:
+[blocks](references/buildings-t09-blocks.png),
+[rows in 3D](references/buildings-t09-rows.png),
+[rows on phone](references/buildings-t09-rows-phone.png),
+[detached plot on phone](references/buildings-t09-detached-phone.png).
+The browser measurement report is `references/buildings-t09-results.json`.
+Reproduce with `node lab/tests/buildings-browser.cjs` from the worktree root;
+see PROGRESS.md for geometry, parity and fallback evidence and remaining limits.
+The existing “Check every link” rework item is still pending.
