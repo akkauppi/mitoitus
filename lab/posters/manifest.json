@@ -1,0 +1,1355 @@
+{
+  "schemaVersion": 1,
+  "style": "paper",
+  "renderer": "Three.js WebGL + vector SVG annotations",
+  "profiles": {
+    "compact": {
+      "width": 320,
+      "height": 420
+    },
+    "wide": {
+      "width": 900,
+      "height": 560
+    }
+  },
+  "titles": {
+    "clear-route-continuity": "Walking path clearances",
+    "equal-density": "Floor-area ratio & building form",
+    "section-ratio": "Street width-to-height ratio",
+    "walking": "Footway & clear widths",
+    "density": "Residential density",
+    "green-hierarchy": "Green-space provision",
+    "tram-width": "Tram stop widths",
+    "tram-length": "Tram stop lengths & levels",
+    "car-turn": "Car lanes & turning radii",
+    "bus-turn": "Bus lanes & turning radii"
+  },
+  "inputs": {
+    "lab/assets.js": "9d25bbaf9a2ebd38edf5cd268c19f79f82903be527385164912e0013da5e2d95",
+    "lab/callouts.js": "3acea6e2568d6986bcdf921057f3587c92f9924bea52f2a1c440a742ece84a1e",
+    "lab/scenes.js": "a645e6e4de9e1172315fac481a071fe9654cd3e42b3e1cc8ba54752eae5ad45f",
+    "lab/scripts/capture-posters.cjs": "571345bb29e9492fbe1b0050888bfb979a060227b97b95ac5a0b3554982dce6d",
+    "lab/scripts/poster-host.html": "3ee1978e007c69cbddd189a788678e46b9de9ab61ea4514bf8d1a4b18cb86c99",
+    "lab/src/annotations.js": "9e887b5338385d4f3432465669285460380f49643d7e33201497cb8c45b0b84d",
+    "lab/src/book.css": "6747a25818157de202b5afc6f46a7d97b633ae0d831067d27266f7dd5baefc10",
+    "lab/src/primitives/accessibility.js": "e31d331be21b3c175b3683170fe445c83b5021843e65ce35415c30793dd3e05d",
+    "lab/src/primitives/conceptual.js": "914da93ddaa5ec8935bce2693fa45e6155a1502a34fdfeecda22f370215a6526",
+    "lab/src/primitives/footprints.js": "ebdc255a9f5c82f4ed8ce2b210dccd6fe4570cc298967e474b894a5da82b3f37",
+    "lab/src/primitives/massing.js": "75ff4f356032f5320215e29a517e742582fa42867e62c7c6d5bea9c3079bbba1",
+    "lab/src/primitives/sections.js": "c0b0015fe36133730036c7fe032dc305f83be828766be5c906a5ec9bc0157c1d",
+    "lab/src/primitives/surfaces.js": "e6da6440eff6a2081ea4281af3f416f9f371eebf76c7ceeb09d8bb529fdc1a4f",
+    "lab/src/recipes/accessibility.js": "ffdb1d7900a258052f043523004ac0f0b77c75d8aaf75d24e5333e919eaf804d",
+    "lab/src/recipes/buildings.js": "7f8b1a0fb635371a61b42fce71ba26f6cb894e98820545ea0f7a339c105a51f2",
+    "lab/src/recipes/connections.js": "4a7c064962e82474d33e4e36fb35584755c5373bd68eccdf3a07be42a66b4ecc",
+    "lab/src/recipes/landscape.js": "4348e8e877ce69b36c09c871e60a78509d52ee82eba7b0ecbb640a8dcc4f6439",
+    "lab/src/recipes/parking.js": "08e863bbbdc147ce4cf5c2aae59161a4151c23e970bf43db5ea08b0a0a7c185d",
+    "lab/src/recipes/routes.js": "965f807725a35a1fd3756eeb58b9f144bfe78212248fc24a1b7f117eaf63e126",
+    "lab/src/recipes/sections.js": "58bf2a3078b81c23df96db1f41cc338feeca9bf9af6c00319348094ec55600bd",
+    "lab/src/recipes/stormwater.js": "4a75b3f91409a8b788711f2caa582baf90ddee1e301dbb06407fa991e5cefef8",
+    "lab/src/recipes/tram.js": "69b63b3b6a5cd35e7a6b1f68465f5aa811c841cdf3440eecdd9513498da8de46",
+    "lab/src/recipes/vehicles.js": "5938a02f92d4297dfa77e89c569b90de828bc7b02458df0d52abecb6db0b8d07",
+    "lab/src/registry.js": "45d0bdc4f3140cb846dd9e698e93dbeee0f1e16d3c87024cc29701d973b8cf46",
+    "lab/src/viewer.js": "10404b09129889e11ea4ae414b9ba04ae3e2829c553e98592c4079e9f66070ea",
+    "lab/styles.js": "9a4ed8538cee1f30fc4be018f39d87d7de1c5ead94cd2bf42f6464705f759bcf"
+  },
+  "posters": [
+    {
+      "id": "building-blocks--v0",
+      "panelId": "building-blocks",
+      "camera": "iso",
+      "description": "Two 26 by 11 metre slab modules and a 20 by 20 metre square point-block footprint at one scale.",
+      "sourceClaims": [
+        "building-blocks"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/building-blocks--v0--default--compact.svg",
+              "sha256": "33ea36ff4ca423ab20b9e490b92136333cbe0531181d198349a2a083cca0781d",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/building-blocks--v0--default--wide.svg",
+              "sha256": "fe5397c9faa6e448c5ed2f6327197d56798de0fc66b3c20fb7309995b882f0fd",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "building-rows--v0",
+      "panelId": "building-rows",
+      "camera": "iso",
+      "description": "Four 9 by 9 metre small-block modules; four 6 by 9.5 metre row dwellings, each with a 6 by 10 metre garden.",
+      "sourceClaims": [
+        "building-rows"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/building-rows--v0--default--compact.svg",
+              "sha256": "01949fb7abb6b51b050cbd418ee6c9d2b5c31e90352bd2e49831eb033ea7b3d0",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/building-rows--v0--default--wide.svg",
+              "sha256": "87fde43dce70b2f743241bf41dbea379c793f460373b240ec9b948df6f5f8cde",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "building-detached--v0",
+      "panelId": "building-detached",
+      "camera": "iso",
+      "description": "A 15 by 10 metre house footprint within an illustrative 25 by 30 metre plot: 150 and 750 square metres.",
+      "sourceClaims": [
+        "building-detached"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/building-detached--v0--default--compact.svg",
+              "sha256": "80da88021a4fd4b69c0a8746cb4de704061c178ec626c2347a6e0e4d4d7d65f0",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/building-detached--v0--default--wide.svg",
+              "sha256": "bc6f5b3a4dfe013976ed91a0442341625136039db53158d488fb5e7229160378",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "walking--v0",
+      "panelId": "walking",
+      "camera": "iso",
+      "description": "Basic footway: 2.5 m total path width.",
+      "sourceClaims": [
+        "walking"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/walking--v0--default--compact.svg",
+              "sha256": "b77d7e7102766c6cb9c851727cb69e9a52459930ca5d11cedd2160b07d2554b3",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/walking--v0--default--wide.svg",
+              "sha256": "2e95311251d06275bfc967a3f01e1eeb80c19ce9509f7491585e46d9d2f96c23",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "walking--v1",
+      "panelId": "walking",
+      "camera": "iso",
+      "description": "Clear passage: at least 1.5 m unobstructed width.",
+      "sourceClaims": [
+        "walking"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/walking--v1--default--compact.svg",
+              "sha256": "d2c5179832f649c19048a449230c161e1042007118609ea9a174ff2fee9efcac",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/walking--v1--default--wide.svg",
+              "sha256": "b6cba5b768ffcfeac264b6a2516e54796a897e08acdc8b9bc324f256956ef4e8",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "walking--v2",
+      "panelId": "walking",
+      "camera": "iso",
+      "description": "Wheelchair passing: at least 1.8 m clear width.",
+      "sourceClaims": [
+        "walking"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/walking--v2--default--compact.svg",
+              "sha256": "a23709e0fe714f43ede22bbf233b075e86025b18b909ddcbea9b4863ccaa4a30",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/walking--v2--default--wide.svg",
+              "sha256": "cb139dbd72076b8ed6a7a2cba898684891408a06905a999b08dcf9e18a9e847f",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "walking--v3",
+      "panelId": "walking",
+      "camera": "iso",
+      "description": "Machine maintenance: at least 2.3 m clear width.",
+      "sourceClaims": [
+        "walking"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/walking--v3--default--compact.svg",
+              "sha256": "30ef774796be8119bde3ab362eac486eeb9622d02e3a8a3a7af9110fbdfc18df",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/walking--v3--default--wide.svg",
+              "sha256": "b5be9630c18aa031949133c6ff1ebe791b8baa4171f39b9a39dc1786ec47c707",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cycling--v0",
+      "panelId": "cycling",
+      "camera": "iso",
+      "description": "Cycle facility source case 1.",
+      "sourceClaims": [
+        "cycling"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/cycling--v0--default--compact.svg",
+              "sha256": "29fb5be3b794cd0ba55491a2dbcc58e125071038f0cc492c5d66e94bfc415052",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/cycling--v0--default--wide.svg",
+              "sha256": "6f986d764ecb56850343bcd7d7bf35a96fd725fea0e1e7c190cfc123bec8fa22",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cycling--v1",
+      "panelId": "cycling",
+      "camera": "iso",
+      "description": "Cycle facility source case 2.",
+      "sourceClaims": [
+        "cycling"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/cycling--v1--default--compact.svg",
+              "sha256": "f5dc8c68fff5cb1f694e568c9cce8a50307433bf6256ec8f5a48dcccd808a06d",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/cycling--v1--default--wide.svg",
+              "sha256": "d3ceaea3caa26959c1444c45ee139e7e08ec770999eaa1f4e007fa576ab7722a",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cycling--v2",
+      "panelId": "cycling",
+      "camera": "iso",
+      "description": "Cycle facility source case 3.",
+      "sourceClaims": [
+        "cycling"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/cycling--v2--default--compact.svg",
+              "sha256": "b4c8ef6f05e4222b46fa02a74b36184e7eb1fb7dc857deb4b1512e4219bfb19b",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/cycling--v2--default--wide.svg",
+              "sha256": "1f7e8feb3439c19268e2f63036eb21b8ce2027a8c8366e8d21202670f99941cd",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cycling--v3",
+      "panelId": "cycling",
+      "camera": "iso",
+      "description": "Cycle facility source case 4.",
+      "sourceClaims": [
+        "cycling"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/cycling--v3--default--compact.svg",
+              "sha256": "64e2601a339fa475b2b416f943446731032181a20653c53c0f85feb07c1637f7",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/cycling--v3--default--wide.svg",
+              "sha256": "d2d01ffb12997ab53688c2600349f7d12d7ebe021bd24fc1d12fc1b81d966220",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cycling--v4",
+      "panelId": "cycling",
+      "camera": "iso",
+      "description": "Cycle facility source case 5.",
+      "sourceClaims": [
+        "cycling"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/cycling--v4--default--compact.svg",
+              "sha256": "d6d3219d3129b74b0721cd18621a2d4401589477f525ccdbb84a49bdf7bd0ebd",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/cycling--v4--default--wide.svg",
+              "sha256": "a56814b01f4cf61bc6d07b0fcf1b0b920d72d3e32025d82aa716faba28dcd450",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bike-parking--v0",
+      "panelId": "bike-parking",
+      "camera": "iso",
+      "description": "Five cycles and handling space: 3 by 4 metres, 12 square metres, 2.4 square metres per cycle.",
+      "sourceClaims": [
+        "bike-parking"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/bike-parking--v0--default--compact.svg",
+              "sha256": "9036f0cfdff1d51a2b7a707268f918213f8f13bd08620eff6b41cec0c528982c",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/bike-parking--v0--default--wide.svg",
+              "sha256": "5f4076e3bde456ced04a54ffaca193edb5125b09bf7ea3a9c56277ff60b877a3",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "turning--v0",
+      "panelId": "turning",
+      "camera": "plan",
+      "description": "Clear turning circles with diameters 1.5 and 2.5 metres, at the same scale, with a contextual manual wheelchair user outside the circles.",
+      "sourceClaims": [
+        "turning"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/turning--v0--default--compact.svg",
+              "sha256": "3689d346a10b5c5d9ba0c9d67837353939033a5facfcf35f0735dbfdced9b7bd",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/turning--v0--default--wide.svg",
+              "sha256": "b38598b9137bb92cbc7d4a30d6437b88106aa1080bc593c296aafc08630785e9",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ramps--v0",
+      "panelId": "ramps",
+      "camera": "front",
+      "description": "A ramp rises 0.30 metres over 6 metres horizontal run, at 5 percent, followed by a 2 metre landing. A wheelchair user is on the upper landing. Truncated lower landing and ramp continuation show the adjoining route.",
+      "sourceClaims": [
+        "ramps"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/ramps--v0--default--compact.svg",
+              "sha256": "7e027fd39509e01de11c8bef4bc5c7e7ea09c66299e8707a43d72cc39ddba344",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/ramps--v0--default--wide.svg",
+              "sha256": "8f7ed805833a812a791a8ff0ce775dc664da0ba2fb1f67686dc5ef50de8d33d0",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "arrival--v0",
+      "panelId": "arrival",
+      "camera": "plan",
+      "description": "Separate courtyard bay 3.6 by 5 metres and bench-end clear space 0.9 metres wide, with an illustrative 1.5 metre depth. A reference car and manual wheelchair user are shown side by side in the bay.",
+      "sourceClaims": [
+        "arrival"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/arrival--v0--default--compact.svg",
+              "sha256": "ebb88753c833b8729ffe352f021c7440b472d79b5caa488232316207199e79e0",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/arrival--v0--default--wide.svg",
+              "sha256": "e0b04eb0d3e15f8a937146c3e00be025ba693e34a268c7faf685a18372447665",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tram-corridor--v0",
+      "panelId": "tram-corridor",
+      "camera": "plan",
+      "description": "Separate eight metre Espoo reservation and six metre Helsinki draft line-section example at one scale.",
+      "sourceClaims": [
+        "tram-corridor"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/tram-corridor--v0--default--compact.svg",
+              "sha256": "a9bb31ef344e7bec31fe7f0f576691ecd6def7c8c3fd20060c9fe3e7514c947d",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/tram-corridor--v0--default--wide.svg",
+              "sha256": "fb77d9a156e12be146ac85a97de807d00126e17438eb6f1a2ab2cb2afa33aff5",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tram-width--v0",
+      "panelId": "tram-width",
+      "camera": "front",
+      "description": "Two 3.5 metre side platforms and a 5.5 metre track zone total 12.5 metres, before outer routes and buffers.",
+      "sourceClaims": [
+        "tram-width"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/tram-width--v0--default--compact.svg",
+              "sha256": "7b3e5dc9da70a31b4481eb707e32b89b6b1af1c108601cb983c52aa39c8ae01b",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/tram-width--v0--default--wide.svg",
+              "sha256": "df4a962fe0492bc8bc03d20e05f6800048094f5e5acecbc163e6242ee1a24820",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tram-length--v0",
+      "panelId": "tram-length",
+      "camera": "iso",
+      "description": "Light-rail example: 45 metre flat platform, two illustrative six metre access ramps, total 57 metres; two 34 by 2.4 metre tram bodies. Separate 30 and 61 metre city-stop comparisons share the same scale.",
+      "sourceClaims": [
+        "tram-length"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/tram-length--v0--default--compact.svg",
+              "sha256": "f5a7e20bad01e024d7e302a094a741cde58ec77eb8d61464ca2c5e243405a804",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/tram-length--v0--default--wide.svg",
+              "sha256": "b839ac1259d0612bb524a4c49c60cbb8c7851668bf0915720d786d91b2253607",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car-turn--v0",
+      "panelId": "car-turn",
+      "camera": "plan",
+      "description": "Car radius reference and detached body.",
+      "sourceClaims": [
+        "car-turn"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/car-turn--v0--default--compact.svg",
+              "sha256": "9f6b24d7217b2a47f04167d0c407077fde9ec562b82f864a0986b15b3f377189",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/car-turn--v0--default--wide.svg",
+              "sha256": "4de04452b4253626f7d6d5850570b672bd55a0fc9881bb4d2bf42cf04e534790",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car-turn--v1",
+      "panelId": "car-turn",
+      "camera": "plan",
+      "description": "Car lane comparison.",
+      "sourceClaims": [
+        "car-turn"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/car-turn--v1--default--compact.svg",
+              "sha256": "8702c88ec34dfcd4774283031569334c7711403bd968ee7eca9946734b0ac32e",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/car-turn--v1--default--wide.svg",
+              "sha256": "8fb5b818c6215fe48d73cb0f38781f98a61c00ab3ab59a42c003494ce2832046",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car-turn--v2",
+      "panelId": "car-turn",
+      "camera": "plan",
+      "description": "Car lane comparison.",
+      "sourceClaims": [
+        "car-turn"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/car-turn--v2--default--compact.svg",
+              "sha256": "2222fbf7382770c1e55d7a5917d6617d354a1c175ad1a40a3bc9c4fcf8926b9e",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/car-turn--v2--default--wide.svg",
+              "sha256": "0104d749483fe9221d67d80d81e17055561ec057ded1e2ab31983d1e9c86264c",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bus-turn--v0",
+      "panelId": "bus-turn",
+      "camera": "plan",
+      "description": "Bus radius reference and detached body.",
+      "sourceClaims": [
+        "bus-turn"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/bus-turn--v0--default--compact.svg",
+              "sha256": "477b511941bc3bf96582843d64892173a13712160bada51a21374ac058200dd1",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/bus-turn--v0--default--wide.svg",
+              "sha256": "9f63347a6b2d095c5121c650fd81a285078aaefdaf806f45d5a049e5d021bd2a",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bus-turn--v1",
+      "panelId": "bus-turn",
+      "camera": "plan",
+      "description": "Bus lane comparison.",
+      "sourceClaims": [
+        "bus-turn"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/bus-turn--v1--default--compact.svg",
+              "sha256": "e0fa0f26344986baff99b018cd7cc0befd119fad8f79aeca7c59fea9050d85dc",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/bus-turn--v1--default--wide.svg",
+              "sha256": "000c46e60fe2eeb507a4567b4bf905e93ddecde9590cc7f7136bc623849cad43",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bus-turn--v2",
+      "panelId": "bus-turn",
+      "camera": "plan",
+      "description": "Bus lane comparison.",
+      "sourceClaims": [
+        "bus-turn"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/bus-turn--v2--default--compact.svg",
+              "sha256": "5324bd906e000146364dd830f8ba198b734f6a24afbd4d4b228d58f8fcdb36c2",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/bus-turn--v2--default--wide.svg",
+              "sha256": "f957f0149f4f431f65bb70b79bb5e0c842ec7e9374fbed47d51473140f912cdb",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "rescue--v0",
+      "panelId": "rescue",
+      "camera": "plan",
+      "description": "Rescue radius references and separate set-up footprint.",
+      "sourceClaims": [
+        "rescue"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/rescue--v0--default--compact.svg",
+              "sha256": "0aeb14598a369f9709b0a65e32efa237c5ed077782f8c6824ca498207ae60b07",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/rescue--v0--default--wide.svg",
+              "sha256": "8ec09fdbcdbaddba4b715a6de97cb8deea1e14a592d1849a92b5edaf02420b6c",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "trees--v0",
+      "panelId": "trees",
+      "camera": "iso",
+      "description": "A five by five by one metre illustrative soil volume, with equal scale plan and section",
+      "sourceClaims": [
+        "trees"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/trees--v0--default--compact.svg",
+              "sha256": "d006428686d51a7ef36abd86478c86202abee12b6d140abf108063d497af894e",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/trees--v0--default--wide.svg",
+              "sha256": "8f4f6cb351c7a8406c05e80ba12734f0dc99b95a7a6085792ff7becb61365cca",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ground--v0",
+      "panelId": "ground",
+      "camera": "iso",
+      "description": "Planting strips at one scale: tree strip at least 3 metres; main street tree strip 3.5; low shrubs 2.5; lawn or ground cover 2 metres.",
+      "sourceClaims": [
+        "ground"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": -1,
+          "label": "All four · same scale",
+          "files": {
+            "compact": {
+              "path": "posters/ground--v0--all--compact.svg",
+              "sha256": "40e25d745a75516d9e89f1f2fc3e0b3913009cef731608fb5025f9c2b5312393",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/ground--v0--all--wide.svg",
+              "sha256": "4cb1d4cc5f71a81ee6b8d1d02342508c84c379bc8ccc27841cc3302780cd4831",
+              "width": 900,
+              "height": 560
+            }
+          }
+        },
+        {
+          "category": 0,
+          "label": "Tree strip",
+          "files": {
+            "compact": {
+              "path": "posters/ground--v0--c0--compact.svg",
+              "sha256": "553942cbdce2059e2103c4cc9c95cd7733fb717171d84eb57a0108f6387e9a36",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/ground--v0--c0--wide.svg",
+              "sha256": "196a6c651b34a7dc426fc05eb223986fb47447231510eb59ed99ac46eaee918a",
+              "width": 900,
+              "height": 560
+            }
+          }
+        },
+        {
+          "category": 1,
+          "label": "Main street",
+          "files": {
+            "compact": {
+              "path": "posters/ground--v0--c1--compact.svg",
+              "sha256": "fff621414ff18a7c5db1481880447d5cc509f940e7ec448488cecfc848cb00e0",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/ground--v0--c1--wide.svg",
+              "sha256": "e57fd0eb2603c08699407bc4b414db1807f7bb73cfdfef19254ba2b29b3d4891",
+              "width": 900,
+              "height": 560
+            }
+          }
+        },
+        {
+          "category": 2,
+          "label": "Low shrubs",
+          "files": {
+            "compact": {
+              "path": "posters/ground--v0--c2--compact.svg",
+              "sha256": "4c50a6e85b069ddc28059fe53be4a7546f9e9555b4fad477103ed6db79d30bfa",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/ground--v0--c2--wide.svg",
+              "sha256": "203ce435a7edd47b2b6483c9300aebdc2c66494c599d5e3df99eb3e7022308c1",
+              "width": 900,
+              "height": 560
+            }
+          }
+        },
+        {
+          "category": 3,
+          "label": "Ground cover",
+          "files": {
+            "compact": {
+              "path": "posters/ground--v0--c3--compact.svg",
+              "sha256": "99aad4ef42da39264dbd7fd185d805195b679a19ca48c9d58631be5a077e4772",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/ground--v0--c3--wide.svg",
+              "sha256": "e77d9e4046ea755af273a26b3aea07efb5762a4ee7bdbe2d021be6b6d2727152",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "rain-gardens--v0",
+      "panelId": "rain-gardens",
+      "camera": "iso",
+      "description": "Rain garden filters runoff through planted medium, with infiltration where suitable and drainage or overflow. A swale conveys runoff and provides temporary storage.",
+      "sourceClaims": [
+        "rain-gardens"
+      ],
+      "categoryDefault": 0,
+      "categoryPrompt": "System",
+      "options": [
+        {
+          "category": 0,
+          "label": "Rain garden",
+          "files": {
+            "compact": {
+              "path": "posters/rain-gardens--v0--c0--compact.svg",
+              "sha256": "b7c40ab293bca37b956b351dcd44e63c28d2b6dafedef0cd17951dad68190064",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/rain-gardens--v0--c0--wide.svg",
+              "sha256": "a0d569936ea20884d6fbf1a653ca1ce103d646ef8c5d70be261856d2ec74d5db",
+              "width": 900,
+              "height": 560
+            }
+          }
+        },
+        {
+          "category": 1,
+          "label": "Swale",
+          "files": {
+            "compact": {
+              "path": "posters/rain-gardens--v0--c1--compact.svg",
+              "sha256": "5718931703589a322aca00354ff60b60c74e51271fe882647ee3ba9bc85aba55",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/rain-gardens--v0--c1--wide.svg",
+              "sha256": "b6bf0e89258bfa208e8a7dfa73ec1f190b176e7bdd72e0b5b04d246c20357e42",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ponds--v0",
+      "panelId": "ponds",
+      "camera": "section",
+      "description": "Dry detention drains between events. A wet pond has permanent water below normal level, with storm storage above. Bank slope is shown separately in a metric triangle.",
+      "sourceClaims": [
+        "ponds"
+      ],
+      "categoryDefault": 0,
+      "categoryPrompt": "Water regime",
+      "options": [
+        {
+          "category": 0,
+          "label": "Dry basin",
+          "files": {
+            "compact": {
+              "path": "posters/ponds--v0--c0--compact.svg",
+              "sha256": "18570fcd3fb47f1bc68169dc38a68d6a10c4364f312dfcd97a1d3094ab2534af",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/ponds--v0--c0--wide.svg",
+              "sha256": "87f0181523f66ab23b50be01d7869f26723ae6d5459f17d7f028478095be52fe",
+              "width": 900,
+              "height": 560
+            }
+          }
+        },
+        {
+          "category": 1,
+          "label": "Wet pond / wetland",
+          "files": {
+            "compact": {
+              "path": "posters/ponds--v0--c1--compact.svg",
+              "sha256": "172412280f56322607b729b52088c56f5ab5857db4e80f25fee05ffd12e5d3e4",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/ponds--v0--c1--wide.svg",
+              "sha256": "609815f3b90235b954306c15d90140176512869cdbc360efeac8a1dc70778d57",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "source-control--v0",
+      "panelId": "source-control",
+      "camera": "iso",
+      "description": "A vegetated roof retains water and supports evapotranspiration and roof drainage. Permeable paving admits water into aggregate voids, with subsoil and drainage checked separately.",
+      "sourceClaims": [
+        "source-control"
+      ],
+      "categoryDefault": 0,
+      "categoryPrompt": "System",
+      "options": [
+        {
+          "category": 0,
+          "label": "Green roof",
+          "files": {
+            "compact": {
+              "path": "posters/source-control--v0--c0--compact.svg",
+              "sha256": "23a06b8fa6c32623ce444cb3ef82b97e76fae43045c31d1c519c37d683572e5f",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/source-control--v0--c0--wide.svg",
+              "sha256": "351f3a989d950471ede15baeb25cb062dc5e407bd1aafcacea037b185a7ced99",
+              "width": 900,
+              "height": 560
+            }
+          }
+        },
+        {
+          "category": 1,
+          "label": "Permeable paving",
+          "files": {
+            "compact": {
+              "path": "posters/source-control--v0--c1--compact.svg",
+              "sha256": "ac6acf7ab28ed023073be651f62da8d398a950275c27037ae090ef6fb5ea3bbc",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/source-control--v0--c1--wide.svg",
+              "sha256": "98037365f6c0392253b8a7530a59e8cf5012aaf2340edc7fe93b17985f8229c1",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-ratio--v0",
+      "panelId": "section-ratio",
+      "camera": "section",
+      "description": "Three sections: height 12 metres in every example, facade widths 12, 24 and 36 metres; width/height 1, 2 and 3.",
+      "sourceClaims": [
+        "section-ratio"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/section-ratio--v0--default--compact.svg",
+              "sha256": "e01b25b1ba82005dc835a430646a565fd769fc5c6afc2eb837726193fdc0b3ac",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/section-ratio--v0--default--wide.svg",
+              "sha256": "c699a05914481ae570820c59bae5264c1a57afd4bfefddf230e3b2c7372782f0",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "equal-density--v0",
+      "panelId": "equal-density",
+      "camera": "iso",
+      "description": "Three 32 by 32 metre plots. Coverage 50, 25 and 12.5 percent times 2, 4 and 8 floors each yields 1024 square metres and FAR 1.",
+      "sourceClaims": [
+        "equal-density"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/equal-density--v0--default--compact.svg",
+              "sha256": "40b15364953655d9dbb1e026a028727bdc3eb4df0a805531611d5987dcefe300",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/equal-density--v0--default--wide.svg",
+              "sha256": "2a22afb4a13c8c4c179fa19f37dc62cd9501e7f9ff1551e21781ead4a505eb78",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "steps--v0",
+      "panelId": "steps",
+      "camera": "iso",
+      "description": "The original six steps, each 0.12 metre rise and 0.42 metre tread, at equal metric scales; source minimum width 1.2 metres.",
+      "sourceClaims": [
+        "steps"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/steps--v0--default--compact.svg",
+              "sha256": "e58a83b71c9a7bc6e8a1d37b16adf2522c069e1e13868bc88c8481f8f6b826f8",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/steps--v0--default--wide.svg",
+              "sha256": "b00a44c2a1c6e39ac1a389f6d86ecb62dca35850a7a30a79df2efbf80706cf65",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "crossing-refuge--v0",
+      "panelId": "crossing-refuge",
+      "camera": "plan",
+      "description": "Two 3 metre lanes plus a 2.5 metre refuge: 8.5 metres along the crossing.",
+      "sourceClaims": [
+        "crossing-refuge"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/crossing-refuge--v0--default--compact.svg",
+              "sha256": "b62745fe6c764154af99fc808a8ca240ac433f4472b0a4b85f72860a3f15566f",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/crossing-refuge--v0--default--wide.svg",
+              "sha256": "b857746ddf683ec70510bbc71301a6b3c1d6fba6f2779b7aaf78477f9233be2b",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "clear-route-continuity--v0",
+      "panelId": "clear-route-continuity",
+      "camera": "iso",
+      "description": "A continuous 1.5 metre clear pedestrian corridor with 2.2 metre overhead clearance and a separate 3 metre under-building recommendation.",
+      "sourceClaims": [
+        "clear-route-continuity"
+      ],
+      "categoryDefault": -1,
+      "categoryPrompt": "Compare planting",
+      "options": [
+        {
+          "category": null,
+          "label": null,
+          "files": {
+            "compact": {
+              "path": "posters/clear-route-continuity--v0--default--compact.svg",
+              "sha256": "fd58810e42c8e6c3b006daa383d595b7da387eb916922a51efcbe1bc253293fb",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/clear-route-continuity--v0--default--wide.svg",
+              "sha256": "ee09b8530b504c38237d84998456b2f331c76a6e4dafe13f5722695fa3095346",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "parking-layout--v0",
+      "panelId": "parking-layout",
+      "camera": "plan",
+      "description": "Eight 2.5 by 5 metre parking bays face across the full 7 metre two-way aisle. The module is 17 metres overall. One space receives half the shared aisle for area accounting.",
+      "sourceClaims": [
+        "parking-layout",
+        "parking-area"
+      ],
+      "categoryDefault": 0,
+      "categoryPrompt": "Show",
+      "options": [
+        {
+          "category": 0,
+          "label": "Layout · 8 bays",
+          "files": {
+            "compact": {
+              "path": "posters/parking-layout--v0--c0--compact.svg",
+              "sha256": "03bf5254236f5a752bebaebc471801143a85265ee49b8da9718a95dd5b6a6fb2",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/parking-layout--v0--c0--wide.svg",
+              "sha256": "8358e40f00a25908410075f9219f907aacb66702f52f192b2fdf5c2fe2f64567",
+              "width": 900,
+              "height": 560
+            }
+          }
+        },
+        {
+          "category": 1,
+          "label": "Area share · 1 bay",
+          "files": {
+            "compact": {
+              "path": "posters/parking-layout--v0--c1--compact.svg",
+              "sha256": "5529183d32658ff91ad20fbf2271a0185f62e840c2d7bda58acae70b3adce73c",
+              "width": 320,
+              "height": 420
+            },
+            "wide": {
+              "path": "posters/parking-layout--v0--c1--wide.svg",
+              "sha256": "fa8903898cc4110c48fa35539536770a147d93ff0abc011a6bebd14b68f84e9f",
+              "width": 900,
+              "height": 560
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "review": {
+    "textContainment": true,
+    "textOverlap": true,
+    "calloutRouting": true,
+    "externalRequests": 0
+  }
+}

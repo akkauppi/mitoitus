@@ -9,8 +9,10 @@ import zipfile
 from html.parser import HTMLParser
 from pathlib import Path
 from connection_editorial import redesign_connections
-from population_editorial import redesign_population
+from population_editorial import redesign_population, render_population_evidence
 from parking_editorial import redesign_parking
+from release_editorial import apply_release_edits, PANEL_ALIASES
+from poster_assets import public_mapping, validate_assets, replace_figures
 
 ROOT = Path(__file__).resolve().parents[2]
 KINDS = ('buildings', 'accessible', 'turning', 'rescue', 'tram', 'parking', 'street')
@@ -50,6 +52,15 @@ RUNTIME_FILES.update({
         'examples/jsm/renderers/SVGRenderer.js','examples/jsm/renderers/Projector.js','LICENSE','manifest.json')},
 })
 BASELINE_FILES = PUBLIC_FILES
+T14_PUBLIC_FILES = (*PUBLIC_FILES, *RUNTIME_FILES)
+RUNTIME_FILES.update({
+    'runtime/posters.js': 'lab/src/posters.js',
+    'runtime/posters.css': 'lab/src/posters.css',
+    'runtime/release.css': 'lab/src/release.css',
+    'data/release-data.json': 'lab/data/release-data.json',
+    'data/source-link-updates.json': 'lab/data/source-link-updates.json',
+    **(public_mapping(ROOT) if (ROOT/'lab/posters/manifest.json').is_file() else {}),
+})
 PUBLIC_FILES = (*PUBLIC_FILES, *RUNTIME_FILES)
 OFFLINE = 'downloads/rulebook-offline.zip'
 MAX_ARCHIVE_BYTES = 32 * 1024 * 1024
@@ -96,6 +107,8 @@ class Audit(HTMLParser):
             self.panel['options'].append(self.option)
         if tag == 'svg':
             self.panel['drawings'].append(d.get('aria-label', ''))
+        if tag == 'img' and d.get('data-poster-profile') == 'compact':
+            self.panel['drawings'].append(d.get('alt', ''))
 
     def handle_endtag(self, tag):
         self.events.append(['end', tag])
@@ -158,7 +171,29 @@ SPREAD_ORDER = ('built-form', 'land-population', 'walk-cycle', 'accessible',
 
 
 def render_evidence(source):
-    return source.replace('Antti’s Dubious Little Rulebook'.encode(), 'Antti’s Dubious Little Planning Rulebook'.encode())
+    rendered = render_population_evidence(source.replace('Antti’s Dubious Little Rulebook'.encode(), 'Antti’s Dubious Little Planning Rulebook'.encode()))
+    for update in source_link_updates():
+        rendered = rendered.replace(update['evidence']['originalUrl'].encode(), update['url'].encode())
+    return rendered
+
+
+def source_link_updates():
+    updates = json.loads((ROOT/'lab/data/source-link-updates.json').read_text())
+    if len(updates) != 1 or updates[0]['sourceId'] != 'S10':
+        raise ValueError('Only the verified S10 link correction is authorized')
+    return updates
+
+
+def render_evidence_json(source):
+    data = json.loads(source)
+    for update in source_link_updates():
+        item = data['sources'][update['sourceId']]
+        evidence = update['evidence']
+        if item['url'] != evidence['originalUrl'] or item['sha256'] != evidence['sha256'] or not evidence['matchesCanonicalSha256']:
+            raise ValueError('S10 link update does not match retained source identity')
+        item['url'] = update['url']
+        item['link_update'] = {'checkedAt': evidence['checkedAt'], 'previousUrl': evidence['originalUrl'], 'sameContentSha256': evidence['sha256']}
+    return (json.dumps(data, ensure_ascii=False, indent=2)+'\n').encode()
 
 
 def render_book(source):
@@ -188,12 +223,10 @@ def render_book(source):
     tabs = '\n' + '\n'.join(re.sub(r'<span>\d{2}</span>', f'<span>{i:02}</span>', links[identity])
                             for i, identity in enumerate(SPREAD_ORDER, 1)) + '\n'
     text = text[:nav.start(1)] + tabs + text[nav.end(1):]
-    # Retired originals are preview-only until reviewed modern posters replace them.
-    text = re.sub(r'<svg\b([^>]*)>', lambda m: m[0] if any(k in m[1] for k in ('population-tiles','distance-circles','library-equivalent','parking-norms-chart')) else '<svg data-legacy-visual="true"'+m[1]+'>', text)
-    if 'data-legacy-visual="true"' in text:
-        text = re.sub(r'<a\b[^>]*href="downloads/rulebook-offline\.zip"[^>]*>.*?</a>', '', text, flags=re.S)
-    text = text.replace('</head>', '<link rel="stylesheet" href="runtime/book.css"><script type="importmap">{"imports":{"three":"./vendor/build/three.module.js","three/addons/":"./vendor/examples/jsm/"}}</script></head>')
-    text = text.replace('</body>', '<script src="runtime/book-app.js"></script></body>')
+    text = apply_release_edits(text)
+    text = replace_figures(text, ROOT)
+    text = text.replace('</head>', '<link rel="stylesheet" href="runtime/book.css"><link rel="stylesheet" href="runtime/posters.css"><link rel="stylesheet" href="runtime/release.css"><script type="importmap">{"imports":{"three":"./vendor/build/three.module.js","three/addons/":"./vendor/examples/jsm/"}}</script></head>')
+    text = text.replace('</body>', '<script src="runtime/book-app.js"></script><script src="runtime/posters.js"></script></body>')
     return text.encode()
 
 
@@ -239,7 +272,8 @@ def verify_candidate(output, allow_legacy=False):
     expected = set(PUBLIC_FILES) | {OFFLINE, 'parity.json'}
     old_expected = set(BASELINE_FILES) | {OFFLINE, 'parity.json'}
     t02_expected = old_expected | set(T02_RUNTIME_FILES)
-    t13_expected = expected - {'runtime/recipes/parking.js'}
+    t14_expected = set(T14_PUBLIC_FILES) | {OFFLINE, 'parity.json'}
+    t13_expected = t14_expected - {'runtime/recipes/parking.js'}
     t11_expected = t13_expected - {'runtime/recipes/stormwater.js','runtime/primitives/conceptual.js'}
     t10_expected = t11_expected - {'runtime/recipes/landscape.js'}
     t09_review_expected = t10_expected - {'runtime/recipes/sections.js','runtime/primitives/sections.js'}
@@ -250,7 +284,7 @@ def verify_candidate(output, allow_legacy=False):
     t05_expected = t06_expected - {'runtime/recipes/tram.js'}
     t04_expected = t05_expected - {'runtime/recipes/accessibility.js','runtime/primitives/accessibility.js'}
     t03_expected = t04_expected - {'runtime/recipes/routes.js','runtime/primitives/surfaces.js'}
-    if allow_legacy and names in (old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected,t11_expected,t13_expected):
+    if allow_legacy and names in (old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected,t11_expected,t13_expected,t14_expected):
         expected = names
     if names != expected:
         raise ValueError('Candidate contains missing or unapproved files')
@@ -292,6 +326,7 @@ def publish(stage, output):
 def build(output=None, replace=False):
     output = safe_path(output or ROOT/'lab/book', ROOT/'lab/book')
     inventory = json.loads((ROOT/'lab/docs/scene-inventory.json').read_text())
+    posters = validate_assets(ROOT)
     files = read_public(ROOT, source=True)
     vendor = json.loads(files['vendor/manifest.json'])
     for name, expected_hash in vendor['sha256'].items():
@@ -308,6 +343,7 @@ def build(output=None, replace=False):
         verify_candidate(output, allow_legacy=True)
     files['index.html'] = render_book(source)
     files['evidence.html'] = render_evidence(files['evidence.html'])
+    files['evidence.json'] = render_evidence_json(files['evidence.json'])
     stage = Path(tempfile.mkdtemp(prefix='.book-stage-', dir=output.parent))
     try:
         for name, content in files.items():
@@ -318,10 +354,11 @@ def build(output=None, replace=False):
         actual = audit((stage/'index.html').read_text())
         if actual.events != audit(render_book(source).decode()).events:
             raise ValueError('Candidate semantic content drift')
-        report = dict(schemaVersion=2, stage='T14 parking; standalone accounting panel merged', publicationReady=False,
-                      legacyVisualsRetired=True, legacyFallbackReplacementPending=True,
-                      sheets=11, panels=32, drawings=43, sourcePanels=33, sourceDrawings=44,
-                      panelAliases={'parking-area':'parking-layout'}, renderedPanels=[p['claim'] for p in actual.panels], baselineSha256=digest(source),
+        report = dict(schemaVersion=2, stage='T15 modern posters and release editorial amendments', publicationReady=True,
+                      legacyVisualsRetired=True, legacyFallbackReplacementPending=False,
+                      sheets=len(actual.sheets), panels=len(actual.panels), drawings=sum(len(p['drawings']) for p in actual.panels), sourcePanels=33, sourceDrawings=44,
+                      posterRecipes=len(posters['posters']), posterProfiles=list(posters['profiles']),
+                      panelAliases=PANEL_ALIASES, renderedPanels=[p['claim'] for p in actual.panels], baselineSha256=digest(source),
                       semanticSha256=digest(json.dumps(checked.events, ensure_ascii=False).encode()),
                       content=checked.panels, semanticEvents=checked.events,
                       fileSha256={name:digest((stage/name).read_bytes()) for name in (*PUBLIC_FILES, OFFLINE)})

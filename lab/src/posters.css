@@ -1,0 +1,11 @@
+/* Compact posters preserve annotation size on reference cards and paper. */
+.modern-poster{display:block;width:100%;height:auto;max-width:100%;object-fit:contain;margin:0}
+.modern-poster-wide{display:none}
+.poster-option[hidden]{display:none!important}
+.poster-control{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 10px;font-size:12px}
+.poster-control select{max-width:75%;font:inherit;min-height:32px;border:1px solid #ccd3c6;border-radius:0;background:#fbfaf6}
+.poster-selection-label{font:12px Arial,sans-serif;margin:4px 0 8px;color:#42594a}
+.metric-slope-chart{display:block;width:100%;height:auto;max-height:110px}
+@media screen and (min-width:900px){body[data-mode=focus] .focused-panel .modern-poster-compact{display:none}body[data-mode=focus] .focused-panel .modern-poster-wide{display:block}}
+body.wall .modern-poster-compact{display:none}body.wall .modern-poster-wide{display:block}
+@media print{.poster-control{display:none!important}.modern-poster-compact,body.wall .modern-poster-compact{display:block!important}.modern-poster-wide,body.wall .modern-poster-wide{display:none!important}.modern-poster{max-height:112mm;width:100%}.poster-selection-label{font-size:9pt}}

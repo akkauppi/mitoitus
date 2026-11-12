@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Mitoitus poster capture</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../src/book.css">
+<style>
+html,body{margin:0;padding:0;background:#f7f5ef;font-family:Arial,sans-serif}
+#poster-viewport{position:relative;width:320px;height:420px;min-height:0;max-height:none;overflow:hidden;background:#f7f5ef}
+#poster-viewport canvas,#poster-viewport svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+#poster-viewport svg{pointer-events:none}
+#poster-viewport .dim-label{font:600 12px Arial,sans-serif}
+#poster-viewport .scene-label{font:12.5px Arial,sans-serif}
+</style>
+<script type="importmap">{"imports":{"three":"../vendor/build/three.module.js","three/addons/":"../vendor/examples/jsm/"}}</script>
+<div id="poster-viewport" class="scene-viewport"><canvas aria-hidden="true"></canvas><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div>
+<script type="module">
+import {createSceneHost} from '../src/viewer.js';
+import {recipeInfo} from '../src/registry.js';
+const viewport=document.querySelector('#poster-viewport');
+const host=createSceneHost({viewport,canvas:viewport.querySelector('canvas'),overlay:viewport.querySelector('svg')});
+window.posterInfo=id=>recipeInfo(id);
+window.posterRender=async({id,category,width,height,camera})=>{
+ const info=recipeInfo(id);viewport.style.width=width+'px';viewport.style.height=height+'px';
+ host.suspend();host.show({recipeId:id,camera:camera||info.defaultCamera,style:'paper'});
+ if(category!==null)host.setCategory(category);
+ host.resize({width,height,pixelRatio:2});
+ await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+ return {info,diagnostics:host.inspect(),callouts:viewport.querySelector('svg').dataset.calloutStatus};
+};
+window.posterOverlay=()=>{
+ const source=viewport.querySelector('svg');
+ // Static cards need readable type at320px. Wrap callout text within its shared
+ // gutter instead of shrinking long labels or clipping them at the image edge.
+ for(const label of source.querySelectorAll('.callout-text')){
+  const maximum=viewport.clientWidth<650?90:108;
+  if(label.getComputedTextLength()<=maximum)continue;
+  const words=[],lines=[];let line='';
+  for(let word of label.textContent.split(' ')){
+   label.textContent=word;
+   while(label.getComputedTextLength()>maximum){let cut=word.length-1;label.textContent=word.slice(0,cut)+'-';while(cut>1&&label.getComputedTextLength()>maximum){cut--;label.textContent=word.slice(0,cut)+'-';}words.push(word.slice(0,cut)+'-');word=word.slice(cut);label.textContent=word;}
+   if(word)words.push(word);
+  }
+  for(const word of words){const next=line?line+' '+word:word;label.textContent=next;if(label.getComputedTextLength()>maximum&&line){lines.push(line);line=word;}else line=next;}
+  if(line)lines.push(line);const x=label.getAttribute('x'),y=Number(label.getAttribute('y'));label.replaceChildren();
+  lines.forEach((line,i)=>{const span=document.createElementNS('http://www.w3.org/2000/svg','tspan');span.setAttribute('x',x);span.setAttribute('y',String(y+(i-(lines.length-1)/2)*13));span.textContent=line;label.append(span);});
+ }
+ const copy=source.cloneNode(true),properties=['fill','fill-opacity','stroke','stroke-width','stroke-opacity','stroke-dasharray','stroke-linecap','stroke-linejoin','paint-order','opacity','font-family','font-size','font-weight','letter-spacing'];
+ const a=[...source.querySelectorAll('*')],b=[...copy.querySelectorAll('*')];
+ a.forEach((node,i)=>{const computed=getComputedStyle(node);b[i].setAttribute('style',properties.map(k=>k+':'+computed.getPropertyValue(k)).join(';'));});
+ return {markup:copy.innerHTML,texts:[...source.querySelectorAll('text')].map(n=>{const b=n.getBBox();return {text:n.textContent,x:b.x,y:b.y,width:b.width,height:b.height};})};
+};
+window.posterReady=true;
+</script></html>

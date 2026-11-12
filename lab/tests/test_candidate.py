@@ -23,6 +23,10 @@ class CandidateTests(unittest.TestCase):
             target = m.source_path(self.root,name)
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(m.source_path(SOURCE,name), target)
+        for name in json.loads((SOURCE/'lab/posters/manifest.json').read_text())['inputs']:
+            target = self.root/name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(SOURCE/name, target)
         self.root_patch = patch.object(m, 'ROOT', self.root)
         self.root_patch.start()
         self.addCleanup(self.root_patch.stop)
@@ -33,7 +37,9 @@ class CandidateTests(unittest.TestCase):
 
     def test_build_captures_all_content_and_variants(self):
         report = m.build()
-        self.assertEqual((report['sheets'],report['panels'],report['drawings']), (11,32,43))
+        self.assertEqual((report['sheets'],report['panels']), (11,30))
+        self.assertEqual(report['posterRecipes'],37)
+        self.assertEqual(report['posterProfiles'],['compact','wide'])
         self.assertEqual(report['semanticEvents'], m.audit((self.root/'index.html').read_text()).events)
         groups = {p['group']:len(p['options']) for p in report['content'] if p['group']}
         self.assertEqual(groups, {'walking':4,'cycling':5,'car-layout':3,'bus-layout':3})
@@ -41,9 +47,10 @@ class CandidateTests(unittest.TestCase):
             expected = m.source_path(self.root,name).read_bytes()
             if name == 'index.html': expected = m.render_book(expected)
             if name == 'evidence.html': expected = m.render_evidence(expected)
+            if name == 'evidence.json': expected = m.render_evidence_json(expected)
             self.assertEqual((self.output/name).read_bytes(),expected)
 
-    def test_approved_order_preserves_sheets_except_numbers_and_accepted_circle_labels(self):
+    def test_release_keeps_spread_order_and_retained_numeric_tables(self):
         import re
         original = (self.root/'index.html').read_text()
         rendered = m.render_book(original.encode()).decode()
@@ -54,25 +61,48 @@ class CandidateTests(unittest.TestCase):
         before['parking'] = m.redesign_parking(before['parking'])
         after = list(re.finditer(pattern, rendered, re.S))
         self.assertEqual([v[1] for v in after],list(m.SPREAD_ORDER))
-        for index, sheet in enumerate(after,1):
-            expected = re.sub(r'(<div class="panel-top"><span>)\d{2}',
-                              lambda v:v[1]+f'{index:02}',before[sheet[1]])
-            if sheet[1] == 'accessible':
-                expected = expected.replace('>Wheelchair</text>', '>Clear space · manual</text>').replace('>Powered chair</text>', '>Clear space · powered</text>')
-            self.assertEqual(sheet[0].replace(' data-legacy-visual="true"',''),expected)
+        for sheet in after:
+            expected = m.apply_release_edits(before[sheet[1]])
+            tables = r'<(?:dl|table)\b.*?</(?:dl|table)>'
+            self.assertEqual(re.findall(tables,sheet[0],re.S),re.findall(tables,expected,re.S))
         tabs = re.search(r'<nav class="tabs"[^>]*>(.*?)</nav>',rendered,re.S)[1]
         self.assertEqual(re.findall(r'<a href="#([^"]+)">',tabs),list(m.SPREAD_ORDER))
 
-    def test_retired_legacy_visuals_block_publishable_export(self):
-        self.assertFalse(m.build()['publicationReady'])
-        with self.assertRaisesRegex(ValueError,'Legacy 2D visuals are retired'):
-            m.package()
+    def test_publishable_export_contains_modern_posters_and_no_legacy_figures(self):
+        report = m.build()
+        self.assertTrue(report['publicationReady'])
+        self.assertFalse(report['legacyFallbackReplacementPending'])
+        rendered = (self.output/'index.html').read_text()
+        self.assertNotIn('data-legacy-visual',rendered)
+        self.assertIn('data-current-poster="walking--v0"',rendered)
+        self.assertIn('data-poster-choice',rendered)
+        self.assertNotIn('loading="lazy"',rendered)
+        with zipfile.ZipFile(m.package()) as archive:
+            self.assertIn('posters/manifest.json',archive.namelist())
+            self.assertIn('runtime/posters.js',archive.namelist())
+
+    def test_stale_posters_block_build_without_replacing_output(self):
+        m.build()
+        before = (self.output/'parity.json').read_bytes()
+        path = self.root/'lab/assets.js'
+        path.write_text(path.read_text()+'\n// changed geometry source\n')
+        with self.assertRaisesRegex(ValueError,'posters are stale'):
+            m.build(replace=True)
+        self.assertEqual((self.output/'parity.json').read_bytes(),before)
+
+    def test_tampered_poster_blocks_build(self):
+        manifest = json.loads((self.root/'lab/posters/manifest.json').read_text())
+        file = manifest['posters'][0]['options'][0]['files']['compact']['path']
+        (self.root/'lab'/file).write_text('<svg/>')
+        with self.assertRaisesRegex(ValueError,'poster changed'):
+            m.build()
+        self.assertFalse(self.output.exists())
 
     def test_candidate_title_subtitle_and_fixed_date_edition(self):
         original = (self.root/'index.html').read_bytes()
         rendered = m.render_book(original).decode()
         self.assertIn('<title>Antti’s Dubious Little Planning Rulebook</title>',rendered)
-        self.assertIn('Rules of thumb. Fingers crossed. · v2026-11-12',rendered)
+        self.assertIn('Rules of thumb. Fingers crossed. · v2026-11-13',rendered)
         self.assertIn('Antti’s Dubious Little Rulebook',original.decode())
 
     def test_repeat_build_requires_explicit_replace_and_is_reproducible(self):
