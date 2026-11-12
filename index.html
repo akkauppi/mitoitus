@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A compact English street-space dimensioning reference for Kutoja 2060, based on Finnish municipal guidance. Desktop and three-screen classroom views.">
+<title>Mitoitus — Aalto street-space reference</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to sheet</a>
+<header class="topbar">
+ <a class="brand" href="#built-form" aria-label="Mitoitus home"><img src="assets/aalto-logo.svg" alt="Aalto University"><span>Mitoitus<span class="brand-sub">STREETSCAPE DESIGN D</span></span></a>
+ <div class="tools"><button class="open-cad">CAD ↓</button><button id="sources-toggle" aria-pressed="false">Sources <span class="toggle-dot"></span></button><button id="view-toggle" aria-pressed="false">3-screen view</button><button id="fullscreen" title="Fullscreen (F)">Full screen <span aria-hidden="true">↗</span></button></div>
+</header>
+<nav class="tabs" aria-label="Reference sheets">
+ <a href="#built-form" aria-current="page"><span>01</span> Built form & scale</a>
+ <a href="#walk-cycle"><span>02</span> Walk & cycle</a>
+ <a href="#accessible"><span>03</span> Accessible movement</a>
+ <a href="#transit-access"><span>04</span> Transit & access</a>
+ <a href="#green-blue"><span>05</span> Green & blue</a>
+ <a href="#fit-street"><span>06</span> Fit the street</a>
+</nav>
+<main id="main" tabindex="-1">
+<div class="page-heading"><div><p class="eyebrow">KUTOJA 2060 / FIELD REFERENCE</p><h1 id="page-title">Built form & scale.</h1></div><p id="page-intro">From a building footprint to a shared street.</p></div>
+<div id="stage">
+<section class="sheet" id="built-form" aria-label="Built form and scale">
+ <article class="panel yellow">
+  <div class="panel-top"><span>01 / BUILT FORM</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Five forms.<br>Many densities.</h2>
+  <figure class="forms-figure"><svg viewBox="0 0 440 224" role="img" aria-label="Five schematic building types: slab, point block, small apartment block, row houses and detached houses"><g fill="var(--accent)" stroke="currentColor" stroke-width="2"><path d="M30 77V29h104v48zM30 29l22-14h104l-22 14M134 29l22-14v48l-22 14"/><path d="M199 78V22h45v56zM199 22l21-12h45l-21 12M244 22l21-12v56l-21 12"/><path d="M322 78V44h72v34zM322 44l20-12h72l-20 12M394 44l20-12v34l-20 12"/><path d="M35 185v-29l15-14 15 14v29zM65 185v-29l15-14 15 14v29zM95 185v-29l15-14 15 14v29zM125 185v-29l15-14 15 14v29z"/><path d="M272 185v-29l17-15 17 15v29zM330 185v-29l17-15 17 15v29zM388 185v-29l17-15 17 15v29z"/></g><g class="svg-label"><text x="30" y="103">Slab</text><text x="194" y="103">Point block</text><text x="317" y="103">Small block</text><text x="35" y="215">Row houses</text><text x="272" y="215">Detached houses</text></g></svg><figcaption>Building types from the original TKK reference. Schematic, not to scale.</figcaption></figure>
+  <p>Compare footprint, height and open space together. The same floor area can take several forms.</p>
+  <div class="note"><strong>Keep the boundary explicit.</strong> Plot, block and district ratios use different land areas.</div>
+  <a class="proof" href="evidence.html#built-form">Evidence · building types & boundaries ↗</a>
+ </article>
+ <article class="panel yellow">
+  <div class="panel-top"><span>01 / FLOOR AREA</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Measure intensity.</h2>
+  <div class="formula"><span class="formula-symbol">e =</span><span class="fraction"><span>total floor area</span><span>land area</span></span></div>
+  <p class="small">Floor-area ratio · <em>tehokkuusluku</em> · dimensionless</p>
+  <div class="input-grid"><label>Footprint <span>m²</span><input id="footprint" type="number" min="0" max="10000000" value="1000" step="any"></label><label>Equal floor plates <span>floors</span><input id="floors" type="number" min="1" max="200" value="4" step="1"></label><label>Land area <span>m²</span><input id="land" type="number" min="0.01" max="100000000" value="5000" step="any"></label></div>
+  <div class="result" aria-live="polite"><strong id="far-result">0.80</strong><span id="far-detail">4,000 m² floor area / 5,000 m² land</span></div>
+  <p class="small">Illustrative massing calculation: identical floor plates. For a real proposal, sum the actual counted floor areas. This does not determine permitted building rights.</p>
+  <a class="proof" href="evidence.html#density">Evidence · definition & calculation ↗</a>
+ </article>
+ <article class="panel yellow">
+  <div class="panel-top"><span>01 / MODEL SCALE</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Metres to<br>model millimetres.</h2>
+  <div class="scale-graphic" aria-hidden="true"><span>1 m</span><svg viewBox="0 0 240 55"><path d="M10 28h220m-12-10 12 10-12 10" fill="none" stroke="currentColor" stroke-width="2"/></svg><span id="scale-unit">2 mm</span></div>
+  <div class="input-grid two"><label>Real length <span>m</span><input id="real-length" type="number" min="0" max="1000000" value="3.5" step="any"></label><label>Scale <span>1 : n</span><input id="model-scale" type="number" min="1" max="100000" value="500" step="any"></label></div>
+  <div class="result" aria-live="polite"><strong id="scale-result">7 <small>mm</small></strong><span>on the physical model</span></div>
+  <p class="small">Model mm = real metres × 1,000 ÷ scale denominator. The initial 1:500 is an example; enter the scale of your shared model.</p>
+  <div class="note">Use paper or cardboard to make the areas and elements required by your theme at the scale of the shared physical model.</div>
+  <a class="proof" href="evidence.html#scale">Evidence · unit conversion & W4 instruction ↗</a>
+ </article>
+</section>
+<section class="sheet" id="walk-cycle" aria-label="Walking and cycling" hidden>
+ <article class="panel yellow">
+  <div class="panel-top"><span>02 / WALKING</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Keep a clear route.</h2>
+  <figure><svg viewBox="0 0 440 155" role="img" aria-label="A clear walking route is separate from the furniture zone"><path d="M24 55h392v78H24z" fill="var(--accent)"/><path d="M24 20v20m392-20v20M24 30h392" class="dimension"/><text x="220" y="23" text-anchor="middle" class="svg-label">2.5 m basic footway</text><g stroke="currentColor" stroke-width="3" fill="none"><circle cx="170" cy="70" r="7"/><path d="m170 80-4 28-13 17m14-17 17 17m-15-40-14 13m14-13 14 10"/><circle cx="262" cy="70" r="7"/><path d="m262 80 4 28 13 17m-14-17-17 17m15-40 14 13m-14-13-14 10"/></g><path d="M24 135h392" stroke="currentColor" stroke-width="2"/></svg></figure>
+  <dl class="dimensions"><div><dt>Basic footway <span>Espoo 2010</span></dt><dd>2.5 <small>m</small></dd></div><div><dt>Clear passage <span>SuRaKu minimum</span></dt><dd>1.5 <small>m</small></dd></div><div><dt>Two wheelchairs passing <span>SuRaKu minimum</span></dt><dd>1.8 <small>m</small></dd></div><div><dt>Mechanical maintenance <span>SuRaKu minimum width</span></dt><dd>2.3 <small>m</small></dd></div></dl>
+  <p class="small">The clear-passage minimum is not the basic footway width. Allow separately for furniture and busy frontage.</p>
+  <a class="proof" href="evidence.html#walking">Evidence · Espoo p. 18 / SuRaKu card 1 ↗</a>
+ </article>
+ <article class="panel blue">
+  <div class="panel-top"><span>02 / CYCLING</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Choose the facility.</h2>
+  <div class="metric-hero"><strong>1.75 <small>m</small></strong><span>one-way cycle lane · Espoo 2010</span></div>
+  <dl class="dimensions"><div><dt>Shared walking + cycling <span>basic combined width</span></dt><dd>3–4 <small>m</small></dd></div><div><dt>Separated walking + cycling <span>total basic width</span></dt><dd>4.0 <small>m</small></dd></div><div><dt>Separated, main cycle route <span>total width, at least</span></dt><dd>4.5 <small>m</small></dd></div><div><dt>Lane beside parking <span>additional buffer, at least</span></dt><dd>0.75 <small>m</small></dd></div></dl>
+  <div class="note"><strong>These are different arrangements.</strong> The 4.0 / 4.5 m values include walking. One-way cycle lanes require provision on both sides. Higher demand can need more space.</div>
+  <p class="small">Assignment source: Espoo’s 2010 cross-section guide. Test suitability for the proposed street and network.</p>
+  <a class="proof" href="evidence.html#cycling">Evidence · Espoo p. 18, §§5.2–5.4 ↗</a>
+ </article>
+ <article class="panel yellow">
+  <div class="panel-top"><span>02 / ACCESS & STAYING</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Room beside<br>the movement.</h2>
+  <div class="slope-table"><span></span><span>Special level</span><span>Basic level</span><strong>Crossfall ≤</strong><b>2%</b><b>3%</b><strong>Longitudinal ≤</strong><b>5%</b><b>8%</b></div>
+  <p class="small">SuRaKu pedestrian-route gradients. Ramps have separate requirements.</p>
+  <div class="rule"><strong>Furniture belongs outside the clear route.</strong><p>Keep entrances and crossing sightlines clear. Include room to sit, approach and use the furniture.</p></div>
+  <div class="rule"><strong>Cycle & scooter parking at stops</strong><p>Espoo drawing 811A leaves the <b>5 m before a crossing</b> free of these parking areas. Select a layout and capacity for the location.</p></div>
+  <p class="small">A parked cycle’s footprint alone is not a complete parking layout: include access and handling space.</p>
+  <a class="proof" href="evidence.html#staying">Evidence · SuRaKu / furniture / 811A ↗</a>
+ </article>
+</section>
+<section class="sheet" id="accessible" aria-label="Accessible movement" hidden>
+ <article class="panel yellow">
+  <div class="panel-top"><span>03 / TURNING SPACE</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Room to turn.</h2>
+  <figure><svg viewBox="0 0 440 245" role="img" aria-label="Wheelchair turning diameter 1.5 metres and powered-wheelchair turning diameter 2.5 metres, drawn at the same scale"><circle cx="95" cy="135" r="60" fill="var(--yellow)"/><circle cx="305" cy="115" r="100" fill="var(--blue)"/><path d="M35 135h120m-120-7v14m120-14v14M205 115h200m-200-7v14m200-14v14" class="dimension"/><text x="95" y="124" text-anchor="middle" class="svg-label">Ø 1.5 m</text><text x="305" y="104" text-anchor="middle" class="svg-label">Ø 2.5 m</text><text x="95" y="232" text-anchor="middle" class="svg-label">Wheelchair</text><text x="305" y="232" text-anchor="middle" class="svg-label">Powered wheelchair</text></svg><figcaption>Same graphic scale · clear turning diameters</figcaption></figure>
+  <p>SuRaKu’s outdoor guidance uses at least <b>1.5 m</b> for a wheelchair and <b>2.5 m</b> for a powered wheelchair.</p>
+  <div class="note">A turning circle is clear space, not the vehicle outline. Keep furniture and door swings out of the usable turning area.</div>
+  <p class="small">Check the actual device for larger mobility scooters or other equipment; the source does not give one universal scooter turning diameter.</p>
+  <button class="text-button open-cad">Download turning templates ↓</button>
+  <a class="proof" href="evidence.html#turning">Evidence · SuRaKu cards 3, 4 & 7 ↗</a>
+ </article>
+ <article class="panel blue">
+  <div class="panel-top"><span>03 / ROUTES & RAMPS</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Space to pass.<br>Space to pause.</h2>
+  <dl class="dimensions"><div><dt>Clear pedestrian route <span>includes assistant / guide-dog use</span></dt><dd>≥ 1.5 <small>m</small></dd></div><div><dt>Two wheelchairs passing</dt><dd>≥ 1.8 <small>m</small></dd></div><div><dt>Ramp gradient <span>recommended / maximum</span></dt><dd>≤ 5 / 8 <small>%</small></dd></div></dl>
+  <figure><svg viewBox="0 0 440 120" role="img" aria-label="For long ramps steeper than five percent, SuRaKu requires at least two metre straight intermediate landings every six metres"><path d="M20 100l140-45h100l160-45" fill="none" stroke="currentColor" stroke-width="4"/><path d="M160 65v38m100-38v38M160 93h100" class="dimension"/><text x="210" y="84" text-anchor="middle" class="svg-label">≥ 2 m</text><text x="75" y="45" text-anchor="middle" class="svg-label">6 m run</text></svg><figcaption>Ramp profile schematic · not to scale</figcaption></figure>
+  <p class="small">On long ramps steeper than <b>5%</b>, SuRaKu calls for a straight landing at least <b>2 m</b> long every <b>6 m</b>. Include turning space at changes of direction.</p>
+  <div class="note">For a rise of 0.30 m at 5%: horizontal ramp run = 0.30 ÷ 0.05 = <b>6 m</b>, before landings.</div>
+  <a class="proof" href="evidence.html#ramps">Evidence · SuRaKu cards 1–3 / slope derivation ↗</a>
+ </article>
+ <article class="panel yellow">
+  <div class="panel-top"><span>03 / ARRIVING & STAYING</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Make room<br>alongside.</h2>
+  <div class="metric-hero"><strong>≥ 0.9 <small>m</small></strong><span>clear wheelchair space at one end of a bench</span></div>
+  <div class="rule"><strong>Seating</strong><p>SuRaKu recommends backs, armrests and a choice of seat heights. Keep the approach accessible.</p></div>
+  <dl class="dimensions"><div><dt>Accessible parking bay <span>SuRaKu courtyard card, width × length</span></dt><dd>≥ 3.6 × 5.0 <small>m</small></dd></div><div><dt>Bay gradient <span>both directions, maximum</span></dt><dd>2 <small>%</small></dd></div></dl>
+  <p class="small">A courtyard bay is not a complete kerbside pick-up design. Check transfer, ramp or lift space and the connection to the pedestrian route for the actual vehicle.</p>
+  <div class="note">Allow people using wheelchairs, walking aids or an assistant to join the same spaces and routes.</div>
+  <a class="proof" href="evidence.html#arrival">Evidence · SuRaKu cards 2, 4 & 5 / Espoo 028A ↗</a>
+ </article>
+</section>
+<section class="sheet" id="transit-access" aria-label="Transit and access" hidden>
+ <article class="panel blue">
+  <div class="panel-top"><span>04 / PUBLIC TRANSPORT</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Reserve the corridor.<br>Then the stop.</h2>
+  <div class="comparison"><div><strong>≥ 8.0 <small>m</small></strong><p>Light-rail reservation<br><span>Espoo 2010 · stops separately</span></p></div><div><strong>≥ 6.0 <small>m</small></strong><p>Tram line section<br><span>Helsinki card · marked draft</span></p></div></div>
+  <p class="small">Different source contexts; not an interchangeable minimum. Curves, poles and stops need their own checks.</p>
+  <div class="stop-diagram"><svg viewBox="0 0 440 90" role="img" aria-label="A one-bus stop length of 16 metres and two-bus stop length of 32 metres"><path d="M20 70h400" stroke="currentColor" stroke-width="3"/><rect x="35" y="30" width="155" height="32" rx="5" fill="var(--accent)" stroke="currentColor" stroke-width="2"/><rect x="215" y="30" width="155" height="32" rx="5" fill="none" stroke="currentColor" stroke-dasharray="5 4"/><text x="110" y="20" text-anchor="middle" class="svg-label">16 m / one bus</text><text x="295" y="20" text-anchor="middle" class="svg-label">32 m / two buses</text></svg></div>
+  <p><strong>Espoo on-carriageway stop 031D.</strong> Based on a 15 m bus. These lengths do not include every crossing, junction or approach clearance.</p>
+  <a class="proof" href="evidence.html#transit">Evidence · Espoo p. 17 / tram card / 031D ↗</a>
+ </article>
+ <article class="panel red">
+  <div class="panel-top"><span>04 / VEHICLE FUNCTIONS</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>A lane is only<br>part of the space.</h2>
+  <div class="metric-hero"><strong>3.0–3.25 <small>m</small></strong><span>lane on a local collector · Espoo 2010</span></div>
+  <p>Where buses determine the design, the guide uses a minimum <b>3.25 m lane</b>.</p>
+  <figure><svg viewBox="0 0 440 145" role="img" aria-label="Schematic turning envelope needs more area than the vehicle body"><path d="M30 125h125a90 90 0 0 0 90-90V10h130v25a220 220 0 0 1-220 220H30" fill="var(--accent)"/><path d="M30 125h125a90 90 0 0 0 90-90V10M375 10v25a220 220 0 0 1-220 220" fill="none" stroke="currentColor" stroke-width="2"/><path d="M35 170h120A135 135 0 0 0 290 35V10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="7 6"/><text x="45" y="40" class="svg-label">Test the full</text><text x="45" y="62" class="svg-label">swept path.</text></svg><figcaption>Schematic turning envelope · not to scale</figcaption></figure>
+  <p class="small">Choose the design vehicle. Check property entrances, deliveries, waste collection, pick-up/drop-off and accessible parking as separate functions.</p>
+  <div class="note">No long-term private car parking.</div>
+  <a class="proof" href="evidence.html#vehicles">Evidence · Espoo pp. 15–16 / 814 / W4 theme ↗</a>
+ </article>
+ <article class="panel red">
+  <div class="panel-top"><span>04 / RESCUE ACCESS</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Keep the envelope.</h2>
+  <div class="rescue-grid"><div><strong>3.5 <small>m</small></strong><span>route width</span></div><div><strong>4.2 <small>m</small></strong><span>clear height</span></div></div>
+  <p class="small">HIKLU 2024 · fire engine and aerial appliance routes</p>
+  <dl class="dimensions"><div><dt>Fire-engine turning radii <span>inner / outer</span></dt><dd>5 / 10.5 <small>m</small></dd></div><div><dt>Aerial-appliance turning radii <span>inner / outer</span></dt><dd>5.5 / 12.5 <small>m</small></dd></div><div><dt>Aerial set-up area <span>minimum width × length</span></dt><dd>6 × 13 <small>m</small></dd></div></dl>
+  <p class="small">Target set-up width: <b>8 m</b>. Turning models also specify driving allowances. These figures alone do not demonstrate a working rescue route.</p>
+  <div class="note">Check bearing capacity, gradients, outriggers and reach. Keep trees, overhead wires and stored snow out of the operational envelope.</div>
+  <a class="proof" href="evidence.html#rescue">Evidence · HIKLU v1.3, pp. 7–13 ↗</a>
+ </article>
+</section>
+<section class="sheet" id="green-blue" aria-label="Green and blue street" hidden>
+ <article class="panel green">
+  <div class="panel-top"><span>05 / STREET TREES</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Draw the roots, too.</h2>
+  <figure><svg viewBox="0 0 440 190" role="img" aria-label="A street tree needs both a canopy envelope and underground soil volume"><path d="M120 120h200v58H120z" fill="var(--accent)"/><path d="M20 120h400" stroke="currentColor" stroke-width="2"/><path d="M220 120V65" stroke="currentColor" stroke-width="6"/><path d="M220 91c-100 10-88-70-51-64 10-38 75-35 84-1 57-5 67 66-33 65Z" fill="var(--accent)" stroke="currentColor" stroke-width="2"/><path d="m220 120-40 35m40-35 40 35m-40-35v45m-20-27-35 6m78-10 33 6" fill="none" stroke="currentColor" stroke-width="2"/><text x="16" y="68" class="svg-label">Canopy</text><text x="16" y="166" class="svg-label">Soil</text></svg><figcaption>Schematic volume · not to scale</figcaption></figure>
+  <div class="comparison soil"><div><strong>≈ 25 <small>m³</small></strong><p>Conventional soil</p></div><div><strong>≈ 40–60 <small>m³</small></strong><p>Structural soil</p></div></div>
+  <p class="small">Helsinki’s tree-and-tram guide (marked draft): indicative volumes for a large-growing tree. Structural soil needs more volume because its stone skeleton reduces water storage.</p>
+  <div class="note">A planting strip is not the whole root zone. Coordinate continuous soil, utilities and the mature canopy.</div>
+  <a class="proof" href="evidence.html#trees">Evidence · tree-and-tram / growing-medium cards ↗</a>
+ </article>
+ <article class="panel blue">
+  <div class="panel-top"><span>05 / STORMWATER</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Catch. Hold.<br>Release safely.</h2>
+  <div class="metric-hero"><strong>1 <small>m³ /</small> 100 <small>m²</small></strong><span>impermeable surface → detention volume</span></div>
+  <p class="small">An example zoning provision on Espoo’s stormwater page, not a universal site requirement. The example also calls for emptying in <b>12–24 h</b> and controlled overflow.</p>
+  <div class="water-example"><span>ILLUSTRATIVE CALCULATION</span><p><b>600 m²</b> impermeable catchment</p><p>÷ 100 = <b>6 m³</b> detention</p><p>÷ 0.20 m assumed effective depth</p><strong>30 m²</strong><p>idealised storage area</p></div>
+  <p class="small">Add side slopes, freeboard, inlet, overflow and maintenance space. Confirm soil, groundwater and the actual runoff/design event before sizing a solution.</p>
+  <a class="proof" href="evidence.html#stormwater">Evidence · Espoo zoning example & derivation ↗</a>
+ </article>
+ <article class="panel green">
+  <div class="panel-top"><span>05 / SHARED GROUND</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Leave room<br>for living systems.</h2>
+  <dl class="dimensions"><div><dt>Tree planting strip <span>Espoo 2010, at least</span></dt><dd>3.0 <small>m</small></dd></div><div><dt>On a main street <span>Espoo 2010, at least</span></dt><dd>3.5 <small>m</small></dd></div><div><dt>Lawn / ground-cover shrubs <span>Espoo 2010, at least</span></dt><dd>2.0 <small>m</small></dd></div></dl>
+  <div class="rule"><strong>Above ground</strong><p>Check sightlines, mature crowns, tram wires and access to buildings.</p></div>
+  <div class="rule"><strong>Below ground</strong><p>Allow root volume and space to maintain pipes, cables and drainage.</p></div>
+  <div class="rule"><strong>In winter</strong><p>Show where snow goes while routes and rescue access remain clear. Consider salt exposure before directing runoff to trees.</p></div>
+  <a class="proof" href="evidence.html#ground">Evidence · Espoo pp. 10–11, 19 / Helsinki / HIKLU ↗</a>
+ </article>
+</section>
+<section class="sheet" id="fit-street" aria-label="Fit the street" hidden>
+ <article class="panel yellow budget-panel">
+  <div class="panel-top"><span>06 / WIDTH BUDGET</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>What fits?</h2>
+  <p class="small">Editable comparison. Starting widths are an illustrative combination, not a prescribed cross-section.</p>
+  <label class="total-label">Available street width <span><input id="available" type="number" min="0.1" max="1000" step="any" value="24"> m</span></label>
+  <div class="budget-inputs"><div class="budget-head"><span>Component</span><span>Each / m</span><span>Count</span></div>
+   <div class="budget-row"><span><i style="--swatch:var(--yellow)"></i>Footways</span><input id="b-walk" type="number" min="0" max="100" step="any" value="2.5" aria-label="Footway width in metres"><input id="n-walk" type="number" min="0" max="20" step="1" value="2" aria-label="Number of footways"></div>
+   <div class="budget-row"><span><i style="--swatch:var(--blue)"></i>Cycle lanes</span><input id="b-cycle" type="number" min="0" max="100" step="any" value="1.75" aria-label="Cycle lane width in metres"><input id="n-cycle" type="number" min="0" max="20" step="1" value="2" aria-label="Number of cycle lanes"></div>
+   <div class="budget-row"><span><i style="--swatch:var(--green)"></i>Planting</span><input id="b-green" type="number" min="0" max="100" step="any" value="3" aria-label="Planting strip width in metres"><input id="n-green" type="number" min="0" max="20" step="1" value="2" aria-label="Number of planting strips"></div>
+   <div class="budget-row"><span><i style="--swatch:var(--red)"></i>Vehicle lanes</span><input id="b-vehicle" type="number" min="0" max="100" step="any" value="3.25" aria-label="Vehicle lane width in metres"><input id="n-vehicle" type="number" min="0" max="20" step="1" value="2" aria-label="Number of vehicle lanes"></div>
+   <div class="budget-row"><span><i style="--swatch:#b6a6dd"></i>Tram corridor</span><input id="b-tram" type="number" min="0" max="100" step="any" value="8" aria-label="Tram corridor width in metres"><input id="n-tram" type="number" min="0" max="1" step="1" value="0" aria-label="Number of tram corridors"></div>
+   <div class="budget-row"><span><i style="--swatch:#bdbbb3"></i>Other / buffers</span><input id="b-other" type="number" min="0" max="100" step="any" value="0" aria-label="Other space in metres"><input id="n-other" type="number" min="0" max="20" step="1" value="1" aria-label="Number of other strips"></div>
+  </div>
+  <div id="budget-bar" aria-hidden="true"></div>
+  <div class="budget-result" aria-live="polite"><strong id="budget-result">3 m left</strong><span id="budget-detail">21 m allocated / 24 m available</span></div>
+  <div class="budget-actions"><button class="text-button" id="reset-budget">Reset example ↺</button><button class="text-button" id="export-budget">Export this layout ↓</button></div>
+  <a class="proof" href="evidence.html#budget">Evidence · starting values, formula & limits ↗</a>
+ </article>
+ <article class="panel yellow">
+  <div class="panel-top"><span>06 / CHECK THE WHOLE STREET</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>The sum is<br>only the start.</h2>
+  <ol class="checklist"><li><strong>Check the section.</strong><span>Add kerbs, buffers, furniture, drainage, edges and snow space where needed.</span></li><li><strong>Check the plan.</strong><span>Stops, crossings, entries, turning paths and loading need length as well as width.</span></li><li><strong>Check the vertical space.</strong><span>Include canopy, soil, utilities, clear height and overhead wires.</span></li><li><strong>Check each overlap.</strong><span>A shared area needs a workable operating arrangement. Avoid counting the same space twice.</span></li></ol>
+  <div class="note">A positive remainder is unallocated space, not proof of a complete or compliant design.</div>
+  <a class="proof" href="evidence.html#integration">Evidence · synthesis of the five theme sources ↗</a>
+ </article>
+ <article class="panel yellow">
+  <div class="panel-top"><span>06 / SHARED MODEL</span><span class="wall-brand"><img src="assets/aalto-logo.svg" alt="Aalto University"></span></div>
+  <h2>Make the choices<br>visible.</h2>
+  <p class="lead">Move, cut, replace and rearrange the elements during the negotiation.</p>
+  <ul class="questions"><li>What must be included?</li><li>Where is there room for flexibility?</li><li>Can spaces or functions be combined?</li><li>Is the same solution needed along the entire street?</li></ul>
+  <div class="note">The process is more important than the outcome.</div>
+  <p class="small">Selected English instructions from the supplied W4 material. The helper supports the shared model exercise.</p>
+  <a class="proof" href="evidence.html#assignment">Evidence · supplied W4 instructions ↗</a>
+ </article>
+</section>
+</div>
+</main>
+<footer class="page-footer"><span>Finnish dimensions. English reference.</span><span>SPT-E3020 / KUTOJA 2060</span><span id="page-count">01 / 06</span></footer>
+<div class="wall-controls"><button id="previous" aria-label="Previous sheet">←</button><span id="wall-page">01 / 06</span><button id="next" aria-label="Next sheet">→</button><button id="wall-sources" aria-pressed="false">Sources</button><button class="open-cad">CAD ↓</button><button id="wall-exit">Desktop</button><button id="wall-fullscreen" aria-label="Toggle fullscreen">↗</button></div>
+<aside class="source-banner" hidden><span><strong>Sources mode</strong> · English synthesis is an assistant draft. Source dates and applicability remain visible on each sheet.</span><a href="evidence.html">Evidence index ↗</a><a href="http://yks.tkk.fi/fi/opinnot/tyokalut/mitoitus.html">Original TKK reference ↗</a></aside>
+<div id="status" class="sr-only" role="status"></div>
+<noscript><p class="noscript-note">JavaScript is required for sheet navigation and calculators. <a href="evidence.html">Read the evidence index</a>.</p></noscript>
+<dialog id="cad-dialog" aria-labelledby="cad-title">
+ <div class="dialog-header"><div><p class="eyebrow">DRAWING TEMPLATES</p><h2 id="cad-title">Take the dimensions with you.</h2></div><button id="close-cad" aria-label="Close CAD downloads">×</button></div>
+ <p>Real-world geometry, at 1:1. Choose drawing units before downloading.</p>
+ <fieldset class="unit-choices"><legend>Drawing units</legend><label><input type="radio" name="cad-unit" value="m" checked> Metres (m)</label><label><input type="radio" name="cad-unit" value="mm"> Millimetres (mm)</label><label><input type="radio" name="cad-unit" value="ft"> Feet (ft)</label></fieldset>
+ <div class="download-list">
+ <div><strong>Accessible movement</strong><p>Turning circles, passing widths, bench space and parking bay.</p><a data-cad="accessible" href="downloads/accessible-m.dxf" download>DXF ↓</a><a data-svg="accessible" href="downloads/accessible-m.svg" download>SVG ↓</a></div>
+ <div><strong>Rescue reference geometry</strong><p>Turning-radius circles and aerial-appliance set-up area. Not a swept-path simulation.</p><a data-cad="rescue" href="downloads/rescue-m.dxf" download>DXF ↓</a><a data-svg="rescue" href="downloads/rescue-m.svg" download>SVG ↓</a></div>
+ <div><strong>Street-space strips</strong><p>Basic widths for comparing arrangements. Strip length is illustrative.</p><a data-cad="street" href="downloads/street-m.dxf" download>DXF ↓</a><a data-svg="street" href="downloads/street-m.svg" download>SVG ↓</a></div>
+ </div>
+ <div class="download-footer"><a id="cad-bundle" class="solid-button" href="downloads/mitoitus-cad-m.zip" download>All templates + evidence ↓</a><button id="download-budget" class="solid-button">Current width budget · DXF ↓</button></div>
+ <p class="small">DXF insertion units match your selection. Feet use 1 ft = 0.3048 m. Sources and assumptions accompany every file. <a href="evidence.html#cad">Evidence & export notes ↗</a></p>
+</dialog>
+<script src="cad-base.js"></script><script src="cad.js"></script><script src="app.js"></script>
+</body></html>

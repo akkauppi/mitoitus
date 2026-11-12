@@ -1,0 +1,31 @@
+Selected supplied English course wording — 2026 W4
+
+Source: canonical mycourses/content/w04.json, from supplied W4_DIMENSIONING_eng.docx.
+This extract is verbatim; numbering identifies source paragraphs.
+
+[9] Using the sources, establish the key dimensions and spatial requirements for your theme in the Kutoja 2060 proposal.
+
+[16] If the sources offer several alternatives, develop your own proposal for Kutoja 2060 and be prepared to justify your choices.
+
+[18] Use paper or cardboard to make the areas and elements required by your theme at the scale of the shared physical model.
+
+[19] These might include pedestrian areas, cycle tracks, a tramway, stops, carriageways, servicing areas, areas required for trees and growing media, or stormwater solutions.
+
+[35] What must be included?
+
+[36] Where is there room for flexibility?
+
+[37] Can spaces or functions be combined?
+
+[40] Is the same solution needed along the entire street?
+
+[44] Move, cut, replace and rearrange the elements during the negotiation.
+
+[49] The process is more important than the outcome.
+
+[50] You do not need to produce a finished street design today. The aim is to see what happens when separately justified spatial requirements and solutions must be fitted into the same limited street space.
+
+Theme 4 — supplied workbook, selected English wording:
+4. Vehicular traffic + essential vehicle functions
+Carriageway, vehicle passing, junctions, pick-up/drop-off, accessible parking spaces, servicing, deliveries, waste collection and rescue access
+Carriageway width and the dimensioned areas required for other vehicle functions and access to them. No long-term private car parking.

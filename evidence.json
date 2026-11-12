@@ -1,0 +1,538 @@
+{
+  "reviewed": "2026-11-12",
+  "status": "Assistant-drafted English synthesis; not checked author wording. Source observations verified against the retrieved files; teacher approval not inferred.",
+  "sources": {
+    "S01": {
+      "id": "S01",
+      "url": "https://admin.espoo.fi/sites/default/files/2021-08/Espoo_Katupoikkileikk_suun_ohje_kansineen_liitteineen.pdf",
+      "sha256": "9d07019b004ef6db1aa47ef5290b856578eb6f62f8d4004029b7a2be5eb5e446",
+      "retrieved_utc": "2026-11-12T09:39:28.814694+00:00",
+      "title": "Espoo — Katupoikkileikkausten suunnitteluohjeet",
+      "edition": "2010",
+      "note": "Assignment source; printed page n is PDF page n+1."
+    },
+    "S02": {
+      "id": "S02",
+      "url": "https://kaupunkitilaohje.hel.fi/card_tag/kasvualusta/",
+      "sha256": "c68badfaae2e0e38887833e26a596f0961b9dac2f808405c5392dfb28611dc29",
+      "retrieved_utc": "2026-11-12T09:39:28.779924+00:00",
+      "title": "Helsinki — kasvualusta topic index",
+      "edition": "Retrieved 12 Nov 2026",
+      "note": "Assignment entry point; use the individual cards for claims."
+    },
+    "S03": {
+      "id": "S03",
+      "url": "https://kaupunkitilaohje.hel.fi/kortit/kalusteiden-sijoittaminen/",
+      "sha256": "fcdac496b83a4bcf4e41169ef72570e14cb679e4dff391ef143d3cb317105642",
+      "retrieved_utc": "2026-11-12T09:39:29.565893+00:00",
+      "title": "Helsinki — Kalusteiden sijoittaminen",
+      "edition": "Retrieved 12 Nov 2026",
+      "note": "Furniture placement collection; includes cycle racks and handling space."
+    },
+    "S04": {
+      "id": "S04",
+      "url": "https://kaupunkitilaohje.hel.fi/kortti/katu-puistopuut-uusi/",
+      "sha256": "f588c965a5d0458ae0e9d8da1678cd41e2676d63284f50b78a32de9b3d297a29",
+      "retrieved_utc": "2026-11-12T09:39:31.443835+00:00",
+      "title": "Helsinki — Katu- ja puistopuut",
+      "edition": "23 Jan 2026",
+      "note": "Street and park tree principles."
+    },
+    "S05": {
+      "id": "S05",
+      "url": "https://kaupunkitilaohje.hel.fi/kortti/katuliittyma/",
+      "sha256": "515f0762dd3c20f509c45e833c07dd20c7bc79c6d2d024ffc59f354f8882b329",
+      "retrieved_utc": "2026-11-12T09:39:29.650720+00:00",
+      "title": "Helsinki — Katuliittymä",
+      "edition": "8 May 2024",
+      "note": "Junction visibility and design principles."
+    },
+    "S06": {
+      "id": "S06",
+      "url": "https://kaupunkitilaohje.hel.fi/kortti/raitiotie/",
+      "sha256": "95c563d778b1eb309002843d52bb791a6ff94d673f0efc073d7130f5ad2097df",
+      "retrieved_utc": "2026-11-12T09:39:29.649604+00:00",
+      "title": "Helsinki — Raitiotiet",
+      "edition": "8 May 2024",
+      "note": "The source is explicitly marked Luonnos (draft)."
+    },
+    "S07": {
+      "id": "S07",
+      "url": "https://www.espoo.fi/fi/asuminen-ja-rakentaminen/rakentaminen/hulevesi",
+      "sha256": "5edd8bb0430e8dbdbb5a3c6d251ec000ddd24b66fac762103369fe1fb55004e9",
+      "retrieved_utc": "2026-11-12T09:39:28.809492+00:00",
+      "title": "Espoo — Hulevesi",
+      "edition": "Retrieved 12 Nov 2026",
+      "note": "The numerical provision is an example under Kaavoitus, not a universal requirement."
+    },
+    "S08": {
+      "id": "S08",
+      "url": "https://www.espoo.fi/fi/liikenne-ja-kadut/suunnittelu-ja-asennusohjeita-seka-tyyppipiirustuksia",
+      "sha256": "c9e782e966ec49e525461d527b53e525686e327ddcb60f4198f497420b402e6f",
+      "retrieved_utc": "2026-11-12T09:39:28.757440+00:00",
+      "title": "Espoo — Suunnittelu- ja asennusohjeita sekä tyyppipiirustuksia",
+      "edition": "Retrieved 12 Nov 2026",
+      "note": "Assignment index for SuRaKu and standard drawings."
+    },
+    "S09": {
+      "id": "S09",
+      "url": "https://www.hel.fi/static/hkr/julkaisut/ohjeet/katutila_mitoitus.pdf",
+      "sha256": "2a5cc0e6692d016255c30a0d68f5a5d24f2b585602e5854db5edb5f6ea3485d4",
+      "retrieved_utc": "2026-11-12T09:39:29.781594+00:00",
+      "title": "Helsinki — Katutilan mitoitus",
+      "edition": "May 2014",
+      "note": "Workbook-linked PDF. Other Helsinki pages mention a May 2015 version; do not silently treat this PDF as that edition."
+    },
+    "S10": {
+      "id": "S10",
+      "url": "http://production.espoo-cms.finland.wdr.io/sites/default/files/2021-08/Esteet%C3%B6n%20ymp%C3%A4rist%C3%B6.pdf",
+      "sha256": "790826deb23c95102ceb024d70c0a2349b216f22ba11d1a9cc3e9c016a064127",
+      "retrieved_utc": "2026-11-12T09:40:21.727521+00:00",
+      "title": "SuRaKu — Esteetön ympäristö, cards 1–8",
+      "edition": "6 Feb 2008",
+      "note": "Assignment-linked collection; pedestrian streets, ramps, courtyards and stops. These are dated outdoor guidelines."
+    },
+    "S11": {
+      "id": "S11",
+      "url": "https://admin.espoo.fi/sites/default/files/2024-10/5222_811.pdf",
+      "sha256": "e49f9be778fdf4041012f36e1c5b51235cc405021effcd08240242fe4616ebf7",
+      "retrieved_utc": "2026-11-12T09:40:21.729143+00:00",
+      "title": "Espoo — Pyöräpysäköinti pysäkillä, 5222/811A",
+      "edition": "9 Oct 2024",
+      "note": "Bicycle and scooter parking at stops; layouts and the 5 m exclusion before crossings."
+    },
+    "S12": {
+      "id": "S12",
+      "url": "https://admin.espoo.fi/sites/default/files/2024-10/5222_029.pdf",
+      "sha256": "81e0b4c57a91fcfb81a34d0a088db211ba72b4ef9bbac68e5581dd0af2864580",
+      "retrieved_utc": "2026-11-12T09:40:21.840925+00:00",
+      "title": "Espoo — Perustason pysäkkisyvennys, 5222/029D",
+      "edition": "9 Oct 2024",
+      "note": "Basic-accessibility bus bay; check the complete drawing."
+    },
+    "S13": {
+      "id": "S13",
+      "url": "https://admin.espoo.fi/sites/default/files/2024-10/5222_030.pdf",
+      "sha256": "1c9a758818cf10926b1fe2e1cadeabd8d28a495dd1e335e38a9e3ce1fdcbd81d",
+      "retrieved_utc": "2026-11-12T09:40:21.307081+00:00",
+      "title": "Espoo — Erikoistason pysäkkisyvennys, 5222/030D",
+      "edition": "9 Oct 2024",
+      "note": "Special-accessibility bus bay; check the complete drawing."
+    },
+    "S14": {
+      "id": "S14",
+      "url": "https://admin.espoo.fi/sites/default/files/2024-10/5222_031.pdf",
+      "sha256": "1e24ed5dfa685146dcd37ce475439e60c5f5162a46ab546807d95b3289608d4a",
+      "retrieved_utc": "2026-11-12T09:40:21.420871+00:00",
+      "title": "Espoo — Ajoratapysäkki, 5222/031D",
+      "edition": "9 Oct 2024",
+      "note": "On-carriageway stop. Drawing based on a 15 m design bus."
+    },
+    "S15": {
+      "id": "S15",
+      "url": "https://admin.espoo.fi/sites/default/files/2024-10/5222_032.pdf",
+      "sha256": "555b44b9672fd035224576cc71d2f3f239bc4b64380b04989cf9429279a18d9d",
+      "retrieved_utc": "2026-11-12T09:40:21.678594+00:00",
+      "title": "Espoo — Hidastepysäkki, 5222/032D",
+      "edition": "9 Oct 2024",
+      "note": "Traffic-calming stop; check the complete drawing."
+    },
+    "S16": {
+      "id": "S16",
+      "url": "https://admin.espoo.fi/sites/default/files/2021-08/5222_034.pdf",
+      "sha256": "7b964226f0b3494e57b910355e8cf19b94120468652d71eb6fb0dbc8ccf0f71e",
+      "retrieved_utc": "2026-11-12T09:40:21.951885+00:00",
+      "title": "Espoo — Jokeri-bussipysäkki, 5222/034B",
+      "edition": "24 Apr 2018",
+      "note": "Separate stop variant, not interchangeable with 031D."
+    },
+    "S17": {
+      "id": "S17",
+      "url": "https://admin.espoo.fi/sites/default/files/2025-04/5222_814.pdf",
+      "sha256": "5cae1a72315b36e62d98d348fe26ccb381ef87794484386b1d77aa0fa893cc53",
+      "retrieved_utc": "2026-11-12T09:40:21.048395+00:00",
+      "title": "Espoo — Tontin ajoliittymä, 5222/814",
+      "edition": "23 Apr 2025",
+      "note": "Property entrance: checks the rounding radius against the design vehicle."
+    },
+    "S18": {
+      "id": "S18",
+      "url": "https://admin.espoo.fi/sites/default/files/2021-08/5222_028A.pdf",
+      "sha256": "4253f679400191a76505c10c165e291a6f5635e19f210ace2e2429808f8a48af",
+      "retrieved_utc": "2026-11-12T09:40:21.978294+00:00",
+      "title": "Espoo — Liikkumisesteisen pysäköintipaikka kadulla, 5222/028A",
+      "edition": "Assignment-linked drawing",
+      "note": "Kerbside accessible parking, separate from the SuRaKu courtyard bay."
+    },
+    "S19": {
+      "id": "S19",
+      "url": "https://kaupunkitilaohje.hel.fi/kortti/katupuut-raitioliikenne-mitoitusohje/",
+      "sha256": "c6c490a2741bc25d6f5003eb142943384bdf17c2762565cc94c3d4565a30978c",
+      "retrieved_utc": "2026-11-12T09:42:19.993518+00:00",
+      "title": "Helsinki — Katupuut ja raitioliikenne, mitoitusohje",
+      "edition": "8 May 2024",
+      "note": "Marked Luonnos (draft). Soil volume is discussed under Puiden kasvualustan mitoitus."
+    },
+    "S20": {
+      "id": "S20",
+      "url": "https://kaupunkitilaohje.hel.fi/kortti/kasvualustojen-laatuvaatimukset-2/",
+      "sha256": "e85fecf0e95f10139875355c1d7a413f4917fd031aa5cadc4b5ee87d22d0d72e",
+      "retrieved_utc": "2026-11-12T09:42:19.903477+00:00",
+      "title": "Helsinki — Kasvualustat",
+      "edition": "8 May 2024",
+      "note": "Site-specific growing medium and continuous soil for grouped trees."
+    },
+    "S22": {
+      "id": "S22",
+      "url": "https://pelastustoimi.fi/documents/25266713/160916296/HIKLU_Pelastustien_suunnittelu_ja_toteutus.pdf/5075ad67-5076-c76a-bed1-b4fac29e2880?t=1726574562994",
+      "sha256": "2cfefa0fb5b1ed3da64580dd127e091f14d3de4e9dda731e4536a4c0c75a4236",
+      "retrieved_utc": "2026-11-12T09:43:06.112963+00:00",
+      "title": "HIKLU — Pelastustien suunnittelu ja toteutus",
+      "edition": "23 Apr 2024 · v1.3",
+      "note": "Helsinki and Eastern, Central and Western Uusimaa rescue-service areas; obtained through Helsinki rescue service’s official index."
+    },
+    "TKK": {
+      "title": "TKK / YKS — Mitoitus",
+      "edition": "28 Aug 2007",
+      "url": "http://yks.tkk.fi/fi/opinnot/tyokalut/mitoitus.html",
+      "note": "Historical inspiration. Original HTML and 20 content drawings are preserved locally. Historical rules and numeric tables are not adopted as current standards."
+    },
+    "UNITS": {
+      "title": "NIST — Revised Unit Conversion Factors",
+      "edition": "3 Feb 2026",
+      "url": "https://www.nist.gov/pml/us-surveyfoot/revised-unit-conversion-factors",
+      "note": "International foot, exactly 0.3048 m; not the former U.S. survey foot."
+    },
+    "W4": {
+      "title": "Supplied W4 English instructions — selected extract",
+      "edition": "2026 course source",
+      "url": "assignment-extract.txt",
+      "note": "Verbatim selected English passages from canonical w04.json. Theme 4 restriction is from canonical w02.json, derived from the supplied theme workbook."
+    }
+  },
+  "claims": [
+    {
+      "id": "built-form",
+      "title": "Building types and boundaries",
+      "explanation": "The TKK reference lists slab, point, small apartment, row and detached types, and distinguishes plot, block and district floor-area ratios. New drawings are schematic. Equal floor area in different forms follows from summing the floor plates; it does not establish equal urban quality.",
+      "references": [
+        {
+          "source": "TKK",
+          "fragment": "",
+          "location": "Talotyypit; Tehokkuusluvut"
+        }
+      ]
+    },
+    {
+      "id": "density",
+      "title": "Floor-area ratio",
+      "explanation": "e = sum of counted floor areas / selected land area. Illustrative equal-floor calculation: 1,000 × 4 / 5,000 = 0.80. Floor-count and land-area inputs are assumptions, not permissions or a regulatory definition of counted floor space.",
+      "references": [
+        {
+          "source": "TKK",
+          "fragment": "#tehokkuus",
+          "location": "Tehokkuusluvut"
+        }
+      ]
+    },
+    {
+      "id": "scale",
+      "title": "Model conversion",
+      "explanation": "A metre is 1,000 millimetres. At scale 1:n, model mm = real m × 1,000 / n. Thus 3.5 m at 1:500 is 7 mm. The initial scale is an example, not the workshop’s asserted scale. The paper/cardboard instruction is verbatim supplied English.",
+      "references": [
+        {
+          "source": "W4",
+          "fragment": "",
+          "location": "Source paragraphs 18–19"
+        }
+      ]
+    },
+    {
+      "id": "walking",
+      "title": "Footway and clear widths",
+      "explanation": "Espoo: 2.5 m basic footway. SuRaKu card 1: 1.5 m clear passage, 1.8 m for two wheelchairs passing and 2.3 m for machine maintenance. Distinguish total route width from unobstructed passage.",
+      "references": [
+        {
+          "source": "S01",
+          "fragment": "#page=19",
+          "location": "Printed p. 18, §5.1"
+        },
+        {
+          "source": "S10",
+          "fragment": "#page=1",
+          "location": "Card 1, PDF p. 1"
+        }
+      ]
+    },
+    {
+      "id": "cycling",
+      "title": "Cycling arrangements",
+      "explanation": "Espoo: shared route 3–4 m; separated walking/cycling total 4 m, main routes at least 4.5 m; one-way cycle lane 1.75 m, with a 0.75 m minimum extra buffer if adjacent to parking. These are different facility types; retain their context.",
+      "references": [
+        {
+          "source": "S01",
+          "fragment": "#page=19",
+          "location": "Printed p. 18, §§5.2–5.4"
+        }
+      ]
+    },
+    {
+      "id": "staying",
+      "title": "Gradients, furniture and parking",
+      "explanation": "SuRaKu route crossfall: special/basic level 2%/3%; longitudinal gradient 5%/8%; ramps separate. Furniture belongs beside the route. Espoo 811A excludes cycle/scooter parking in the 5 m before a crossing, cycle crossing or intersecting cycle track. Capacity and handling space depend on layout.",
+      "references": [
+        {
+          "source": "S10",
+          "fragment": "#page=1",
+          "location": "Card 1, gradients; card 2, furniture"
+        },
+        {
+          "source": "S03",
+          "fragment": "",
+          "location": "Cycle-rack placement and handling space"
+        },
+        {
+          "source": "S11",
+          "fragment": "#page=1",
+          "location": "Notes beside the five layouts"
+        }
+      ]
+    },
+    {
+      "id": "turning",
+      "title": "Wheelchair turning circles",
+      "explanation": "SuRaKu: clear turning diameter at least 1.5 m for a wheelchair, 2.5 m for a powered wheelchair. The sheet draws them at a common scale. Keep the usable envelope clear (editorial application of clear-space guidance); do not infer that every mobility scooter fits this envelope.",
+      "references": [
+        {
+          "source": "S10",
+          "fragment": "#page=5",
+          "location": "Card 3, PDF p. 5; also card 4 p. 7 and card 7 p. 13"
+        }
+      ]
+    },
+    {
+      "id": "ramps",
+      "title": "Passing and ramp landings",
+      "explanation": "SuRaKu: route clear width 1.5 m, passing 1.8 m. Ramp recommendation ≤5%, maximum 8%; on long ramps >5%, straight intermediate landings ≥2 m every 6 m. The separate ramp width and turn details remain in the source. Example: run = rise / gradient = 0.30/0.05 = 6 m, excluding landings.",
+      "references": [
+        {
+          "source": "S10",
+          "fragment": "#page=6",
+          "location": "Cards 1–3; ramp profile and text on PDF pp. 5–6"
+        }
+      ]
+    },
+    {
+      "id": "arrival",
+      "title": "Seating and accessible parking",
+      "explanation": "SuRaKu: wheelchair space ≥0.9 m at a bench end; backs, armrests and varied seat heights. Courtyard accessible bay ≥3.6 × 5 m, gradient ≤2% both directions. Kerbside bays and vehicle transfer/lift access need separate layouts. The sentence about joining shared spaces is an editorial design prompt.",
+      "references": [
+        {
+          "source": "S10",
+          "fragment": "#page=4",
+          "location": "Card 2, furniture; card 4, PDF pp. 7–8"
+        },
+        {
+          "source": "S18",
+          "fragment": "#page=1",
+          "location": "Separate kerbside accessible-parking drawing"
+        }
+      ]
+    },
+    {
+      "id": "transit",
+      "title": "Tram corridors and bus-stop lengths",
+      "explanation": "Espoo light-rail reservation ≥8 m, stops separately; Helsinki’s draft tram card gives ≥6 m on a line section. They are not the same reservation. Espoo 031D gives 16 m for one bus, 32 m for two, using a 15 m bus; additional approach, junction and crossing clearances are shown separately.",
+      "references": [
+        {
+          "source": "S01",
+          "fragment": "#page=18",
+          "location": "Printed p. 17, §4.7"
+        },
+        {
+          "source": "S06",
+          "fragment": "",
+          "location": "Periaateratkaisu ja mitoitus; source marked draft"
+        },
+        {
+          "source": "S14",
+          "fragment": "#page=1",
+          "location": "Layouts A–C and junction-clearance details"
+        }
+      ]
+    },
+    {
+      "id": "vehicles",
+      "title": "Local collector and essential vehicle functions",
+      "explanation": "Espoo local-collector lane 3.0–3.25 m; when buses govern, ≥3.25 m. Turning depends on the vehicle and junction. The W4 brief lists servicing, deliveries, waste collection and rescue access, and excludes long-term private-car parking. Turning sketch is illustrative, not a computed path.",
+      "references": [
+        {
+          "source": "S01",
+          "fragment": "#page=17",
+          "location": "Printed pp. 15–16, §4.4"
+        },
+        {
+          "source": "S17",
+          "fragment": "#page=1",
+          "location": "Principle 2, design-vehicle check"
+        },
+        {
+          "source": "S05",
+          "fragment": "",
+          "location": "Junction principles"
+        },
+        {
+          "source": "W4",
+          "fragment": "",
+          "location": "Theme 4"
+        }
+      ]
+    },
+    {
+      "id": "rescue",
+      "title": "Rescue geometry",
+      "explanation": "HIKLU: fire engine and aerial appliance route width 3.5 m, clear height 4.2 m. Inner/outer radii: engine 5/10.5 m; aerial 5.5/12.5 m. Aerial set-up width ≥6 m, target 8 m, length 13 m. The vehicle models also specify driving allowance 0.4 m and aerial boom allowance 1.0 m. Our circles do not add these allowances or simulate a manoeuvre. Check loads, slopes, reach, trees, wires and snow against the complete guide.",
+      "references": [
+        {
+          "source": "S22",
+          "fragment": "#page=7",
+          "location": "pp. 7–13, §§4.1–5.3"
+        }
+      ]
+    },
+    {
+      "id": "trees",
+      "title": "Tree soil volume",
+      "explanation": "Helsinki’s draft tree-and-tram card gives approximately 25 m³ conventional soil for a large-growing tree and discusses 40–60 m³ structural soil because stone displaces water storage. These are contextual indicative volumes, not a universal minimum. Coordinate roots, utilities and mature crown; grouped trees should have continuous soil.",
+      "references": [
+        {
+          "source": "S19",
+          "fragment": "",
+          "location": "Puiden kasvualustan mitoitus; source marked draft"
+        },
+        {
+          "source": "S20",
+          "fragment": "",
+          "location": "Mitoitus"
+        },
+        {
+          "source": "S04",
+          "fragment": "",
+          "location": "Tree growing conditions"
+        }
+      ]
+    },
+    {
+      "id": "stormwater",
+      "title": "Detention example",
+      "explanation": "Espoo’s Kaavoitus section gives an example zoning provision: 1 m³ per 100 m² impermeable surface, emptying in 12–24 h and controlled overflow. It is not asserted for this site. Example calculation: 600/100 = 6 m³; at assumed 0.20 m effective depth, 6/0.20 = 30 m² idealised plan area. Side slopes, freeboard, ground conditions and actual inflow/outflow are not calculated.",
+      "references": [
+        {
+          "source": "S07",
+          "fragment": "",
+          "location": "Hulevesien hallinta kaupungissa → Kaavoitus"
+        }
+      ]
+    },
+    {
+      "id": "ground",
+      "title": "Planting strips and shared ground",
+      "explanation": "Espoo planting widths: trees ≥3 m (main streets ≥3.5 m); lawn/ground cover ≥2 m. These do not prove adequate soil volume. The checks for utilities, snow, sightlines, overhead wires and salt are a synthesis of the listed guides.",
+      "references": [
+        {
+          "source": "S01",
+          "fragment": "#page=20",
+          "location": "Printed pp. 10–11, 19"
+        },
+        {
+          "source": "S04",
+          "fragment": "",
+          "location": "Growing conditions and salt"
+        },
+        {
+          "source": "S19",
+          "fragment": "",
+          "location": "Trees near tram infrastructure"
+        },
+        {
+          "source": "S22",
+          "fragment": "#page=12",
+          "location": "Obstacles and winter maintenance"
+        }
+      ]
+    },
+    {
+      "id": "budget",
+      "title": "Width budget and strip templates",
+      "explanation": "Total = Σ(width × count); remainder = available − total. Default: 2×2.5 + 2×1.75 + 2×3 + 2×3.25 = 21 m, leaving 3 m of an assumed 24 m street. Optional tram uses 8 m. The combination, street width, strip lengths and zero initial buffer are editorial assumptions; this is arithmetic, not a validated cross-section. The CAD export treats all rows as separate adjacent strips and makes no sharing allowance.",
+      "references": [
+        {
+          "source": "S01",
+          "fragment": "#page=17",
+          "location": "Default widths: printed pp. 16–19"
+        },
+        {
+          "source": "W4",
+          "fragment": "",
+          "location": "Separate needs must be negotiated in the shared model"
+        }
+      ]
+    },
+    {
+      "id": "integration",
+      "title": "Checks beyond the sum",
+      "explanation": "Editorial synthesis: a cross-section sum does not establish junction operation, loading space, accessible continuity, below-ground compatibility, canopy clearance or a rescue arrangement. Check sections, plans and vertical envelopes together. Shared use must be justified rather than subtracted automatically.",
+      "references": [
+        {
+          "source": "S01",
+          "fragment": "#page=8",
+          "location": "Street components and clearance, §3"
+        },
+        {
+          "source": "S11",
+          "fragment": "#page=1",
+          "location": "Parking/stop interfaces"
+        },
+        {
+          "source": "S14",
+          "fragment": "#page=1",
+          "location": "Stop layouts"
+        },
+        {
+          "source": "S19",
+          "fragment": "",
+          "location": "Above- and below-ground coordination"
+        },
+        {
+          "source": "S22",
+          "fragment": "#page=12",
+          "location": "Obstacles"
+        }
+      ]
+    },
+    {
+      "id": "assignment",
+      "title": "Shared-model discussion",
+      "explanation": "The questions and closing statements on the sheet are verbatim selected English W4 passages. The course sources remain authoritative. This helper adds no deadline, submission, assessment or allocation rule.",
+      "references": [
+        {
+          "source": "W4",
+          "fragment": "",
+          "location": "Source paragraphs 35, 36, 37, 40, 44, 49"
+        }
+      ]
+    },
+    {
+      "id": "cad",
+      "title": "CAD units, templates and limits",
+      "explanation": "All canonical geometry is stored in metres. DXF coordinates are multiplied by 1 for metres, 1,000 for millimetres or 1/0.3048 for international feet. DXF $INSUNITS is respectively 6, 4 or 2. Files use R2000 DXF. Coordinates and text are rounded to four decimals in the selected unit. SVG is a vector preview with user units matching the selection, not a physical-size print template. The evidence above is the proof for geometry; exact conversion does not make the source values more precise.",
+      "references": [
+        {
+          "source": "UNITS",
+          "fragment": "",
+          "location": "Conversion table, foot row"
+        }
+      ]
+    }
+  ]
+}
