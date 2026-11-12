@@ -29,9 +29,18 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
   function listen(el,type,handler){el.addEventListener(type,handler);listeners.push(()=>el.removeEventListener(type,handler));}
   for(const button of frame.querySelectorAll('[data-camera]'))listen(button,'click',()=>host?.setCamera(button.dataset.camera));
   function updateSummary(){const text=currentInfo?.categoryFacts?.[Number(frame.querySelector('.scene-category select').value)]??currentInfo?.quickFact??'';summary.textContent=text;summary.hidden=!text;}
-  function selectCategory(value){frame.querySelector('.scene-category select').value=String(value);host?.setCategory(value);updateSummary();}
+  function posterControl(){return drawing.querySelector(`[data-poster-set="${categoryRecipe}"] [data-poster-choice]`);}
+  function selectCategory(value,syncPoster=true){
+    const select=frame.querySelector('.scene-category select');
+    if(![...select.options].some(option=>option.value===String(value)))return;
+    select.value=String(value);host?.setCategory(Number(value));updateSummary();
+    // The static figure owns the saved category, including print and offline.
+    const poster=posterControl();
+    if(syncPoster&&poster){poster.value=String(value);poster.dispatchEvent(new Event('change',{bubbles:true}));}
+  }
+  listen(document,'poster-selection-change',event=>{if(active&&drawing.contains(event.target))selectCategory(event.detail.value,false);});
   listen(frame.querySelector('.scene-category select'),'change',event=>selectCategory(Number(event.target.value)));
-  listen(frame.querySelector('[data-reset]'),'click',()=>{frame.querySelector('.scene-category select').value=String(categoryDefault);host?.setCategory(categoryDefault);host?.reset();});
+  listen(frame.querySelector('[data-reset]'),'click',()=>{selectCategory(categoryDefault);host?.reset();});
   for(const input of frame.querySelectorAll('input'))listen(input,'change',()=>host?.setAnnotations({dimensions:frame.querySelector('input[data-dimensions]').checked,callouts:frame.querySelector('input[data-callouts]').checked}));
   return {
     show({drawing:next=drawing,recipeId='trees--v0',camera='iso',style='paper'}={}){
@@ -41,6 +50,8 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
       categoryDefault=recipe.categoryDefault??-1;category.firstChild.textContent=recipe.categoryPrompt||'Compare planting';
       category.querySelector('select').setAttribute('aria-label',recipe.categoryPrompt||'Planting category');
       if(categoryRecipe!==recipeId){categoryRecipe=recipeId;const select=category.querySelector('select');select.replaceChildren();if(categoryDefault===-1)select.add(new Option('All four · same scale','-1'));for(const [i,name]of (recipe.categoryOptions||[]).entries())select.add(new Option(name,String(i)));select.value=String(categoryDefault);}
+      const selectedCategory=posterControl()?.value??category.querySelector('select').value;
+      if(recipe.categoryOptions)category.querySelector('select').value=selectedCategory;
       frame.querySelector('[data-dimensions]').closest('label').hidden=recipe.kind==='conceptual-3d';
       metric.replaceChildren();metric.hidden=!recipe.metricGraphicSelector;
       if(recipe.metricGraphicSelector){const original=drawing.querySelector(recipe.metricGraphicSelector);if(original){const caption=document.createElement('p');caption.textContent=recipe.metricGraphicCaption;const svg=original.closest('svg').cloneNode(false);svg.setAttribute('viewBox',recipe.metricGraphicViewBox);svg.setAttribute('aria-label',recipe.metricGraphicCaption);for(let node=original;node;node=node.nextElementSibling)svg.append(node.cloneNode(true));metric.append(caption,svg);}}
@@ -74,6 +85,7 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
       for(const button of frame.querySelectorAll('[data-camera]')){button.hidden=!recipe.allowedCameras.includes(button.dataset.camera);button.setAttribute('aria-pressed',String(button.dataset.camera===camera));}
       if(failed){availability(false);return;}
       host.show({recipeId,camera,style});
+      if(recipe.categoryOptions)selectCategory(selectedCategory,false);
     },
     setCategory:selectCategory,
     suspend(){active=false;categoryRecipe=null;currentInfo=null;host?.suspend();availability(false);},
