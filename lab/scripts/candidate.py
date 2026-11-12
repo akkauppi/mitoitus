@@ -24,6 +24,7 @@ RUNTIME_FILES.update({
     'runtime/viewer.js':'lab/src/viewer.js',
     'runtime/annotations.js':'lab/src/annotations.js',
     'runtime/registry.js':'lab/src/registry.js',
+    'runtime/recipes/tram.js':'lab/src/recipes/tram.js',
     'runtime/recipes/accessibility.js':'lab/src/recipes/accessibility.js',
     'runtime/primitives/accessibility.js':'lab/src/primitives/accessibility.js',
     'runtime/recipes/routes.js':'lab/src/recipes/routes.js',
@@ -185,9 +186,10 @@ def verify_candidate(output, allow_legacy=False):
     expected = set(PUBLIC_FILES) | {OFFLINE, 'parity.json'}
     old_expected = set(BASELINE_FILES) | {OFFLINE, 'parity.json'}
     t02_expected = old_expected | set(T02_RUNTIME_FILES)
-    t04_expected = expected - {'runtime/recipes/accessibility.js','runtime/primitives/accessibility.js'}
+    t05_expected = expected - {'runtime/recipes/tram.js'}
+    t04_expected = t05_expected - {'runtime/recipes/accessibility.js','runtime/primitives/accessibility.js'}
     t03_expected = t04_expected - {'runtime/recipes/routes.js','runtime/primitives/surfaces.js'}
-    if allow_legacy and names in (old_expected,t02_expected,t03_expected,t04_expected):
+    if allow_legacy and names in (old_expected,t02_expected,t03_expected,t04_expected,t05_expected):
         expected = names
     if names != expected:
         raise ValueError('Candidate contains missing or unapproved files')
@@ -254,7 +256,7 @@ def build(output=None, replace=False):
         actual = audit((stage/'index.html').read_text())
         if actual.events != audit(render_book(source).decode()).events:
             raise ValueError('Candidate semantic content drift')
-        report = dict(schemaVersion=2, stage='T05 accessibility clear spaces, ramp and arrival vignettes',
+        report = dict(schemaVersion=2, stage='T06 tram corridor, stop width and full stop examples',
                       sheets=11, panels=33, drawings=44, baselineSha256=digest(source),
                       semanticSha256=digest(json.dumps(checked.events, ensure_ascii=False).encode()),
                       content=checked.panels, semanticEvents=checked.events,

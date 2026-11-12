@@ -385,3 +385,65 @@ This is recorded in T13, the full plan and the `services` scene catalogue. It
 requires substantial structural/source-context review before release; a cosmetic
 restyle or passing visualization tests cannot resolve it. No services content
 was rewritten in this refinement task. T06 remains the next implementation task.
+
+## T06 complete — 12 November 2026
+
+The three Tram & stops panels now use the shared host with original content and
+static fallbacks retained:
+
+- `tram-corridor`: independent 8 m Espoo and 6 m Helsinki-draft reservations at
+  one scale, with the original 1.5 m illustrative extent. Plan/3D are offered.
+  Curve-radius text (48/107/190 m, speeds, 0.65 m/s² and transition note), which
+  lived inside the original SVG, is copied verbatim into a visible companion
+  block. It is not lost when the static figure is hidden. ATU, track-centre and
+  speed-clearance tables/qualifiers remain unchanged.
+- `tram-width`: solid 3.5 + 5.5 + 3.5 = 12.5 m bands over a 5 m example extent,
+  with a person and bench rather than a compressed tram. Platform height uses
+  the 0.30 m general context; the separate Helsinki 0.27 m context is recorded.
+  Front/3D/Plan are available. Solids meet their base and the bench leaves the
+  normal 1.8 m passage width geometrically available; this is not a circulation
+  or passenger-capacity certification.
+- `tram-length`: 45 m flat platforms, two 6 m ramps each from an assumed 0.30 m
+  rise at 5%, giving 57 m before crossing waiting areas. Two actual 34 × 2.4 m
+  tram bodies are retained. Separate 30/61 m city-stop strips share the same world
+  coordinates and scale; they are not substituted light-rail layouts. The model
+  offers 3D/Plan, avoiding an unhelpful end elevation that would collapse all
+  length comparisons. Detailed profile/cut tools remain outside this task.
+
+`src/recipes/tram.js` reuses existing solid/platform, ramp and vehicle geometry.
+No guessed rail gauge, curved vehicle path or ATU clearance envelope is added.
+Sources-only assumptions distinguish body height/detail, decorative ground and
+ramp rise from source body plans/service lengths. All original dimensions,
+35 m agreement-only case, platform slopes, capacity guidance and Helsinki height
+context remain in the source figures, canonical facts and provenance.
+
+### T06 verification
+
+```sh
+npm --prefix lab test
+python3 -m unittest discover -s lab/tests -p 'test_candidate.py'
+node lab/tests/tram-browser.cjs
+node lab/tests/accessibility-browser.cjs
+node lab/tests/shell-browser.cjs
+python3 lab/scripts/build-book.py --replace
+python3 lab/scripts/package-book.py
+```
+
+Passed: 61 Node tests; 18 build/archive regressions; 35 new tram camera states
+across 320/390/768/1024/1440 px. Geometry tests measure widths, actual solid/base
+contact, ramp joins/run/rise, total stop length, both body plans and city strips.
+Browser tests check callout routing and text collisions, projected 6:8
+reservation and 61:30 city-length ratios, retained curve text, complete canonical
+facts, Reset/state, one context, unavailable WebGL and direct-file fallbacks.
+The 35 accessibility states and 110 shell states / 33 panels / 15 original
+variants still pass. Course checker passed: 6 weeks, 38 items, 46 source hashes.
+No page JavaScript errors or runtime external requests were observed.
+
+Desktop/phone renders were visually inspected; selected references and test
+results are in `docs/references/`. This is headless Chromium QA; physical array,
+touch, assistive-technology and print acceptance are still separate. The explicit
+candidate archive has 75 files / 909,938 bytes. Source HTML, CAD and published
+checkout are unchanged. Residents & services remains a publication blocker.
+No push/deployment. Next task: T07 vehicles/rescue.
+
+Preview: http://localhost:8765/lab/book/?mode=focus&panel=tram-length#tram

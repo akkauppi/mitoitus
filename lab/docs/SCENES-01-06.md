@@ -250,7 +250,8 @@ camera scale based on the maximum 4 m route width; never zoom narrow choices up.
 - **Geometry:** 45 m flat area, two 6 m ramps from assumed 0.30 m rise at 5%,
   total 57 m before crossing waiting areas; retain two 34 × 2.4 m tram bodies.
 - **Camera / variants:** shallow longitudinal axonometric default; plan/profile
-  presets. City-tram 30 and 61 m strips share a fixed length scale with the example;
+  presets (T06 implementation offers 3D/Plan; an end elevation collapses the
+  longitudinal comparisons). City-tram 30 and 61 m strips share a fixed length scale with the example;
   do not automatically substitute them into the different light-rail geometry.
 - **Callouts / assets:** “Flat service area” → platform centre; “Access ramp” → one
   ramp; “Tram body” → tram; reuse articulated tram/platform/ramp/person assets.

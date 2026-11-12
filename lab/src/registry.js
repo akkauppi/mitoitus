@@ -1,6 +1,7 @@
 import {buildScene} from '../scenes.js';
 import {routeScene,cycleParkingScene,ROUTE_ASSUMPTIONS} from './recipes/routes.js';
 import {accessibilityScene,ACCESSIBILITY_INFO} from './recipes/accessibility.js';
+import {tramScene,TRAM_INFO} from './recipes/tram.js';
 export const ROOT_RECIPE = Object.freeze({
   id:'trees--v0', panelId:'trees', sourceClaims:['trees'],
   defaultCamera:'iso', allowedCameras:['iso','plan','front'],
@@ -9,6 +10,8 @@ export const ROOT_RECIPE = Object.freeze({
 });
 export function recipeInfo(id) {
   if(id===ROOT_RECIPE.id)return ROOT_RECIPE;
+  const tram=/^(tram-corridor|tram-width|tram-length)--v0$/.exec(id);
+  if(tram)return {id,panelId:tram[1],sourceClaims:[tram[1]],...TRAM_INFO[tram[1]]};
   const access=/^(turning|ramps|arrival)--v0$/.exec(id);
   if(access)return {id,panelId:access[1],sourceClaims:[access[1]],...ACCESSIBILITY_INFO[access[1]]};
   const match=/^(walking|cycling|bike-parking)--v(\d+)$/.exec(id);
@@ -21,7 +24,7 @@ export function recipeInfo(id) {
 }
 export function createRecipe(id) {
   const recipe=recipeInfo(id);
-  const model=ACCESSIBILITY_INFO[recipe.panelId]?accessibilityScene(recipe.panelId):id===ROOT_RECIPE.id?buildScene('roots'):recipe.panelId==='bike-parking'?cycleParkingScene():routeScene(recipe.panelId,Number(id.split('--v')[1]));
+  const model=TRAM_INFO[recipe.panelId]?tramScene(recipe.panelId):ACCESSIBILITY_INFO[recipe.panelId]?accessibilityScene(recipe.panelId):id===ROOT_RECIPE.id?buildScene('roots'):recipe.panelId==='bike-parking'?cycleParkingScene():routeScene(recipe.panelId,Number(id.split('--v')[1]));
   model.recipe=recipe;
   return model;
 }

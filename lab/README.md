@@ -12,7 +12,7 @@ plan for another model to implement. Start with
 [TASKS.md](docs/TASKS.md). The [layout wireframes](docs/LAYOUT.svg) show Overview,
 Focus, phone, wall and print. All 33 panels and 44 baseline drawings are mapped in
 [the inventory](docs/scene-inventory.json) and the two scene catalogues.
-The three-scene lab remains the visual reference. T01–T05 are implemented in
+The three-scene lab remains the visual reference. T01–T06 are implemented in
 the isolated candidate; the remaining handoff tasks are still planned.
 Do not run the old recursive ZIP packager in this worktree.
 
@@ -67,14 +67,14 @@ Iteration record and verification limits: [REVIEW.md](docs/REVIEW.md).
 
 ## Candidate build (T01)
 
-T01–T05 are complete. The candidate has Overview/Focus layouts and a live
-rooting-volume, route, cycle-parking and accessibility dioramas, with baseline SVG
+T01–T06 are complete. The candidate has Overview/Focus layouts and a live
+rooting-volume, route, cycle-parking, accessibility and tram dioramas, with baseline SVG
 fallbacks and canonical details. From the
 worktree root, run `python3 lab/scripts/build-book.py` for the first build, or
 `python3 lab/scripts/build-book.py --replace` to replace an intact generated
 candidate. `python3 lab/scripts/package-book.py` exports the explicitly allowlisted
 ZIP into `lab/.build/`. See [PROGRESS.md](docs/PROGRESS.md) for commands, verification
-and limits. Preview the candidate at http://localhost:8765/lab/book/. T06 is next.
+and limits. Preview the candidate at http://localhost:8765/lab/book/. T07 is next.
 
 ## Rooting-volume canary (T03)
 
@@ -124,3 +124,10 @@ The post-T05 refinements add a manual wheelchair user to relevant scenes, a car
 with wheelchair beside it in the accessibility bay, and cut-ended ramp context.
 Dimension labels now use line gaps without opaque patches. Residents & services
 is explicitly blocked from publication pending substantial work in T13.
+
+## Tram scenes (T06)
+
+[Open Tram & stops](http://localhost:8765/lab/book/?mode=focus&panel=tram-length#tram).
+Separate corridor-source comparisons, the compact width example and the full
+stop/ramp/vehicle example retain the original contexts. City-stop lengths share
+one metric scale with the long-stop model. See PROGRESS.md for checks.

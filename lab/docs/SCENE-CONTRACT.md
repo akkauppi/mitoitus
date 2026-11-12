@@ -1,7 +1,7 @@
 # Proposed scene and application contract
 
-Specification · 12 November 2026. T01–T05 now implement the candidate shell, rooting-volume host,
-shared walking/cycling comparison frame and accessibility scenes; PROGRESS.md records the actual interfaces and checks. Other
+Specification · 12 November 2026. T01–T06 now implement the candidate shell, rooting-volume host,
+shared walking/cycling comparison frame, accessibility and tram scenes; PROGRESS.md records the actual interfaces and checks. Other
 recipes and cut support below remain proposed future work.
 Implement the minimum contract; do not build a generic modelling editor.
 Existing source text and dimensional evidence stay authoritative.

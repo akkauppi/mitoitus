@@ -1,0 +1,18 @@
+{
+  "states": 35,
+  "widths": [
+    320,
+    390,
+    768,
+    1024,
+    1440
+  ],
+  "contexts": 1,
+  "commonReservationScale": "passed",
+  "commonCityLengths": "passed",
+  "curveContext": "retained",
+  "facts": "unchanged",
+  "fallbacks": "passed",
+  "errors": [],
+  "external": []
+}

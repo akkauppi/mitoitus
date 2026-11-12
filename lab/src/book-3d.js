@@ -7,6 +7,7 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
   const frame=document.createElement('section');frame.className='scene-host';
   frame.innerHTML='<p class="scene-case"></p><div class="scene-toolbar" role="group" aria-label="Model view"><button data-camera="iso">3D</button><button data-camera="plan">Plan</button><button data-camera="front">Front</button><button data-reset>Reset</button></div><div class="scene-viewport" tabindex="0" role="group"><canvas aria-hidden="true"></canvas><svg aria-hidden="true"></svg></div><div class="scene-options"><label><input type="checkbox" data-dimensions checked> Dimensions</label><label><input type="checkbox" data-callouts checked> Callouts</label><span data-hint></span></div>';
   const provenance=document.createElement('p');provenance.className='source-meta scene-provenance';frame.append(provenance);
+  const companion=document.createElement('div');companion.className='scene-companion';companion.hidden=true;frame.append(companion);
   const status=document.createElement('p');status.className='scene-status';status.setAttribute('role','status');status.hidden=true;
   const viewport=frame.querySelector('.scene-viewport'),canvas=frame.querySelector('canvas'),overlay=frame.querySelector('svg');
   frame.querySelector('[data-hint]').textContent=matchMedia('(pointer: coarse)').matches?'Two fingers to orbit / zoom':'Drag to orbit · scroll to zoom';
@@ -34,6 +35,8 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
       frame.querySelector('.scene-case').textContent=selected?.textContent||'';
       frame.querySelector('.scene-case').hidden=!selected;
 
+      companion.replaceChildren();companion.hidden=!recipe.retainedTextSelector;
+      if(recipe.retainedTextSelector)for(const original of drawing.querySelectorAll(recipe.retainedTextSelector)){if(original===selected)continue;const p=document.createElement('p');p.textContent=original.textContent;companion.append(p);}
       frame.setAttribute('aria-label',`${recipe.panelId} diorama`);
       viewport.setAttribute('aria-label',(recipe.description||'Soil 5 by 5 metres, 1 metre deep, 25 cubic metres.')+' Arrow keys orbit, plus/minus zoom, Home resets.');
       provenance.textContent='Diorama artwork: assistant draft. '+recipe.assumptions.join(' ');

@@ -15,3 +15,5 @@ body{color:var(--ink);background:var(--paper)}button,summary{border-radius:4px}b
 
 .scene-case{font-size:10px;letter-spacing:.5px;margin:12px 12px 0;overflow-wrap:anywhere;color:#687b64}
 .scene-viewport .dim-label{stroke:none;paint-order:normal}
+
+.scene-companion{padding:0 12px 12px;font-size:12px;line-height:1.5}.scene-companion p{margin:7px 0}
