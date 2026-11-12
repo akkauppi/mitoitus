@@ -36,19 +36,59 @@ def cyclist(x,ground,scale,key='cyclist'):
 
 def vehicle(x,y,length,width,scale,kind,key,reverse=False):
     L,W=length,width
-    # Bounds are exactly [0,L] x [0,W]. Tyres/mirrors are not allowed to enlarge them.
-    parts=[f'<rect x="0" y="0" width="{L:g}" height="{W:g}" rx="{min(.35,W/5):g}" fill="#30383c"/>']
+    # Only the overall body dimensions are reference geometry. Windows, doors,
+    # wheels, roof equipment and joint positions below are schematic artwork.
+    # All details stay inside [0,L] x [0,W]; no mirror/clearance allowance is implied.
+    def box(x,y,w,h,fill,rounding=0):
+        return f'<rect x="{x:g}" y="{y:g}" width="{w:g}" height="{h:g}" rx="{rounding:g}" fill="{fill}"/>'
+    def path(d,fill):return f'<path d="{d}" fill="{fill}"/>'
+    body_ink,body_light,glass,glass_light='#667b84','#c5d1d4','#425d6a','#c3dce5'
     if kind=='car':
-        parts+=[f'<path d="M{L*.29:g} {W*.13:g}L{L*.42:g} {W*.05:g}H{L*.69:g}L{L*.79:g} {W*.17:g}V{W*.83:g}L{L*.69:g} {W*.95:g}H{L*.42:g}L{L*.29:g} {W*.87:g}Z" fill="#aebfc8"/>',f'<rect x="{L*.45:g}" y="{W*.18:g}" width="{L*.22:g}" height="{W*.64:g}" rx=".12" fill="#4c5a61"/>']
+        # The curved outline reaches the exact reference length and width.
+        d=f'M{L*.12:g} {W*.04:g}Q0 {W*.09:g} 0 {W*.26:g}V{W*.74:g}Q0 {W*.91:g} {L*.12:g} {W*.96:g}L{L*.28:g} {W:g}H{L*.70:g}L{L*.92:g} {W*.94:g}Q{L:g} {W*.90:g} {L:g} {W*.70:g}V{W*.30:g}Q{L:g} {W*.10:g} {L*.92:g} {W*.06:g}L{L*.70:g} 0H{L*.28:g}Z'
+        parts=[path(d,body_ink)]
+        # Four inset tyre indications; their positions do not specify wheelbase.
+        for axle in [.20,.76]:
+            for edge in [.025,.90]:parts.append(box(L*(axle-.055),W*edge,L*.11,W*.075,'#34464e',.035))
+        parts.append(path(f'M{L*.25:g} {W*.17:g}L{L*.35:g} {W*.09:g}H{L*.62:g}L{L*.77:g} {W*.24:g}V{W*.76:g}L{L*.62:g} {W*.91:g}H{L*.35:g}L{L*.25:g} {W*.83:g}Z',glass))
+        # Rear glass, roof, front windscreen and narrow side windows remain distinct.
+        parts.append(path(f'M{L*.26:g} {W*.23:g}L{L*.34:g} {W*.16:g}V{W*.84:g}L{L*.26:g} {W*.77:g}Z',glass_light))
+        parts.append(box(L*.36,W*.25,L*.25,W*.50,body_light,.09))
+        parts.append(path(f'M{L*.63:g} {W*.16:g}L{L*.75:g} {W*.28:g}V{W*.72:g}L{L*.63:g} {W*.84:g}Z',glass_light))
+        for edge in [.10,.84]:parts.append(box(L*.47,W*edge,L*.022,W*.06,body_light))
+        parts.append(f'<path d="M{L*.81:g} {W*.21:g}Q{L*.85:g} {W*.5:g} {L*.81:g} {W*.79:g}M{L*.17:g} {W*.23:g}V{W*.77:g}" fill="none" stroke="#aec0c7" stroke-width=".025"/>')
+        for edge in [.20,.68]:
+            parts.append(box(L*.965,W*edge,L*.017,W*.12,'#fff0b9',.02))
+            parts.append(box(L*.025,W*edge,L*.022,W*.12,'#dca9a1',.02))
     else:
-        parts+=[f'<rect x=".5" y=".22" width="{L-1:g}" height="{W-.44:g}" rx=".15" fill="#aebfc8"/>']
-        modules=5 if kind=='tram' else 1
-        for i in range(modules):
-            parts.append(f'<rect x="{.85+i*(L-1.7)/modules:g}" y="{W*.25:g}" width="{(L-1.7)/modules-.25:g}" height="{W*.5:g}" rx=".08" fill="#687b85"/>')
-        if kind=='tram':
-            for i in range(1,5):parts.append(f'<rect x="{L*i/5-.10:g}" y=".04" width=".20" height="{W-.08:g}" fill="#252525"/>')
-    # Light / cab indication is inside the body outline, never an extra clearance.
-    parts.append(f'<rect x="{L-.18:g}" y="{W*.2:g}" width=".10" height="{W*.6:g}" fill="#fff0aa"/>')
+        parts=[box(0,0,L,W,body_ink,min(.30,W/6)),box(.07,.07,L-.14,W-.14,body_light,min(.23,W/8))]
+        if kind=='bus':
+            # Side glazing and doors suggest a bus without asserting a bus model.
+            for i in range(7):
+                xx=.9+i*(L-2.2)/7
+                for edge in [.10,.80]:parts.append(box(xx,W*edge,(L-2.2)/7-.10,W*.10,glass,.04))
+            for centre in [.23,.72]:
+                parts.append(box(L*centre,W*.77,L*.065,W*.17,glass_light,.04))
+                parts.append(box(L*(centre+.030),W*.78,L*.005,W*.15,body_ink))
+            for centre in [.36,.64]:
+                parts.append(box(L*centre,W*.31,L*.10,W*.38,'#a7b9c1',.10))
+                for j in range(3):parts.append(box(L*(centre+.02+j*.022),W*.37,L*.009,W*.26,'#8199a4',.015))
+            parts.append(box(.19,W*.18,.30,W*.64,glass,.08))
+            parts.append(path(f'M{L-.70:g} {W*.13:g}Q{L-.21:g} {W*.13:g} {L-.21:g} {W*.29:g}V{W*.71:g}Q{L-.21:g} {W*.87:g} {L-.70:g} {W*.87:g}Z',glass))
+        else:
+            # Five-part nominal tram: legible articulated body, schematic roof modules.
+            for i in range(5):
+                start=i*L/5;span=L/5
+                parts.append(box(start+span*.18,W*.27,span*.64,W*.46,'#a2b7bf',.12))
+                for edge in [.11,.81]:parts.append(box(start+span*.15,W*edge,span*.70,W*.08,glass,.03))
+            for i in range(1,5):
+                xx=L*i/5
+                parts.append(box(xx-.16,.05,.32,W-.10,'#4c626c',.025))
+                parts.append(box(xx-.035,.07,.07,W-.14,'#9ab1bb'))
+            for xx in [.22,L-1.17]:parts.append(box(xx,W*.13,.95,W*.74,glass,.17))
+        for edge in [.20,.70]:
+            parts.append(box(L-.16,W*edge,.08,W*.10,'#fff0b9',.02))
+            parts.append(box(.08,W*edge,.08,W*.10,'#dca9a1',.02))
     body=''.join(parts)
     if reverse:body=f'<g transform="rotate(180 {L/2:g} {W/2:g})">{body}</g>'
     return f'<g class="scale-figure vehicle {kind}" data-figure="{key}" data-reference-width="{L:g}" data-reference-height="{W:g}" data-scale="{scale:g}" transform="translate({x:g} {y:g}) scale({scale:g})">'+body+'</g>'

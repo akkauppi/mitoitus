@@ -3,10 +3,14 @@ import zipfile
 ROOT=Path(__file__).resolve().parents[1]
 for unit in ['m','mm','ft']:
  with zipfile.ZipFile(ROOT/f'downloads/mitoitus-cad-{unit}.zip','w',zipfile.ZIP_DEFLATED) as z:
-  for kind in ['buildings','accessible','turning','rescue','tram','street']:
+  for kind in ['buildings','accessible','turning','rescue','tram','parking','street']:
    for ext in ['dxf','svg']:
     p=ROOT/f'downloads/{kind}-{unit}.{ext}';z.write(p,p.name)
   z.writestr('README.txt',(ROOT/'downloads/README.txt').read_text()+f'\nTHIS BUNDLE: {unit}\n')
   z.writestr('evidence.html',(ROOT/'evidence.html').read_text().replace('href="index.html"','href="https://akkauppi.github.io/mitoitus/"'))
   for name in ['evidence.json','assignment-extract.txt']:z.write(ROOT/name,name)
-print('Built 3 CAD bundles with evidence')
+offline=ROOT/'downloads/rulebook-offline.zip'
+with zipfile.ZipFile(offline,'w',zipfile.ZIP_DEFLATED) as z:
+ for p in sorted(ROOT.rglob('*')):
+  if p.is_file() and p!=offline and not any(part.startswith('.') or part=='__pycache__' for part in p.relative_to(ROOT).parts):z.write(p,str(p.relative_to(ROOT)))
+print('Built 3 CAD bundles and a public offline copy with evidence')

@@ -36,10 +36,16 @@ function geometry(kind,unit='m'){
   for(const [x,y,ri,ro] of [[60,10,3,6.5],[85,10,8.1,15.2]])g.push(arc(x,y,ri),arc(x,y,ro),segment(x+ri,y,x+ro,y),segment(x,y+ri,x,y+ro));
   g.push(text(58,0,'Quarter-circle radius bands; same scale as the circles.',.45),text(0,-3,'Historical reference geometry, NOT a vehicle swept-path simulation.',.5));
   g.push(text(0,-5,'Bus evidence: https://akkauppi.github.io/mitoitus/evidence.html#bus-turn',.4));
+ }else if(kind==='parking'){
+  title='90 DEGREE PARKING - DATED SURFACE MODULE';proof='parking-layout';
+  g=[rect(5,0,7,10,'OTHER')];
+  for(let row=0;row<4;row++)for(const x of [0,12])g.push(rect(x,row*2.5,5,2.5));
+  g.push(text(0,-1,`8 bays, each ${dim(2.5)} x ${dim(5)}; shared aisle ${dim(7)}.`,.3),text(0,-2,`Module ${dim(17)} x ${dim(10)}. Dated Salo 2016 / TKK 2007 example.`,.3),text(0,-3,'No entrance, end manoeuvring, landscaping, snow, drainage or pedestrian-route extras included.',.25),text(0,-4,'Area evidence: https://akkauppi.github.io/mitoitus/evidence.html#parking-area',.25));
  }else if(kind==='tram'){
   title='TRAM STOP - STRAIGHT DEDICATED TRACK EXAMPLE';proof='tram-width';
   g=[rect(0,0,45,3.5,'WALK'),rect(0,3.5,45,5.5,'TRAM'),rect(0,9,45,3.5,'WALK'),rect(-6,0,6,3.5,'OTHER'),rect(45,0,6,3.5,'OTHER'),rect(-6,9,6,3.5,'OTHER'),rect(45,9,6,3.5,'OTHER'),text(1,1.4,`Side platform: ${dim(3.5)} normal`,.5),text(1,6,`Between platforms: ${dim(5.5)}`,.5),text(1,10.5,`Side platform: ${dim(3.5)} normal`,.5),text(0,-2,`Flat service length ${dim(45)}; section width ${dim(12.5)} before outer routes/buffers.`,.45),text(0,-4,`End rectangles: illustrative ${dim(6)} ramps, assuming ${dim(.3)} rise at 5%.`,.4),text(0,-5.5,'Add crossing waiting areas. No shelters, tapered ends, rails or vehicle swept paths are specified.',.4),text(0,-7,'Length/height evidence: https://akkauppi.github.io/mitoitus/evidence.html#tram-length',.4)];
  }else throw new Error('Unknown template');
+ if(kind==='accessible')g.push(text(0,-8,'Width evidence: https://akkauppi.github.io/mitoitus/evidence.html#walking',.18),text(0,-8.5,'Bay / bench evidence: https://akkauppi.github.io/mitoitus/evidence.html#arrival',.18));
  const top=Math.max(...g.map(e=>e.y+(e.h||e.r||0)),0)+3;
  g.push(text(0,top,`${title} - units: ${u.label} (${unit}); geometry 1:1`,kind==='rescue'?.7:.35));
  g.push(text(0,top+1.2,`Evidence: https://akkauppi.github.io/mitoitus/evidence.html#${proof}`,kind==='rescue'?.45:.23));

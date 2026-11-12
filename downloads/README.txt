@@ -21,6 +21,8 @@ depth 1.5 m are illustrative; only their labelled widths are source dimensions.
 Rescue: full reference circles with inner/outer radii and the aerial set-up area.
 These are NOT swept paths or driveable-route demonstrations. HIKLU's additional
 driving/boom allowances have not been added. Verify the actual vehicle and route.
+Parking: eight 2.5 x 5 m bays and shared 7 m aisle, dated Salo 2016 example.
+Total module 17 x 10 m; no row-end, entrance or other site extras included.
 Street: separate width strips, each drawn 20 m long for comparison only.
 They do not prescribe a combined street cross-section.
 

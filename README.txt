@@ -1,16 +1,19 @@
 ANTTI’S DUBIOUS LITTLE RULEBOOK — Mitoitus
 
 Live: https://akkauppi.github.io/mitoitus/
-Nine English engineering reference sheets with Finnish source dimensions:
+Eleven English engineering reference sheets with Finnish source dimensions:
 building types; land and population; walking/cycling; accessibility; trams/stops;
-vehicles/turning; green/blue; stormwater options; sections/details.
+vehicles/turning; green/blue; stormwater options; sections/details; connections; parking.
 
 Open index.html directly or serve this folder with any static HTTP server.
 No runtime packages, trackers, external fonts or API connections.
 Sources are OFF on every new load; S toggles them. F toggles fullscreen.
-Arrow keys or 1–9 select sheets. Dropdowns and arrows above selected drawings
+Tabs/arrows select all sheets; keys 1–9 and 0 select sheets 1–10. Dropdowns and arrows above selected drawings
 browse walking, cycling and one/two-lane motor-traffic layouts in place.
 Width alternatives retain one graphic scale; each is a dated source case.
+Selected layouts are saved in the URL for bookmarking, sharing and reloading.
+The offline pack (downloads/rulebook-offline.zip) includes sheets, evidence and CAD.
+Printing from desktop or wall view produces one A3 landscape page per sheet.
 People are light grey, 1.75 m tall; rider posture is 1.65 m high with 0.60 m bars.
 These are declared illustration assumptions, not human-capacity standards.
 Vehicle plans use cited body dimensions. Mirrors and swept paths are not implied.
@@ -20,7 +23,7 @@ preserving space at seams. Use ?view=wall or ?view=desktop for a fixed mode.
 The browser must already span the array; the site does not configure devices.
 Print uses A3 landscape, all sheets, with the currently selected drawing variants.
 
-CAD: six reference sets in metres, millimetres or international feet. Eighteen
+CAD: seven reference sets in metres, millimetres or international feet. Twenty-one
 DXF/SVG pairs and three ZIP bundles include evidence and assumptions. No live
 calculators or model-scale conversion table. CAD files remain full-size 1:1
 geometry in their declared units.
@@ -30,7 +33,8 @@ English synthesis and original diagrams are assistant drafts; supplied W4/W5
 quotes are identified separately. Municipal documents are linked, not republished.
 
 MAINTENANCE
-build-tools/build_sheets.py: source of the 27 panels and 38 selectable SVG drawings
+build-tools/build_sheets.py: source of the 33 panels and 44 SVG drawings
+build-tools/student_sheet.py / parking_sheet.py: additional sheet sources
 build-tools/scale_figures.py: original filled metric people/cyclists/vehicle artwork
 index.html: generated sheets and controls
 style.css: desktop, mobile, wall and print layouts

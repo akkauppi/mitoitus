@@ -317,6 +317,42 @@
       "edition": "11 Dec 2020 drawing",
       "note": "Parking swept-path drawing lists its reference passenger-car body as 5.0 m long and 1.8 m wide. Only body dimensions are reused, not the project’s turning radius."
     },
+    "S37": {
+      "id": "S37",
+      "url": "https://salo.fi/wp-content/uploads/2020/05/Salon-liitynt%C3%A4pys%C3%A4k%C3%B6intiselvitys.pdf",
+      "sha256": "4b8431ec8e102ef12c38d2ad90918612586b1aee65c0ce539a8fd706318964a5",
+      "retrieved_utc": "2026-11-12T11:59:00.229165+00:00",
+      "title": "Salo — Salon liityntäpysäköintiselvitys",
+      "edition": "3 Oct 2016",
+      "note": "Dated municipal park-and-ride layout example. Printed p. 16 is PDF p. 21; figure 11 supports the bay/aisle geometry. Not a universal current parking standard."
+    },
+    "S38": {
+      "id": "S38",
+      "url": "https://admin.espoo.fi/sites/default/files/2025-08/Asuinkortteleiden%20autopaikkaohje%202025_saavutettava.pdf",
+      "sha256": "970a898259971a0c508bc90ea8ee3d5c1ec377cfbfc2b174a15cf4741a6c2716",
+      "retrieved_utc": "2026-11-12T11:59:00.376712+00:00",
+      "title": "Espoo — Asuinkortteleiden autopaikkaohje 2025",
+      "edition": "2025",
+      "note": "One-page residential parking guide linked by the city parking page when retrieved. The area-class table is an embedded image and was checked visually. Floor-area and dwelling minima both apply; reductions have separate conditions."
+    },
+    "S39": {
+      "id": "S39",
+      "url": "https://ahjojulkaisu.hel.fi/993FCE7B-8816-CFC0-B905-9B08FC400000.pdf",
+      "sha256": "ec07ec14249bbcc6a9d5f59f62909ce74ff12b2a254272000fb9efcefb31d989",
+      "retrieved_utc": "2026-11-12T11:59:45.994422+00:00",
+      "title": "Helsinki — Asuintonttien autojen pysäköintipaikkamäärien laskentaohjeet asemakaavoituksessa",
+      "edition": "Adopted 9 Dec 2025",
+      "note": "Final attachment updated after the decision, not the earlier proposal. Pages 1 and 6 give apartment ratios and the zone map; pp. 4–5 define rounding and statutory floor area. Applies as zoning guidance."
+    },
+    "S40": {
+      "id": "S40",
+      "url": "https://paatokset.hel.fi/fi/asia/hel-2025-003906/9ab7f853-3c80-4e90-b6ca-9816fc507756",
+      "sha256": "93d9eaa352e0537c3ba39c954b011a9a99086047aa157979bffdb793b993dcca",
+      "retrieved_utc": "2026-11-12T11:59:46.184455+00:00",
+      "title": "Helsinki Urban Environment Committee — residential parking guidance decision",
+      "edition": "9 Dec 2025 · §656",
+      "note": "Official adoption record. Explains that guidance minima may be below market demand and that application in zoning is advisory; existing plan provisions require the relevant plan or deviation process."
+    },
     "TKK": {
       "title": "TKK / YKS — Mitoitus",
       "edition": "28 Aug 2007",
@@ -358,7 +394,7 @@
     {
       "id": "arrival",
       "title": "Seating and accessible parking",
-      "explanation": "SuRaKu: wheelchair space ≥0.9 m at a bench end; backs, armrests and varied seat heights. Courtyard accessible bay ≥3.6 × 5 m, gradient ≤2% both directions. Kerbside bays and vehicle transfer/lift access need separate layouts. The sentence about joining shared spaces is an editorial design prompt.",
+      "explanation": "SuRaKu: wheelchair space ≥0.9 m at a bench end; backs, armrests and varied seat heights. Courtyard accessible bay ≥3.6 × 5 m, gradient ≤2% both directions. Kerbside bays and vehicle transfer/lift access need separate layouts. SuRaKu card 5 recommends resting places on park routes at 50 m intervals at special accessibility level and at most 250 m at basic level.",
       "references": [
         {
           "source": "S10",
@@ -369,6 +405,11 @@
           "source": "S18",
           "fragment": "#page=1",
           "location": "Separate kerbside accessible-parking drawing"
+        },
+        {
+          "source": "S10",
+          "fragment": "#page=9",
+          "location": "Card 5, resting-place spacing on park routes"
         }
       ]
     },
@@ -421,7 +462,7 @@
     {
       "id": "building-blocks",
       "title": "Slab and point-block footprints",
-      "explanation": "TKK drawing: one slab module 22–30 m long and 10–12 m deep, repeated to make longer buildings. The new plan draws two 26 × 11 m modules. The square point-block variant is at most 20 × 20 m, drawn at that size. Both plans share a uniform scale; these are historical footprints, not current building rights.",
+      "explanation": "TKK drawing: one slab module 22–30 m long and 10–12 m deep, repeated to make longer buildings. The new plan draws two 26 × 11 m modules. The square point-block variant is at most 20 × 20 m, drawn at that size. All building plans on the sheet share a uniform scale; these are historical footprints, not current building rights.",
       "references": [
         {
           "source": "TKK",
@@ -542,7 +583,7 @@
     {
       "id": "ramps",
       "title": "Ramp width, gradient and landings",
-      "explanation": "SuRaKu: ramp minimum width 0.9 m, recommended minimum 1.2 m; recommended gradient ≤5%, maximum 8%. On long ramps steeper than 5%, straight intermediate landings at least 2 m every 6 m. The drawing is an illustrative 0.30 m rise at 5%: horizontal run = 0.30 / .05 = 6 m, followed by a 2 m landing. Both axes use the same scale. A 2 m landing drawn here does not imply that this particular short 5% ramp triggers the long-ramp rule.",
+      "explanation": "SuRaKu: ramp minimum width 0.9 m, recommended minimum 1.2 m; recommended gradient ≤5%, maximum 8%. On long ramps steeper than 5%, straight intermediate landings at least 2 m every 6 m. The drawing is an illustrative 0.30 m rise at 5%: horizontal run = 0.30 / .05 = 6 m, followed by a 2 m landing. Both axes use the same scale. A 2 m landing drawn here does not imply that this particular short 5% ramp triggers the long-ramp rule. The landing includes a 1.75 m illustrative person at the same metric scale; body height/posture are drawing assumptions.",
       "references": [
         {
           "source": "S10",
@@ -737,7 +778,7 @@
     {
       "id": "cad",
       "title": "CAD units, geometry and limits",
-      "explanation": "Canonical coordinates are metres. DXF factor / INSUNITS: m=1/6; mm=1,000/4; international ft=(1/.3048)/2. R2000 entities are rounded to four selected-unit decimals. SVG uses the selected drawing units in its viewBox; browser pixels are not print scale. Six template sets: historical building representatives; accessible clear space; historic car/bus inner/outer circles and quarter arcs; rescue circles and set-up; tram 45 m platforms and 5.5 m track zone; independent street strips. Actual example values, arbitrary lengths, extra allowances and evidence are labelled. No editable calculators or live width-budget export remain.",
+      "explanation": "Canonical coordinates are metres. DXF factor / INSUNITS: m=1/6; mm=1,000/4; international ft=(1/.3048)/2. R2000 entities are rounded to four selected-unit decimals. SVG uses the selected drawing units in its viewBox; browser pixels are not print scale. Seven template sets: historical building representatives; accessible clear space; historic car/bus inner/outer circles and quarter arcs; rescue circles and set-up; tram 45 m platforms and 5.5 m track zone; independent street strips; a dated eight-bay parking module. Actual example values, arbitrary lengths, extra allowances and evidence are labelled. No editable calculators or live width-budget export remain.",
       "references": [
         {
           "source": "UNITS",
@@ -858,6 +899,133 @@
           "source": "S29",
           "fragment": "",
           "location": "Typical cycle width .6 m"
+        }
+      ]
+    },
+    {
+      "id": "crossing-refuge",
+      "title": "Crossing refuge and its place in the street section",
+      "explanation": "Espoo 2010 §6 says a crossing-refuge island is at least 2.5 m wide, likewise a median crossed by a walking/cycling route. In this plan that dimension is measured along the pedestrian crossing. Two illustrative 3 m local-collector lanes plus the 2.5 m refuge give an 8.5 m span before outer kerbs/routes. The 4 m crossing-opening width, 8 m island length and schematic stripe dimensions are declared illustration assumptions, not dimensions taken from the source. The plan does not prescribe a full junction, kerb or tactile-warning detail. Coordination of kerb direction cues, drainage and the continuing clear route follows SuRaKu card 1. The drawing adds no course deliverable.",
+      "references": [
+        {
+          "source": "S01",
+          "fragment": "#page=20",
+          "location": "Printed p. 19, §6: crossing islands and medians; p. 16 for local-collector lane range"
+        },
+        {
+          "source": "S10",
+          "fragment": "#page=1",
+          "location": "Card 1, crossing arrangements, direction cues and clear routes"
+        }
+      ]
+    },
+    {
+      "id": "walking-connections",
+      "title": "Walking route versus straight-line proximity",
+      "explanation": "This is an explicitly invented geometric example, not a catchment recommendation. The entrance and destination share a y-coordinate and are 300 m apart. The only drawn connection follows 100 m to a bridge, 300 m across, then 100 m back: 500 m, an additional 200 m. Both axes use the same scale. No walking speed, service viability threshold, crossing delay or site condition is inferred. River/bridge symbols and the network are illustrative. The example explains why the historical TKK proximity figures on the other sheet do not alone demonstrate an actual usable walking catchment. The new prompts to trace connections and check access conditions are assistant-drafted design reasoning consistent with W4 integration, not additional assignments.",
+      "references": [
+        {
+          "source": "TKK",
+          "fragment": "#viheralueet",
+          "location": "Historical green-area distance examples; no new distance threshold inferred"
+        },
+        {
+          "source": "W4",
+          "fragment": "",
+          "location": "Selected source paragraphs 19, 40 and 50: spatial elements, variation along the street and integration"
+        }
+      ]
+    },
+    {
+      "id": "clear-route-continuity",
+      "title": "Continuous horizontal and vertical pedestrian clearance",
+      "explanation": "SuRaKu 2008 card 1 gives unobstructed route width at least 1.5 m, two-wheelchair passing width at least 1.8 m and clear pedestrian height at least 2.2 m. Beneath a building or part of a building it recommends at least 3 m. These are dated outdoor pedestrian guidance, not cycle/tram/vehicle clearances or a statement of current building regulations. The new plan example assumes 2.5 m total pavement width and 1.1 m encroachment, leaving 1.4 m, below the cited 1.5 m unobstructed width. The 12 m plan length and obstacle length 1.4 m are illustrative. The separate elevation uses uniform metric scale, 1.75 m illustrative people and the cited 2.2/3 m heights; 3 m horizontal envelope widths are illustrative. Seasonal snow, furniture and other obstacles are coordination considerations, not assigned capacities or new course obligations.",
+      "references": [
+        {
+          "source": "S10",
+          "fragment": "#page=1",
+          "location": "Card 1: Kulkuväylät ja -pinnat, route widths and free height"
+        },
+        {
+          "source": "S01",
+          "fragment": "#page=12",
+          "location": "Printed p. 11, §3.5 accessibility and winter snow-space provision"
+        }
+      ]
+    },
+    {
+      "id": "parking-layout",
+      "title": "Parking-bay and aisle dimensions",
+      "explanation": "The 90° reference layout uses a 2.5 × 5 m interior bay and a 7 m two-way manoeuvring aisle. These values appear in TKK 2007 and Salo’s 2016 park-and-ride report; they are dated layout examples, not a claim that every present-day parking facility uses the same dimensions. TKK gives at least 2.75 m for an end bay. The repeating interior module does not include that end condition. Accessible parking is a separate layout: SuRaKu’s courtyard reference is at least 3.6 × 5 m, with at most 2% gradient in both directions; transfer, lift access and street-side layouts need their own checks. Vehicle bodies, if shown, use the separately cited reference silhouette dimensions and do not prove manoeuvrability.",
+      "references": [
+        {
+          "source": "TKK",
+          "fragment": "#pysakointi",
+          "location": "90° parking table and end-bay note"
+        },
+        {
+          "source": "S37",
+          "fragment": "#page=21",
+          "location": "Printed p. 16, §2.1.4 and figure 11"
+        },
+        {
+          "source": "S10",
+          "fragment": "#page=7",
+          "location": "Card 4, courtyard accessible parking"
+        },
+        {
+          "source": "S36",
+          "fragment": "#page=37",
+          "location": "Reference car body: 5 × 1.8 m; details schematic"
+        },
+        {
+          "source": "W4",
+          "fragment": "",
+          "location": "Theme 4: no long-term private-car parking"
+        }
+      ]
+    },
+    {
+      "id": "parking-area",
+      "title": "Bay area versus a repeating parking module",
+      "explanation": "Geometric example derived from 2.5 m bay width, 5 m depth and a 7 m shared aisle: one bay is 12.5 m². Two facing bays plus their aisle strip occupy 2.5 × (5 + 7 + 5) = 42.5 m², or 21.25 m² per space. The aisle contributes 8.75 m² per space. Salo’s example gives 425 m² for 20 spaces using the same geometry. This is a repeating interior parking-and-aisle module, not the gross area of a complete site or building. Add wider end bays, entrances, pedestrian and accessible routes, landscape, drainage and snow storage; garages also need structures and ramps. No universal gross m²/space allowance is asserted.",
+      "references": [
+        {
+          "source": "S37",
+          "fragment": "#page=21",
+          "location": "Printed p. 16: 20-space / 425 m² example and figure 11"
+        },
+        {
+          "source": "TKK",
+          "fragment": "#pysakointi",
+          "location": "90° parking dimensions"
+        }
+      ]
+    },
+    {
+      "id": "parking-norms",
+      "title": "Dated municipal residential parking minima",
+      "explanation": "These are municipal apartment-building examples, not Finnish national ratios. Helsinki’s 9 Dec 2025 guidance gives at least one space per 250, 230 or 200 m² of statutory floor area in mapped zones 2, 3 or 4. In mapped general-plan centres C1/C2/C3, add 30 m² to the denominator. The zone map is essential; the zones are not simple station-distance rings. Fractions round upward. The city says a guidance minimum need not meet market demand. Espoo’s 2025 guide gives central-core apartment minima of one space per 130, 110 or 95 floor-m² for area classes I, II or III, typically 0–300 m from the station/core. Every apartment case also requires at least 0.5 space per dwelling; satisfy both constraints. At least 5% of the required spaces are visitor spaces. The source table has different values farther from the core, and separate conditional reductions. Check the applicable detailed plan, zone and project conditions; these reference examples do not replace them. They do not override the W4 exclusion of long-term private-car parking. The chart assumes 10,000 residential floor-m² and 100 dwellings, no permitted reductions, a Helsinki zone-3 location outside C1/C2/C3 centres and an Espoo class-I core. Helsinki: ceil(10,000/230)=44 spaces. Espoo: ceil(max(10,000/130,0.5×100))=77 spaces; visitor spaces are within this required total. Counts are minimum examples, not demand forecasts.",
+      "references": [
+        {
+          "source": "S39",
+          "fragment": "#page=1",
+          "location": "p. 1 apartment ratios and centre adjustment; pp. 4–5 rounding / floor-area definition; p. 6 zone map"
+        },
+        {
+          "source": "S38",
+          "fragment": "#page=1",
+          "location": "Apartment table: central-core row; dwelling minimum and visitor-share bullets"
+        },
+        {
+          "source": "S40",
+          "fragment": "",
+          "location": "Adopted decision; Asuintonttien autojen pysäköintipaikkamäärien laskentaohjeet and Vaikutusten arviointi"
+        },
+        {
+          "source": "W4",
+          "fragment": "",
+          "location": "Theme 4, supplied workbook excerpt"
         }
       ]
     }
