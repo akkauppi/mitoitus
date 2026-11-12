@@ -50,6 +50,14 @@ states and three native charts. Ninety static poster files cover two layout prof
   recovery, unavailable WebGL and delayed-module fallback checks pass.
 - Five category panels pass selection, Reset, URL/history/reload, print and fallback
   agreement; direct-file and no-JS retain useful current diagrams and tables.
+- Touch emulation: one finger scrolls without changing the camera; two fingers
+  zoom and orbit. A 200% reflow equivalent (720 CSS px at DPR 2) passes all eleven
+  overviews and four focused panels. Hardware touch and actual browser zoom-menu
+  behavior remain outside the test scope.
+- Extracted ZIP: both file:// and isolated HTTP pass all category/variant reload
+  checks, evidence navigation, byte-verified CAD downloads and HTTP 3D. All 858
+  internal link checks pass; no external requests, missing files, page errors or
+  self-download links. See [OFFLINE-RELEASE-QA.md](OFFLINE-RELEASE-QA.md).
 - Public artifact: 240 local links checked, 45 CAD files unchanged (21 DXF/SVG pairs
   and 3 bundles), pinned vendor hashes/licence retained, explicit archive allowlist.
 - All 42 baseline external source URLs were reachable; five service-source records
@@ -78,5 +86,12 @@ builds/stages/verifies the artifact and deploys it. Actions are pinned to commit
 No private course files, original source captures, development modules, review
 screenshots or source archives enter the public artifact.
 
-Publication verification and final standalone-archive checks will be recorded below
-when completed; no success is inferred from merely staging or pushing the branch.
+A clean `git archive` checkout passed the same 108 Node and 34 Python tests,
+reinstalled the single locked dependency, built the release and verified every
+link/archive boundary. All 183 public assets matched the reviewed output byte
+for byte. The offline ZIP is 4,437,085 bytes; SHA-256:
+`eec6def844047637e7e511eb470d37ccb3309978c3a29177b61228605ef9fab9`.
+
+Publication evidence is recorded in the versioned GitHub release and its associated
+Pages workflow run. This local record covers the prepublication checks; staging
+or pushing alone is not deployment verification.

@@ -1,0 +1,45 @@
+{
+  "browser": "153.0.8010.12",
+  "candidateManifestSha256": "3ae13520bd356dad6702f92ee14ad7cec04c26c85f4111805fd7871679858b0c",
+  "touch": {
+    "method": "Chromium mobile hasTouch emulation with CDP Input.dispatchTouchEvent",
+    "oneFingerPageScrollPx": 132,
+    "oneFingerCameraUnchanged": true,
+    "twoFingerZoom": [
+      1,
+      1.6250000000000002
+    ],
+    "twoFingerOrbit": true,
+    "modelZoomNotViewportZoom": true
+  },
+  "reflow": {
+    "description": "200% reflow equivalent for a 1440 × 1100 physical display",
+    "cssViewport": [
+      720,
+      550
+    ],
+    "deviceScaleFactor": 2,
+    "states": [
+      "built-form/overview",
+      "land-population/overview",
+      "walk-cycle/overview",
+      "accessible/overview",
+      "connections/overview",
+      "tram/overview",
+      "turning-vehicles/overview",
+      "parking/overview",
+      "section-details/overview",
+      "green-blue/overview",
+      "stormwater-options/overview",
+      "services/focus",
+      "density/focus",
+      "trees/focus",
+      "steps/focus"
+    ]
+  },
+  "limitations": [
+    "Hardware touch not tested",
+    "Browser zoom-menu behavior not tested; reflow equivalent only"
+  ],
+  "errors": []
+}

@@ -28,6 +28,8 @@ python3 -m unittest discover -s lab/tests -p 'test_*.py'
 node lab/tests/release-browser.cjs
 node lab/tests/viewer-browser.cjs
 SOURCE_OVERRIDE=0 node lab/tests/poster-state-release-browser.cjs
+node lab/tests/offline-release-browser.cjs
+node lab/tests/interaction-release-browser.cjs
 python3 lab/scripts/prepare-release.py
 python3 lab/scripts/verify-release.py lab/.build/release
 ```
