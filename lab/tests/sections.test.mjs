@@ -50,8 +50,8 @@ test('main stair flight keeps six equal rises/treads beside separate illustrativ
  const m=createRecipe('steps--v0'),rises=[],treads=[];
  for(let i=1;i<STEP_PROFILE.length;i++){const a=STEP_PROFILE[i-1],b=STEP_PROFILE[i];if(b[1]>a[1]+1e-7&&Math.abs(b[0]-a[0])<1e-7)rises.push(b[1]-a[1]);if(b[0]>a[0]+1e-7&&Math.abs(b[1]-a[1])<1e-7)treads.push(b[0]-a[0]);}
  assert.equal(rises.length,6);assert.equal(treads.length,6);rises.forEach(r=>near(r,.12));treads.forEach(t=>near(t,.42));near(2*.12+.42,.66);
- const full=bounds(m.group.getObjectByName('full-stair'));near(full.max.x,2.1);near(full.max.y,.72);near(full.max.z-full.min.z,1.2);
- m.applyView('section');const cut=m.sections[0];near(bounds(cut.getObjectByName('body')).max.z,0);near(capArea(cut.getObjectByName('cap')),.42*.12*21-.42*.72);for(const l of m.labels)assert.ok(validateCapAnchor(l.text==='Landing'?m.sections[1]:cut,l.point));assert.equal(m.dimensions.length,3);
+ const full=bounds(m.group.getObjectByName('full-stair'));near(full.max.x,4.22);near(full.max.y,.96);near(full.max.z-full.min.z,1.2);
+ m.applyView('section');const cut=m.sections[0];near(bounds(cut.getObjectByName('body')).max.z,0);near(Math.abs(meshVolume(cut.getObjectByName('body'))+meshVolume(cut.getObjectByName('cap'))),capArea(cut.getObjectByName('cap'))*.6);for(const l of m.labels)assert.ok(validateCapAnchor(cut,l.point));assert.equal(m.dimensions.length,3);
  const person=m.group.children.find(o=>o.userData.asset==='person'),b=bounds(person);near(b.min.y,0);near(b.max.y,1.75);assert.ok(b.max.x<0);dispose(m);
 });
 test('section models have finite geometry, registered roles and valid recipe identities',()=>{
@@ -68,13 +68,11 @@ test('street sections retain depth and scale context, with cropped backs and hei
  for(const narrow of [false,true]){m.layout(narrow);const heights=m.dimensions.filter(d=>d.dimensionKind==='height');assert.equal(heights.length,3);for(const d of heights){near(new THREE.Vector3(...d.a).distanceTo(new THREE.Vector3(...d.b)),12);assert.ok(narrow?d.offset[0]<0:d.offset[0]>0);assert.ok(narrow?d.labelOffsetPx[0]<0:d.labelOffsetPx[0]>0);}}
  dispose(m);
 });
-test('illustrative step landing and cut continuation connect without altering the original six-step kernel',()=>{
- const m=createRecipe('steps--v0'),original=bounds(m.group.getObjectByName('full-stair')),landing=m.group.getObjectByName('illustrative-landing'),next=m.group.getObjectByName('next-flight-cut'),l=bounds(landing),n=bounds(next);
- assert.ok(landing.userData.contextExtension&&next.userData.contextExtension);near(l.min.x,original.max.x);near(l.max.x-l.min.x,1.2);near(l.max.y,original.max.y);near(l.min.x,2.1);near(l.max.x,3.3); // Entire flat between consecutive risers is 1.2 m.
-near(n.min.x,l.max.x);assert.ok(n.max.x>4.14,'broken cut continuation end');
- assert.equal(m.measurement.count,6);near(m.measurement.mainFlightRun,2.1);assert.ok(m.recipe.explanation.join().includes('does not prescribe'));m.applyView('section');assert.ok(validateCapAnchor(m.sections[1],m.labels.find(l=>l.text==='Landing').point));assert.equal(m.labels.length,4);dispose(m);
+test('stair landing is a continuous 1.2 m flat within one seamless full and cut solid',()=>{
+ const m=createRecipe('steps--v0');assert.equal(m.sections.length,1);const profile=m.sections[0].userData.section.profile;assert.ok(profile.some(p=>p[0]===2.1&&p[1]===.72));assert.ok(profile.some(p=>p[0]===3.3&&p[1]===.72));near(3.3-2.1,1.2);assert.equal(m.measurement.count,6);near(m.measurement.mainFlightRun,2.1);
+ for(const object of [m.group.getObjectByName('full-stair'),m.sections[0]])object.traverse(o=>{if(!o.userData.edge)return;const p=o.geometry.attributes.position;for(let i=0;i<p.count;i+=2)for(const [x,y]of [[2.1,.6],[3.3,.72]])assert.ok(!(Math.abs(p.getX(i)-x)<1e-6&&Math.abs(p.getX(i+1)-x)<1e-6&&Math.abs(p.getZ(i)-p.getZ(i+1))<1e-6&&Math.min(p.getY(i),p.getY(i+1))<y-1e-6),'no internal vertical side seam');});
+ m.applyView('section');for(const label of m.labels)assert.ok(validateCapAnchor(m.sections[0],label.point));dispose(m);
 });
-
 test('cropped outer ends use the cut material while exterior faces remain separately closed',()=>{
  for(const side of ['left','right']){const group=new THREE.Group(),solid=cutPrism(group,{profile:rectangleProfile(-2,0,2,12),zMin:-8,zMax:8,role:'sectionExterior',capRole:'cutBuilding',croppedSide:side});
  const body=solid.getObjectByName('body'),cap=solid.getObjectByName('cap'),end=solid.getObjectByName('cropped-end');assert.equal(body.userData.role,'sectionExterior');assert.equal(cap.userData.role,'cutBuilding');assert.equal(end.userData.role,'cutBuilding');assert.ok(end.userData.croppedCut);near(Math.abs(meshVolume(body)+meshVolume(cap)+meshVolume(end)),384);near(capArea(end),96);dispose({group});}

@@ -48,24 +48,22 @@ export function stepsScene(){
  const group=new THREE.Group(),full=new THREE.Group(),cut=new THREE.Group();group.add(full,cut);
  // The final source tread is part of the landing, not an extra flat before it.
  const flightProfile=[...STEP_PROFILE.slice(0,-2),[2.1,0]];
- solidPrism(full,{profile:flightProfile,zMin:-.6,zMax:.6,name:'full-stair',role:'paving'});
- const section=cutPrism(cut,{profile:flightProfile,zMin:-.6,zMax:.6,name:'stair-section',role:'paving',capRole:'cutPaving',hatch:.1});
- const landingProfile=rectangleProfile(2.1,0,3.3,.72),continuationProfile=[[3.72,0],[3.72,.84],[4.14,.84],[4.14,.96],[4.56,.96],[4.56,.8],[4.48,.65],[4.64,.5],[4.48,.35],[4.56,.2],[4.56,0]].map(([x,y])=>[x-.42,y]);
- for(const [name,profile]of [['illustrative-landing',landingProfile],['next-flight-cut',continuationProfile]])solidPrism(full,{profile,zMin:-.6,zMax:.6,role:'paving',name}).userData.contextExtension=true;
- const landingSection=cutPrism(cut,{profile:landingProfile,zMin:-.6,zMax:.6,role:'paving',capRole:'cutPaving',name:'landing-section',hatch:.1});
- const nextSection=cutPrism(cut,{profile:continuationProfile,zMin:-.6,zMax:.6,role:'paving',capRole:'cutPaving',name:'next-flight-section',hatch:.1});
- landingSection.userData.contextExtension=true;nextSection.userData.contextExtension=true;
+ const continuationProfile=[[3.3,0],[3.3,.84],[3.72,.84],[3.72,.96],[4.14,.96],[4.14,.8],[4.06,.65],[4.22,.5],[4.06,.35],[4.14,.2],[4.14,0]];
+ // A single boundary removes internal side faces and their artificial outlines.
+ const joinedProfile=[...flightProfile.slice(0,-1),[3.3,.72],...continuationProfile.slice(1)];
+ solidPrism(full,{profile:joinedProfile,zMin:-.6,zMax:.6,name:'full-stair',role:'paving'});
+ const section=cutPrism(cut,{profile:joinedProfile,zMin:-.6,zMax:.6,name:'stair-section',role:'paving',capRole:'cutPaving',hatch:.1});
  box(group,6.5,.24,3.4,1.8,-.12,0,'soil','stair-context-base');
  const person=createPerson();person.position.set(-.7,0,1.3);group.add(person);
  const cuttingLine=outline(group,flightProfile.slice(1,-1).map(([x,y])=>[x,y+.003,0]),'section-plane-line');
  const edge=outline(group,[[.42,.242,-.6],[.42,.242,.6]],'contrast-edge-cue');
- const model={group,sections:[section,landingSection,nextSection],dimensions:[],labels:[],measurement:{rise:.12,tread:.42,count:6,width:1.2,mainFlightRise:.72,mainFlightRun:2.1,landingRun:1.2},meta:{target:[1.6,.7,0],camera:[1.2,.9,1.8]}};
+ const model={group,sections:[section],dimensions:[],labels:[],measurement:{rise:.12,tread:.42,count:6,width:1.2,mainFlightRise:.72,mainFlightRun:2.1,landingRun:1.2},meta:{target:[1.6,.7,0],camera:[1.2,.9,1.8]}};
  model.applyView=view=>{const active=view==='section';full.visible=!active;cut.visible=active;edge.visible=!active;cuttingLine.visible=active||view==='plan';
   const z=active?0:.6;
   model.dimensions=[dim([.84,.24,z],[.84,.36,z],'0.12 m rise',[.4,0,.3]),dim([.84,.36,z],[1.26,.36,z],'0.42 m tread',[0,.25,.3]),dim([2.1,.72,z],[3.3,.72,z],'1.2 m landing',[0,.25,.3])];
   if(!active)model.dimensions.push(dim([2.1,0,-.6],[2.1,0,.6],'≥1.2 m width',[.4,0,0]));
   model.labels=[{point:[.84,.30,z],text:'Riser'},{point:[1.05,.36,z],text:'Tread'},{point:[.42,.24,z],text:'Contrast edge'},{point:[2.7,.72,z],text:'Landing'}];
-  if(active&&model.labels.some(l=>!validateCapAnchor(l.text==='Landing'?landingSection:section,l.point)))throw new Error('Step anchor outside cap');
+  if(active&&model.labels.some(l=>!validateCapAnchor(section,l.point)))throw new Error('Step anchor outside cap');
  };group.updateMatrixWorld(true);model.applyView('iso');return model;
 }
 

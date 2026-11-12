@@ -808,3 +808,7 @@ explanations, repeated diagrams and assumptions stay under Sources. See
 [QUICK-REFERENCE-WRITING.md](QUICK-REFERENCE-WRITING.md) for the implementation,
 source-preservation boundary and extension rules. This supersedes earlier
 records that described those explanation blocks as part of the main view.
+
+13 November follow-up: merged the stair/landing/continuation and ramp/landings
+into continuous side profiles, removing artificial vertical join outlines.
+See [section record](T10-SECTIONS.md). Source dimensions and concise UI preserved.

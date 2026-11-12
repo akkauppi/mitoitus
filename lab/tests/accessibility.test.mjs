@@ -18,21 +18,11 @@ test('clear circles keep diameters and the contextual wheelchair remains outside
  assert.equal(model.dimensions.length,2);assert.equal(model.labels.filter(l=>l.text==='Clear turning space').length,2);assert.ok(chair.containsPoint(new THREE.Vector3(...model.labels.find(l=>l.text==='Wheelchair user').point)));dispose(model);
 });
 test('ramp profile is a solid 6 m run / 0.30 m rise with contiguous 2 m landing',()=>{
- const model=createRecipe('ramps--v0'),ramp=model.group.getObjectByName('ramp'),landing=model.group.getObjectByName('landing');
- const r=bounds(ramp),l=bounds(landing),s=r.getSize(new THREE.Vector3());
- close(s.x,6);close(s.z,1.2);close(r.max.y,.3);close(r.min.y,-.18);
- close(r.max.x,l.min.x);close(r.max.y,l.max.y);close(r.min.y,l.min.y);close(l.max.x-l.min.x,2);
- const p=ramp.userData.profile;close(p.rise/p.run,.05);
- const vertices=ramp.geometry.attributes.position;
- for(let i=0;i<vertices.count;i++){
-  const x=vertices.getX(i),y=vertices.getY(i);assert.ok(Math.abs(y-p.base)<2e-6||Math.abs(y-(x-p.startX)*p.rise/p.run)<2e-6,'vertices use exact slope or base');
- }
- const person=model.group.children.find(o=>o.userData.asset==='wheelchairUser');close(bounds(person).min.y,.3);
- close(bounds(person).max.y-bounds(person).min.y,1.35);
- const lower=model.group.getObjectByName('lower-landing-context'),next=model.group.getObjectByName('next-ramp-context');
- close(bounds(lower).max.x,r.min.x);close(bounds(lower).max.y,0);
- close(bounds(next).min.x,l.max.x);close(next.userData.profile.startY,l.max.y);
- assert.equal(lower.userData.profile.cutStart,true);assert.equal(next.userData.profile.cutEnd,true);
+ const model=createRecipe('ramps--v0'),ramp=model.group.getObjectByName('ramp'),r=bounds(ramp),p=ramp.userData.profile;
+ assert.deepEqual(p.stations,[[-5.6,0],[-4,0],[2,.3],[4,.3],[6.2,.41]]);close((p.stations[2][1]-p.stations[1][1])/(p.stations[2][0]-p.stations[1][0]),.05);close(p.stations[3][0]-p.stations[2][0],2);close(r.max.z-r.min.z,1.2);close(r.min.y,-.18);assert.ok(p.cutStart&&p.cutEnd);
+ const person=model.group.children.find(o=>o.userData.asset==='wheelchairUser');close(bounds(person).min.y,.3);close(bounds(person).max.y-bounds(person).min.y,1.35);
+ const edges=ramp.children.find(o=>o.userData.edge).geometry.attributes.position;
+ for(let i=0;i<edges.count;i+=2)for(const x of [-4,2,4])assert.ok(!(Math.abs(edges.getX(i)-x)<1e-6&&Math.abs(edges.getX(i+1)-x)<1e-6&&Math.abs(edges.getZ(i)-edges.getZ(i+1))<1e-6&&Math.abs(edges.getY(i)-edges.getY(i+1))>.01),'no internal vertical seam');
  assert.equal(model.recipe.defaultCamera,'front');assert.ok(!model.recipe.allowedCameras.includes('section'));dispose(model);
 });
 test('arrival keeps bay/bench clear rectangles separate and bench outside clear space',()=>{

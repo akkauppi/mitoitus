@@ -93,3 +93,18 @@ views and all three plots; no height dimension presents the assumption as a rule
 Follow-up checks: 90 unit tests, 35 responsive analytical panel camera states and
 20 candidate tests. Landing tests establish the complete flat as x=2.10–3.30 m;
 3D tests verify assumed heights, context scale/placement and Plan visibility.
+
+## Continuous side faces — 13 November 2026
+
+User requested removal of distracting seams on stair/ramp side cuts. The stair,
+1.2 m landing and next-flight fragment now form one extruded boundary and one
+analytical cap, with continuous clipped hatching and no internal side faces or
+vertical join outlines. Landing endpoints and the six original rise/tread values
+are unchanged. This supersedes the earlier three-solid rendering, not its source
+profile. All cap labels validate against the combined solid.
+
+The ramp likewise uses `rampRoute()` with a single profile through the lower
+landing, 6 m / 0.30 m slope, 2 m upper landing and broken continuation. The slope,
+width, landing and wheelchair placement remain unchanged. Geometry tests inspect
+actual outline segments to reject internal vertical seams while retaining real
+riser edges and broken-end boundaries. No new product text was added.

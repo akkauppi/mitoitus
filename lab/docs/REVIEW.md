@@ -178,3 +178,7 @@ explanations, repeated diagrams and assumptions stay under Sources. See
 [QUICK-REFERENCE-WRITING.md](QUICK-REFERENCE-WRITING.md) for the implementation,
 source-preservation boundary and extension rules. This supersedes earlier
 records that described those explanation blocks as part of the main view.
+
+13 November: removed stair/ramp landing join seams by building continuous
+profiles. Verified 95 unit tests, 35 analytical camera states and 35 accessibility
+states; refreshed phone references and rebuilt the allowlisted offline package.

@@ -29,7 +29,7 @@ const base='http://127.0.0.1:8765/lab/book/',out=path.join(__dirname,'../review'
      await page.locator('.scene-viewport').focus();const position=await page.locator('.scene-viewport').getAttribute('data-camera-position');await page.keyboard.press('ArrowRight');await ready(panel+'--v0');assert.equal(new URL(page.url()).hash,'#section-details');assert.notEqual(await page.locator('.scene-viewport').getAttribute('data-camera-position'),position,'3D illustration supports keyboard orbit');
     }else{
      assert.ok(d.texts.some(t=>t.text==='1.2 m landing'));assert.equal(await page.locator('.retained-profile').count(),1);
-     if(camera==='section'){assert.equal(d.sections.length,3);assert.ok(Math.abs(d.dimensions[0]/d.dimensions[1]-.12/.42)<1e-7,'rise/tread use equal metric axes');}else assert.equal(d.sections.length,0);
+     if(camera==='section'){assert.equal(d.sections.length,1);assert.ok(Math.abs(d.dimensions[0]/d.dimensions[1]-.12/.42)<1e-7,'rise/tread use equal metric axes');}else assert.equal(d.sections.length,0);
     }
     states++;if([390,1440].includes(width)&&camera===cameras[0])await page.screenshot({path:path.join(out,`sections-t10-${panel}-${width}.png`),fullPage:true});
    }

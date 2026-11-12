@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {createBench,createPerson,createCar,createWheelchairUser} from '../../assets.js';
 import {box,surfaceStrip} from '../primitives/surfaces.js';
-import {clearDisk,rampPrism} from '../primitives/accessibility.js';
+import {clearDisk,rampRoute} from '../primitives/accessibility.js';
 const dimension=(a,b,label,offset)=>({a,b,label,offset});
 export const ACCESSIBILITY_INFO={
  turning:{defaultCamera:'plan',allowedCameras:['iso','plan'],description:'Clear turning circles with diameters 1.5 and 2.5 metres, at the same scale, with a contextual manual wheelchair user outside the circles.',assumptions:['Neutral tiles and their thickness are display assumptions. Circles represent clear space, not device silhouettes or swept paths. The adjacent manual chair/user (.72 × 1.20 m, 1.35 m seated height) is an illustration assumption.']},
@@ -28,10 +28,7 @@ export function accessibilityScene(panel){
   labels.push({point:[-1.75,.9,-2],text:'Wheelchair user'});
   measurement={diameters:[1.5,2.5],radii:[.75,1.25]};
  }else if(panel==='ramps'){
-  rampPrism(group,{run:1.6,rise:0,width:1.2,startX:-5.6,cutStart:true,name:'lower-landing-context'});
-  rampPrism(group,{run:2.2,rise:.11,width:1.2,startX:4,startY:.3,cutEnd:true,name:'next-ramp-context'});
-  rampPrism(group,{run:6,rise:.3,width:1.2,startX:-4});
-  box(group,2,.48,1.2,3,.06,0,'paving','landing');
+  rampRoute(group,{stations:[[-5.6,0],[-4,0],[2,.3],[4,.3],[6.2,.41]],width:1.2,cutStart:true,cutEnd:true});
   const person=createWheelchairUser();person.position.set(3,.3,0);person.rotation.y=Math.PI/2;group.add(person);
   dimensions.push(dimension([-4,0,.6],[2,0,.6],'6 m run',[0,-.4,0]),dimension([2,0,.6],[4,0,.6],'2 m landing',[0,-.4,0]),dimension([2,0,.6],[2,.3,.6],'0.30 m rise',[2.8,0,0]));
   labels.push({point:[-1,.15,.3],text:'Ramp · 5%'},{point:[3,.3,.3],text:'Landing'});
