@@ -1,0 +1,438 @@
+{
+  "checkedAt": "2026-11-12T23:25:32.864559+00:00",
+  "method": "Single bounded GET per external URL, Range bytes=0-2047; redirects followed; 12 second timeout; six workers. HTTP success verifies reachability, not source currency or content equivalence. Local references checked separately.",
+  "sources": [
+    {
+      "sourceId": "S01",
+      "url": "https://admin.espoo.fi/sites/default/files/2021-08/Espoo_Katupoikkileikk_suun_ohje_kansineen_liitteineen.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://admin.espoo.fi/sites/default/files/2021-08/Espoo_Katupoikkileikk_suun_ohje_kansineen_liitteineen.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.23
+    },
+    {
+      "sourceId": "S02",
+      "url": "https://kaupunkitilaohje.hel.fi/card_tag/kasvualusta/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://kaupunkitilaohje.hel.fi/card_tag/kasvualusta/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 2.52
+    },
+    {
+      "sourceId": "S03",
+      "url": "https://kaupunkitilaohje.hel.fi/kortit/kalusteiden-sijoittaminen/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://kaupunkitilaohje.hel.fi/kortit/kalusteiden-sijoittaminen/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 2.52
+    },
+    {
+      "sourceId": "S04",
+      "url": "https://kaupunkitilaohje.hel.fi/kortti/katu-puistopuut-uusi/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://kaupunkitilaohje.hel.fi/kortti/katu-puistopuut-uusi/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 4.38
+    },
+    {
+      "sourceId": "S05",
+      "url": "https://kaupunkitilaohje.hel.fi/kortti/katuliittyma/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://kaupunkitilaohje.hel.fi/kortti/katuliittyma/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 4.27
+    },
+    {
+      "sourceId": "S06",
+      "url": "https://kaupunkitilaohje.hel.fi/kortti/raitiotie/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://kaupunkitilaohje.hel.fi/kortti/raitiotie/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.52
+    },
+    {
+      "sourceId": "S07",
+      "url": "https://www.espoo.fi/fi/asuminen-ja-rakentaminen/rakentaminen/hulevesi",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://www.espoo.fi/fi/asuminen-ja-rakentaminen/rakentaminen/hulevesi",
+      "contentType": "text/html; charset=utf-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 2.52
+    },
+    {
+      "sourceId": "S08",
+      "url": "https://www.espoo.fi/fi/liikenne-ja-kadut/suunnittelu-ja-asennusohjeita-seka-tyyppipiirustuksia",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://www.espoo.fi/fi/liikenne-ja-kadut/suunnittelu-ja-asennusohjeita-seka-tyyppipiirustuksia",
+      "contentType": "text/html; charset=utf-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 2.26
+    },
+    {
+      "sourceId": "S09",
+      "url": "https://www.hel.fi/static/hkr/julkaisut/ohjeet/katutila_mitoitus.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://www.hel.fi/static/hkr/julkaisut/ohjeet/katutila_mitoitus.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 2.27
+    },
+    {
+      "sourceId": "S10",
+      "url": "http://production.espoo-cms.finland.wdr.io/sites/default/files/2021-08/Esteet%C3%B6n%20ymp%C3%A4rist%C3%B6.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://admin.espoo.fi/sites/default/files/2021-08/Esteet%C3%B6n%20ymp%C3%A4rist%C3%B6.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 2.16
+    },
+    {
+      "sourceId": "S11",
+      "url": "https://admin.espoo.fi/sites/default/files/2024-10/5222_811.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://admin.espoo.fi/sites/default/files/2024-10/5222_811.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 0.94
+    },
+    {
+      "sourceId": "S12",
+      "url": "https://admin.espoo.fi/sites/default/files/2024-10/5222_029.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://admin.espoo.fi/sites/default/files/2024-10/5222_029.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 0.91
+    },
+    {
+      "sourceId": "S13",
+      "url": "https://admin.espoo.fi/sites/default/files/2024-10/5222_030.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://admin.espoo.fi/sites/default/files/2024-10/5222_030.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 0.41
+    },
+    {
+      "sourceId": "S14",
+      "url": "https://admin.espoo.fi/sites/default/files/2024-10/5222_031.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://admin.espoo.fi/sites/default/files/2024-10/5222_031.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 0.31
+    },
+    {
+      "sourceId": "S15",
+      "url": "https://admin.espoo.fi/sites/default/files/2024-10/5222_032.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://admin.espoo.fi/sites/default/files/2024-10/5222_032.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.05
+    },
+    {
+      "sourceId": "S16",
+      "url": "https://admin.espoo.fi/sites/default/files/2021-08/5222_034.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://admin.espoo.fi/sites/default/files/2021-08/5222_034.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.05
+    },
+    {
+      "sourceId": "S17",
+      "url": "https://admin.espoo.fi/sites/default/files/2025-04/5222_814.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://admin.espoo.fi/sites/default/files/2025-04/5222_814.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.07
+    },
+    {
+      "sourceId": "S18",
+      "url": "https://admin.espoo.fi/sites/default/files/2021-08/5222_028A.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://admin.espoo.fi/sites/default/files/2021-08/5222_028A.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.04
+    },
+    {
+      "sourceId": "S19",
+      "url": "https://kaupunkitilaohje.hel.fi/kortti/katupuut-raitioliikenne-mitoitusohje/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://kaupunkitilaohje.hel.fi/kortti/katupuut-raitioliikenne-mitoitusohje/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 0.4
+    },
+    {
+      "sourceId": "S20",
+      "url": "https://kaupunkitilaohje.hel.fi/kortti/kasvualustojen-laatuvaatimukset-2/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://kaupunkitilaohje.hel.fi/kortti/kasvualustojen-laatuvaatimukset-2/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 0.41
+    },
+    {
+      "sourceId": "S22",
+      "url": "https://pelastustoimi.fi/documents/25266713/160916296/HIKLU_Pelastustien_suunnittelu_ja_toteutus.pdf/5075ad67-5076-c76a-bed1-b4fac29e2880?t=1726574562994",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://pelastustoimi.fi/documents/25266713/160916296/HIKLU_Pelastustien_suunnittelu_ja_toteutus.pdf/5075ad67-5076-c76a-bed1-b4fac29e2880?t=1726574562994",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.06
+    },
+    {
+      "sourceId": "S26",
+      "url": "https://raitiotieohje.fi/2-4-raitiotiepysakit/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://raitiotieohje.fi/2-4-raitiotiepysakit/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.33
+    },
+    {
+      "sourceId": "S27",
+      "url": "https://kaupunkiliikenne.fi/raitiotien-mitoitus-kadulla/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://kaupunkiliikenne.fi/raitiotien-mitoitus-kadulla/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.31
+    },
+    {
+      "sourceId": "S28",
+      "url": "https://kaupunkiliikenne.fi/raitioteiden-suunnitteluohje/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://kaupunkiliikenne.fi/raitioteiden-suunnitteluohje/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.31
+    },
+    {
+      "sourceId": "S23",
+      "url": "https://www.kirjastot.fi/sites/default/files/content/OKM20.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://www.kirjastot.fi/sites/default/files/content/OKM20.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.13
+    },
+    {
+      "sourceId": "S25",
+      "url": "https://www.seinajoki.fi/wp-content/uploads/2020/04/15025-Selostus-KvHyv-20170220.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://www.seinajoki.fi/wp-content/uploads/2020/04/15025-Selostus-KvHyv-20170220.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.11
+    },
+    {
+      "sourceId": "S24",
+      "url": "https://www.hel.fi/static/public/hela/Sosiaali-_ja_terveyslautakunta/Suomi/Paatos/2020/Sote_2020-05-19_Sotelk_8_Pk/AC296F6D-9B08-CB06-9FCB-72477D100001/Sosiaali-_ja_terveyslautakunnan_esitys_kaupunginha.html",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://www.hel.fi/static/public/hela/Sosiaali-_ja_terveyslautakunta/Suomi/Paatos/2020/Sote_2020-05-19_Sotelk_8_Pk/AC296F6D-9B08-CB06-9FCB-72477D100001/Sosiaali-_ja_terveyslautakunnan_esitys_kaupunginha.html",
+      "contentType": "text/html",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.3
+    },
+    {
+      "sourceId": "S29",
+      "url": "https://pyoraliikenne.hel.fi/pyorapysakointi/pyorapysakointi-yleisilla-alueilla/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://pyoraliikenne.hel.fi/pyorapysakointi/pyorapysakointi-yleisilla-alueilla/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.55
+    },
+    {
+      "sourceId": "S30",
+      "url": "https://raitiotieohje.fi/3-1-raitiotien-geometria/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://raitiotieohje.fi/3-1-raitiotien-geometria/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.33
+    },
+    {
+      "sourceId": "S31",
+      "url": "https://kaupunkitilaohje.hel.fi/kortti/hulevesien-hallintarakenteet/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://kaupunkitilaohje.hel.fi/kortti/hulevesien-hallintarakenteet/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 0.36
+    },
+    {
+      "sourceId": "S32",
+      "url": "https://www.hsy.fi/vesi-ja-viemarit/liittyminen-vesi-ja-viemariverkostoihin/hulevesiasiat/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://www.hsy.fi/vesi-ja-viemarit/liittyminen-vesi-ja-viemariverkostoihin/hulevesiasiat/",
+      "contentType": "text/html; charset=utf-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.13
+    },
+    {
+      "sourceId": "S33",
+      "url": "https://ilmasto-opas.fi/artikkelit/sadepuutarha-yhdistaa-hulevesien-hallinnan-vaiheet-luonnonmukaisesti",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://ilmasto-opas.fi/artikkelit/sadepuutarha-yhdistaa-hulevesien-hallinnan-vaiheet-luonnonmukaisesti",
+      "contentType": "text/html",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.2
+    },
+    {
+      "sourceId": "S34",
+      "url": "https://publications.vtt.fi/julkaisut/muut/2014/VTT_R_08223_13.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://publications.vtt.fi/julkaisut/muut/2014/VTT_R_08223_13.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.06
+    },
+    {
+      "sourceId": "S35",
+      "url": "https://kaupunkiliikenne.fi/kalusto/",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "https://kaupunkiliikenne.fi/kalusto/",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.19
+    },
+    {
+      "sourceId": "S36",
+      "url": "https://www.hel.fi/static/liitteet/kaupunkiymparisto/asuminen-ja-ymparisto/kaavoitus/LMA_VSU_WSP.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://www.hel.fi/static/liitteet/kaupunkiymparisto/asuminen-ja-ymparisto/kaavoitus/LMA_VSU_WSP.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.32
+    },
+    {
+      "sourceId": "S37",
+      "url": "https://salo.fi/wp-content/uploads/2020/05/Salon-liitynt%C3%A4pys%C3%A4k%C3%B6intiselvitys.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://salo.fi/wp-content/uploads/2020/05/Salon-liitynt%C3%A4pys%C3%A4k%C3%B6intiselvitys.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.09
+    },
+    {
+      "sourceId": "S38",
+      "url": "https://admin.espoo.fi/sites/default/files/2025-08/Asuinkortteleiden%20autopaikkaohje%202025_saavutettava.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://admin.espoo.fi/sites/default/files/2025-08/Asuinkortteleiden%20autopaikkaohje%202025_saavutettava.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.04
+    },
+    {
+      "sourceId": "S39",
+      "url": "https://ahjojulkaisu.hel.fi/993FCE7B-8816-CFC0-B905-9B08FC400000.pdf",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://ahjojulkaisu.hel.fi/993FCE7B-8816-CFC0-B905-9B08FC400000.pdf",
+      "contentType": "application/pdf",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.36
+    },
+    {
+      "sourceId": "S40",
+      "url": "https://paatokset.hel.fi/fi/asia/hel-2025-003906/9ab7f853-3c80-4e90-b6ca-9816fc507756",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://paatokset.hel.fi/fi/asia/hel-2025-003906/9ab7f853-3c80-4e90-b6ca-9816fc507756",
+      "contentType": "text/html; charset=utf-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.72
+    },
+    {
+      "sourceId": "S41",
+      "url": "https://kaupunkitilaohje.vantaa.fi/fi/katutila/suojatiet-ja-pyoratien-jatkeet",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://kaupunkitilaohje.vantaa.fi/fi/katutila/suojatiet-ja-pyoratien-jatkeet",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 3.22
+    },
+    {
+      "sourceId": "TKK",
+      "url": "http://yks.tkk.fi/fi/opinnot/tyokalut/mitoitus.html",
+      "status": "reachable",
+      "httpStatus": 200,
+      "finalUrl": "http://yks.tkk.fi/fi/opinnot/tyokalut/mitoitus.html",
+      "contentType": "text/html",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 2.23
+    },
+    {
+      "sourceId": "UNITS",
+      "url": "https://www.nist.gov/pml/us-surveyfoot/revised-unit-conversion-factors",
+      "status": "reachable",
+      "httpStatus": 206,
+      "finalUrl": "https://www.nist.gov/pml/us-surveyfoot/revised-unit-conversion-factors",
+      "contentType": "text/html; charset=UTF-8",
+      "sampleBytes": 2048,
+      "elapsedSeconds": 1.51
+    },
+    {
+      "sourceId": "W4",
+      "url": "assignment-extract.txt",
+      "status": "local-reference",
+      "exists": true
+    },
+    {
+      "sourceId": "W5",
+      "url": "assignment-extract.txt",
+      "status": "local-reference",
+      "exists": true
+    }
+  ]
+}

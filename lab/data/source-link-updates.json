@@ -1,0 +1,16 @@
+[
+  {
+    "sourceId": "S10",
+    "url": "https://admin.espoo.fi/sites/default/files/2021-08/Esteet%C3%B6n%20ymp%C3%A4rist%C3%B6.pdf",
+    "reason": "Replace the legacy HTTP production hostname with its observed HTTPS official redirect destination; same retained 2008 source, no content update.",
+    "evidence": {
+      "checkedAt": "2026-11-12T23:26:53.910946+00:00",
+      "originalUrl": "http://production.espoo-cms.finland.wdr.io/sites/default/files/2021-08/Esteet%C3%B6n%20ymp%C3%A4rist%C3%B6.pdf",
+      "redirectObservedIn": "source-link-audit-2026-11-13.json",
+      "httpStatus": 200,
+      "sha256": "790826deb23c95102ceb024d70c0a2349b216f22ba11d1a9cc3e9c016a064127",
+      "matchesCanonicalSha256": true,
+      "bytes": 2258465
+    }
+  }
+]
