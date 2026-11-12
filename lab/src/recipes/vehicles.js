@@ -38,12 +38,14 @@ export function vehicleScene(panel,index=0){
    band(group,0,0,inner,outer,'radius-band');radii(dimensions,0,0,inner,outer);
    const body=actor();body.rotation.y=Math.PI/2;body.position.set(outer/2,0,3);body.name='reference-body';group.add(body);
    dimensions.push(dimension([outer/2-(bus?7.5:2.5),0,4.6],[outer/2+(bus?7.5:2.5),0,4.6],bus?'15 m body':'5 m body',[0,0,.7]));
+   if(bus)dimensions.push(dimension([outer/2+7.5,0,1.7],[outer/2+7.5,0,4.3],'2.6 m body',[.8,0,0]));
    labels.push({point:[outer*.65,0,-outer*.55],text:'Radius reference'},{point:[outer/2,bus?3.2:1.5,3],text:bus?'Design bus body':'Car body'});target=[outer/2,0,-outer/3];measurement={inner,outer};
   }else{
    const total=index*width;box(group,total,.24,18,0,-.18,0,'soil','lane-base');surfaceStrip(group,{width:total,length:18,role:'road',name:'carriageway'});
    for(let i=0;i<index;i++){const vehicle=actor();vehicle.position.x=(i-(index-1)/2)*width;vehicle.rotation.y=i?Math.PI:0;group.add(vehicle);}
    if(index===2)dashed(group,[[0,.01,-9],[0,.01,9]],'lane-divider');
    dimensions.push(dimension([-total/2,0,9],[total/2,0,9],`${total} m`,[0,0,1]));labels.push({point:[total/2,0,6],text:'Carriageway'});
+   if(bus){const x=-(index-1)*width/2;dimensions.push(dimension([x-1.3,0,-7.5],[x+1.3,0,-7.5],'2.6 m body',[0,0,-.8]));}
    comparison={id:'vehicle-lanes',bounds:LANE_FRAME};measurement={width:total,laneWidth:width,lanes:index,length:18};target=[0,.5,0];
   }
  }

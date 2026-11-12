@@ -22,6 +22,7 @@ const base='http://127.0.0.1:8765/lab/book/',out=path.join(__dirname,'../review'
       const v=document.querySelector('.scene-viewport'),s=v.querySelector('svg'),rect=s.getBoundingClientRect(),data=JSON.parse(v.dataset.callouts);
       return{status:s.dataset.calloutStatus,items:data.items.length,issues:(await import('./callouts.js')).validateCallouts(data.items,data),width:Number(v.dataset.projectedWidth),frame:JSON.parse(v.dataset.comparisonFrame),w:rect.width,h:rect.height,texts:[...s.querySelectorAll('text')].map(n=>{const b=n.getBoundingClientRect();return{text:n.textContent,x:b.x-rect.x,y:b.y-rect.y,w:b.width,h:b.height};})};
      });
+     if(panel==='bus-turn')assert.ok(d.texts.some(t=>t.text==='2.6 m body'),'bus body width visible');
      assert.equal(d.status,'ok',`${width}/${id}/${camera}`);assert.equal(d.items,panel==='rescue'?4:index?1:2,`${width}/${id}/${camera} anchors`);assert.deepEqual(d.issues,[]);
      for(const t of d.texts)assert.ok(t.x>=-1&&t.y>=-1&&t.x+t.w<=d.w+1&&t.y+t.h<=d.h+1,'clipped '+t.text);
      for(let i=0;i<d.texts.length;i++)for(let j=0;j<i;j++){const a=d.texts[i],b=d.texts[j];assert.ok(!(a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y),`${width}/${id}/${camera} overlap ${a.text}/${b.text}`);}

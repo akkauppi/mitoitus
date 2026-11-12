@@ -539,3 +539,12 @@ show clean glazing and clearer silhouette; automated captures alone cannot prove
 absence of flicker on every physical GPU. Candidate rebuilt and explicit offline
 package verified. References: `references/bus-refined-{desktop,phone}.png`.
 Local commit only; no push/deployment.
+
+### Bus width annotation (2026-11-12)
+
+Added an explicit “2.6 m body” dimension to all three bus variants: alongside
+the detached turning-reference body and outside the vehicle end in lane scenes.
+The carriageway dimension remains separate and first, preserving comparison-scale
+checks. Mirrors remain omitted. Verified 67 unit tests and 70 responsive vehicle
+states, now requiring the body-width label in each bus preset with no annotation
+collisions/clipping. Candidate and explicit offline package rebuilt. Local only.
