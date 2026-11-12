@@ -43,7 +43,8 @@ callout clouds and human proportions. Browser checks cover81 combinations across
 1440,390 and320px viewports, with text overlap and leader intersection checks,
 plus48 orbit states and15 zoom steps. No runtime external requests. All existing
 baseline reference files remain unchanged. Selected rendered references are in
-[references/](references/). User acceptance of these refinements remains pending.
+[references/](references/). The user subsequently accepted this refined direction and requested the full
+implementation plan; see the next entry.
 
 Known remaining limitation: SVG export can lose contour edges behind coplanar
 faces due to SVGRenderer painter ordering. It is a draft export, not a faithful
@@ -65,3 +66,19 @@ Outputs go into ignored `review/`; retain selected references deliberately.
 
 Physical touch/GPU performance, browser assistive technology, production sheet
 integration, wall display and print workflows are not verified by this lab.
+
+## Full-edition planning handoff — 12 November 2026
+
+User: “I like it, plan the whole layout and the ideas for the diorama style
+visualizations. I'll let a bit smaller model implement.” This accepts the refined
+visual direction and assigns planning, not implementation of all scenes in this
+turn. The assistant plan specifies Overview/Focus and responsive/wall/print
+layouts, all 33 panel recipes, 44 baseline drawing mappings, shared asset and
+renderer contracts, and 16 bounded implementation tasks. Paper is the working
+default; no separate palette selection was stated.
+
+Start at [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md). Proposed files/APIs
+are identified as future work. Existing app, published files and CAD are unchanged
+by this planning pass. The current SVG export limitation stays open. No push or
+deployment is authorized. Inventory, relative links and wireframe rendering were
+checked; no implementation completion or performance result is inferred.

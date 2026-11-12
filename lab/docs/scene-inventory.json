@@ -1,0 +1,982 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Planning inventory, not a runtime registry or independent content authority. Each baseline SVG may contain several internal diagrams; catalogue coverage is also required.",
+  "date": "2026-11-12",
+  "baselineCommit": "93bb622",
+  "acceptedVisualReference": "4b5adc6",
+  "baselineFile": "index.html",
+  "baselineSha256": "de08489cdb1f1ab3e1a761e84f27b2479a2bd1691fe3d1bf8a9d178988026bd4",
+  "counts": {
+    "sheets": 11,
+    "panels": 33,
+    "drawings": 44
+  },
+  "sheets": [
+    {
+      "id": "built-form",
+      "title": "Building types",
+      "panels": [
+        {
+          "title": "Slab & point blocks",
+          "claimId": "building-blocks",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Scaled slab modules and a square point block",
+              "id": "building-blocks--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "building-blocks",
+          "order": 1,
+          "task": "T09",
+          "plannedTreatment": "metric-plan-relief",
+          "comparisonGroup": "building-footprints",
+          "status": "planned",
+          "sourceHref": "evidence.html#building-blocks",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Small blocks & rows",
+          "claimId": "building-rows",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Small-apartment modules, row dwellings and gardens at a common scale",
+              "id": "building-rows--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "building-rows",
+          "order": 2,
+          "task": "T09",
+          "plannedTreatment": "metric-plan-relief",
+          "comparisonGroup": "building-footprints",
+          "status": "planned",
+          "sourceHref": "evidence.html#building-rows",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Detached house",
+          "claimId": "building-detached",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "A fifteen by ten metre house on an illustrative twenty-five by thirty metre plot",
+              "id": "building-detached--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "building-detached",
+          "order": 3,
+          "task": "T09",
+          "plannedTreatment": "metric-plan-relief",
+          "comparisonGroup": "building-footprints",
+          "status": "planned",
+          "sourceHref": "evidence.html#building-detached",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        }
+      ],
+      "number": 1
+    },
+    {
+      "id": "land-population",
+      "title": "Land & population",
+      "panels": [
+        {
+          "title": "Density",
+          "claimId": "density",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Historical example resident densities: thirty, fifty, seventy-five and one hundred per hectare",
+              "id": "density--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "density",
+          "order": 1,
+          "task": "T13",
+          "plannedTreatment": "data-2d",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#density",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Green-area hierarchy",
+          "claimId": "green-hierarchy",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Historical maximum distances: fifty, one hundred fifty and five hundred metres",
+              "id": "green-hierarchy--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "green-hierarchy",
+          "order": 2,
+          "task": "T13",
+          "plannedTreatment": "data-2d",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#green-hierarchy",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Residents & services",
+          "claimId": "services",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "One hundred square metres of useful library area per thousand residents",
+              "id": "services--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "services",
+          "order": 3,
+          "task": "T13",
+          "plannedTreatment": "metric-2d",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#services",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        }
+      ],
+      "number": 2
+    },
+    {
+      "id": "walk-cycle",
+      "title": "Walk & cycle",
+      "panels": [
+        {
+          "title": "Walking widths",
+          "claimId": "walking",
+          "variantGroup": "walking",
+          "options": [
+            {
+              "legacyIndex": 0,
+              "label": "Basic footway · 2.5 m"
+            },
+            {
+              "legacyIndex": 1,
+              "label": "Clear passage · 1.5 m"
+            },
+            {
+              "legacyIndex": 2,
+              "label": "Wheelchair passing · 1.8 m"
+            },
+            {
+              "legacyIndex": 3,
+              "label": "Machine maintenance · 2.3 m"
+            }
+          ],
+          "drawings": [
+            {
+              "accessibleDescription": "Basic footway · 2.5 m, with 1.75 m reference people at a fixed graphic scale",
+              "id": "walking--v0",
+              "legacyIndex": 0,
+              "optionLabel": "Basic footway · 2.5 m"
+            },
+            {
+              "accessibleDescription": "Clear passage · 1.5 m, with 1.75 m reference people at a fixed graphic scale",
+              "id": "walking--v1",
+              "legacyIndex": 1,
+              "optionLabel": "Clear passage · 1.5 m"
+            },
+            {
+              "accessibleDescription": "Wheelchair passing · 1.8 m, with 1.75 m reference people at a fixed graphic scale",
+              "id": "walking--v2",
+              "legacyIndex": 2,
+              "optionLabel": "Wheelchair passing · 1.8 m"
+            },
+            {
+              "accessibleDescription": "Machine maintenance · 2.3 m, with 1.75 m reference people at a fixed graphic scale",
+              "id": "walking--v3",
+              "legacyIndex": 3,
+              "optionLabel": "Machine maintenance · 2.3 m"
+            }
+          ],
+          "id": "walking",
+          "order": 1,
+          "task": "T04",
+          "plannedTreatment": "metric-3d",
+          "comparisonGroup": "route-widths",
+          "status": "planned",
+          "sourceHref": "evidence.html#walking",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": "layout-walking"
+        },
+        {
+          "title": "Cycle facilities",
+          "claimId": "cycling",
+          "variantGroup": "cycling",
+          "options": [
+            {
+              "legacyIndex": 0,
+              "label": "One-way lane · 1.75 m"
+            },
+            {
+              "legacyIndex": 1,
+              "label": "Two-way track · 2.5 m"
+            },
+            {
+              "legacyIndex": 2,
+              "label": "Two-way quality route · 3.5 m"
+            },
+            {
+              "legacyIndex": 3,
+              "label": "Shared walk + cycle · 3 m"
+            },
+            {
+              "legacyIndex": 4,
+              "label": "Shared walk + cycle · 4 m"
+            }
+          ],
+          "drawings": [
+            {
+              "accessibleDescription": "One-way lane · 1.75 m, people and cyclists at a fixed metric scale",
+              "id": "cycling--v0",
+              "legacyIndex": 0,
+              "optionLabel": "One-way lane · 1.75 m"
+            },
+            {
+              "accessibleDescription": "Two-way track · 2.5 m, people and cyclists at a fixed metric scale",
+              "id": "cycling--v1",
+              "legacyIndex": 1,
+              "optionLabel": "Two-way track · 2.5 m"
+            },
+            {
+              "accessibleDescription": "Two-way quality route · 3.5 m, people and cyclists at a fixed metric scale",
+              "id": "cycling--v2",
+              "legacyIndex": 2,
+              "optionLabel": "Two-way quality route · 3.5 m"
+            },
+            {
+              "accessibleDescription": "Shared walk + cycle · 3 m, people and cyclists at a fixed metric scale",
+              "id": "cycling--v3",
+              "legacyIndex": 3,
+              "optionLabel": "Shared walk + cycle · 3 m"
+            },
+            {
+              "accessibleDescription": "Shared walk + cycle · 4 m, people and cyclists at a fixed metric scale",
+              "id": "cycling--v4",
+              "legacyIndex": 4,
+              "optionLabel": "Shared walk + cycle · 4 m"
+            }
+          ],
+          "id": "cycling",
+          "order": 2,
+          "task": "T04",
+          "plannedTreatment": "metric-3d",
+          "comparisonGroup": "route-widths",
+          "status": "planned",
+          "sourceHref": "evidence.html#cycling",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": "layout-cycling"
+        },
+        {
+          "title": "Cycle parking",
+          "claimId": "bike-parking",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Five bicycle envelopes, each zero point six by two metres, with handling space",
+              "id": "bike-parking--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "bike-parking",
+          "order": 3,
+          "task": "T04",
+          "plannedTreatment": "metric-3d",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#bike-parking",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        }
+      ],
+      "number": 3
+    },
+    {
+      "id": "accessible",
+      "title": "Accessibility",
+      "panels": [
+        {
+          "title": "Clear turning space",
+          "claimId": "turning",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Clear wheelchair and powered-wheelchair turning circles drawn at the same scale",
+              "id": "turning--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "turning",
+          "order": 1,
+          "task": "T05",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#turning",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Ramps",
+          "claimId": "ramps",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "A six metre ramp rising point three metres, without vertical exaggeration, and a two metre landing",
+              "id": "ramps--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "ramps",
+          "order": 2,
+          "task": "T05",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#ramps",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Parking & seating",
+          "claimId": "arrival",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "An accessible parking rectangle and a bench-end clear space at the same scale",
+              "id": "arrival--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "arrival",
+          "order": 3,
+          "task": "T05",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#arrival",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        }
+      ],
+      "number": 4
+    },
+    {
+      "id": "tram",
+      "title": "Tram & stops",
+      "panels": [
+        {
+          "title": "Tram corridor",
+          "claimId": "tram-corridor",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Eight metre Espoo reservation compared with six metre Helsinki draft line-section guidance",
+              "id": "tram-corridor--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "tram-corridor",
+          "order": 1,
+          "task": "T06",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#tram-corridor",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Stop width",
+          "claimId": "tram-width",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Two normal three point five metre side platforms and a five point five metre track zone",
+              "id": "tram-width--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "tram-width",
+          "order": 2,
+          "task": "T06",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#tram-width",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Stop length & levels",
+          "claimId": "tram-length",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "A forty-five metre tram stop with two nominal thirty-four by two point four metre tram bodies, with separate thirty and sixty-one metre platform-length comparisons",
+              "id": "tram-length--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "tram-length",
+          "order": 3,
+          "task": "T06",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#tram-length",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        }
+      ],
+      "number": 5
+    },
+    {
+      "id": "turning-vehicles",
+      "title": "Vehicles & turning",
+      "panels": [
+        {
+          "title": "Car access & turning",
+          "claimId": "car-turn",
+          "variantGroup": "car-layout",
+          "options": [
+            {
+              "legacyIndex": 0,
+              "label": "Car / van turning · TKK 2007"
+            },
+            {
+              "legacyIndex": 1,
+              "label": "One traffic lane · 3 m"
+            },
+            {
+              "legacyIndex": 2,
+              "label": "Two traffic lanes · 6 m"
+            }
+          ],
+          "drawings": [
+            {
+              "accessibleDescription": "Quarter-turn band with radii three and six point five metres, and a separate five by one point eight metre car-body plan at the same scale",
+              "id": "car-turn--v0",
+              "legacyIndex": 0,
+              "optionLabel": "Car / van turning · TKK 2007"
+            },
+            {
+              "accessibleDescription": "1 car traffic lanes with reference vehicle bodies at a common scale",
+              "id": "car-turn--v1",
+              "legacyIndex": 1,
+              "optionLabel": "One traffic lane · 3 m"
+            },
+            {
+              "accessibleDescription": "2 car traffic lanes with reference vehicle bodies at a common scale",
+              "id": "car-turn--v2",
+              "legacyIndex": 2,
+              "optionLabel": "Two traffic lanes · 6 m"
+            }
+          ],
+          "id": "car-turn",
+          "order": 1,
+          "task": "T07",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": "car-lanes",
+          "status": "planned",
+          "sourceHref": "evidence.html#car-turn",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": "layout-car-layout"
+        },
+        {
+          "title": "Bus access & stops",
+          "claimId": "bus-turn",
+          "variantGroup": "bus-layout",
+          "options": [
+            {
+              "legacyIndex": 0,
+              "label": "Bus turning · TKK 2007"
+            },
+            {
+              "legacyIndex": 1,
+              "label": "One lane · buses govern · 3.25 m"
+            },
+            {
+              "legacyIndex": 2,
+              "label": "Two lanes · buses govern · 6.5 m"
+            }
+          ],
+          "drawings": [
+            {
+              "accessibleDescription": "Quarter-turn bus band and a separate fifteen by two point six metre bus-body plan at the same graphic scale",
+              "id": "bus-turn--v0",
+              "legacyIndex": 0,
+              "optionLabel": "Bus turning · TKK 2007"
+            },
+            {
+              "accessibleDescription": "1 bus traffic lanes with reference vehicle bodies at a common scale",
+              "id": "bus-turn--v1",
+              "legacyIndex": 1,
+              "optionLabel": "One lane · buses govern · 3.25 m"
+            },
+            {
+              "accessibleDescription": "2 bus traffic lanes with reference vehicle bodies at a common scale",
+              "id": "bus-turn--v2",
+              "legacyIndex": 2,
+              "optionLabel": "Two lanes · buses govern · 6.5 m"
+            }
+          ],
+          "id": "bus-turn",
+          "order": 2,
+          "task": "T07",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": "bus-lanes",
+          "status": "planned",
+          "sourceHref": "evidence.html#bus-turn",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": "layout-bus-layout"
+        },
+        {
+          "title": "Rescue access",
+          "claimId": "rescue",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Fire-engine and aerial-appliance turning bands at a common scale, plus aerial set-up rectangle",
+              "id": "rescue--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "rescue",
+          "order": 3,
+          "task": "T07",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#rescue",
+          "catalogue": "SCENES-01-06.md",
+          "legacyParameter": null
+        }
+      ],
+      "number": 6
+    },
+    {
+      "id": "green-blue",
+      "title": "Green & blue",
+      "panels": [
+        {
+          "title": "Rooting volume",
+          "claimId": "trees",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "A five by five by one metre illustrative soil volume, with equal scale plan and section",
+              "id": "trees--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "trees",
+          "order": 1,
+          "task": "T03",
+          "plannedTreatment": "metric-3d",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#trees",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Planting widths",
+          "claimId": "ground",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Scaled comparison of widths: Tree planting strip ≥3.0 m, Tree strip · main street ≥3.5 m, Low shrubs ≥2.5 m, Lawn / ground cover ≥2.0 m",
+              "id": "ground--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "ground",
+          "order": 2,
+          "task": "T11",
+          "plannedTreatment": "metric-3d",
+          "comparisonGroup": "planting-widths",
+          "status": "planned",
+          "sourceHref": "evidence.html#ground",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Stormwater storage",
+          "claimId": "stormwater",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Six by five metre storage plan and point two metre effective depth, all at the same scale",
+              "id": "stormwater--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "stormwater",
+          "order": 3,
+          "task": "T11",
+          "plannedTreatment": "metric-3d",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#stormwater",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        }
+      ],
+      "number": 7
+    },
+    {
+      "id": "stormwater-options",
+      "title": "Stormwater options",
+      "panels": [
+        {
+          "title": "Rain gardens & swales",
+          "claimId": "rain-gardens",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Concept sections of a planted rain garden with possible drain and infiltration, and a vegetated swale",
+              "id": "rain-gardens--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "rain-gardens",
+          "order": 1,
+          "task": "T12",
+          "plannedTreatment": "conceptual-cutaway",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#rain-gardens",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Basins, ponds & wetlands",
+          "claimId": "ponds",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Concept water-storage sections, plus a scaled triangle showing one metre vertically to four metres horizontally",
+              "id": "ponds--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "ponds",
+          "order": 2,
+          "task": "T12",
+          "plannedTreatment": "conceptual-cutaway",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#ponds",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Roofs, paving & reuse",
+          "claimId": "source-control",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Concept diagrams of a vegetated roof and permeable pavement over a storage layer",
+              "id": "source-control--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "source-control",
+          "order": 3,
+          "task": "T12",
+          "plannedTreatment": "conceptual-cutaway",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#source-control",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        }
+      ],
+      "number": 8
+    },
+    {
+      "id": "section-details",
+      "title": "Section & details",
+      "panels": [
+        {
+          "title": "Street width / height",
+          "claimId": "section-ratio",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Three street sections, with twelve metre buildings and widths of twelve, twenty-four and thirty-six metres",
+              "id": "section-ratio--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "section-ratio",
+          "order": 1,
+          "task": "T10",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": "street-width-height",
+          "status": "planned",
+          "sourceHref": "evidence.html#section-ratio",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Same ratio, different form",
+          "claimId": "equal-density",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Three equal plots with building coverage of one half, one quarter and one eighth; two, four and eight floors give floor-area ratio one",
+              "id": "equal-density--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "equal-density",
+          "order": 2,
+          "task": "T10",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": "equal-floor-area",
+          "status": "planned",
+          "sourceHref": "evidence.html#equal-density",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Outdoor steps",
+          "claimId": "steps",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Six steps with one hundred twenty millimetre risers and four hundred twenty millimetre treads, at equal horizontal and vertical scale",
+              "id": "steps--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "steps",
+          "order": 3,
+          "task": "T10",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#steps",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        }
+      ],
+      "number": 9
+    },
+    {
+      "id": "connections",
+      "title": "Connections",
+      "panels": [
+        {
+          "title": "Crossing refuge",
+          "claimId": "crossing-refuge",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Example plan: two three-metre lanes separated by a two-point-five-metre refuge, measured along the pedestrian crossing",
+              "id": "crossing-refuge--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "crossing-refuge",
+          "order": 1,
+          "task": "T08",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#crossing-refuge",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Route length, not radius",
+          "claimId": "walking-connections",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "An entrance and destination three hundred metres apart, connected by a five-hundred-metre route via a bridge",
+              "id": "walking-connections--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "walking-connections",
+          "order": 2,
+          "task": "T08",
+          "plannedTreatment": "metric-2d",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#walking-connections",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Clear space in 3D",
+          "claimId": "clear-route-continuity",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "A two-point-five-metre path narrowed to one-point-four metres by an obstruction, followed by source-based pedestrian clear-height examples",
+              "id": "clear-route-continuity--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "clear-route-continuity",
+          "order": 3,
+          "task": "T08",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#clear-route-continuity",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        }
+      ],
+      "number": 10
+    },
+    {
+      "id": "parking",
+      "title": "Parking",
+      "panels": [
+        {
+          "title": "Bays & manoeuvring",
+          "claimId": "parking-layout",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "Eight two-point-five by five metre parking bays around a seven metre aisle, with five by one-point-eight metre reference cars at the same scale",
+              "id": "parking-layout--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "parking-layout",
+          "order": 1,
+          "task": "T14",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#parking-layout",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "A bay is not the full area",
+          "claimId": "parking-area",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "A twelve-point-five-square-metre bay plus eight-point-seven-five square metres of shared aisle, totalling twenty-one-point-two-five square metres per space",
+              "id": "parking-area--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "parking-area",
+          "order": 2,
+          "task": "T14",
+          "plannedTreatment": "hybrid",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#parking-area",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        },
+        {
+          "title": "Apartment parking norms",
+          "claimId": "parking-norms",
+          "variantGroup": null,
+          "options": [],
+          "drawings": [
+            {
+              "accessibleDescription": "For a stated ten-thousand-floor-square-metre and hundred-dwelling example, Helsinki zone three gives forty-four spaces and Espoo class one central core gives seventy-seven",
+              "id": "parking-norms--v0",
+              "legacyIndex": 0,
+              "optionLabel": null
+            }
+          ],
+          "id": "parking-norms",
+          "order": 3,
+          "task": "T14",
+          "plannedTreatment": "data-2d",
+          "comparisonGroup": null,
+          "status": "planned",
+          "sourceHref": "evidence.html#parking-norms",
+          "catalogue": "SCENES-07-11.md",
+          "legacyParameter": null
+        }
+      ],
+      "number": 11
+    }
+  ]
+}

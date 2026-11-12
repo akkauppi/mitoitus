@@ -4,6 +4,17 @@ Local visual exploration, started 12 November 2026 from published baseline
 `93bb622`. **No push or deployment until the user explicitly releases this hold.**
 The existing sheets, content, evidence and downloads remain unchanged.
 
+## Full-edition implementation handoff
+
+The user accepted the revised visual direction and requested a full layout/scene
+plan for another model to implement. Start with
+[IMPLEMENTATION-PLAN.md](docs/IMPLEMENTATION-PLAN.md), then
+[TASKS.md](docs/TASKS.md). The [layout wireframes](docs/LAYOUT.svg) show Overview,
+Focus, phone, wall and print. All 33 panels and 44 baseline drawings are mapped in
+[the inventory](docs/scene-inventory.json) and the two scene catalogues.
+This handoff is planning only; the running app is still the three-scene lab.
+Do not run the old recursive ZIP packager in this worktree.
+
 ## Preview
 
 From this worktree:
@@ -42,7 +53,8 @@ Nothing here authorizes publication. A local commit does not trigger Pages.
 Three scenes: a composed walking/cycling street, the existing tram-stop width and
 length example, and the existing soil-volume illustration. These are experiments,
 not replacements for all eleven reference sheets. All new visuals and editorial
-text are assistant drafts. No visual treatment has yet been accepted as final.
+text are assistant drafts. The refined visual direction is accepted; the complete
+book is planned and remains to be implemented and reviewed.
 
 Six original procedural assets: person, tree, car, tram, bicycle and bench.
 Detailed dimensions and illustration assumptions: [scene evidence](SCENE-EVIDENCE.md).

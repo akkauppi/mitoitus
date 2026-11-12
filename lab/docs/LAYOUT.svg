@@ -1,0 +1,227 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1630" viewBox="0 0 1440 1630" role="img" aria-labelledby="title desc"><title id="title">Mitoitus planned layout: overview, focus, phone, wall and print</title><desc id="desc">Planning wireframes. Desktop keeps a three-panel overview and opens one focused model. Phone stacks cards. Wall and print use reviewed stills and complete reference text.</desc><defs><style>text{font-family:Arial,sans-serif;fill:#35483e}.h{font-size:24px;font-weight:600}.sub{font-size:14px;fill:#72806f}.label{font-size:14px;font-weight:600}.tiny{font-size:12px;fill:#72806f}.body{font-size:13px}.line{stroke:#8d9e8f;stroke-width:1;fill:none}</style></defs><rect width="1440" height="1630" fill="#f7f6f0"/>
+<text x="42" y="48" class="h">Mitoitus · full-edition layout plan</text>
+<text x="42" y="77" class="sub">Planning wireframes — accepted drawing language, proposed application structure. Local only.</text>
+<text x="42" y="120" class="label">01  Overview · default desktop reading mode</text>
+<rect x="42" y="136" width="934" height="484" rx="5" fill="#fffef9" stroke="#d3dacd"/>
+<text x="62" y="168" class="label">Antti’s Dubious Little Rulebook</text>
+<text x="650" y="168" class="tiny">Sources   CAD   Downloads   View   Print</text>
+<path class="line" d="M42 185L976 185"/>
+<text x="62" y="209" class="tiny">01 Buildings   02 Land   03 Walk &amp; cycle   04 Access   05 Tram   …   11 Parking</text>
+<path class="line" d="M42 225L976 225"/>
+<text x="62" y="252" class="label">03 / Walk &amp; cycle</text>
+<rect x="766" y="233" width="88" height="26" rx="5" fill="#e5eddf" stroke="#d3dacd"/>
+<text x="775" y="250" class="tiny">Overview</text>
+<rect x="861" y="233" width="88" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="870" y="250" class="tiny">Focus</text>
+<rect x="61" y="269" width="283" height="331" rx="5" fill="#fffef9" stroke="#d3dacd"/>
+<text x="75" y="293" class="label">Walking widths</text>
+<rect x="75" y="305" width="253" height="26" rx="5" fill="#e5eddf" stroke="#d3dacd"/>
+<text x="84" y="322" class="tiny">Existing variant / source case</text>
+<g transform="translate(83 348) scale(0.63)">
+<path d="M0 75L125 0L245 45L120 120Z" fill="#d4dfc5" stroke="#879b87"/><path d="M0 75L120 120V132L0 87Z" fill="#d7c0a8" stroke="#879b87"/><path d="M120 120L245 45V57L120 132Z" fill="#c1ab91" stroke="#879b87"/><path d="M30 57L155 11L184 23L60 69Z" fill="#d8b7a8" stroke="#9d9e8e"/>
+<path d="M78 48v28" stroke="#a1937b" stroke-width="5"/><path d="M64 41l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+<path d="M145 26v28" stroke="#a1937b" stroke-width="5"/><path d="M131 19l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+</g>
+<path class="line" d="M260 371h-35L161 390"/><circle cx="161" cy="390" r="2.5" fill="#58705c"/>
+<text x="265" y="375" class="tiny">Footway</text>
+<rect x="75" y="447" width="100" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="84" y="464" class="tiny">Explore →</text>
+<text x="75" y="495" class="body">Original facts and tables</text>
+<rect x="75" y="516" width="250" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="75" y="539" width="225.0" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="75" y="562" width="250" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="360" y="269" width="283" height="331" rx="5" fill="#fffef9" stroke="#d3dacd"/>
+<text x="374" y="293" class="label">Cycle facilities</text>
+<rect x="374" y="305" width="253" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="383" y="322" class="tiny">Existing variant / source case</text>
+<g transform="translate(382 348) scale(0.63)">
+<path d="M0 75L125 0L245 45L120 120Z" fill="#d4dfc5" stroke="#879b87"/><path d="M0 75L120 120V132L0 87Z" fill="#d7c0a8" stroke="#879b87"/><path d="M120 120L245 45V57L120 132Z" fill="#c1ab91" stroke="#879b87"/><path d="M30 57L155 11L184 23L60 69Z" fill="#d8b7a8" stroke="#9d9e8e"/>
+<path d="M78 48v28" stroke="#a1937b" stroke-width="5"/><path d="M64 41l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+<path d="M145 26v28" stroke="#a1937b" stroke-width="5"/><path d="M131 19l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+</g>
+<path class="line" d="M559 371h-35L460 390"/><circle cx="460" cy="390" r="2.5" fill="#58705c"/>
+<text x="564" y="375" class="tiny">Cycle track</text>
+<rect x="374" y="447" width="100" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="383" y="464" class="tiny">Explore →</text>
+<text x="374" y="495" class="body">Original facts and tables</text>
+<rect x="374" y="516" width="250" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="374" y="539" width="225.0" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="374" y="562" width="250" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="659" y="269" width="283" height="331" rx="5" fill="#fffef9" stroke="#d3dacd"/>
+<text x="673" y="293" class="label">Cycle parking</text>
+<rect x="673" y="305" width="253" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="682" y="322" class="tiny">Existing variant / source case</text>
+<g transform="translate(681 348) scale(0.63)">
+<path d="M0 75L125 0L245 45L120 120Z" fill="#d4dfc5" stroke="#879b87"/><path d="M0 75L120 120V132L0 87Z" fill="#d7c0a8" stroke="#879b87"/><path d="M120 120L245 45V57L120 132Z" fill="#c1ab91" stroke="#879b87"/><path d="M30 57L155 11L184 23L60 69Z" fill="#d8b7a8" stroke="#9d9e8e"/>
+<path d="M78 48v28" stroke="#a1937b" stroke-width="5"/><path d="M64 41l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+<path d="M145 26v28" stroke="#a1937b" stroke-width="5"/><path d="M131 19l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+</g>
+<path class="line" d="M858 371h-35L759 390"/><circle cx="759" cy="390" r="2.5" fill="#58705c"/>
+<text x="863" y="375" class="tiny">Handling</text>
+<rect x="673" y="447" width="100" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="682" y="464" class="tiny">Explore →</text>
+<text x="673" y="495" class="body">Original facts and tables</text>
+<rect x="673" y="516" width="250" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="673" y="539" width="225.0" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="673" y="562" width="250" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<text x="62" y="642" class="sub">3 complete panels · still figures · one common scale within each comparison</text>
+<text x="1010" y="120" class="label">03  Phone · normal page flow</text>
+<rect x="1010" y="136" width="386" height="999" rx="18" fill="#fffef9" stroke="#bdcbbb"/>
+<text x="1031" y="171" class="label">Mitoitus</text>
+<text x="1306" y="171" class="tiny">Menu</text>
+<path class="line" d="M1010 185L1396 185"/>
+<text x="1031" y="209" class="body">←  03 Walk &amp; cycle  / 11  →</text>
+<rect x="1031" y="229" width="105" height="26" rx="5" fill="#e5eddf" stroke="#d3dacd"/>
+<text x="1040" y="246" class="tiny">Overview</text>
+<rect x="1144" y="229" width="99" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="1153" y="246" class="tiny">Focus</text>
+<rect x="1026" y="276" width="354" height="315" rx="5" fill="#fffef9" stroke="#d3dacd"/>
+<text x="1042" y="302" class="label">Walking widths</text>
+<rect x="1042" y="315" width="319" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="1051" y="332" class="tiny">Existing source / width alternative</text>
+<g transform="translate(1047 366) scale(0.65)">
+<path d="M0 75L125 0L245 45L120 120Z" fill="#d4dfc5" stroke="#879b87"/><path d="M0 75L120 120V132L0 87Z" fill="#d7c0a8" stroke="#879b87"/><path d="M120 120L245 45V57L120 132Z" fill="#c1ab91" stroke="#879b87"/><path d="M30 57L155 11L184 23L60 69Z" fill="#d8b7a8" stroke="#9d9e8e"/>
+<path d="M78 48v28" stroke="#a1937b" stroke-width="5"/><path d="M64 41l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+<path d="M145 26v28" stroke="#a1937b" stroke-width="5"/><path d="M131 19l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+</g>
+<path class="line" d="M1285 393h-35L1155 408"/><circle cx="1155" cy="408" r="2.5" fill="#58705c"/>
+<text x="1290" y="397" class="tiny">Label</text>
+<rect x="1042" y="481" width="108" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="1051" y="498" class="tiny">Explore →</text>
+<text x="1042" y="527" class="body">Complete facts below the figure</text>
+<rect x="1042" y="545" width="300" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="1042" y="568" width="270.0" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="1026" y="611" width="354" height="315" rx="5" fill="#fffef9" stroke="#d3dacd"/>
+<text x="1042" y="637" class="label">Cycle facilities</text>
+<rect x="1042" y="650" width="319" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="1051" y="667" class="tiny">Existing source / width alternative</text>
+<g transform="translate(1047 701) scale(0.65)">
+<path d="M0 75L125 0L245 45L120 120Z" fill="#d4dfc5" stroke="#879b87"/><path d="M0 75L120 120V132L0 87Z" fill="#d7c0a8" stroke="#879b87"/><path d="M120 120L245 45V57L120 132Z" fill="#c1ab91" stroke="#879b87"/><path d="M30 57L155 11L184 23L60 69Z" fill="#d8b7a8" stroke="#9d9e8e"/>
+<path d="M78 48v28" stroke="#a1937b" stroke-width="5"/><path d="M64 41l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+<path d="M145 26v28" stroke="#a1937b" stroke-width="5"/><path d="M131 19l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+</g>
+<path class="line" d="M1285 728h-35L1155 743"/><circle cx="1155" cy="743" r="2.5" fill="#58705c"/>
+<text x="1290" y="732" class="tiny">Label</text>
+<rect x="1042" y="816" width="108" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="1051" y="833" class="tiny">Explore →</text>
+<text x="1042" y="862" class="body">Complete facts below the figure</text>
+<rect x="1042" y="880" width="300" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="1042" y="903" width="270.0" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<text x="1034" y="976" class="body">Third panel continues below.</text>
+<text x="1034" y="1003" class="tiny">Explore uses the same page width.</text>
+<text x="1034" y="1025" class="tiny">Facts stack below the focused model.</text>
+<text x="1034" y="1047" class="tiny">No three-canvas carousel.</text>
+<text x="1034" y="1084" class="tiny">Touch: page scroll / two-finger orbit.</text>
+<text x="1034" y="1106" class="tiny">320 px remains a required test.</text>
+<text x="42" y="695" class="label">02  Focus · one model, full panel information</text>
+<rect x="42" y="711" width="934" height="424" rx="5" fill="#fffef9" stroke="#d3dacd"/>
+<text x="62" y="744" class="label">← Back to sheet    07 / Green &amp; blue</text>
+<rect x="62" y="759" width="275" height="26" rx="5" fill="#e5eddf" stroke="#d3dacd"/>
+<text x="71" y="776" class="tiny">Rooting volume</text>
+<rect x="346" y="759" width="275" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="355" y="776" class="tiny">Planting widths</text>
+<rect x="630" y="759" width="325" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="639" y="776" class="tiny">Stormwater storage</text>
+<rect x="61" y="801" width="635" height="313" rx="5" fill="#f5f4ec" stroke="#d3dacd"/>
+<rect x="709" y="801" width="246" height="313" rx="5" fill="#fffef9" stroke="#d3dacd"/>
+<text x="78" y="829" class="label">Rooting volume</text>
+<rect x="483" y="811" width="50" height="26" rx="5" fill="#e5eddf" stroke="#d3dacd"/>
+<text x="492" y="828" class="tiny">3D</text>
+<rect x="539" y="811" width="53" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="548" y="828" class="tiny">Plan</text>
+<rect x="598" y="811" width="80" height="26" rx="5" fill="#f7f8f2" stroke="#d3dacd"/>
+<text x="607" y="828" class="tiny">Section*</text>
+<g transform="translate(158 879) scale(1.35)">
+<path d="M0 75L125 0L245 45L120 120Z" fill="#d4dfc5" stroke="#879b87"/><path d="M0 75L120 120V132L0 87Z" fill="#d7c0a8" stroke="#879b87"/><path d="M120 120L245 45V57L120 132Z" fill="#c1ab91" stroke="#879b87"/><path d="M30 57L155 11L184 23L60 69Z" fill="#d8b7a8" stroke="#9d9e8e"/>
+<path d="M78 48v28" stroke="#a1937b" stroke-width="5"/><path d="M64 41l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+<path d="M145 26v28" stroke="#a1937b" stroke-width="5"/><path d="M131 19l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+</g>
+<path class="line" d="M552 900h-35L350 915"/><circle cx="350" cy="915" r="2.5" fill="#58705c"/>
+<text x="557" y="904" class="tiny">Tree</text>
+<path class="line" d="M552 950h-35L315 1019"/><circle cx="315" cy="1019" r="2.5" fill="#58705c"/>
+<text x="557" y="954" class="tiny">Soil</text>
+<text x="78" y="1093" class="tiny">Reset    Dimensions    Callouts    Export</text>
+<text x="727" y="831" class="label">Facts &amp; guidance</text>
+<text x="727" y="861" class="body">Exact existing dimensions</text>
+<rect x="727" y="881" width="206" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="727" y="904" width="185.4" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="727" y="927" width="206" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<text x="727" y="974" class="body">Original tables and prose</text>
+<rect x="727" y="995" width="206" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="727" y="1018" width="185.4" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<text x="727" y="1078" class="tiny">Sources (off on load)</text>
+<text x="62" y="1160" class="sub">*Section exists only with actual cut geometry. Front is an elevation.</text>
+<text x="42" y="1210" class="label">04  Three-screen wall · 4800 × 1000 reference, still figures</text>
+<rect x="42" y="1226" width="934" height="209" rx="5" fill="#fffef9" stroke="#d3dacd"/>
+<rect x="56" y="1241" width="293" height="178" rx="5" fill="#fafaf5" stroke="#d3dacd"/>
+<text x="68" y="1265" class="label">Panel A</text>
+<g transform="translate(74 1280) scale(0.55)">
+<path d="M0 75L125 0L245 45L120 120Z" fill="#d4dfc5" stroke="#879b87"/><path d="M0 75L120 120V132L0 87Z" fill="#d7c0a8" stroke="#879b87"/><path d="M120 120L245 45V57L120 132Z" fill="#c1ab91" stroke="#879b87"/><path d="M30 57L155 11L184 23L60 69Z" fill="#d8b7a8" stroke="#9d9e8e"/>
+<path d="M78 48v28" stroke="#a1937b" stroke-width="5"/><path d="M64 41l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+<path d="M145 26v28" stroke="#a1937b" stroke-width="5"/><path d="M131 19l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+</g>
+<rect x="232" y="1290" width="100" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="232" y="1313" width="90.0" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="232" y="1336" width="100" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="232" y="1359" width="90.0" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<path d="M356 1226v209" stroke="#af8777" stroke-dasharray="5 5"/>
+<rect x="363" y="1241" width="293" height="178" rx="5" fill="#fafaf5" stroke="#d3dacd"/>
+<text x="375" y="1265" class="label">Panel B</text>
+<g transform="translate(381 1280) scale(0.55)">
+<path d="M0 75L125 0L245 45L120 120Z" fill="#d4dfc5" stroke="#879b87"/><path d="M0 75L120 120V132L0 87Z" fill="#d7c0a8" stroke="#879b87"/><path d="M120 120L245 45V57L120 132Z" fill="#c1ab91" stroke="#879b87"/><path d="M30 57L155 11L184 23L60 69Z" fill="#d8b7a8" stroke="#9d9e8e"/>
+<path d="M78 48v28" stroke="#a1937b" stroke-width="5"/><path d="M64 41l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+<path d="M145 26v28" stroke="#a1937b" stroke-width="5"/><path d="M131 19l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+</g>
+<rect x="539" y="1290" width="100" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="539" y="1313" width="90.0" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="539" y="1336" width="100" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="539" y="1359" width="90.0" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<path d="M663 1226v209" stroke="#af8777" stroke-dasharray="5 5"/>
+<rect x="670" y="1241" width="293" height="178" rx="5" fill="#fafaf5" stroke="#d3dacd"/>
+<text x="682" y="1265" class="label">Panel C</text>
+<g transform="translate(688 1280) scale(0.55)">
+<path d="M0 75L125 0L245 45L120 120Z" fill="#d4dfc5" stroke="#879b87"/><path d="M0 75L120 120V132L0 87Z" fill="#d7c0a8" stroke="#879b87"/><path d="M120 120L245 45V57L120 132Z" fill="#c1ab91" stroke="#879b87"/><path d="M30 57L155 11L184 23L60 69Z" fill="#d8b7a8" stroke="#9d9e8e"/>
+<path d="M78 48v28" stroke="#a1937b" stroke-width="5"/><path d="M64 41l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+<path d="M145 26v28" stroke="#a1937b" stroke-width="5"/><path d="M131 19l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+</g>
+<rect x="846" y="1290" width="100" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="846" y="1313" width="90.0" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="846" y="1336" width="100" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="846" y="1359" width="90.0" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<text x="62" y="1460" class="sub">Each panel stays inside its screen. 48 px seam insets at reference size.</text>
+<text x="1010" y="1210" class="label">05  A3 landscape print</text>
+<rect x="1010" y="1226" width="386" height="209" rx="5" fill="#fffef9" stroke="#d3dacd"/>
+<rect x="1027" y="1251" width="111" height="147" rx="5" fill="#fafaf5" stroke="#d3dacd"/>
+<text x="1036" y="1273" class="label">A</text>
+<g transform="translate(1035 1292) scale(0.35)">
+<path d="M0 75L125 0L245 45L120 120Z" fill="#d4dfc5" stroke="#879b87"/><path d="M0 75L120 120V132L0 87Z" fill="#d7c0a8" stroke="#879b87"/><path d="M120 120L245 45V57L120 132Z" fill="#c1ab91" stroke="#879b87"/><path d="M30 57L155 11L184 23L60 69Z" fill="#d8b7a8" stroke="#9d9e8e"/>
+<path d="M78 48v28" stroke="#a1937b" stroke-width="5"/><path d="M64 41l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+<path d="M145 26v28" stroke="#a1937b" stroke-width="5"/><path d="M131 19l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+</g>
+<rect x="1035" y="1354" width="94" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="1035" y="1377" width="84.60000000000001" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="1148" y="1251" width="111" height="147" rx="5" fill="#fafaf5" stroke="#d3dacd"/>
+<text x="1157" y="1273" class="label">B</text>
+<g transform="translate(1156 1292) scale(0.35)">
+<path d="M0 75L125 0L245 45L120 120Z" fill="#d4dfc5" stroke="#879b87"/><path d="M0 75L120 120V132L0 87Z" fill="#d7c0a8" stroke="#879b87"/><path d="M120 120L245 45V57L120 132Z" fill="#c1ab91" stroke="#879b87"/><path d="M30 57L155 11L184 23L60 69Z" fill="#d8b7a8" stroke="#9d9e8e"/>
+<path d="M78 48v28" stroke="#a1937b" stroke-width="5"/><path d="M64 41l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+<path d="M145 26v28" stroke="#a1937b" stroke-width="5"/><path d="M131 19l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+</g>
+<rect x="1156" y="1354" width="94" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="1156" y="1377" width="84.60000000000001" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="1269" y="1251" width="111" height="147" rx="5" fill="#fafaf5" stroke="#d3dacd"/>
+<text x="1278" y="1273" class="label">C</text>
+<g transform="translate(1277 1292) scale(0.35)">
+<path d="M0 75L125 0L245 45L120 120Z" fill="#d4dfc5" stroke="#879b87"/><path d="M0 75L120 120V132L0 87Z" fill="#d7c0a8" stroke="#879b87"/><path d="M120 120L245 45V57L120 132Z" fill="#c1ab91" stroke="#879b87"/><path d="M30 57L155 11L184 23L60 69Z" fill="#d8b7a8" stroke="#9d9e8e"/>
+<path d="M78 48v28" stroke="#a1937b" stroke-width="5"/><path d="M64 41l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+<path d="M145 26v28" stroke="#a1937b" stroke-width="5"/><path d="M131 19l5-17 20-3 10 16-9 20-20-2Z" fill="#adc6a2" stroke="#879b87"/>
+</g>
+<rect x="1277" y="1354" width="94" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<rect x="1277" y="1377" width="84.60000000000001" height="3" rx="1" fill="#e3e7dc" stroke="none"/>
+<text x="1026" y="1420" class="tiny">1 sheet per page · 11 pages</text>
+<text x="1010" y="1460" class="sub">Reviewed figures; no live canvas print.</text>
+<path class="line" d="M42 1500L1396 1500"/>
+<text x="42" y="1530" class="label">ONE SCENE SYSTEM</text>
+<text x="42" y="1555" class="sub">Metric recipes → shared assets / materials → screen-space annotations → live focus + reviewed stills</text>
+<text x="42" y="1585" class="tiny">Preserve content, URLs, source context, comparison scale, CAD and offline use. No publication during implementation.</text>
+</svg>

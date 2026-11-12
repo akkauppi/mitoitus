@@ -1,7 +1,8 @@
 # Drawing language and delegation contract
 
-Version 0.1 · 12 November 2026 · assistant proposal, pending user review.
-This records the first implementation; it is not a declaration of final style.
+Version 0.2 · 12 November 2026. The user accepted the refined prototype as the
+visual direction. This guide records that baseline plus proposed extension rules;
+new full-book panels and layout still require implementation/review.
 
 ## User brief
 
@@ -75,9 +76,9 @@ Use the existing `SCENES` and `buildScene()` pattern. Each scene supplies:
 - Dimension endpoints, world-space offsets and label text.
 - Label anchors and camera presets, without new per-scene renderer logic.
 
-The first recipes are deliberately hand-written while the visual language is
-unsettled. If accepted and extended beyond a few scenes, extract declarative
-surface/asset/dimension arrays and validate them against a small JSON schema.
+The first recipes are hand-written prototypes. For the full book, extract
+declarative surface/asset/dimension metadata and validate the small contract
+described in SCENE-CONTRACT.md; keep geometry builders as readable functions.
 Do not prematurely turn educational examples into a general CAD application.
 
 ## Ready-to-delegate task template
@@ -99,7 +100,8 @@ linework density, ground depth, value hierarchy and whether labels compete with
 objects. Verify dimension lines measure what the captions say. Keep decorative
 objects out of the measured clear space where that would imply a false design.
 A screenshot pass is not physical-device, accessibility or design-compliance
-certification. User style selection is the next decision, before bulk conversion.
+certification. Use the accepted refined prototype as the visual reference; review each new
+scene family before bulk conversion.
 
 ## Iteration 02 refinements
 
@@ -110,10 +112,41 @@ Keep the visible image inside its reserved gutters when zoomed; label text and
 lines remain SVG. Reframe or reduce active labels if the solver reports no fit;
 never display a crossing fallback. Dimensions remain separate metric annotations.
 
-People now have a0.23m shaped head, tapered torso/pelvis, knees/elbows, understated
+People now have a 0.23 m shaped head, tapered torso/pelvis, knees/elbows, understated
 shoes and standing/walking/waiting poses. These are chosen illustration
-proportions, not sourced population measurements. Height remains1.75m.
+proportions, not sourced population measurements. Height remains 1.75 m.
 
 The former Section button is now Front: it is an elevation, not a cutting plane.
 SVG export preserves clipping and embeds source/draft context in its description,
 but painter-order line occlusion remains a known draft-export limitation.
+
+## Production asset backlog
+
+Plan only; build an asset when its assigned panel needs it. Every asset keeps a
+metric origin on the ground, named semantic parts, shared material roles and
+provenance. An unspecified physical size is an illustration assumption, not a
+new dimensioning recommendation. Keep original code/source and measured bounds.
+
+| Asset / primitive | Reuse or add | Dimensional contract and use |
+| --- | --- | --- |
+| Person: standing/walking/waiting | Reuse | 1.75 m; current head/body proportions; all neutral light grey. |
+| Seated person / mobility-device context | Optional add in T05 | Derive a natural pose, not uniform shrinking; no claim that the silhouette validates a clear turning space. Omit if unnecessary. |
+| Bicycle and rider | Bike reused, rider added in T04 | Bike 0.6 × 2 m / 1.2 m height; existing rider posture 1.65 m with 0.60 m bars. Do not conflate the two envelopes. |
+| Car | Reuse | Body 5 × 1.8 m; current 1.5 m height/detail are assumptions. No mirrors or swept path implied. |
+| Tram | Reuse | Body 34 × 2.4 m; current 3.4 m height/detail assumptions. No ATU derived from body. |
+| Design bus | Add in T07 | Existing body 15 × 2.6 m; height/detail explicitly assumed if modeled. Straight reference placement only. |
+| Rescue vehicle | Optional, not required | Use neutral setup/clearance outlines by default; no guessed appliance footprint or deployed boom. |
+| Tree / shrub / ground cover | Tree reused; shrubs in T11 | Parameterized tree, current 5 m / 3 m crown illustration; no species/maturity claim. Shrub sizes assumed; flat ground cover uses no fake canopy height. |
+| Bench / shelter | Bench reused; shelter module if needed | Decorative furniture dimensions recorded; keep measured clear passages open. No new compliant-product claim. |
+| Ground / surface strip / bay grid | Shared primitives | Exact endpoints, contiguous solids, no floating slabs; decorative base excluded from measured volume. |
+| Footprint / plot / floor plate | Add in T09–10 | Exact existing plans; display relief is not building height. Schematic floor spacing stays separate from metric geometry. |
+| Ramp / steps | Add in T05/T10 | Exact run, rise, landing and repeats; matching actual cut faces; no decorative slope exaggeration. |
+| Kerb / rail / markings | Shared optional context | Preserve source-defined plan markings. Record assumed vertical details; decorative rails do not imply a clearance envelope. |
+| Clearance / radius geometry | Shared SVG or geometry | Exact numeric radius/diameter and axes. No polygonal approximation that changes the measured limit; no motion simulation. |
+| Soil / water / conceptual section stack | Add in T10–12 | Metric blocks only for adopted volume examples; conceptual layers carry no measured thickness/capacity. |
+| Route / barrier / process arrows | Shared SVG | Metric route lengths where adopted; symbols and process arrows are semantic, not hydraulic or traffic simulations. |
+
+Use named functions/recipe data instead of unrelated duplicated meshes. Keep the
+asset palette in `styles.js`, and annotations in the shared adapter. Blender or
+SolidCraft imports must pass the same bounds, material-role, silhouette and
+fallback/export checks as procedural assets; neither is a required dependency.
