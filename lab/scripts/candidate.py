@@ -17,6 +17,9 @@ PUBLIC_FILES = (
     *(f'downloads/{kind}-{unit}.{ext}' for kind in KINDS for unit in UNITS for ext in ('dxf', 'svg')),
     *(f'downloads/mitoitus-cad-{unit}.zip' for unit in UNITS),
 )
+RUNTIME_FILES = {'runtime/book-app.js': 'lab/src/book-app.js', 'runtime/book.css': 'lab/src/book.css'}
+BASELINE_FILES = PUBLIC_FILES
+PUBLIC_FILES = (*PUBLIC_FILES, *RUNTIME_FILES)
 OFFLINE = 'downloads/rulebook-offline.zip'
 MAX_ARCHIVE_BYTES = 32 * 1024 * 1024
 
@@ -114,10 +117,21 @@ def validate_inventory(checked, inventory):
         raise ValueError('Expected 11 sheets and 44 drawings')
 
 
-def read_public(root):
+def source_path(root, name):
+    return root / RUNTIME_FILES.get(name, name)
+
+
+def render_book(source):
+    text = source.decode()
+    text = text.replace('</head>', '<link rel="stylesheet" href="runtime/book.css"></head>')
+    text = text.replace('</body>', '<script src="runtime/book-app.js"></script></body>')
+    return text.encode()
+
+
+def read_public(root, source=False):
     result = {}
     for name in PUBLIC_FILES:
-        path = root / name
+        path = source_path(root, name) if source else root / name
         if any(p.is_symlink() for p in (path, *path.parents)) or not path.is_file():
             raise ValueError(f'Missing or unsafe public file: {name}')
         result[name] = path.read_bytes()
@@ -154,6 +168,9 @@ def verify_candidate(output, allow_legacy=False):
     report = json.loads((output/'parity.json').read_text())
     names = {p.relative_to(output).as_posix() for p in paths if p.is_file()}
     expected = set(PUBLIC_FILES) | {OFFLINE, 'parity.json'}
+    old_expected = set(BASELINE_FILES) | {OFFLINE, 'parity.json'}
+    if allow_legacy and names == old_expected:
+        expected = old_expected
     if names != expected:
         raise ValueError('Candidate contains missing or unapproved files')
     if report.get('schemaVersion') == 2:
@@ -194,7 +211,7 @@ def publish(stage, output):
 def build(output=None, replace=False):
     output = safe_path(output or ROOT/'lab/book', ROOT/'lab/book')
     inventory = json.loads((ROOT/'lab/docs/scene-inventory.json').read_text())
-    files = read_public(ROOT)
+    files = read_public(ROOT, source=True)
     source = files['index.html']
     if digest(source) != inventory['baselineSha256']:
         raise ValueError('Baseline changed: review inventory deliberately before rebuilding')
@@ -204,6 +221,7 @@ def build(output=None, replace=False):
         if not replace:
             raise ValueError('Candidate exists; use --replace for a verified generated candidate')
         verify_candidate(output, allow_legacy=True)
+    files['index.html'] = render_book(source)
     stage = Path(tempfile.mkdtemp(prefix='.book-stage-', dir=output.parent))
     try:
         for name, content in files.items():
@@ -212,9 +230,9 @@ def build(output=None, replace=False):
             target.write_bytes(content)
         write_archive(stage/OFFLINE, files)
         actual = audit((stage/'index.html').read_text())
-        if actual.events != checked.events:
+        if actual.events != audit(render_book(source).decode()).events:
             raise ValueError('Candidate semantic content drift')
-        report = dict(schemaVersion=2, stage='T01 baseline candidate; new layout not implemented',
+        report = dict(schemaVersion=2, stage='T02 static book shell; 3D integration starts at T03',
                       sheets=11, panels=33, drawings=44, baselineSha256=digest(source),
                       semanticSha256=digest(json.dumps(checked.events, ensure_ascii=False).encode()),
                       content=checked.panels, semanticEvents=checked.events,

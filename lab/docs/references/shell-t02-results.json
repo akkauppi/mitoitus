@@ -1,0 +1,16 @@
+{
+  "responsiveStates": 110,
+  "focusedPanels": 33,
+  "variants": 15,
+  "widths": [
+    320,
+    390,
+    768,
+    1024,
+    1440
+  ],
+  "errors": [],
+  "external": [],
+  "fileFallback": "passed",
+  "noJS": "33 panels visible"
+}

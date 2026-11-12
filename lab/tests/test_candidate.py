@@ -20,9 +20,9 @@ class CandidateTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)/'repo'
         for name in (*m.PUBLIC_FILES, 'lab/docs/scene-inventory.json'):
-            target = self.root/name
+            target = m.source_path(self.root,name)
             target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(SOURCE/name, target)
+            shutil.copyfile(m.source_path(SOURCE,name), target)
         self.root_patch = patch.object(m, 'ROOT', self.root)
         self.root_patch.start()
         self.addCleanup(self.root_patch.stop)
@@ -38,7 +38,7 @@ class CandidateTests(unittest.TestCase):
         groups = {p['group']:len(p['options']) for p in report['content'] if p['group']}
         self.assertEqual(groups, {'walking':4,'cycling':5,'car-layout':3,'bus-layout':3})
         for name in m.PUBLIC_FILES:
-            self.assertEqual((self.output/name).read_bytes(), (self.root/name).read_bytes())
+            self.assertEqual((self.output/name).read_bytes(), m.render_book((self.root/name).read_bytes()) if name == 'index.html' else m.source_path(self.root,name).read_bytes())
 
     def test_repeat_build_requires_explicit_replace_and_is_reproducible(self):
         first = m.build()
@@ -150,11 +150,11 @@ class CandidateTests(unittest.TestCase):
             self.assertEqual(archive.namelist(),sorted(m.PUBLIC_FILES))
             self.assertNotIn(m.OFFLINE,archive.namelist())
             for name in m.PUBLIC_FILES:
-                self.assertEqual(archive.read(name),(self.root/name).read_bytes())
+                self.assertEqual(archive.read(name),(self.output/name).read_bytes())
         self.assertEqual(exported.read_bytes(),(self.output/m.OFFLINE).read_bytes())
 
     def test_rogue_archive_input_and_size_budget_rejected(self):
-        files = m.read_public(self.root)
+        files = m.read_public(self.root,source=True)
         with self.assertRaises(ValueError): m.write_archive(self.root/'bad.zip',{**files,'private.txt':b'private'})
         with patch.object(m,'MAX_ARCHIVE_BYTES',1):
             with self.assertRaisesRegex(ValueError,'budget'): m.build()

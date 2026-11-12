@@ -12,7 +12,8 @@ plan for another model to implement. Start with
 [TASKS.md](docs/TASKS.md). The [layout wireframes](docs/LAYOUT.svg) show Overview,
 Focus, phone, wall and print. All 33 panels and 44 baseline drawings are mapped in
 [the inventory](docs/scene-inventory.json) and the two scene catalogues.
-This handoff is planning only; the running app is still the three-scene lab.
+The three-scene lab remains the visual reference. T01 and T02 are implemented in
+the isolated candidate; the remaining handoff tasks are still planned.
 Do not run the old recursive ZIP packager in this worktree.
 
 ## Preview
@@ -66,12 +67,13 @@ Iteration record and verification limits: [REVIEW.md](docs/REVIEW.md).
 
 ## Candidate build (T01)
 
-T01 is complete; the candidate currently retains the baseline layout. From the
+T01 and T02 are complete; the candidate now has static Overview/Focus layouts
+with all baseline SVG figures and canonical details. From the
 worktree root, run `python3 lab/scripts/build-book.py` for the first build, or
 `python3 lab/scripts/build-book.py --replace` to replace an intact generated
 candidate. `python3 lab/scripts/package-book.py` exports the explicitly allowlisted
 ZIP into `lab/.build/`. See [PROGRESS.md](docs/PROGRESS.md) for commands, verification
-and limits. T02 has not started.
+and limits. Preview the candidate at http://localhost:8765/lab/book/. T03 is next.
 
 ## Development
 
