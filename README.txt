@@ -1,5 +1,5 @@
 ANTTI’S DUBIOUS LITTLE PLANNING RULEBOOK — Mitoitus
-Rules of thumb. Fingers crossed. · v2026-11-13
+Rules of thumb. Fingers crossed. · v2026-11-13.1
 
 Live: https://akkauppi.github.io/mitoitus/
 
@@ -8,8 +8,9 @@ accessibility; connections; tram/stops; vehicles/turning; parking; sections;
 green/blue; stormwater options. Thirty panels combine technical dimensions,
 dated source tables and original outlined pastel dioramas.
 
-Overview provides reviewed static illustrations. Focus opens one shared 3D
-viewer with plan, elevation and section views where supported. Source dates,
+The book opens in live 3D Focus. Overview provides reviewed static illustrations.
+One shared 3D viewer offers plan, elevation and section views where supported.
+Explicit view links are retained; Reset and Home return live scenes to 3D. Source dates,
 local scope and dimensional denominators remain attached to the references.
 Sources starts off; S toggles it. Arrow keys navigate spreads outside a model.
 Inside a model, arrows orbit, +/- zoom and Home resets. One finger scrolls;

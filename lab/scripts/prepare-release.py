@@ -3,6 +3,7 @@ import json
 import shutil
 from pathlib import Path
 from candidate import ROOT, OFFLINE, PUBLIC_FILES, build, digest, verify_candidate
+from release_editorial import EDITION
 
 
 def prepare():
@@ -24,7 +25,7 @@ def prepare():
         path.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(candidate / name, path)
     (target / '.nojekyll').touch()
-    manifest = {'edition': '2026-11-13', 'panels': report['panels'], 'sheets': report['sheets'],
+    manifest = {'edition': EDITION, 'panels': report['panels'], 'sheets': report['sheets'],
                 'files': {name: digest((target/name).read_bytes()) for name in (*PUBLIC_FILES, OFFLINE)}}
     (target / 'release.json').write_text(json.dumps(manifest, indent=2) + '\n')
     print(f'Release staged: {target} ({len(PUBLIC_FILES)+1} public assets)')

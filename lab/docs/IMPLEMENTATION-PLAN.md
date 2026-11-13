@@ -57,7 +57,7 @@ with a separate callout anchored on the wheelchair figure.
 
 The two reading modes share the same content and state:
 
-- **Overview, the default:** three complete reference panels on one sheet.
+- **Overview (original default; superseded by the 13 November 2026 live-Focus amendment):** three complete reference panels on one sheet.
   Each has a static diorama/vector figure, its existing dimensions, tables and
   practical text. An “Explore” button opens a spatial figure in Focus. Selected
   source/layout alternatives still work in Overview.

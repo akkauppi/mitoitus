@@ -31,8 +31,11 @@ Publishing follows explicit task authorization; the 13 November 2026 release goa
    not species/maturity or clearance claims. Vehicle heights and decorative
    details are assumptions; cited body plans are not swept paths.
 7. Dimension endpoints are world coordinates. Project them into SVG; keep labels
-   upright, readable and approximately 11–12 CSS pixels. Never bake text into a
-   texture or manually position labels as a percentage of the canvas.
+   upright. Numeric dimensions use weight 500 and scale from 6.5 px at a 320 px
+   drawing width to 10.5 px at 900 px (5.5–11 px limits). Use measured glyph bounds
+   for placement and font-relative line gaps. Named outside callouts keep their
+   own screen-space sizing. Never bake text into a texture or manually position
+   labels as a percentage of the canvas.
 8. Use short labels in the drawing. Detailed provenance stays under Sources.
    Keep essential numbers in a text list even if WebGL or an overlay is unavailable.
 9. Render on changes, not a perpetual animation loop. Cap pixel ratio at 2, and

@@ -92,9 +92,9 @@
       bookViewer ||= module.createBookViewer({drawing:state.active.panel.querySelector('.drawing'),onCameraChange:camera=>{
         const url=new URL(location.href);url.searchParams.set('camera',camera);history.replaceState(history.state,'',url);
         current.camera=camera;document.body.dataset.camera=camera;
-        bookViewer.show({drawing:current.active.panel.querySelector('.drawing'),recipeId:current.sceneId,camera,style:current.style});
+        bookViewer.show({drawing:current.active.panel.querySelector('.drawing'),recipeId:current.sceneId,camera,defaultCamera:current.defaultCamera,style:current.style});
       }});
-      bookViewer.show({drawing:state.active.panel.querySelector('.drawing'),recipeId:state.sceneId,camera:state.camera,style:state.style});
+      bookViewer.show({drawing:state.active.panel.querySelector('.drawing'),recipeId:state.sceneId,camera:state.camera,defaultCamera:state.defaultCamera,style:state.style});
       if(state.areaAccounting){bookViewer.setCategory(1);state.areaAccounting=false;}
       document.body.dataset.viewerState=JSON.stringify(bookViewer.inspect());
     }catch(error){
@@ -121,10 +121,12 @@
     const figure = `${active.id}--v${selected}`;
     const sceneId=figure;
     const allowed = ['density','green-hierarchy','services','parking-norms'].includes(active.id)?['plan']:active.id==='parking-layout'?['plan','iso']:['rain-gardens','ponds','source-control'].includes(active.id)?['iso','section']:active.id==='ground'?['iso','plan']:active.id==='stormwater'?['iso','plan','section']:active.id==='trees'?['iso','plan','front','section']:active.id==='section-ratio'?['section','iso']:active.id==='equal-density'?['iso','plan']:active.id==='steps'?['iso','plan','section']:['building-blocks','building-rows','building-detached'].includes(active.id)?['plan','iso']:active.id==='clear-route-continuity'?['iso','plan','front']:active.id==='crossing-refuge'?['iso','plan']:active.id==='walking-connections'?['plan']: ['turning','arrival','tram-corridor','tram-length','car-turn','bus-turn','rescue'].includes(active.id)?['iso','plan']:['trees','walking','cycling','bike-parking','ramps','tram-width','tram-length'].includes(active.id)?['iso','plan','front']:['iso','plan','front','section'];
-    const defaultCamera=active.id==='ponds'?'section':['rain-gardens','source-control'].includes(active.id)?'iso':active.id==='section-ratio'?'section':['steps','equal-density','ground','stormwater'].includes(active.id)?'iso':['clear-route-continuity','building-blocks','building-rows','building-detached'].includes(active.id)?'iso':['ramps','tram-width'].includes(active.id)?'front':['turning','arrival','tram-corridor'].includes(active.id)?'plan':['trees','walking','cycling','bike-parking','tram-length'].includes(active.id)?'iso':'plan';
+    const defaultCamera=allowed.includes('iso')?'iso':allowed[0];
     const camera = allowed.includes(q.get('camera')) ? q.get('camera') : defaultCamera;
     const style = ['paper', 'ink', 'soft'].includes(q.get('style')) ? q.get('style') : 'paper';
-    return { sheet, active, figure, sceneId, camera, style, areaAccounting:q.get('panel')==='parking-area', mode: q.get('mode') === 'focus' ? 'focus' : 'overview' };
+    const defaultMode=document.body.classList.contains('wall')?'overview':'focus';
+    const mode=['focus','overview'].includes(q.get('mode'))?q.get('mode'):defaultMode;
+    return { sheet, active, figure, sceneId, camera, defaultCamera, style, areaAccounting:q.get('panel')==='parking-area', mode };
   }
   function navigate(changes, method = 'pushState') {
     const url = new URL(location.href);

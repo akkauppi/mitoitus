@@ -10,6 +10,10 @@ continuity and shallow stormwater storage) are omitted; parking accounting is
 part of the bay panel. The historical inventory remains 33 panels/44 drawings for
 source auditing. Every published illustration is from the current edition.
 
+The book opens in live 3D Focus by default. Explicit Overview and camera links
+remain valid; Reset and Home return live scenes to 3D. Native tables/charts stay
+native; wall, print, direct-file and unavailable-WebGL paths keep current posters.
+
 ## Preview and checks
 
 From the repository root:
@@ -26,6 +30,9 @@ Open http://127.0.0.1:8765/lab/book/. On subsequent builds, use `--replace`.
 npm test --prefix lab
 python3 -m unittest discover -s lab/tests -p 'test_*.py'
 node lab/tests/release-browser.cjs
+node lab/tests/default-view-browser.cjs
+node lab/tests/dimension-typography-browser.cjs
+node lab/tests/runtime-cache-browser.cjs
 node lab/tests/viewer-browser.cjs
 SOURCE_OVERRIDE=0 node lab/tests/poster-state-release-browser.cjs
 node lab/tests/offline-release-browser.cjs

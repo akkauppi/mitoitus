@@ -1,6 +1,7 @@
 # Rulebook release — 2026-11-13
 
-Current edition: **v2026-11-13**. Publication target:
+Current edition: **v2026-11-13.1** (live-view and dimension-type update).
+The initial v2026-11-13 acceptance record follows below. Publication target:
 https://akkauppi.github.io/mitoitus/.
 
 The user’s 13 November goal authorizes finishing, testing, pushing and releasing.
@@ -95,3 +96,46 @@ for byte. The offline ZIP is 4,437,085 bytes; SHA-256:
 Publication evidence is recorded in the versioned GitHub release and its associated
 Pages workflow run. This local record covers the prepublication checks; staging
 or pushing alone is not deployment verification.
+
+
+## Live-view update — v2026-11-13.1
+
+The user selected live 3D Focus as the opening view. Unqualified page links now
+open the first panel in Focus, with the 3D camera for every spatial scene. Explicit
+Overview, Plan, Front and Section links retain their requested views. Reset and
+viewport Home follow the same 3D default; Home keeps the selected scene category.
+Native tables and charts remain native. Wall, print, unavailable-WebGL and direct-
+file paths retain the reviewed static artwork. The renderer still uses one context.
+
+The same review requested smaller dimension labels that can shrink with a minimal
+drawing. Numeric dimensions now use weight 500 and scale from 6.5 px at 320 px
+to 10.5 px at 900 px (5.5–11 px limits), separately from named outside callouts.
+All 90 static posters were recaptured; 78 changed and 12 conceptual posters without
+dimensions stayed identical. Placement and line gaps use measured glyph bounds;
+no opaque label patches or changes to metric geometry are introduced. Runtime and
+poster URLs carry the fixed edition so returning visitors receive the new assets.
+
+Update verification:
+
+- 108 geometry/unit tests and 36 build/preservation tests passed.
+- 264 responsive typography states passed completeness, containment and collision
+  checks; sampled metric endpoints and outside callouts match the prior edition.
+- Default-view checks passed for 52 spatial and eight native states, explicit
+  cameras/modes, Reset/Home, history, print, file and unavailable-WebGL fallbacks.
+- Whole-book acceptance passed 55 Overview and 150 Focus states at five widths,
+  eleven wall spreads and four eleven-page A3 PDFs, with no browser errors.
+- Viewer lifecycle checks passed 20 camera states and 20 suspend/resume cycles,
+  one context, idle rendering, context restoration and delayed-import handling.
+- A warm-cache test verified all 26 mapped modules and 95 runtime/poster references;
+  a new edition refreshes changed assets while pinned vendor modules remain cached.
+- Touch and reflow checks passed three gestures and 15 states. Public artifact
+  verification passed 240 local links, offline links, vendor hashes and 45 CAD files.
+- The extracted ZIP passed both direct-file and isolated HTTP browser checks:
+  category/variant persistence, current fallbacks, live 3D, evidence, CAD download
+  byte verification and 858 local links; no external/missing requests or page errors.
+
+The offline ZIP is 4,329,808 bytes; SHA-256:
+`1b9f8761878d5560d6a97276644ff353b7668137c597939517b4a0ddf564b724`.
+
+Focused verification evidence and the published commit are recorded with the
+versioned update release. The initial acceptance hashes above belong to v2026-11-13.

@@ -1,6 +1,8 @@
 """Accepted release edits, 13 November 2026; canonical source remains archived."""
 import re
 
+EDITION = '2026-11-13.1'
+
 RETIRED_PANELS = ('walking-connections', 'stormwater')
 PANEL_ALIASES = {'walking-connections': 'clear-route-continuity', 'stormwater': 'ground',
                  'parking-area': 'parking-layout'}
@@ -44,7 +46,7 @@ def apply_release_edits(text):
             value = value.replace('<div class="details">', '<div class="details"><p class="width-definition">Footway width is the full path. Clear width is the unobstructed passage.</p>', 1)
         return value
     text = re.sub(r'<article\b.*?</article>', article, text, flags=re.S)
-    text = text.replace('v2026-11-12', 'v2026-11-13')
+    text = text.replace('v2026-11-12', 'v' + EDITION)
     text = text.replace('Land &amp; population', 'Residents &amp; services').replace('Land & population', 'Residents & services')
     # Square interface corners, including authored inline SVG rectangles.
     text = re.sub(r'(<rect\b[^>]*?)\s(?:rx|ry)="[^"]*"', r'\1', text)
