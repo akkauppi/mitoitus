@@ -57,7 +57,11 @@ of projected model bounds and vector annotations, with 14 px padding. Width and
 all image coordinates remain unchanged, so cropping cannot change metric scale.
 Comparison families share one crop per profile/camera to prevent variant jumps.
 The manifest records each intrinsic height/viewBox and verifies content containment.
-Vector text remains sharp. Compact callouts wrap inside
+Vector text remains sharp. Numeric dimensions use the same responsive typography
+as live scenes: 6.5 px at a 320 px drawing, 10.5 px at 900 px, capped at 11 px,
+with weight 500. Smaller drawings may reduce numbers further. Placement and line
+gaps follow measured glyph bounds; text has no opaque background. Named outside
+callouts retain their separate sizing. Compact callouts wrap inside
 their reserved gutter rather than shrinking long labels. Wide posters support
 large Focus fallbacks and wall display; compact posters serve cards and paper.
 Actual physical text size still depends on the final printed scale.
@@ -76,6 +80,12 @@ use reviewed default cameras, not an unreviewed arbitrary live orbit.
 ## Evidence and limits
 
 Automated capture verifies 90 rendered states and complete local dependencies.
+`node lab/tests/dimension-typography-browser.cjs` checks numeric font scaling,
+complete labels, bounds and collisions across 264 responsive camera states. It
+also records phone, wide and Overview screenshots under ignored review output.
+For before/after evidence, run it with `--before` first; `BASELINE_REF` selects
+the committed typography baseline (default `HEAD`). The normal run compares
+sampled metric endpoints and named callouts when that baseline record exists.
 Candidate tests cover exact allowlist packaging, source/poster hashes, retained
 numeric tables, release aliases and retirement, deterministic ZIPs, atomic
 replacement and preservation on failure. Whole-book/browser/print acceptance is

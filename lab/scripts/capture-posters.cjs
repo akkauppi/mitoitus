@@ -25,7 +25,7 @@ function inputs(){
   page.on('pageerror',e=>errors.push(e.message));
   page.on('request',r=>{if(/^https?:/.test(r.url())&&!r.url().startsWith('http://127.0.0.1:8765/'))external.push(r.url());});
   await page.goto('http://127.0.0.1:8765/lab/scripts/poster-host.html');await page.waitForFunction(()=>window.posterReady);
-  const manifest={schemaVersion:1,style:'paper',renderer:'Three.js WebGL + vector SVG annotations',profiles,titles,inputs:inputs(),posters:[],review:{textContainment:true,textOverlap:true,calloutRouting:true,externalRequests:0}};
+  const manifest={schemaVersion:1,style:'paper',renderer:'Three.js WebGL + vector SVG annotations',profiles,titles,inputs:inputs(),posters:[],review:{textContainment:true,textOverlap:true,dimensionCompleteness:true,calloutRouting:true,externalRequests:0}};
   const captures=[],cropFamilies=new Map();
   for(const sheet of inventory.sheets)for(const panel of sheet.panels){
    if(excluded.has(panel.id))continue;
@@ -42,6 +42,7 @@ function inputs(){
       const state=await page.evaluate(args=>window.posterRender(args),{id:drawing.id,category:category.value,...size});
       if(state.callouts!=='ok')throw new Error(`${drawing.id}/${category.value}/${profile}: callouts ${state.callouts}`);
       const overlay=await page.evaluate(()=>window.posterOverlay());
+      if(overlay.dimensionCount!==overlay.measurementCount)throw new Error(`Unlabelled poster dimension: ${drawing.id}/${profile}`);
       for(const text of overlay.texts)if(text.x<-.5||text.y<-.5||text.x+text.width>size.width+.5||text.y+text.height>size.height+.5)throw new Error(`Clipped poster text: ${drawing.id}/${profile}: ${text.text}`);
       for(let i=0;i<overlay.texts.length;i++)for(let j=0;j<i;j++){const a=overlay.texts[i],b=overlay.texts[j];if(a.x<b.x+b.width-.3&&a.x+a.width>b.x+.3&&a.y<b.y+b.height-.3&&a.y+a.height>b.y+.3)throw new Error(`Overlapping poster text: ${drawing.id}/${profile}: ${a.text} / ${b.text}`);}
       const png=await page.locator('canvas').screenshot({type:'png',animations:'disabled'});

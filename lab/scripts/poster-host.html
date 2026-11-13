@@ -6,7 +6,6 @@ html,body{margin:0;padding:0;background:#f7f5ef;font-family:Arial,sans-serif}
 #poster-viewport{position:relative;width:320px;height:420px;min-height:0;max-height:none;overflow:hidden;background:#f7f5ef}
 #poster-viewport canvas,#poster-viewport svg{position:absolute;inset:0;width:100%;height:100%;display:block}
 #poster-viewport svg{pointer-events:none}
-#poster-viewport .dim-label{font:600 12px Arial,sans-serif}
 #poster-viewport .scene-label{font:12.5px Arial,sans-serif}
 </style>
 <script type="importmap">{"imports":{"three":"../vendor/build/three.module.js","three/addons/":"../vendor/examples/jsm/"}}</script>
@@ -50,7 +49,7 @@ window.posterOverlay=()=>{
  const a=[...source.querySelectorAll('*')],b=[...copy.querySelectorAll('*')];
  a.forEach((node,i)=>{const computed=getComputedStyle(node);b[i].setAttribute('style',properties.map(k=>k+':'+computed.getPropertyValue(k)).join(';'));});
  const annotation=source.getBBox(),modelBounds=JSON.parse(viewport.dataset.callouts).bounds;
- return {markup:copy.innerHTML,bounds:{top:Math.min(annotation.y,modelBounds.top),bottom:Math.max(annotation.y+annotation.height,modelBounds.bottom)},texts:[...source.querySelectorAll('text')].map(n=>{const b=n.getBBox();return {text:n.textContent,x:b.x,y:b.y,width:b.width,height:b.height};})};
+ return {markup:copy.innerHTML,dimensionCount:source.querySelectorAll('.dim-label').length,measurementCount:source.querySelectorAll('.dimension-measure').length,bounds:{top:Math.min(annotation.y,modelBounds.top),bottom:Math.max(annotation.y+annotation.height,modelBounds.bottom)},texts:[...source.querySelectorAll('text')].map(n=>{const b=n.getBBox();return {text:n.textContent,x:b.x,y:b.y,width:b.width,height:b.height};})};
 };
 window.posterReady=true;
 </script></html>
