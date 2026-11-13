@@ -1,4 +1,5 @@
 """Check the deployable artifact, local links, retirement and preserved CAD."""
+import io
 import json
 import re
 import sys
@@ -6,7 +7,7 @@ import zipfile
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
-from candidate import ROOT, KINDS, UNITS, PUBLIC_FILES, OFFLINE, digest, offline_files
+from candidate import ROOT, KINDS, UNITS, PUBLIC_FILES, OFFLINE, digest, offline_files, render_branding
 
 
 class Links(HTMLParser):
@@ -56,9 +57,27 @@ def verify(root):
     assert len(re.findall(r'<section class="sheet"', text)) == 11
     assert 'Walking path clearances' in text
     cad = [f'downloads/{kind}-{unit}.{ext}' for kind in KINDS for unit in UNITS for ext in ('dxf','svg')]
-    cad += [f'downloads/mitoitus-cad-{unit}.zip' for unit in UNITS]
     for name in cad:
         assert (root/name).read_bytes() == (ROOT/name).read_bytes(), f'CAD drift: {name}'
+    for unit in UNITS:
+        name = f'downloads/mitoitus-cad-{unit}.zip'
+        with zipfile.ZipFile(ROOT/name) as original, zipfile.ZipFile(root/name) as updated:
+            assert updated.namelist() == original.namelist(), f'CAD bundle inventory drift: {name}'
+            assert updated.testzip() is None
+            for member in original.namelist():
+                expected_member = original.read(member)
+                if member in ('README.txt', 'evidence.html'):
+                    expected_member = render_branding(expected_member)
+                assert updated.read(member) == expected_member, f'CAD bundle drift: {name}/{member}'
+    def check_branding(name, content):
+        if name.endswith('.zip'):
+            with zipfile.ZipFile(io.BytesIO(content)) as archive:
+                for member in archive.namelist():
+                    check_branding(name + '/' + member, archive.read(member))
+        else:
+            assert not re.search(rb'(?i)antti(?:\xe2\x80\x99|\x27|&rsquo;|&#0*39;|&#x0*27;)s', content), f'Old branding: {name}'
+    for name in (*PUBLIC_FILES, OFFLINE):
+        check_branding(name, (root/name).read_bytes())
     manifest = json.loads((root/'vendor/manifest.json').read_text())
     for name, sha in manifest['sha256'].items():
         assert digest((root/'vendor'/name).read_bytes()) == sha, f'Vendor drift: {name}'
@@ -85,7 +104,7 @@ def verify(root):
                 if link.fragment and relative in offline_parsers:
                     aliases = {'transit-access','fit-street','section-scale'} if relative=='index.html' else set()
                     assert unquote(link.fragment) in offline_parsers[relative].ids | aliases, f'Missing offline anchor: {name}: {href}'
-    print(f'PASS: {checked} public links and all offline links; 30 panels / 11 spreads; {len(cad)} preserved CAD files; vendor hashes; exact offline archive.')
+    print(f'PASS: {checked} public links and all offline links; 30 panels / 11 spreads; {len(cad)} preserved CAD files and 3 verified bundles; current branding throughout; vendor hashes; exact offline archive.')
 
 
 if __name__ == '__main__':

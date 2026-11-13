@@ -1,7 +1,14 @@
 """Accepted release edits, 13 November 2026; canonical source remains archived."""
 import re
 
-EDITION = '2026-11-13.1'
+EDITION = '2026-11-13.2'
+TITLE = 'Dubious Little Planning Rulebook'
+
+
+def render_branding(source):
+    """Apply current branding without editing the archived source baseline."""
+    old = 'Antti’s Dubious Little Rulebook'
+    return source.replace(old.encode(), TITLE.encode()).replace(old.upper().encode(), TITLE.upper().encode())
 
 RETIRED_PANELS = ('walking-connections', 'stormwater')
 PANEL_ALIASES = {'walking-connections': 'clear-route-continuity', 'stormwater': 'ground',

@@ -3,7 +3,7 @@
 <text x="42" y="77" class="sub">Planning wireframes — accepted drawing language, proposed application structure. Local only.</text>
 <text x="42" y="120" class="label">01  Overview · default desktop reading mode</text>
 <rect x="42" y="136" width="934" height="484" rx="5" fill="#fffef9" stroke="#d3dacd"/>
-<text x="62" y="168" class="label">Antti’s Dubious Little Rulebook</text>
+<text x="62" y="168" class="label">Dubious Little Planning Rulebook</text>
 <text x="650" y="168" class="tiny">Sources   CAD   Downloads   View   Print</text>
 <path class="line" d="M42 185L976 185"/>
 <text x="62" y="209" class="tiny">01 Buildings   02 Land   03 Walk &amp; cycle   04 Access   05 Tram   …   11 Parking</text>

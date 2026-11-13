@@ -1,6 +1,6 @@
 # Rulebook release — 2026-11-13
 
-Current edition: **v2026-11-13.1** (live-view and dimension-type update).
+Current edition: **v2026-11-13.2** (title update).
 The initial v2026-11-13 acceptance record follows below. Publication target:
 https://akkauppi.github.io/mitoitus/.
 
@@ -139,3 +139,21 @@ The offline ZIP is 4,329,808 bytes; SHA-256:
 
 Focused verification evidence and the published commit are recorded with the
 versioned update release. The initial acceptance hashes above belong to v2026-11-13.
+
+## Title update — v2026-11-13.2
+
+User amendment, 13 November 2026: use “Dubious Little Planning Rulebook” throughout
+the current edition. The visible title, browser-tab titles, evidence page and CAD
+download documentation use the same name, including nested offline downloads.
+The subtitle remains “Rules of thumb. Fingers crossed.”
+
+The build applies this branding to archived inputs without changing the baseline.
+CAD bundles are repackaged with only their README/evidence titles changed; all
+DXF/SVG and other member contents remain identical. The release verifier checks
+every public file and nested ZIP member for the removed personal-name prefix.
+The archived implementation progress record retains its dated historical wording.
+
+Validation: 37 build/preservation tests passed. Release checks cover 240 public
+links, every nested archive title and the unchanged 42 individual CAD files.
+Offline ZIP: 4,329,776 bytes; SHA-256:
+`f29034a20869c10d26679160d827f404371a2ce29addc309a8c420b24c180b56`.

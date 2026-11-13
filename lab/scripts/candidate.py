@@ -1,5 +1,7 @@
 """T01 content audit, isolated builds and explicit offline artifact policy."""
 import hashlib
+import io
+from copy import copy
 import json
 import os
 import re
@@ -11,7 +13,7 @@ from pathlib import Path
 from connection_editorial import redesign_connections
 from population_editorial import redesign_population, render_population_evidence
 from parking_editorial import redesign_parking
-from release_editorial import apply_release_edits, PANEL_ALIASES, EDITION
+from release_editorial import apply_release_edits, PANEL_ALIASES, EDITION, render_branding
 from poster_assets import public_mapping, validate_assets, replace_figures
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -171,7 +173,7 @@ SPREAD_ORDER = ('built-form', 'land-population', 'walk-cycle', 'accessible',
 
 
 def render_evidence(source):
-    rendered = render_population_evidence(source.replace('Antti’s Dubious Little Rulebook'.encode(), 'Antti’s Dubious Little Planning Rulebook'.encode()))
+    rendered = render_population_evidence(render_branding(source))
     for update in source_link_updates():
         rendered = rendered.replace(update['evidence']['originalUrl'].encode(), update['url'].encode())
     return rendered
@@ -196,9 +198,21 @@ def render_evidence_json(source):
     return (json.dumps(data, ensure_ascii=False, indent=2)+'\n').encode()
 
 
+def render_cad_bundle(source):
+    """Rename bundled documentation while preserving all CAD member contents."""
+    output = io.BytesIO()
+    with zipfile.ZipFile(io.BytesIO(source)) as original, zipfile.ZipFile(output, 'w') as updated:
+        updated.comment = original.comment
+        for item in original.infolist():
+            content = original.read(item)
+            if item.filename in ('README.txt', 'evidence.html'):
+                content = render_branding(content)
+            updated.writestr(copy(item), content)
+    return output.getvalue()
+
+
 def render_book(source):
-    text = source.decode()
-    text = text.replace('Antti’s Dubious Little Rulebook', 'Antti’s Dubious Little Planning Rulebook')
+    text = render_branding(source).decode()
     text = text.replace('Collected guidance on dimensions and layouts.', 'Rules of thumb. Fingers crossed. · v2026-11-12')
     # Presentation-only reorder, explicitly accepted by the user. Keep source IDs.
     pattern = r'<section class="sheet" id="([^"]+)".*?</section>'
@@ -229,6 +243,8 @@ def render_book(source):
     # together. Runtime bytes and archive filenames remain unchanged; pinned
     # vendor modules keep their existing URLs.
     versioned = lambda name: f'{name}?v={EDITION}'
+    text = re.sub(r'(<script\b[^>]*\bsrc=")app\.js(?:\?[^" ]*)?("\s*>)',
+                  lambda match: match[1] + versioned('app.js') + match[2], text)
     imports = {'three': './vendor/build/three.module.js', 'three/addons/': './vendor/examples/jsm/'}
     imports.update({f'./{name}': versioned(f'./{name}') for name in RUNTIME_FILES
                     if name.endswith('.js') and not name.startswith('vendor/')})
@@ -382,6 +398,11 @@ def build(output=None, replace=False):
     files['index.html'] = render_book(source)
     files['evidence.html'] = render_evidence(files['evidence.html'])
     files['evidence.json'] = render_evidence_json(files['evidence.json'])
+    for name in ('app.js', 'downloads/README.txt'):
+        files[name] = render_branding(files[name])
+    for unit in UNITS:
+        name = f'downloads/mitoitus-cad-{unit}.zip'
+        files[name] = render_cad_bundle(files[name])
     stage = Path(tempfile.mkdtemp(prefix='.book-stage-', dir=output.parent))
     try:
         for name, content in files.items():

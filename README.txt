@@ -1,5 +1,5 @@
-ANTTI’S DUBIOUS LITTLE PLANNING RULEBOOK — Mitoitus
-Rules of thumb. Fingers crossed. · v2026-11-13.1
+DUBIOUS LITTLE PLANNING RULEBOOK — Mitoitus
+Rules of thumb. Fingers crossed. · v2026-11-13.2
 
 Live: https://akkauppi.github.io/mitoitus/
 

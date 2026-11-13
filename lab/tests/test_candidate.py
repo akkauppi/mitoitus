@@ -1,5 +1,6 @@
 """T01 regressions operate on private temporary copies, never the working candidate."""
 import copy
+import io
 import json
 import re
 import shutil
@@ -50,6 +51,8 @@ class CandidateTests(unittest.TestCase):
             if name == 'index.html': expected = m.render_book(expected)
             if name == 'evidence.html': expected = m.render_evidence(expected)
             if name == 'evidence.json': expected = m.render_evidence_json(expected)
+            if name in ('app.js', 'downloads/README.txt'): expected = m.render_branding(expected)
+            if name in (f'downloads/mitoitus-cad-{unit}.zip' for unit in m.UNITS): expected = m.render_cad_bundle(expected)
             self.assertEqual((self.output/name).read_bytes(),expected)
 
     def test_release_keeps_spread_order_and_retained_numeric_tables(self):
@@ -138,9 +141,29 @@ class CandidateTests(unittest.TestCase):
     def test_candidate_title_subtitle_and_fixed_date_edition(self):
         original = (self.root/'index.html').read_bytes()
         rendered = m.render_book(original).decode()
-        self.assertIn('<title>Antti’s Dubious Little Planning Rulebook</title>',rendered)
-        self.assertIn('Rules of thumb. Fingers crossed. · v2026-11-13.1',rendered)
+        self.assertIn('<title>Dubious Little Planning Rulebook</title>',rendered)
+        self.assertIn('Rules of thumb. Fingers crossed. · v2026-11-13.2',rendered)
+        self.assertNotIn('Antti',rendered)
         self.assertIn('Antti’s Dubious Little Rulebook',original.decode())
+
+    def test_cad_bundle_rename_preserves_geometry_and_other_documentation(self):
+        for unit in m.UNITS:
+            source = (self.root/f'downloads/mitoitus-cad-{unit}.zip').read_bytes()
+            renamed = m.render_cad_bundle(source)
+            self.assertEqual(renamed,m.render_cad_bundle(source))
+            with zipfile.ZipFile(io.BytesIO(source)) as before, zipfile.ZipFile(io.BytesIO(renamed)) as after:
+                self.assertEqual(before.namelist(),after.namelist())
+                self.assertEqual(before.comment,after.comment)
+                self.assertIsNone(after.testzip())
+                for name in before.namelist():
+                    expected = before.read(name)
+                    if name in ('README.txt','evidence.html'):
+                        expected = expected.replace('Antti’s Dubious Little Rulebook'.encode(),b'Dubious Little Planning Rulebook')
+                        expected = expected.replace('ANTTI’S DUBIOUS LITTLE RULEBOOK'.encode(),b'DUBIOUS LITTLE PLANNING RULEBOOK')
+                    self.assertEqual(after.read(name),expected,name)
+                    self.assertNotIn('antti’s'.encode(),after.read(name).lower(),name)
+                    self.assertEqual(before.getinfo(name).date_time,after.getinfo(name).date_time)
+                    self.assertEqual(before.getinfo(name).external_attr,after.getinfo(name).external_attr)
 
     def rendered_resource_urls(self, rendered):
         imports = json.loads(re.search(r'<script type="importmap">(.*?)</script>', rendered, re.S)[1])['imports']
@@ -175,6 +198,7 @@ class CandidateTests(unittest.TestCase):
             self.assertTrue(m.source_path(self.root, name).is_file(), name)
         self.assertIn('href="downloads/rulebook-offline.zip"', rendered)
         self.assertNotIn('rulebook-offline.zip?v=', rendered)
+        self.assertIn('src="app.js?v='+m.EDITION+'"', rendered)
 
     def test_changed_edition_refreshes_all_release_urls_without_rewriting_runtime(self):
         source = (self.root/'index.html').read_bytes()
