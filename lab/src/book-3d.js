@@ -4,7 +4,7 @@ import {recipeInfo} from './registry.js';
 
 /** One movable host; canonical figures and variant controls remain in each panel. */
 export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
-  let drawing=initialDrawing,fallback=[],active=false,failed=false,host,categoryRecipe=null,categoryDefault=-1,currentInfo=null;
+  let drawing=initialDrawing,fallback=[],active=false,failed=false,host,categoryRecipe=null,categoryDefault=-1,currentInfo=null,liveDefaultCamera='iso';
   const frame=document.createElement('section');frame.className='scene-host';
   frame.innerHTML='<p class="scene-case source-meta"></p><div class="scene-toolbar" role="group" aria-label="Model view"><button data-camera="iso">3D</button><button data-camera="plan">Plan</button><button data-camera="front">Front</button><button data-camera="section">Section</button><button data-reset>Reset</button></div><label class="scene-category" hidden>Compare planting<select aria-label="Planting category"><option value="-1">All four · same scale</option></select></label><div class="scene-viewport" tabindex="0" role="group"><canvas aria-hidden="true"></canvas><svg aria-hidden="true"></svg></div><div class="scene-options"><label><input type="checkbox" data-dimensions checked> Dimensions</label><label><input type="checkbox" data-callouts checked> Callouts</label><span data-hint></span></div>';
   const provenance=document.createElement('p');provenance.className='source-meta scene-provenance';frame.append(provenance);
@@ -26,7 +26,7 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
   try{host=createSceneHost({canvas,overlay,viewport,onCameraChange:camera=>{onCameraChange(camera);},onAvailability:availability});}
   catch(error){failed=true;availability(false);}
   const listeners=[];
-  function listen(el,type,handler){el.addEventListener(type,handler);listeners.push(()=>el.removeEventListener(type,handler));}
+  function listen(el,type,handler,options){el.addEventListener(type,handler,options);listeners.push(()=>el.removeEventListener(type,handler,options));}
   for(const button of frame.querySelectorAll('[data-camera]'))listen(button,'click',()=>host?.setCamera(button.dataset.camera));
   function updateSummary(){const text=currentInfo?.categoryFacts?.[Number(frame.querySelector('.scene-category select').value)]??currentInfo?.quickFact??'';summary.textContent=text;summary.hidden=!text;}
   function posterControl(){return drawing.querySelector(`[data-poster-set="${categoryRecipe}"] [data-poster-choice]`);}
@@ -40,12 +40,19 @@ export function createBookViewer({drawing:initialDrawing,onCameraChange}) {
   }
   listen(document,'poster-selection-change',event=>{if(active&&drawing.contains(event.target))selectCategory(event.detail.value,false);});
   listen(frame.querySelector('.scene-category select'),'change',event=>selectCategory(Number(event.target.value)));
-  listen(frame.querySelector('[data-reset]'),'click',()=>{selectCategory(categoryDefault);host?.reset();});
+  listen(frame.querySelector('[data-reset]'),'click',()=>{selectCategory(categoryDefault);host?.setCamera(liveDefaultCamera);});
+  // The book starts in 3D; the shared rendering host retains its technical
+  // reference defaults for poster capture. Home follows the book's policy here.
+  listen(viewport,'keydown',event=>{
+    if(event.key!=='Home'||event.target!==viewport||!active||failed||host?.inspect().lost)return;
+    event.preventDefault();event.stopImmediatePropagation();host?.setCamera(liveDefaultCamera);
+  },true);
   for(const input of frame.querySelectorAll('input'))listen(input,'change',()=>host?.setAnnotations({dimensions:frame.querySelector('input[data-dimensions]').checked,callouts:frame.querySelector('input[data-callouts]').checked}));
   return {
-    show({drawing:next=drawing,recipeId='trees--v0',camera='iso',style='paper'}={}){
+    show({drawing:next=drawing,recipeId='trees--v0',camera='iso',style='paper',defaultCamera='iso'}={}){
       if(next!==drawing)attach(next);
       const recipe=recipeInfo(recipeId);currentInfo=recipe;active=true;frame.hidden=failed;
+      liveDefaultCamera=recipe.allowedCameras.includes(defaultCamera)?defaultCamera:recipe.defaultCamera;
       const category=frame.querySelector('.scene-category');category.hidden=!recipe.categoryOptions;
       categoryDefault=recipe.categoryDefault??-1;category.firstChild.textContent=recipe.categoryPrompt||'Compare planting';
       category.querySelector('select').setAttribute('aria-label',recipe.categoryPrompt||'Planting category');
