@@ -1,6 +1,7 @@
 """T01 regressions operate on private temporary copies, never the working candidate."""
 import copy
 import json
+import re
 import shutil
 import sys
 import tempfile
@@ -8,6 +9,7 @@ import unittest
 import zipfile
 from pathlib import Path
 from unittest.mock import patch
+from urllib.parse import parse_qs, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
 import candidate as m
@@ -137,8 +139,64 @@ class CandidateTests(unittest.TestCase):
         original = (self.root/'index.html').read_bytes()
         rendered = m.render_book(original).decode()
         self.assertIn('<title>Antti’s Dubious Little Planning Rulebook</title>',rendered)
-        self.assertIn('Rules of thumb. Fingers crossed. · v2026-11-13',rendered)
+        self.assertIn('Rules of thumb. Fingers crossed. · v2026-11-13.1',rendered)
         self.assertIn('Antti’s Dubious Little Rulebook',original.decode())
+
+    def rendered_resource_urls(self, rendered):
+        imports = json.loads(re.search(r'<script type="importmap">(.*?)</script>', rendered, re.S)[1])['imports']
+        urls = []
+        for event in m.audit(rendered).events:
+            if event[0] == 'start' and event[1] in ('script', 'link', 'img'):
+                attrs = dict(event[2])
+                url = attrs.get('src', attrs.get('href', ''))
+                if url.startswith(('runtime/', 'posters/')):
+                    urls.append(url)
+        return imports, urls
+
+    def test_release_urls_version_complete_runtime_graph_styles_scripts_and_posters(self):
+        rendered = m.render_book((self.root/'index.html').read_bytes()).decode()
+        imports, urls = self.rendered_resource_urls(rendered)
+        modules = {name for name in m.RUNTIME_FILES if name.endswith('.js') and not name.startswith('vendor/')}
+        self.assertEqual(set(imports), {'three', 'three/addons/'} | {'./'+name for name in modules})
+        self.assertEqual(imports['three'], './vendor/build/three.module.js')
+        self.assertEqual(imports['three/addons/'], './vendor/examples/jsm/')
+        for name in modules:
+            self.assertEqual(imports['./'+name], './'+name+'?v='+m.EDITION)
+        runtime = {urlsplit(url).path for url in urls if url.startswith('runtime/')}
+        self.assertEqual(runtime, {'runtime/book.css', 'runtime/posters.css', 'runtime/release.css',
+                                   'runtime/book-app.js', 'runtime/posters.js'})
+        poster_paths = {urlsplit(url).path for url in urls if url.startswith('posters/')}
+        self.assertEqual(poster_paths, {name for name in m.PUBLIC_FILES if name.startswith('posters/') and name.endswith('.svg')})
+        for url in [*urls, *(value for key,value in imports.items() if key.startswith('./'))]:
+            parsed = urlsplit(url)
+            self.assertEqual(parse_qs(parsed.query), {'v': [m.EDITION]})
+            name = parsed.path.removeprefix('./')
+            self.assertIn(name, m.PUBLIC_FILES)
+            self.assertTrue(m.source_path(self.root, name).is_file(), name)
+        self.assertIn('href="downloads/rulebook-offline.zip"', rendered)
+        self.assertNotIn('rulebook-offline.zip?v=', rendered)
+
+    def test_changed_edition_refreshes_all_release_urls_without_rewriting_runtime(self):
+        source = (self.root/'index.html').read_bytes()
+        originals = {name:m.source_path(self.root,name).read_bytes() for name in m.RUNTIME_FILES}
+        previous_imports, previous_urls = self.rendered_resource_urls(m.render_book(source).decode())
+        with patch.object(m, 'EDITION', m.EDITION+'-next'):
+            next_imports, next_urls = self.rendered_resource_urls(m.render_book(source).decode())
+            expected_query = {'v': [m.EDITION]}
+        self.assertEqual(len(previous_urls), len(next_urls))
+        for before, after in zip(previous_urls, next_urls):
+            self.assertNotEqual(before, after)
+            self.assertEqual(urlsplit(before).path, urlsplit(after).path)
+            self.assertEqual(parse_qs(urlsplit(after).query), expected_query)
+        for key, before in previous_imports.items():
+            after = next_imports[key]
+            if key.startswith('./'):
+                self.assertNotEqual(before, after)
+                self.assertEqual(urlsplit(before).path, urlsplit(after).path)
+                self.assertEqual(parse_qs(urlsplit(after).query), expected_query)
+            else:
+                self.assertEqual(before, after)
+        self.assertEqual(originals, {name:m.source_path(self.root,name).read_bytes() for name in m.RUNTIME_FILES})
 
     def test_repeat_build_requires_explicit_replace_and_is_reproducible(self):
         first = m.build()

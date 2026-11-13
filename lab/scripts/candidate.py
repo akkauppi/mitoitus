@@ -11,7 +11,7 @@ from pathlib import Path
 from connection_editorial import redesign_connections
 from population_editorial import redesign_population, render_population_evidence
 from parking_editorial import redesign_parking
-from release_editorial import apply_release_edits, PANEL_ALIASES
+from release_editorial import apply_release_edits, PANEL_ALIASES, EDITION
 from poster_assets import public_mapping, validate_assets, replace_figures
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -225,8 +225,22 @@ def render_book(source):
     text = text[:nav.start(1)] + tabs + text[nav.end(1):]
     text = apply_release_edits(text)
     text = replace_figures(text, ROOT)
-    text = text.replace('</head>', '<link rel="stylesheet" href="runtime/book.css"><link rel="stylesheet" href="runtime/posters.css"><link rel="stylesheet" href="runtime/release.css"><script type="importmap">{"imports":{"three":"./vendor/build/three.module.js","three/addons/":"./vendor/examples/jsm/"}}</script></head>')
-    text = text.replace('</body>', '<script src="runtime/book-app.js"></script><script src="runtime/posters.js"></script></body>')
+    # Edition URLs refresh changed UI, module dependencies and poster typography
+    # together. Runtime bytes and archive filenames remain unchanged; pinned
+    # vendor modules keep their existing URLs.
+    versioned = lambda name: f'{name}?v={EDITION}'
+    imports = {'three': './vendor/build/three.module.js', 'three/addons/': './vendor/examples/jsm/'}
+    imports.update({f'./{name}': versioned(f'./{name}') for name in RUNTIME_FILES
+                    if name.endswith('.js') and not name.startswith('vendor/')})
+    styles = ''.join(f'<link rel="stylesheet" href="{versioned(name)}">'
+                     for name in ('runtime/book.css', 'runtime/posters.css', 'runtime/release.css'))
+    import_map = '<script type="importmap">' + json.dumps({'imports': imports}, separators=(',', ':')) + '</script>'
+    scripts = ''.join(f'<script src="{versioned(name)}"></script>'
+                      for name in ('runtime/book-app.js', 'runtime/posters.js'))
+    text = re.sub(r'(<img\b[^>]*\bsrc=")(posters/[^"?]+\.svg)(")',
+                  lambda match: match[1] + versioned(match[2]) + match[3], text)
+    text = text.replace('</head>', styles + import_map + '</head>')
+    text = text.replace('</body>', scripts + '</body>')
     return text.encode()
 
 

@@ -83,7 +83,7 @@ const out=path.join(__dirname,'../review');fs.mkdirSync(out,{recursive:true});
  assert.ok((await page.locator('.scene-provenance').textContent()).includes('illustration assumptions'));
  await page.click('#sources-toggle');assert.equal(await page.locator('.scene-provenance:visible').count(),0);
  // Late module loading must not mount a scene after the user leaves the panel.
- const late=await browser.newPage();await late.route('**/runtime/book-3d.js',async route=>{await new Promise(r=>setTimeout(r,180));await route.continue();});
+ const late=await browser.newPage();await late.route('**/runtime/book-3d.js*',async route=>{await new Promise(r=>setTimeout(r,180));await route.continue();});
  await late.goto(base+'?mode=focus&panel=trees#green-blue');await late.click('#back-to-sheet');await late.waitForTimeout(300);
  assert.equal(await late.locator('canvas').count(),0);await late.close();
  // WebGL unavailable: full source figure/facts remain, no blank figure.
@@ -92,7 +92,7 @@ const out=path.join(__dirname,'../review');fs.mkdirSync(out,{recursive:true});
  assert.equal(await fallback.locator('[data-panel-id="trees"] .drawing figure:visible').count(),1);
  assert.equal(await fallback.locator('[data-panel-id="trees"] .details').innerHTML(),details);await fallback.close();
  // Explicit host disposal removes observed targets, controls and pending frames.
- const lifecycle=await browser.newPage();await lifecycle.goto(base);
+ const lifecycle=await browser.newPage();await lifecycle.goto(base+'?mode=overview');
  const disposed=await lifecycle.evaluate(async()=>{
   const {createSceneHost}=await import('./runtime/viewer.js');
   const viewport=document.createElement('div');viewport.style.cssText='width:800px;height:500px';viewport.tabIndex=0;
