@@ -8,6 +8,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 from reference_export import JSON_PATH, build_exports
+from morphology_export import CATALOGUE, DATA, LAB_PAGE, build_morphology
 from candidate import ROOT, EDITION, KINDS, UNITS, PUBLIC_FILES, OFFLINE, digest, offline_files, render_branding
 
 
@@ -123,6 +124,19 @@ def verify(root):
     for claim in reference['claims'].values():
         assert claim['id'] in parsers['evidence.html'].ids
         assert all(item['source'] in reference['sources'] for item in claim['references'])
+    release = json.loads((root/'release.json').read_bytes())
+    assert release['edition'] == EDITION and set(release['files']) == set(PUBLIC_FILES) | {OFFLINE}
+    for name, checksum in release['files'].items():
+        assert digest((root/name).read_bytes()) == checksum, f'Release hash drift: {name}'
+    assert CATALOGUE in parsers['index.html'].links
+    assert '../'+LAB_PAGE in parsers[CATALOGUE].links
+    for name, content in build_morphology(ROOT, EDITION).items():
+        assert (root/name).read_bytes() == content, f'Morphology release drift: {name}'
+    morphology = json.loads((root/(DATA+'fixtures.json')).read_bytes())
+    assert morphology['edition'] == EDITION and morphology['kind'] == 'synthetic'
+    assert len(morphology['fixtures']) == 8
+    assert json.loads((root/(DATA+'example-package.json')).read_bytes()) == morphology['fixtures'][0]['exchange']
+    print('PASS: Morphology catalogue discovery, eight validated fixtures and identical staged data.')
     print(f'PASS: Agent reference covers {len(panels)} panels and {len(views)} drawing states, with verified evidence links.')
     print(f'PASS: {checked} public links and all offline links; 30 panels / 11 spreads; {len(cad)} preserved CAD files and 3 verified bundles; current branding throughout; vendor hashes; exact offline archive.')
 

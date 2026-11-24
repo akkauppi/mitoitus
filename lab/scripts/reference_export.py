@@ -225,6 +225,8 @@ def build_exports(root, index, evidence, services, edition):
 
 ## Data
 
+- [Open data catalogue]({PUBLIC_URL}data/index.html)
+- [Morphology laboratory]({PUBLIC_URL}morphology/index.html)
 - [Rulebook JSON]({PUBLIC_URL}{JSON_PATH}): All 30 panels, including facts, ordered table cells, notes, charts, scenes, source claims and the structured service supplement.
 - [Rulebook CSV]({PUBLIC_URL}{CSV_PATH}): A flat index of facts, notes, table rows and drawing labels. Table-row values are JSON arrays of cell text in display order.
 - [Evidence index]({PUBLIC_URL}evidence.html): Source methods, locators and historical evidence.

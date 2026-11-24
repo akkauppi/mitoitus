@@ -15,6 +15,7 @@ from population_editorial import redesign_population, render_population_evidence
 from parking_editorial import redesign_parking
 from release_editorial import apply_release_edits, PANEL_ALIASES, EDITION, render_branding
 from reference_export import EXPORT_FILES, JSON_PATH, SPREAD_ORDER, build_exports
+from morphology_export import build_morphology, MORPHOLOGY_FILES, CATALOGUE
 from poster_assets import public_mapping, validate_assets, replace_figures
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -65,7 +66,8 @@ RUNTIME_FILES.update({
     **(public_mapping(ROOT) if (ROOT/'lab/posters/manifest.json').is_file() else {}),
 })
 T15_PUBLIC_FILES = (*PUBLIC_FILES, *RUNTIME_FILES)
-PUBLIC_FILES = (*T15_PUBLIC_FILES, *EXPORT_FILES)
+REFERENCE_PUBLIC_FILES = (*T15_PUBLIC_FILES, *EXPORT_FILES)
+PUBLIC_FILES = (*REFERENCE_PUBLIC_FILES, *MORPHOLOGY_FILES)
 OFFLINE = 'downloads/rulebook-offline.zip'
 MAX_ARCHIVE_BYTES = 32 * 1024 * 1024
 
@@ -254,6 +256,7 @@ def render_book(source):
                   lambda match: match[1] + versioned(match[2]) + match[3], text)
     reference = f'<link rel="alternate" type="application/json" title="Rulebook data" href="{JSON_PATH}">'
     text = text.replace('</head>', reference + styles + import_map + '</head>')
+    text = text.replace('<span id="page-count">', f'<span><a href="{CATALOGUE}">Open data / AI agents</a></span><span id="page-count">')
     notes = json.loads((ROOT/'lab/data/quick-notes.json').read_text())
     notes_json = json.dumps(notes, ensure_ascii=False).replace('<', r'\u003c')
     notes_tag = f'<script id="rulebook-quick-notes" type="application/json">{notes_json}</script>'
@@ -339,7 +342,7 @@ def verify_candidate(output, allow_legacy=False):
     t05_expected = t06_expected - {'runtime/recipes/tram.js'}
     t04_expected = t05_expected - {'runtime/recipes/accessibility.js','runtime/primitives/accessibility.js'}
     t03_expected = t04_expected - {'runtime/recipes/routes.js','runtime/primitives/surfaces.js'}
-    if allow_legacy and names in (expected - set(EXPORT_FILES),old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected,t11_expected,t13_expected,t14_expected):
+    if allow_legacy and names in (set(REFERENCE_PUBLIC_FILES) | {OFFLINE, 'parity.json'},expected - set(EXPORT_FILES)-set(MORPHOLOGY_FILES),old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected,t11_expected,t13_expected,t14_expected):
         expected = names
     if names != expected:
         raise ValueError('Candidate contains missing or unapproved files')
@@ -401,6 +404,7 @@ def build(output=None, replace=False):
     files['evidence.json'] = render_evidence_json(files['evidence.json'])
     files.update(build_exports(ROOT, files['index.html'], json.loads(files['evidence.json']),
                                json.loads(files['data/release-data.json']), EDITION))
+    files.update(build_morphology(ROOT, EDITION))
     for name in ('app.js', 'downloads/README.txt'):
         files[name] = render_branding(files[name])
     for unit in UNITS:

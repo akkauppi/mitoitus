@@ -1,0 +1,377 @@
+{
+  "version": "1.0.0",
+  "units": {
+    "m": "http://qudt.org/vocab/unit/M",
+    "m2": "http://qudt.org/vocab/unit/M2",
+    "1": "http://qudt.org/vocab/unit/UNITLESS",
+    "deg": "http://qudt.org/vocab/unit/DEG"
+  },
+  "measurements": {
+    "footprint-area": {
+      "terms": {
+        "en": "Building footprint area",
+        "fi": "Rakennuksen pohjapinta-ala"
+      },
+      "quantity": "area",
+      "unit": "m2",
+      "definition": "Horizontal area enclosed by footprint exterior minus holes.",
+      "inputs": [
+        "footprint with holes"
+      ],
+      "basis": "projected exterior wall footprint",
+      "geometry": "Polygon or MultiPolygon",
+      "methods": {
+        "polygon-area": {
+          "version": "1.0.0",
+          "description": "Horizontal area enclosed by footprint exterior minus holes."
+        }
+      },
+      "alternatives": "Roof projection; ground-contact outline.",
+      "limitations": "Roof overhangs, courtyards and overlapping parts require an explicit convention.",
+      "validationExample": "15 m × 10 m = 150 m²."
+    },
+    "building-height": {
+      "terms": {
+        "en": "Building height",
+        "fi": "Rakennuksen korkeus"
+      },
+      "quantity": "length",
+      "unit": "m",
+      "definition": "Vertical separation of the named base and top levels.",
+      "inputs": [
+        "base elevation",
+        "top elevation",
+        "top convention"
+      ],
+      "basis": "base datum to stated roof or massing top",
+      "geometry": "Heights, surfaces or vertical section",
+      "methods": {
+        "base-to-top": {
+          "version": "1.0.0",
+          "description": "Vertical separation of the named base and top levels."
+        }
+      },
+      "alternatives": "Eaves, ridge, median roof or storey-derived estimate.",
+      "limitations": "Retain datum and roof convention. Modelled height has no measured status.",
+      "validationExample": "Model datum 0 m and top 12 m gives 12 m."
+    },
+    "building-depth": {
+      "terms": {
+        "en": "Building depth",
+        "fi": "Rakennuksen runkosyvyys"
+      },
+      "quantity": "length",
+      "unit": "m",
+      "definition": "Cross-axis distance defined by the named method.",
+      "inputs": [
+        "footprint",
+        "axis or transect"
+      ],
+      "basis": "normal to named building axis",
+      "geometry": "Polygon or transect",
+      "methods": {
+        "short-side-of-named-axis-envelope": {
+          "version": "1.0.0",
+          "description": "Cross-axis distance defined by the named method."
+        }
+      },
+      "alternatives": "Local façade-to-façade transects; minimum rectangle minor side.",
+      "limitations": "Envelope short side can differ from wing or core depth in an L-shaped building.",
+      "validationExample": "A 15 m × 10 m rectangle with long axis east–west has 10 m depth."
+    },
+    "building-length": {
+      "terms": {
+        "en": "Building length",
+        "fi": "Rakennuksen pituus"
+      },
+      "quantity": "length",
+      "unit": "m",
+      "definition": "Along-axis span of projected footprint coordinates.",
+      "inputs": [
+        "footprint",
+        "axis"
+      ],
+      "basis": "projection onto named building axis",
+      "geometry": "Polygon or MultiPolygon",
+      "methods": {
+        "named-axis-span": {
+          "version": "1.0.0",
+          "description": "Along-axis span of projected footprint coordinates."
+        }
+      },
+      "alternatives": "Diameter/longest axis; minimum oriented rectangle major side; façade length.",
+      "limitations": "Maximum pair distance and along-axis extent are different methods.",
+      "validationExample": "The same rectangle spans 15 m along the east–west axis."
+    },
+    "building-orientation": {
+      "terms": {
+        "en": "Building orientation",
+        "fi": "Rakennuksen suuntaus"
+      },
+      "quantity": "angle",
+      "unit": "deg",
+      "definition": "Axis bearing clockwise from the declared north reference, modulo 180°.",
+      "inputs": [
+        "axis",
+        "north reference"
+      ],
+      "basis": "axial azimuth of explicit reference axis",
+      "geometry": "Line or polygon-derived axis",
+      "methods": {
+        "axial-bearing-from-north": {
+          "version": "1.0.0",
+          "description": "Axis bearing clockwise from the declared north reference, modulo 180°."
+        }
+      },
+      "alternatives": "Dominant façade direction; oriented rectangle; deviation from cardinal orientation.",
+      "limitations": "A square has no unique major axis. Grid and true north differ.",
+      "validationExample": "An east–west axis has bearing 90°."
+    },
+    "study-area": {
+      "terms": {
+        "en": "Study area",
+        "fi": "Tarkastelualueen pinta-ala"
+      },
+      "quantity": "area",
+      "unit": "m2",
+      "definition": "Horizontal area inside the named study boundary, minus holes.",
+      "inputs": [
+        "boundary",
+        "projected CRS or local frame"
+      ],
+      "basis": "explicit study-area polygon",
+      "geometry": "Polygon or MultiPolygon",
+      "methods": {
+        "polygon-area": {
+          "version": "1.0.0",
+          "description": "Horizontal area inside the named study boundary, minus holes."
+        }
+      },
+      "alternatives": "Plot, block, administrative, buffered or tessellation boundary.",
+      "limitations": "Coverage and FAR comparisons depend on this boundary and on clipping.",
+      "validationExample": "A 40 m × 32 m block has 1,280 m²."
+    },
+    "building-coverage": {
+      "terms": {
+        "en": "Building coverage",
+        "fi": "Rakennusten peittoaste"
+      },
+      "quantity": "ratio",
+      "unit": "1",
+      "definition": "Union area of plan footprints inside the study boundary divided by study area.",
+      "inputs": [
+        "study area",
+        "clipped footprint union area"
+      ],
+      "basis": "clipped union footprint / study area",
+      "geometry": "Study and footprint polygons",
+      "methods": {
+        "clipped-union-over-study-area": {
+          "version": "1.0.0",
+          "description": "Union area of plan footprints inside the study boundary divided by study area."
+        }
+      },
+      "alternatives": "Sum clipped footprints only when interiors are disjoint.",
+      "limitations": "Count overlap once. Coverage excludes exterior roof projection under the wall-footprint convention.",
+      "validationExample": "896 / 1,280 = 0.7."
+    },
+    "floor-area": {
+      "terms": {
+        "en": "Floor area",
+        "fi": "Lattiapinta-ala"
+      },
+      "quantity": "area",
+      "unit": "m2",
+      "definition": "Sum the included horizontal floor plates under a named area basis.",
+      "inputs": [
+        "floor plate areas",
+        "inclusion policy"
+      ],
+      "basis": "declared floor-area inclusion and measurement basis",
+      "geometry": "Floor polygons or model footprint and storeys",
+      "methods": {
+        "sum-included-floor-plates": {
+          "version": "1.0.0",
+          "description": "Sum the included horizontal floor plates under a named area basis."
+        },
+        "identical-footprint-times-storeys": {
+          "version": "1.0.0",
+          "description": "Multiply footprint area by the number of identical modelled storeys."
+        }
+      },
+      "alternatives": "Repeated identical footprint × storeys; audited source value under declared basis.",
+      "limitations": "Modelled floor area differs from statutory kerrosala, useful area and huoneistoala.",
+      "validationExample": "896 m² repeated over four identical storeys gives 3,584 m²."
+    },
+    "floor-area-ratio": {
+      "terms": {
+        "en": "Floor-area ratio",
+        "fi": "Tehokkuusluku"
+      },
+      "quantity": "ratio",
+      "unit": "1",
+      "definition": "Included floor area divided by the explicitly bounded study area.",
+      "inputs": [
+        "floor area and basis",
+        "study area and boundary"
+      ],
+      "basis": "declared floor area / land area",
+      "geometry": "Study polygon and floor data",
+      "methods": {
+        "floor-area-over-study-area": {
+          "version": "1.0.0",
+          "description": "Included floor area divided by the explicitly bounded study area."
+        }
+      },
+      "alternatives": "Parcel-, block- or district-based ratio.",
+      "limitations": "Distinguish denominator scopes and numerator inclusion rules.",
+      "validationExample": "3,584 / 1,280 = 2.8."
+    },
+    "courtyard-area": {
+      "terms": {
+        "en": "Courtyard area",
+        "fi": "Pihan pinta-ala"
+      },
+      "quantity": "area",
+      "unit": "m2",
+      "definition": "Horizontal area of an explicitly delineated courtyard polygon.",
+      "inputs": [
+        "courtyard polygon",
+        "boundary convention"
+      ],
+      "basis": "named outdoor court boundary",
+      "geometry": "Courtyard Polygon or MultiPolygon",
+      "methods": {
+        "explicit-court-area": {
+          "version": "1.0.0",
+          "description": "Horizontal area of an explicitly delineated courtyard polygon."
+        }
+      },
+      "alternatives": "Footprint hole for a closed courtyard; explicit closing line for an open courtyard.",
+      "limitations": "A footprint hole may be an atrium or void. Open-court area depends on declared closing edges.",
+      "validationExample": "A 24 m × 16 m inner court has 384 m²."
+    },
+    "courtyard-width": {
+      "terms": {
+        "en": "Courtyard width",
+        "fi": "Pihan leveys"
+      },
+      "quantity": "length",
+      "unit": "m",
+      "definition": "Distance between opposing courtyard boundaries along an explicitly named transect.",
+      "inputs": [
+        "transect endpoints",
+        "opposing boundary convention"
+      ],
+      "basis": "selected courtyard cross-section",
+      "geometry": "Transect and opposing boundaries",
+      "methods": {
+        "selected-transect": {
+          "version": "1.0.0",
+          "description": "Distance between opposing courtyard boundaries along an explicitly named transect."
+        }
+      },
+      "alternatives": "Minimum width or distribution over a documented family of transects.",
+      "limitations": "A selected width is not a minimum for irregular courts.",
+      "validationExample": "The horizontal transect of a 24 m × 16 m court is 24 m."
+    },
+    "spatial-enclosure": {
+      "terms": {
+        "en": "Spatial enclosure",
+        "fi": "Tilan rajautuneisuus"
+      },
+      "quantity": "ratio",
+      "unit": "1",
+      "definition": "Length of court boundary touching building edges divided by total court perimeter.",
+      "inputs": [
+        "court boundary",
+        "union of contacting boundary lengths"
+      ],
+      "basis": "plan boundary contact ratio",
+      "geometry": "Court boundary and footprint edges",
+      "methods": {
+        "boundary-contact-fraction": {
+          "version": "1.0.0",
+          "description": "Length of court boundary touching building edges divided by total court perimeter."
+        }
+      },
+      "alternatives": "Visual openness from sampled rays; sky-view factor; vertical enclosure index.",
+      "limitations": "Plan contact says nothing about height, visibility or permeability. A coincident edge is counted once.",
+      "validationExample": "A 24 m × 16 m court bounded on three sides with 24 m open has enclosure 56 / 80 = 0.7."
+    },
+    "street-space-width": {
+      "terms": {
+        "en": "Street-space width",
+        "fi": "Katutilan leveys"
+      },
+      "quantity": "length",
+      "unit": "m",
+      "definition": "Distance between opposite façade references along a named section transect.",
+      "inputs": [
+        "section location",
+        "facade endpoints"
+      ],
+      "basis": "façade-to-façade at chosen transect",
+      "geometry": "Line crossing facing facades",
+      "methods": {
+        "selected-facade-transect": {
+          "version": "1.0.0",
+          "description": "Distance between opposite façade references along a named section transect."
+        }
+      },
+      "alternatives": "Right-of-way or kerb width; sampled street profile with explicit hit/miss policy.",
+      "limitations": "Different boundary and sampling methods are not directly comparable.",
+      "validationExample": "Opposing façades at offsets 0 m and 20 m yield 20 m."
+    },
+    "height-to-width-ratio": {
+      "terms": {
+        "en": "Height-to-width ratio",
+        "fi": "Korkeuden ja leveyden suhde"
+      },
+      "quantity": "ratio",
+      "unit": "1",
+      "definition": "Mean of two declared facing heights divided by façade-to-façade width at the same transect.",
+      "inputs": [
+        "left height",
+        "right height",
+        "transect width"
+      ],
+      "basis": "mean facing height / street-space width",
+      "geometry": "Section with two elevations",
+      "methods": {
+        "mean-facing-height-over-width": {
+          "version": "1.0.0",
+          "description": "Mean of two declared facing heights divided by façade-to-façade width at the same transect."
+        }
+      },
+      "alternatives": "Separate side ratios; maximum height; sample-wise ratios.",
+      "limitations": "Preserve each side height. This is H/W, the reciprocal of W/H shown in the street ratio reference.",
+      "validationExample": "(12 + 18) / (2 × 20) = 0.75."
+    },
+    "canopy-coverage": {
+      "terms": {
+        "en": "Vegetation canopy coverage",
+        "fi": "Latvuspeittävyys"
+      },
+      "quantity": "ratio",
+      "unit": "1",
+      "definition": "Union of projected canopy inside the study area divided by area of the study boundary.",
+      "inputs": [
+        "study area",
+        "clipped canopy union",
+        "date or season"
+      ],
+      "basis": "clipped projected crown union / study area",
+      "geometry": "Canopy polygons or classified raster",
+      "methods": {
+        "clipped-canopy-union-over-study-area": {
+          "version": "1.0.0",
+          "description": "Union of projected canopy inside the study area divided by area of the study boundary."
+        }
+      },
+      "alternatives": "Raster classification or orthophoto crown extraction with declared resolution.",
+      "limitations": "Retain date, classification threshold, overlap, raster resolution and clipping policy.",
+      "validationExample": "100 m² crown union over 1,000 m² yields 0.1."
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Dubious morphology exchange package 0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "dictionaryVersion", "kind", "studyArea", "dataset", "provenance", "observations"],
+  "properties": {
+    "schemaVersion": {"const": "0.1.0"},
+    "dictionaryVersion": {"const": "1.0.0"},
+    "kind": {"enum": ["synthetic", "empirical"]},
+    "studyArea": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "label", "boundaryBasis", "crs"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "label": {"$ref": "#/$defs/text"},
+        "boundaryBasis": {"$ref": "#/$defs/text"},
+        "crs": {"$ref": "#/$defs/crs"},
+        "planarGeometry": {"$ref": "#/$defs/planar"},
+        "geojson": {"$ref": "#/$defs/wgs84"}
+      },
+      "anyOf": [{"required": ["planarGeometry"]}, {"required": ["geojson"]}]
+    },
+    "dataset": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "title", "edition", "attribution", "rightsStatus"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "title": {"$ref": "#/$defs/text"},
+        "edition": {"$ref": "#/$defs/text"}, "attribution": {"$ref": "#/$defs/text"},
+        "rightsStatus": {"enum": ["licence-declared", "permission-recorded", "unresolved"]},
+        "licence": {"$ref": "#/$defs/text"}, "sourceUrl": {"$ref": "#/$defs/text"}
+      },
+      "allOf": [{"if": {"properties": {"rightsStatus": {"const": "licence-declared"}}},
+                 "then": {"required": ["licence"]}}]
+    },
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["producer", "software", "process", "limitations"],
+      "properties": {
+        "producer": {"$ref": "#/$defs/text"}, "software": {"$ref": "#/$defs/text"},
+        "process": {"$ref": "#/$defs/text"}, "limitations": {"$ref": "#/$defs/text"},
+        "observedAt": {"$ref": "#/$defs/text"}
+      }
+    },
+    "observations": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/observation"}}
+  },
+  "$defs": {
+    "text": {"type": "string", "minLength": 1},
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "crs": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kind", "id", "axes", "units"],
+      "properties": {
+        "kind": {"enum": ["local", "projected"]}, "id": {"$ref": "#/$defs/text"},
+        "axes": {"const": ["east", "north"]}, "units": {"const": "m"},
+        "verticalDatum": {"$ref": "#/$defs/text"}
+      }
+    },
+    "point": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}},
+    "polygonCoordinates": {"type": "array", "minItems": 1,
+      "items": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/point"}}},
+    "planar": {
+      "type": "object", "additionalProperties": false, "required": ["type", "coordinates"],
+      "properties": {"type": {"const": "Polygon"}, "coordinates": {"$ref": "#/$defs/polygonCoordinates"}}
+    },
+    "wgs84": {"$ref": "#/$defs/planar"},
+    "distribution": {
+      "type": "object", "additionalProperties": false, "required": ["sampleSize", "min", "max", "mean"],
+      "properties": {
+        "sampleSize": {"type": "integer", "minimum": 1}, "min": {"type": "number"},
+        "max": {"type": "number"}, "mean": {"type": "number"}
+      }
+    },
+    "observation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "measurement", "method", "methodVersion", "subject", "value", "unit", "status", "basis"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "measurement": {"$ref": "#/$defs/id"},
+        "method": {"$ref": "#/$defs/id"}, "methodVersion": {"$ref": "#/$defs/text"},
+        "subject": {"$ref": "#/$defs/id"}, "value": {"type": "number"}, "unit": {"enum": ["m", "m2", "1", "deg"]},
+        "status": {"enum": ["measured", "source-provided", "inferred", "estimated", "synthetic"]},
+        "basis": {"$ref": "#/$defs/text"}, "limitations": {"$ref": "#/$defs/text"},
+        "distribution": {"$ref": "#/$defs/distribution"},
+        "representativePlanarGeometry": {"$ref": "#/$defs/planar"},
+        "representativeGeojson": {"$ref": "#/$defs/wgs84"},
+        "guidanceReferences": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}
+      }
+    }
+  }
+}

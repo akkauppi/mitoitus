@@ -14,6 +14,7 @@ from urllib.parse import parse_qs, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
 import candidate as m
+from morphology_export import SOURCE_FILES
 
 SOURCE = m.ROOT
 
@@ -23,7 +24,7 @@ class CandidateTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)/'repo'
         for name in (*m.T15_PUBLIC_FILES, 'lab/docs/scene-inventory.json',
-                     'lab/data/quick-notes.json', 'lab/scripts/export-scenes.mjs', 'lab/package.json'):
+                     'lab/data/quick-notes.json', 'lab/scripts/export-scenes.mjs', 'lab/package.json', *SOURCE_FILES):
             target = m.source_path(self.root,name)
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(m.source_path(SOURCE,name), target)
@@ -33,7 +34,8 @@ class CandidateTests(unittest.TestCase):
             shutil.copyfile(SOURCE/name, target)
         dependencies = self.root/'lab/node_modules'
         dependencies.mkdir()
-        (dependencies/'three').symlink_to(SOURCE/'lab/node_modules/three', target_is_directory=True)
+        for name in ('three','ajv','esbuild'):
+            (dependencies/name).symlink_to(SOURCE/'lab/node_modules'/name, target_is_directory=True)
         self.root_patch = patch.object(m, 'ROOT', self.root)
         self.root_patch.start()
         self.addCleanup(self.root_patch.stop)

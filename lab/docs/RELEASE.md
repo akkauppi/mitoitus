@@ -1,6 +1,6 @@
 # Rulebook release — 2026-11-13
 
-Current edition: **v2026-11-25** (agent-readable reference).
+Current edition: **v2026-11-25.1** (morphology laboratory and catalogue).
 The initial v2026-11-13 acceptance record follows below. Publication target:
 https://akkauppi.github.io/mitoitus/.
 
@@ -174,3 +174,8 @@ by the supplement. Drawing annotations and model measurements use the recipe's
 coordinate system and carry its assumptions. The CSV provides a flat lookup with
 ordered cells represented as JSON arrays. Use the JSON for full provenance and
 drawing variant links.
+
+## Morphology laboratory — v2026-11-25.1
+
+The release includes the static data catalogue, parametric synthetic laboratory and
+validated exchange fixtures described in [the morphology decision record](MORPHOLOGY-ARCHITECTURE.md).

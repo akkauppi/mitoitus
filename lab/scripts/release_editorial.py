@@ -1,7 +1,7 @@
 """Accepted release edits, 13 November 2026; canonical source remains archived."""
 import re
 
-EDITION = '2026-11-25'
+EDITION = '2026-11-25.1'
 TITLE = 'Dubious Little Planning Rulebook'
 
 
