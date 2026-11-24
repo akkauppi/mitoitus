@@ -1,18 +1,14 @@
-# Mitoitus diorama edition
+# Dubious Little Planning Rulebook
 
-Current handoff: [release record](docs/RELEASE.md). The user authorized completion,
-push and release on 13 November 2026, superseding the visual iteration’s local-only
-hold. Historical T01–T14 implementation records remain in [PROGRESS.md](docs/PROGRESS.md).
+The 3D rulebook links design dimensions to evidence. The open data catalogue
+includes structured reference data and contextual assertions. The morphology
+laboratory publishes synthetic geometries and their reproducible calculations.
 
-Thirty panels across eleven spreads combine original metric dioramas, current
-static posters and concise sourced tables. The two unaccepted panels (route-link
-continuity and shallow stormwater storage) are omitted; parking accounting is
-part of the bay panel. The historical inventory remains 33 panels/44 drawings for
-source auditing. Every published illustration is from the current edition.
-
-The book opens in live 3D Focus by default. Explicit Overview and camera links
-remain valid; Reset and Home return live scenes to 3D. Native tables/charts stay
-native; wall, print, direct-file and unavailable-WebGL paths keep current posters.
+The book opens in live 3D Focus. Overview, print and direct-file reading use
+reviewed figures. The [release record](docs/RELEASE.md) documents the current
+artifact and [PROGRESS.md](docs/PROGRESS.md) retains the implementation history.
+The [city model integration guide](docs/CITYMODEL-INTEGRATION.md) documents the
+measurement dictionary and exchange contract.
 
 ## Preview and checks
 
@@ -39,6 +35,8 @@ node lab/tests/offline-release-browser.cjs
 node lab/tests/interaction-release-browser.cjs
 python3 lab/scripts/prepare-release.py
 python3 lab/scripts/verify-release.py lab/.build/release
+BOOK_URL=http://127.0.0.1:8765/lab/book/ node lab/tests/morphology-browser.cjs
+python3 lab/tests/knowledge_consumer.py http://127.0.0.1:8765/lab/book/
 ```
 
 Browser checks use the installed Playwright module, overridable with

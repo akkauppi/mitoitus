@@ -1,6 +1,7 @@
 # Rulebook release — 2026-11-13
 
-Current edition: **v2026-11-25.1** (morphology laboratory and catalogue).
+Local candidate: **v2026-11-25.2** (built form and density assertions).
+Published edition: **v2026-11-25.1** (morphology laboratory and catalogue).
 The initial v2026-11-13 acceptance record follows below. Publication target:
 https://akkauppi.github.io/mitoitus/.
 
@@ -179,3 +180,39 @@ drawing variant links.
 
 The release includes the static data catalogue, parametric synthetic laboratory and
 validated exchange fixtures described in [the morphology decision record](MORPHOLOGY-ARCHITECTURE.md).
+
+## Built form and density — v2026-11-25.2 candidate
+
+The existing five panels link to 15 contextual assertion revisions under
+Sources. The catalogue exposes the same records in JSON. Historical excerpts
+keep the TKK 2007 locator and scope. Calculated examples carry synthetic status
+and use the same formulas as the equal-FAR scene and morphology laboratory.
+Before and after rendering of the equal-FAR scene produced identical raster
+and annotation hashes at both poster sizes. The accepted SVGs are retained.
+
+The selected illustrative floor areas assume repeated identical footprint
+plates. The modelled storey height belongs to the scene. The historical
+detached-housing figure of about 30 residents/ha has an unresolved land
+boundary. The nested analytical example therefore fixes only floor area and
+reports three separate land denominators. A depth transect describes the
+selected cut. The examples retain the named axis and easting.
+
+The pilot reuses the scoped assertion and review pattern from the separate
+research prototype. The unpublished bulk export draft was left in its
+original worktree. The current JSON and CSV remain public interfaces with
+additive assertion links. The transect example uses simple single-intersection
+geometry and stays outside the empirical exchange method registry.
+
+### Consumer examples
+
+Each lookup starts at the visible Open data / AI agents link. Use the
+contextual assertion revision for citation and the measurement dictionary
+for method and unit.
+
+| Question | Expected result |
+| --- | --- |
+| What does TKK say about slab size? | One historical slab module is 22–30 m long and 10–12 m deep. The drawn 26 × 11 m module and illustrative massing height are model choices. |
+| Does equal FAR give the same building form? | The same 1,024 m² plot at FAR 1 can carry 50%, 25% or 12.5% footprint coverage with 2, 4 or 8 identical plates. |
+| What changes with the land boundary? | Fixing 1,024 m² modelled floor area gives FAR 1, 0.25 and 0.0625 in the three nested cases. About 30 residents/ha is a separate historical statement. |
+| Is repeated-footprint floor area measured? | The public fixtures are synthetic. In an empirical exchange, repeating identical footprint plates requires inferred or estimated status. |
+| Why can one L-shaped building be both 16 m and 6 m deep? | The values are the full envelope depth and the depth at the 20 m easting transect. Neither is a recommendation. |
