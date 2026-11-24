@@ -7,7 +7,8 @@ import zipfile
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
-from candidate import ROOT, KINDS, UNITS, PUBLIC_FILES, OFFLINE, digest, offline_files, render_branding
+from reference_export import JSON_PATH, build_exports
+from candidate import ROOT, EDITION, KINDS, UNITS, PUBLIC_FILES, OFFLINE, digest, offline_files, render_branding
 
 
 class Links(HTMLParser):
@@ -104,6 +105,25 @@ def verify(root):
                 if link.fragment and relative in offline_parsers:
                     aliases = {'transit-access','fit-street','section-scale'} if relative=='index.html' else set()
                     assert unquote(link.fragment) in offline_parsers[relative].ids | aliases, f'Missing offline anchor: {name}: {href}'
+    exports = build_exports(ROOT, (root/'index.html').read_bytes(),
+                            json.loads((root/'evidence.json').read_bytes()),
+                            json.loads((root/'data/release-data.json').read_bytes()), EDITION)
+    for name, content in exports.items():
+        assert (root/name).read_bytes() == content, f'Reference export drift: {name}'
+    reference = json.loads(exports[JSON_PATH])
+    panels = reference['panels']
+    assert len({panel['spread']['id'] for panel in panels}) == 11
+    views = [view for panel in panels for scene in panel['scenes'] for view in scene['views']]
+    assert len(views) == 45
+    for panel_url in [panel['url'] for panel in panels] + [view['url'] for view in views]:
+        link = urlsplit(panel_url)
+        assert link.fragment in parsers[link.path].ids, f'Invalid reference URL: {panel_url}'
+    for view in views:
+        assert view['poster'] in PUBLIC_FILES, f'Missing reference poster: {view["poster"]}'
+    for claim in reference['claims'].values():
+        assert claim['id'] in parsers['evidence.html'].ids
+        assert all(item['source'] in reference['sources'] for item in claim['references'])
+    print(f'PASS: Agent reference covers {len(panels)} panels and {len(views)} drawing states, with verified evidence links.')
     print(f'PASS: {checked} public links and all offline links; 30 panels / 11 spreads; {len(cad)} preserved CAD files and 3 verified bundles; current branding throughout; vendor hashes; exact offline archive.')
 
 

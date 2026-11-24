@@ -22,7 +22,8 @@ class CandidateTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)/'repo'
-        for name in (*m.PUBLIC_FILES, 'lab/docs/scene-inventory.json'):
+        for name in (*m.T15_PUBLIC_FILES, 'lab/docs/scene-inventory.json',
+                     'lab/data/quick-notes.json', 'lab/scripts/export-scenes.mjs', 'lab/package.json'):
             target = m.source_path(self.root,name)
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(m.source_path(SOURCE,name), target)
@@ -30,6 +31,9 @@ class CandidateTests(unittest.TestCase):
             target = self.root/name
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(SOURCE/name, target)
+        dependencies = self.root/'lab/node_modules'
+        dependencies.mkdir()
+        (dependencies/'three').symlink_to(SOURCE/'lab/node_modules/three', target_is_directory=True)
         self.root_patch = patch.object(m, 'ROOT', self.root)
         self.root_patch.start()
         self.addCleanup(self.root_patch.stop)
@@ -46,7 +50,7 @@ class CandidateTests(unittest.TestCase):
         self.assertEqual(report['semanticEvents'], m.audit((self.root/'index.html').read_text()).events)
         groups = {p['group']:len(p['options']) for p in report['content'] if p['group']}
         self.assertEqual(groups, {'walking':4,'cycling':5,'car-layout':3,'bus-layout':3})
-        for name in m.PUBLIC_FILES:
+        for name in m.T15_PUBLIC_FILES:
             expected = m.source_path(self.root,name).read_bytes()
             if name == 'index.html': expected = m.render_book(expected)
             if name == 'evidence.html': expected = m.render_evidence(expected)
@@ -142,7 +146,7 @@ class CandidateTests(unittest.TestCase):
         original = (self.root/'index.html').read_bytes()
         rendered = m.render_book(original).decode()
         self.assertIn('<title>Dubious Little Planning Rulebook</title>',rendered)
-        self.assertIn('Rules of thumb. Fingers crossed. · v2026-11-13.2',rendered)
+        self.assertIn(f'Rules of thumb. Fingers crossed. · v{m.EDITION}',rendered)
         self.assertNotIn('Antti',rendered)
         self.assertIn('Antti’s Dubious Little Rulebook',original.decode())
 
@@ -323,7 +327,7 @@ class CandidateTests(unittest.TestCase):
 
     def test_archive_exact_contents_and_bytes_exclude_development_and_old_zip(self):
         rogue = self.root/'lab/node_modules/secret.txt'
-        rogue.parent.mkdir(parents=True)
+        rogue.parent.mkdir(parents=True, exist_ok=True)
         rogue.write_text('not public')
         (self.root/'downloads/rogue.txt').write_text('not public')
         m.build()

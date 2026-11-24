@@ -1,0 +1,102 @@
+{
+  "green-hierarchy": [
+    "Residential floor area. Check actual walking routes."
+  ],
+  "building-rows": [
+    "Dimensions refer to one repeating unit."
+  ],
+  "building-detached": [
+    null
+  ],
+  "cycling": [
+    "¹ At footway level, with walking separate. Allow movement clearance beyond the 0.75 m user envelope."
+  ],
+  "bike-parking": [
+    "0.6 × 4 m includes handling. Check cargo cycles separately."
+  ],
+  "turning": [
+    "Keep furniture and door swings outside the clear circle."
+  ],
+  "ramps": [
+    "Run = rise ÷ gradient: 0.30 ÷ 0.05 = 6 m, before landings. Add turning space at changes of direction."
+  ],
+  "arrival": [
+    "² Recommended park-route spacing. Seats: backrests, armrests and a choice of heights.",
+    "Allow vehicle transfer/lift space and an accessible connection."
+  ],
+  "tram-corridor": [
+    "Size from the ATU clearance envelope. Allow for curves, poles, evacuation and crossings."
+  ],
+  "tram-width": [
+    "Waiting space: 1 m²/person; minimum 0.75 m²/person at peak boarding demand.",
+    "Fit shelters, waiting space, access and cycle routes together."
+  ],
+  "tram-length": [
+    "Platform: 0.30 m; Helsinki normally 0.27 m. Add ramps and crossing waiting space."
+  ],
+  "car-turn": [
+    "Geometric radius reference.",
+    "Check the design vehicle for servicing, deliveries and waste collection."
+  ],
+  "bus-turn": [
+    "Radius reference; 15 m design bus. Add approach and crossing clearances."
+  ],
+  "rescue": [
+    "Add 0.4 m driving and 1 m boom allowances. Check loads, slopes, reach, trees, wires and snow."
+  ],
+  "trees": [
+    "Stone reduces water storage in structural soil.",
+    "Coordinate crowns, connected rooting space, groundwater and utilities."
+  ],
+  "ground": [
+    "Check rooting volume separately.",
+    "Keep snow clear of walking, turning and rescue space; route meltwater."
+  ],
+  "rain-gardens": [
+    "Rain gardens collect, store and filter runoff; infiltration depends on soil and groundwater.",
+    "Swales slow and convey runoff. Check dams add storage.",
+    "Drainage: underdrain or controlled outlet.",
+    "Keep overflow and maintenance access. Check contaminated ground and winter operation."
+  ],
+  "ponds": [
+    null,
+    "Wetlands have shallow, planted levels; ponds can retain permanent water.",
+    "Count storage above normal water level.",
+    "Show inlet, outlet, overflow, safe banks and maintenance access. Include banks and flood extent."
+  ],
+  "source-control": [
+    "Reduce runoff → slow/filter → store → controlled discharge and overflow.",
+    "Plan for clogging and winter maintenance. Count pore space for storage."
+  ],
+  "section-ratio": [
+    "Measure façade to façade; record both heights if they differ."
+  ],
+  "equal-density": [
+    "Keep plot, block and district land areas separate."
+  ],
+  "steps": [
+    "Outdoors: 2r + t = 0.66 m; covered/heated: 0.63 m. Keep risers and treads identical.",
+    "Coordinate landings, handrails, guards and an accessible route."
+  ],
+  "crossing-refuge": [
+    "Add the refuge to both traffic lanes.",
+    "Check kerbs, tactile cues, sightlines, drainage and onward footways."
+  ],
+  "clear-route-continuity": [
+    "Measure clear width and height along the whole route. Keep furniture, doors, branches, signs and snow outside it.",
+    null
+  ],
+  "parking-norms": [
+    "Espoo: ≥0.5 space/dwelling; use the larger count. Core: mapped central area, typically within 300 m of station or centre.",
+    "Espoo: ≥5% of required spaces for visitors. Helsinki C1/C2/C3: add 30 to denominators."
+  ],
+  "parking-layout": [
+    "Allow for door opening, end bays, columns and manoeuvring. ¹ Transfer access is additional.",
+    "W4: no long-term private-car parking."
+  ],
+  "parking-area": [
+    "Include entrances, row ends, paths, accessible spaces, planting, snow and drainage.",
+    "12.5 m² is the bay only. Garages also need ramps, structure and vertical circulation.",
+    "Draw the layout and count usable spaces."
+  ]
+}

@@ -1,6 +1,6 @@
 # Rulebook release — 2026-11-13
 
-Current edition: **v2026-11-13.2** (title update).
+Current edition: **v2026-11-25** (agent-readable reference).
 The initial v2026-11-13 acceptance record follows below. Publication target:
 https://akkauppi.github.io/mitoitus/.
 
@@ -157,3 +157,20 @@ Validation: 37 build/preservation tests passed. Release checks cover 240 public
 links, every nested archive title and the unchanged 42 individual CAD files.
 Offline ZIP: 4,329,776 bytes; SHA-256:
 `f29034a20869c10d26679160d827f404371a2ce29addc309a8c420b24c180b56`.
+
+## Agent-readable reference — v2026-11-25
+
+The Pages artifact and offline ZIP include `data/rulebook.json`,
+`data/rulebook.csv`, `llms.txt` and one JSON file per spread. The build reads the released HTML, scene
+registry, poster inventory, evidence and service supplement. It regenerates
+these files each time.
+
+The JSON identifies the schema and rulebook edition separately. Panel IDs and
+links identify the context of each value. Facts and table cells preserve authored
+operators, ranges, formulas, units and footnotes as strings. Table cells retain
+header and span information. Simple metric values and ranges also carry numeric
+values, units and comparison operators. Service rows include numeric fields where supplied
+by the supplement. Drawing annotations and model measurements use the recipe's
+coordinate system and carry its assumptions. The CSV provides a flat lookup with
+ordered cells represented as JSON arrays. Use the JSON for full provenance and
+drawing variant links.

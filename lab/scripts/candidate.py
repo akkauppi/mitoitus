@@ -14,6 +14,7 @@ from connection_editorial import redesign_connections
 from population_editorial import redesign_population, render_population_evidence
 from parking_editorial import redesign_parking
 from release_editorial import apply_release_edits, PANEL_ALIASES, EDITION, render_branding
+from reference_export import EXPORT_FILES, JSON_PATH, SPREAD_ORDER, build_exports
 from poster_assets import public_mapping, validate_assets, replace_figures
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -63,7 +64,8 @@ RUNTIME_FILES.update({
     'data/source-link-updates.json': 'lab/data/source-link-updates.json',
     **(public_mapping(ROOT) if (ROOT/'lab/posters/manifest.json').is_file() else {}),
 })
-PUBLIC_FILES = (*PUBLIC_FILES, *RUNTIME_FILES)
+T15_PUBLIC_FILES = (*PUBLIC_FILES, *RUNTIME_FILES)
+PUBLIC_FILES = (*T15_PUBLIC_FILES, *EXPORT_FILES)
 OFFLINE = 'downloads/rulebook-offline.zip'
 MAX_ARCHIVE_BYTES = 32 * 1024 * 1024
 
@@ -167,11 +169,6 @@ def source_path(root, name):
     return root / RUNTIME_FILES.get(name, name)
 
 
-SPREAD_ORDER = ('built-form', 'land-population', 'walk-cycle', 'accessible',
-                'connections', 'tram', 'turning-vehicles', 'parking',
-                'section-details', 'green-blue', 'stormwater-options')
-
-
 def render_evidence(source):
     rendered = render_population_evidence(render_branding(source))
     for update in source_link_updates():
@@ -255,14 +252,18 @@ def render_book(source):
                       for name in ('runtime/book-app.js', 'runtime/posters.js'))
     text = re.sub(r'(<img\b[^>]*\bsrc=")(posters/[^"?]+\.svg)(")',
                   lambda match: match[1] + versioned(match[2]) + match[3], text)
-    text = text.replace('</head>', styles + import_map + '</head>')
-    text = text.replace('</body>', scripts + '</body>')
+    reference = f'<link rel="alternate" type="application/json" title="Rulebook data" href="{JSON_PATH}">'
+    text = text.replace('</head>', reference + styles + import_map + '</head>')
+    notes = json.loads((ROOT/'lab/data/quick-notes.json').read_text())
+    notes_json = json.dumps(notes, ensure_ascii=False).replace('<', r'\u003c')
+    notes_tag = f'<script id="rulebook-quick-notes" type="application/json">{notes_json}</script>'
+    text = text.replace('</body>', notes_tag + scripts + '</body>')
     return text.encode()
 
 
 def read_public(root, source=False):
     result = {}
-    for name in PUBLIC_FILES:
+    for name in T15_PUBLIC_FILES if source else PUBLIC_FILES:
         path = source_path(root, name) if source else root / name
         if any(p.is_symlink() for p in (path, *path.parents)) or not path.is_file():
             raise ValueError(f'Missing or unsafe public file: {name}')
@@ -338,7 +339,7 @@ def verify_candidate(output, allow_legacy=False):
     t05_expected = t06_expected - {'runtime/recipes/tram.js'}
     t04_expected = t05_expected - {'runtime/recipes/accessibility.js','runtime/primitives/accessibility.js'}
     t03_expected = t04_expected - {'runtime/recipes/routes.js','runtime/primitives/surfaces.js'}
-    if allow_legacy and names in (old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected,t11_expected,t13_expected,t14_expected):
+    if allow_legacy and names in (expected - set(EXPORT_FILES),old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected,t11_expected,t13_expected,t14_expected):
         expected = names
     if names != expected:
         raise ValueError('Candidate contains missing or unapproved files')
@@ -398,6 +399,8 @@ def build(output=None, replace=False):
     files['index.html'] = render_book(source)
     files['evidence.html'] = render_evidence(files['evidence.html'])
     files['evidence.json'] = render_evidence_json(files['evidence.json'])
+    files.update(build_exports(ROOT, files['index.html'], json.loads(files['evidence.json']),
+                               json.loads(files['data/release-data.json']), EDITION))
     for name in ('app.js', 'downloads/README.txt'):
         files[name] = render_branding(files[name])
     for unit in UNITS:
