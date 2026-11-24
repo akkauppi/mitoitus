@@ -146,11 +146,12 @@ def display_quantity(quantity):
     return prefix+compact(quantity)
 
 
-def table(headers, rows):
+def table(heading, headers, rows):
     head = ''.join(f'<th scope="col">{escape(h)}</th>' for h in headers)
     body = ''.join('<tr><th scope="row">'+escape(str(row[0]))+'</th>'+
                    ''.join(f'<td>{escape(str(value))}</td>' for value in row[1:])+'</tr>' for row in rows)
-    return f'<table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>'
+    return (f'<div class="assertion-table" role="region" aria-labelledby="{heading}" tabindex="0">'
+            f'<table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>')
 
 
 def render_curated_evidence(evidence_html, dataset):
@@ -185,12 +186,12 @@ def render_curated_evidence(evidence_html, dataset):
                         + (f'<ul>{references}</ul>' if references else ''))
     examples = dataset['examples']
     equal, nested, depth = (examples[key] for key in ('equal-far','nested-denominators','depth-methods'))
-    equal_table = table(('Coverage','Storeys','Footprint (m²)','Floor area (m²)','FAR'),
+    equal_table = table('example-equal-far', ('Coverage','Storeys','Footprint (m²)','Floor area (m²)','FAR'),
                         [(f"{r['coverage']:.1%}".replace('.0%','%'),r['floors'],r['footprintArea'],r['floorArea'],r['far'])
                          for r in equal['cases']])
-    nested_table = table(('Boundary','Land area (m²)','Floor area (m²)','FAR'),
+    nested_table = table('example-nested-denominators', ('Boundary','Land area (m²)','Floor area (m²)','FAR'),
                          [(r['scope'].capitalize(),r['landArea'],r['floorArea'],r['far']) for r in nested['cases']])
-    depth_table = table(('Synthetic footprint','Envelope depth (m)','Transect easting (m)','Transect depth (m)'),
+    depth_table = table('example-depth-methods', ('Synthetic footprint','Envelope depth (m)','Transect easting (m)','Transect depth (m)'),
                         [(r['label'],r['envelopeDepth'],r['easting'],f"{r['transectDepth']:.2f}".rstrip('0').rstrip('.'))
                          for r in depth['cases']])
     html = f"""
@@ -210,4 +211,6 @@ Transect values are rounded to two decimals in this table.</p>{depth_table}
 <p><a href="morphology/index.html#l-shaped-building">L-shaped fixture</a> ·
 <a href="morphology/index.html#irregular-footprint">Irregular fixture</a></p>
 </section>"""
-    return evidence_html.replace(b'</body>',html.encode()+b'</body>')
+    return (evidence_html
+            .replace(b'</head>',b'<style>.assertion-table{overflow-x:auto;max-width:100%}</style></head>',1)
+            .replace(b'</body>',html.encode()+b'</body>'))
