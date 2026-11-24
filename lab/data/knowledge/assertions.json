@@ -1,0 +1,387 @@
+[
+  {
+    "id": "tkk-slab-module-dimensions",
+    "revision": 1,
+    "supersedes": null,
+    "role": "historical_reference",
+    "title": "Slab module length and depth",
+    "originalTerm": "Lamellitalo",
+    "panels": [
+      "building-blocks"
+    ],
+    "applicability": "Historical TKK / YKS reference, 28 August 2007. Applies to one repeated module.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "claimId": "building-blocks",
+        "sourceId": "TKK"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "quantity": {
+      "kind": "components",
+      "components": {
+        "length": {
+          "kind": "range",
+          "unit": "m",
+          "minimum": 22,
+          "maximum": 30
+        },
+        "depth": {
+          "kind": "range",
+          "unit": "m",
+          "minimum": 10,
+          "maximum": 12
+        }
+      }
+    }
+  },
+  {
+    "id": "tkk-row-dwelling-width",
+    "revision": 1,
+    "supersedes": null,
+    "role": "historical_reference",
+    "title": "Row dwelling width",
+    "originalTerm": "Rivitalo",
+    "panels": [
+      "building-rows"
+    ],
+    "applicability": "Historical TKK / YKS reference, 28 August 2007. Width of one repeating dwelling.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "claimId": "building-rows",
+        "sourceId": "TKK"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "quantity": {
+      "kind": "range",
+      "unit": "m",
+      "minimum": 4,
+      "maximum": 8
+    }
+  },
+  {
+    "id": "tkk-row-house-depth",
+    "revision": 1,
+    "supersedes": null,
+    "role": "historical_reference",
+    "title": "Row-house depth",
+    "originalTerm": "Rivitalo",
+    "panels": [
+      "building-rows"
+    ],
+    "applicability": "Historical TKK / YKS reference, 28 August 2007. Depth of the building body.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "claimId": "building-rows",
+        "sourceId": "TKK"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "quantity": {
+      "kind": "range",
+      "unit": "m",
+      "minimum": 8,
+      "maximum": 11
+    }
+  },
+  {
+    "id": "tkk-detached-house-footprint",
+    "revision": 1,
+    "supersedes": null,
+    "role": "historical_reference",
+    "title": "Detached house footprint",
+    "originalTerm": "Omakotitalo",
+    "panels": [
+      "building-detached"
+    ],
+    "applicability": "Historical TKK / YKS reference, 28 August 2007. One-storey example.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "claimId": "building-detached",
+        "sourceId": "TKK"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "quantity": {
+      "kind": "components",
+      "approximate": true,
+      "components": {
+        "length": {
+          "kind": "scalar",
+          "unit": "m",
+          "value": 15
+        },
+        "depth": {
+          "kind": "scalar",
+          "unit": "m",
+          "value": 10
+        }
+      }
+    }
+  },
+  {
+    "id": "tkk-detached-plot-area",
+    "revision": 1,
+    "supersedes": null,
+    "role": "historical_reference",
+    "title": "Detached house plot area",
+    "originalTerm": "Omakotitalo",
+    "panels": [
+      "building-detached"
+    ],
+    "applicability": "Historical TKK / YKS reference, 28 August 2007. Plot area in the detached-house reference.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "claimId": "building-detached",
+        "sourceId": "TKK"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "quantity": {
+      "kind": "range",
+      "unit": "m2",
+      "minimum": 500,
+      "maximum": 1000,
+      "approximate": true
+    }
+  },
+  {
+    "id": "tkk-floor-area-ratio-definition",
+    "revision": 1,
+    "supersedes": null,
+    "role": "definition",
+    "title": "Floor-area ratio",
+    "originalTerm": "Tehokkuus",
+    "panels": [
+      "density",
+      "equal-density"
+    ],
+    "applicability": "Divide total floor area by the selected land area. State both the floor-area inclusion rule and the land boundary.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "claimId": "density",
+        "sourceId": "TKK"
+      }
+    ],
+    "relatedAssertionIds": []
+  },
+  {
+    "id": "tkk-detached-district-far",
+    "revision": 1,
+    "supersedes": null,
+    "role": "historical_reference",
+    "title": "Detached housing district floor-area ratio",
+    "originalTerm": "aluetehokkuus",
+    "panels": [
+      "density"
+    ],
+    "applicability": "Historical TKK / YKS reference, 28 August 2007. Detached housing example at district scale.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "claimId": "density",
+        "sourceId": "TKK"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "quantity": {
+      "kind": "range",
+      "unit": "1",
+      "minimum": 0.04,
+      "maximum": 0.1,
+      "numeratorBasis": "Total floor area in the historical table",
+      "denominatorBasis": "district land area"
+    }
+  },
+  {
+    "id": "tkk-detached-block-far",
+    "revision": 1,
+    "supersedes": null,
+    "role": "historical_reference",
+    "title": "Detached housing block floor-area ratio",
+    "originalTerm": "korttelitehokkuus",
+    "panels": [
+      "density"
+    ],
+    "applicability": "Historical TKK / YKS reference, 28 August 2007. Detached housing example at block scale.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "claimId": "density",
+        "sourceId": "TKK"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "quantity": {
+      "kind": "range",
+      "unit": "1",
+      "minimum": 0.1,
+      "maximum": 0.15,
+      "numeratorBasis": "Total floor area in the historical table",
+      "denominatorBasis": "block land area"
+    }
+  },
+  {
+    "id": "tkk-detached-plot-far",
+    "revision": 1,
+    "supersedes": null,
+    "role": "historical_reference",
+    "title": "Detached housing plot floor-area ratio",
+    "originalTerm": "tonttitehokkuus",
+    "panels": [
+      "density"
+    ],
+    "applicability": "Historical TKK / YKS reference, 28 August 2007. Detached housing example at plot scale.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "claimId": "density",
+        "sourceId": "TKK"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "quantity": {
+      "kind": "range",
+      "unit": "1",
+      "minimum": 0.05,
+      "maximum": 0.15,
+      "numeratorBasis": "Total floor area in the historical table",
+      "denominatorBasis": "plot land area"
+    }
+  },
+  {
+    "id": "tkk-detached-population-density",
+    "revision": 1,
+    "supersedes": null,
+    "role": "historical_reference",
+    "title": "Detached housing residents per hectare",
+    "originalTerm": "asukasta / ha",
+    "panels": [
+      "density"
+    ],
+    "applicability": "Historical TKK / YKS reference, 28 August 2007. Detached housing example.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "claimId": "density",
+        "sourceId": "TKK"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "quantity": {
+      "kind": "rate",
+      "numerator": {
+        "value": 30,
+        "unit": "person",
+        "basis": "residents"
+      },
+      "denominator": {
+        "value": 1,
+        "unit": "ha",
+        "basis": "reported hectares"
+      },
+      "approximate": true
+    },
+    "limitation": "The land boundary behind the reported hectare figure is unresolved. No conversion from FAR is stated."
+  },
+  {
+    "id": "far-coverage-storeys-identity",
+    "revision": 1,
+    "supersedes": null,
+    "role": "mathematical_identity",
+    "title": "Floor-area ratio from coverage and storeys",
+    "originalTerm": null,
+    "panels": [
+      "equal-density"
+    ],
+    "applicability": "For disjoint footprints, repeated identical plates, no additional counted floor area and the same storey count over the footprint union.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [],
+    "relatedAssertionIds": [
+      "tkk-floor-area-ratio-definition"
+    ],
+    "example": "equal-far"
+  },
+  {
+    "id": "far-massing-model-storey-height",
+    "revision": 1,
+    "supersedes": null,
+    "role": "model_assumption",
+    "title": "Massing storey height",
+    "originalTerm": null,
+    "panels": [
+      "equal-density"
+    ],
+    "applicability": "The three equal-FAR illustrations use the same modelled floor-to-floor height.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [],
+    "relatedAssertionIds": [
+      "far-coverage-storeys-identity"
+    ],
+    "example": "equal-far"
+  },
+  {
+    "id": "far-same-ratio-different-form",
+    "revision": 1,
+    "supersedes": null,
+    "role": "professional_interpretation",
+    "title": "Equal FAR can yield different building forms",
+    "originalTerm": null,
+    "panels": [
+      "equal-density"
+    ],
+    "applicability": "The three illustrated cases have the same floor-area ratio while their coverage, storey count and massing differ.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [],
+    "relatedAssertionIds": [
+      "far-coverage-storeys-identity",
+      "far-massing-model-storey-height"
+    ],
+    "example": "equal-far"
+  },
+  {
+    "id": "far-nested-land-boundaries",
+    "revision": 1,
+    "supersedes": null,
+    "role": "derived_result",
+    "title": "Floor-area ratio across nested land boundaries",
+    "originalTerm": null,
+    "panels": [
+      "density",
+      "equal-density"
+    ],
+    "applicability": "One synthetic building contributes the same 1,024 m² of full modelled floor plates to each nested boundary.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [],
+    "relatedAssertionIds": [
+      "tkk-floor-area-ratio-definition"
+    ],
+    "limitation": "Actual blocks and districts may contain additional floor area.",
+    "example": "nested-denominators"
+  },
+  {
+    "id": "depth-envelope-versus-transect",
+    "revision": 1,
+    "supersedes": null,
+    "role": "derived_result",
+    "title": "Building depth by envelope and by transect",
+    "originalTerm": null,
+    "panels": [
+      "building-rows",
+      "building-blocks"
+    ],
+    "applicability": "Compare the full depth normal to a declared east–west axis with the width of a selected north–south cut through the same footprint.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [],
+    "relatedAssertionIds": [],
+    "limitation": "The example transects avoid vertices and intersect one contiguous part of each footprint.",
+    "example": "depth-methods"
+  }
+]

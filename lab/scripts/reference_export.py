@@ -7,6 +7,7 @@ import subprocess
 from dataclasses import dataclass, field
 from html.parser import HTMLParser
 from urllib.parse import urlencode
+from curated_reference import ASSERTIONS_PATH, authoring, panel_index
 
 JSON_PATH = 'data/rulebook.json'
 CSV_PATH = 'data/rulebook.csv'
@@ -204,6 +205,10 @@ def build_exports(root, index, evidence, services, edition):
     script = root/'lab/scripts/export-scenes.mjs'
     scenes = json.loads(subprocess.check_output(['node', str(script)]))
     panels = list(read_panels(index.decode(), scenes))
+    assertions = panel_index(authoring(root))
+    for panel in panels:
+        if panel['id'] in assertions:
+            panel['assertionRevisionIds'] = assertions[panel['id']]
     claims = {claim['id']: claim for claim in evidence['claims']}
     claim_ids = {claim for panel in panels for claim in panel['claimIds']}
     data = {
@@ -215,6 +220,7 @@ def build_exports(root, index, evidence, services, edition):
         'serviceSupplement': services,
         'evidence': {'html': 'evidence.html', 'json': 'evidence.json'},
         'spreadFiles': SPREAD_PATHS,
+        'contextualAssertions': ASSERTIONS_PATH,
     }
     if len({panel['id'] for panel in panels}) != 30 or sum(len(panel['scenes']) for panel in panels) != len(scenes):
         raise ValueError('Reference export does not cover the published panels and recipes')
@@ -225,6 +231,7 @@ def build_exports(root, index, evidence, services, edition):
 
 ## Data
 
+- [Built form and density assertions]({PUBLIC_URL}{ASSERTIONS_PATH})
 - [Open data catalogue]({PUBLIC_URL}data/index.html)
 - [Morphology laboratory]({PUBLIC_URL}morphology/index.html)
 - [Rulebook JSON]({PUBLIC_URL}{JSON_PATH}): All 30 panels, including facts, ordered table cells, notes, charts, scenes, source claims and the structured service supplement.
@@ -249,6 +256,8 @@ Use the JSON panel ID, edition and panel URL to cite a value. Resolve relative U
                       sources={source_id: data['sources'][source_id] for source_id in selected_sources})
         if spread == 'land-population':
             subset['serviceSupplement'] = services
+        if any('assertionRevisionIds' in panel for panel in selected):
+            subset['contextualAssertions'] = ASSERTIONS_PATH
         exports[path] = encode_json(subset)
         guide += f"- [{selected[0]['spread']['title']} JSON]({PUBLIC_URL}{path})\n"
         for panel in selected:

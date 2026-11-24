@@ -4,8 +4,10 @@ import {box,outline} from '../primitives/surfaces.js';
 import {buildingMass} from '../primitives/massing.js';
 import {plotSurface,footprint} from '../primitives/footprints.js';
 import {cutPrism,solidPrism,rectangleProfile,validateCapAnchor} from '../primitives/sections.js';
+import {equalDensityCases, equalDensityPlotSide, equalDensityStoreyHeight} from '../metrics.js';
+
 const dim=(a,b,label,offset=[0,0,0])=>({a,b,label,offset});
-export const FAR_EXAMPLES=[{coverage:.5,floors:2,depth:16},{coverage:.25,floors:4,depth:8},{coverage:.125,floors:8,depth:4}];
+export const FAR_EXAMPLES = equalDensityCases.map(({coverage,floors,depth})=>({coverage,floors,depth}));
 export const SECTION_INFO={
  'section-ratio':{heightDimensionsOpposite:true,defaultCamera:'section',allowedCameras:['section','iso'],cutViews:['section','iso'],noShadows:true,caseTitle:'THREE INDEPENDENT STREET SECTIONS · ONE SCALE',description:'Three sections: height 12 metres in every example, facade widths 12, 24 and 36 metres; width/height 1, 2 and 3.',sectionNote:'The section cuts through the middle; the front half is removed. Each comparison has its own local ground datum at 0 m. Rows are separate diagrams, not terrain levels.',explanation:['H = 12 m throughout. Façade-to-façade W = 12 / 24 / 36 m, so W/H = 1 / 2 / 3. All three sections share one metric scale.','Street-space width includes the whole space between façades; these comparisons prescribe no traffic-lane allocation or preferred ratio.'],assumptions:['Nominal building-strip width 3 m follows the original illustration. Longitudinal prism extent 16 m (8 m retained behind the cut), scale-context placement, diagram-row separation and base relief are illustrative. Trees 5 m, people 1.75 m and car body 5 × 1.8 m provide illustrative scale. No metre storey heights or floor counts are inferred.']},
  'equal-density':{quickFact:'512 × 2 = 256 × 4 = 128 × 8 = 1,024 m².',defaultCamera:'iso',allowedCameras:['iso','plan'],noShadows:true,caseTitle:'EQUAL FLOOR AREA · ONE SCALE',description:'Three 32 by 32 metre plots. Coverage 50, 25 and 12.5 percent times 2, 4 and 8 floors each yields 1024 square metres and FAR 1.',explanation:['Every plot: 32 × 32 m = 1,024 m². Footprints: 512 / 256 / 128 m²; 2 / 4 / 8 identical floors give 1,024 m² floor area in each case.','Plans and 3D share metric geometry. Each diagram has its own ground datum. Building heights assume 3 m per floor for illustration; this is not a source specification or a daylight, population or usable-open-space result.'],floorExamples:FAR_EXAMPLES,assumptions:['These are the retained editorial geometry examples. Flat footprint relief is decorative. User requested 3D massing with scale context: assumed floor-to-floor height 3 m, trees 5 m, people 1.75 m and cars 5 × 1.8 m. Actual counted floor areas and land-area denominators must be checked separately.']},
@@ -35,11 +37,24 @@ export function ratioScene(){
  });};model.layout(false);return model;
 }
 export function equalDensityScene(){
- const group=new THREE.Group(),plots=[],masses=[];let plan=false,narrowLayout=false;const model={group,dimensions:[],labels:[],measurement:{plotArea:1024,floorAreas:[1024,1024,1024]},comparison:{id:'equal-floor-area',bounds:null},meta:{target:[0,8,0],camera:[.65,.8,1.4]}};
- FAR_EXAMPLES.forEach((example,i)=>{const g=new THREE.Group();g.name='far-example-'+i;g.userData={...example,plotArea:1024,footprintArea:32*example.depth,floorArea:32*example.depth*example.floors};group.add(g);plotSurface(g,{width:32,length:32,name:'plot'});const {plate}=footprint(g,{width:32,length:example.depth,z:-16+example.depth/2,name:'footprint',ground:false});masses.push(buildingMass(g,plate,{height:example.floors*3}));const tree=createTree(),car=createCar(),person=createPerson({pose:'walking'});tree.position.set(-10,0,9);car.position.set(5,0,10);person.position.set(0,0,6);g.add(tree,car,person);plots.push(g);});
+ const group=new THREE.Group(),plots=[],masses=[];let plan=false,narrowLayout=false;
+ const side=equalDensityPlotSide, half=side/2, storeyHeight=equalDensityStoreyHeight;
+ const model={group,dimensions:[],labels:[],measurement:{
+  plotArea:side**2,floorAreas:equalDensityCases.map(example=>example.floorArea),cases:equalDensityCases,
+ },comparison:{id:'equal-floor-area',bounds:null},meta:{target:[0,8,0],camera:[.65,.8,1.4]}};
+ equalDensityCases.forEach((example,i)=>{
+  const g=new THREE.Group();
+  g.name='far-example-'+i;g.userData={...example};group.add(g);
+  plotSurface(g,{width:side,length:side,name:'plot'});
+  const {plate}=footprint(g,{width:side,length:example.depth,z:-half+example.depth/2,name:'footprint',ground:false});
+  masses.push(buildingMass(g,plate,{height:example.floors*storeyHeight}));
+  const tree=createTree(),car=createCar(),person=createPerson({pose:'walking'});
+  tree.position.set(-10,0,9);car.position.set(5,0,10);person.position.set(0,0,6);
+  g.add(tree,car,person);plots.push(g);
+ });
  model.layout=narrow=>{
   narrowLayout=narrow;model.dimensions=[];model.labels=[];
-  plots.forEach((g,i)=>{const x=narrow?0:(i-1)*40,z=narrow&&plan?(i-1)*40:0,y=narrow&&!plan?(2-i)*40:0;g.position.set(x,y,z);model.dimensions.push(dim([x-16,y,z+16],[x+16,y,z+16],'32 m plot',[0,0,2]));model.labels.push({point:[x,y+(plan?.12:FAR_EXAMPLES[i].floors*3),z-16+FAR_EXAMPLES[i].depth/2],text:`${FAR_EXAMPLES[i].coverage*100}% · ${FAR_EXAMPLES[i].floors} floors`});});
+  plots.forEach((g,i)=>{const x=narrow?0:(i-1)*40,z=narrow&&plan?(i-1)*40:0,y=narrow&&!plan?(2-i)*40:0;g.position.set(x,y,z);model.dimensions.push(dim([x-half,y,z+half],[x+half,y,z+half],`${side} m plot`,[0,0,2]));model.labels.push({point:[x,y+(plan?.12:FAR_EXAMPLES[i].floors*storeyHeight),z-half+FAR_EXAMPLES[i].depth/2],text:`${FAR_EXAMPLES[i].coverage*100}% · ${FAR_EXAMPLES[i].floors} floors`});});
   model.comparison.bounds=narrow?(plan?{min:[-19,-.3,-59],max:[19,24,59]}:{min:[-19,-.3,-19],max:[19,87,19]}):{min:[-59,-.3,-19],max:[59,24,19]};group.updateMatrixWorld(true);
  };model.applyView=view=>{plan=view==='plan';masses.forEach(m=>m.visible=!plan);model.layout(narrowLayout);};model.layout(false);return model;
 }

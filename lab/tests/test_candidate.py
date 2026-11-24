@@ -15,6 +15,7 @@ from urllib.parse import parse_qs, urlsplit
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
 import candidate as m
 from morphology_export import SOURCE_FILES
+from curated_reference import AUTHORING_PATH, EXAMPLES_PATH, build_curated, render_curated_evidence
 
 SOURCE = m.ROOT
 
@@ -24,7 +25,7 @@ class CandidateTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)/'repo'
         for name in (*m.T15_PUBLIC_FILES, 'lab/docs/scene-inventory.json',
-                     'lab/data/quick-notes.json', 'lab/scripts/export-scenes.mjs', 'lab/package.json', *SOURCE_FILES):
+                     'lab/data/quick-notes.json', 'lab/scripts/export-scenes.mjs', 'lab/package.json', AUTHORING_PATH, EXAMPLES_PATH, *SOURCE_FILES):
             target = m.source_path(self.root,name)
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(m.source_path(SOURCE,name), target)
@@ -55,7 +56,9 @@ class CandidateTests(unittest.TestCase):
         for name in m.T15_PUBLIC_FILES:
             expected = m.source_path(self.root,name).read_bytes()
             if name == 'index.html': expected = m.render_book(expected)
-            if name == 'evidence.html': expected = m.render_evidence(expected)
+            if name == 'evidence.html':
+                evidence = json.loads(m.render_evidence_json((self.root/'evidence.json').read_bytes()))
+                expected = render_curated_evidence(m.render_evidence(expected), build_curated(self.root, evidence, m.EDITION))
             if name == 'evidence.json': expected = m.render_evidence_json(expected)
             if name in ('app.js', 'downloads/README.txt'): expected = m.render_branding(expected)
             if name in (f'downloads/mitoitus-cad-{unit}.zip' for unit in m.UNITS): expected = m.render_cad_bundle(expected)

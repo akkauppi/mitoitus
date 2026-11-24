@@ -8,6 +8,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 from reference_export import JSON_PATH, build_exports
+from curated_reference import ASSERTIONS_PATH, build_curated
 from morphology_export import CATALOGUE, DATA, LAB_PAGE, build_morphology
 from candidate import ROOT, EDITION, KINDS, UNITS, PUBLIC_FILES, OFFLINE, digest, offline_files, render_branding
 
@@ -136,6 +137,21 @@ def verify(root):
     assert morphology['edition'] == EDITION and morphology['kind'] == 'synthetic'
     assert len(morphology['fixtures']) == 8
     assert json.loads((root/(DATA+'example-package.json')).read_bytes()) == morphology['fixtures'][0]['exchange']
+    curated = json.loads((root/ASSERTIONS_PATH).read_bytes())
+    assert curated == build_curated(ROOT, json.loads((root/'evidence.json').read_bytes()), EDITION)
+    assert reference['contextualAssertions'] == ASSERTIONS_PATH
+    assert ASSERTIONS_PATH.removeprefix('data/') in parsers[CATALOGUE].links
+    revisions = {f"{item['id']}/r{item['revision']}" for item in curated['assertions']}
+    for item in curated['assertions']:
+        link = urlsplit(item['citationUrl'])
+        assert link.fragment in parsers[link.path].ids
+    for panel in panels:
+        if 'assertionRevisionIds' in panel:
+            assert set(panel['assertionRevisionIds']) <= revisions
+            assert 'evidence.html#assertions-'+panel['id'] in parsers['index.html'].links
+    equal = next(panel for panel in panels if panel['id']=='equal-density')
+    assert equal['scenes'][0]['modelMeasurements']['cases'] == curated['examples']['equal-far']['cases']
+    print(f'PASS: {len(revisions)} contextual assertion revisions and matching scene/calculation data.')
     print('PASS: Morphology catalogue discovery, eight validated fixtures and identical staged data.')
     print(f'PASS: Agent reference covers {len(panels)} panels and {len(views)} drawing states, with verified evidence links.')
     print(f'PASS: {checked} public links and all offline links; 30 panels / 11 spreads; {len(cad)} preserved CAD files and 3 verified bundles; current branding throughout; vendor hashes; exact offline archive.')

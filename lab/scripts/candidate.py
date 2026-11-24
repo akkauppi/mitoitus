@@ -15,6 +15,8 @@ from population_editorial import redesign_population, render_population_evidence
 from parking_editorial import redesign_parking
 from release_editorial import apply_release_edits, PANEL_ALIASES, EDITION, render_branding
 from reference_export import EXPORT_FILES, JSON_PATH, SPREAD_ORDER, build_exports
+from curated_reference import (ASSERTIONS_PATH, PROJECT_DESCRIPTION, add_sources_links,
+                               authoring, build_curated, render_curated_evidence)
 from morphology_export import build_morphology, MORPHOLOGY_FILES, CATALOGUE
 from poster_assets import public_mapping, validate_assets, replace_figures
 
@@ -59,6 +61,7 @@ BASELINE_FILES = PUBLIC_FILES
 T14_PUBLIC_FILES = (*PUBLIC_FILES, *RUNTIME_FILES)
 RUNTIME_FILES.update({
     'runtime/posters.js': 'lab/src/posters.js',
+    'runtime/metrics.js': 'lab/src/metrics.js',
     'runtime/posters.css': 'lab/src/posters.css',
     'runtime/release.css': 'lab/src/release.css',
     'data/release-data.json': 'lab/data/release-data.json',
@@ -67,7 +70,7 @@ RUNTIME_FILES.update({
 })
 T15_PUBLIC_FILES = (*PUBLIC_FILES, *RUNTIME_FILES)
 REFERENCE_PUBLIC_FILES = (*T15_PUBLIC_FILES, *EXPORT_FILES)
-PUBLIC_FILES = (*REFERENCE_PUBLIC_FILES, *MORPHOLOGY_FILES)
+PUBLIC_FILES = (*REFERENCE_PUBLIC_FILES, *MORPHOLOGY_FILES, ASSERTIONS_PATH)
 OFFLINE = 'downloads/rulebook-offline.zip'
 MAX_ARCHIVE_BYTES = 32 * 1024 * 1024
 
@@ -238,6 +241,9 @@ def render_book(source):
     text = text[:nav.start(1)] + tabs + text[nav.end(1):]
     text = apply_release_edits(text)
     text = replace_figures(text, ROOT)
+    text = add_sources_links(text, authoring(ROOT))
+    text = re.sub(r'(<meta name="description" content=")[^"]*(">)',
+                  lambda match: match[1]+PROJECT_DESCRIPTION+match[2],text,count=1)
     # Edition URLs refresh changed UI, module dependencies and poster typography
     # together. Runtime bytes and archive filenames remain unchanged; pinned
     # vendor modules keep their existing URLs.
@@ -342,7 +348,9 @@ def verify_candidate(output, allow_legacy=False):
     t05_expected = t06_expected - {'runtime/recipes/tram.js'}
     t04_expected = t05_expected - {'runtime/recipes/accessibility.js','runtime/primitives/accessibility.js'}
     t03_expected = t04_expected - {'runtime/recipes/routes.js','runtime/primitives/surfaces.js'}
-    if allow_legacy and names in (set(REFERENCE_PUBLIC_FILES) | {OFFLINE, 'parity.json'},expected - set(EXPORT_FILES)-set(MORPHOLOGY_FILES),old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected,t11_expected,t13_expected,t14_expected):
+    previous_morphology = expected - {ASSERTIONS_PATH, 'runtime/metrics.js'}
+    if allow_legacy and names in (previous_morphology, previous_morphology - set(MORPHOLOGY_FILES),
+                                  previous_morphology - set(MORPHOLOGY_FILES) - set(EXPORT_FILES),old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected,t11_expected,t13_expected,t14_expected):
         expected = names
     if names != expected:
         raise ValueError('Candidate contains missing or unapproved files')
@@ -402,6 +410,9 @@ def build(output=None, replace=False):
     files['index.html'] = render_book(source)
     files['evidence.html'] = render_evidence(files['evidence.html'])
     files['evidence.json'] = render_evidence_json(files['evidence.json'])
+    curated = build_curated(ROOT, json.loads(files['evidence.json']), EDITION)
+    files[ASSERTIONS_PATH] = (json.dumps(curated, ensure_ascii=False, indent=2, allow_nan=False)+'\n').encode()
+    files['evidence.html'] = render_curated_evidence(files['evidence.html'], curated)
     files.update(build_exports(ROOT, files['index.html'], json.loads(files['evidence.json']),
                                json.loads(files['data/release-data.json']), EDITION))
     files.update(build_morphology(ROOT, EDITION))

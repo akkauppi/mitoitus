@@ -72,7 +72,7 @@
     "Measure façade to façade; record both heights if they differ."
   ],
   "equal-density": [
-    "Keep plot, block and district land areas separate."
+    "For repeated identical floor plates, FAR = coverage × storeys. State the land boundary."
   ],
   "steps": [
     "Outdoors: 2r + t = 0.66 m; covered/heated: 0.63 m. Keep risers and treads identical.",

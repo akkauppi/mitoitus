@@ -1,3 +1,5 @@
+import {floorArea, floorFormulas, landRatio} from '../src/metrics.js';
+
 // Plan coordinates are Cartesian metres, with +y up on the north-up drawing.
 export const rectangle = (x, y, width, depth) => [[x,y],[x+width,y],[x+width,y+depth],[x,y+depth],[x,y]];
 
@@ -13,14 +15,9 @@ export function polygonArea(rings) {
   return ringArea(rings[0])-rings.slice(1).reduce((sum,ring) => sum+ringArea(ring),0);
 }
 
-export const floorArea = (footprint, storeys) => footprint*storeys;
-export const landRatio = (area, studyArea) => area/studyArea;
-
 export const formulas = {
   'footprint-area':'A = area(exterior) − Σ area(holes)',
-  'building-coverage':'C = A_footprint union / A_study',
-  'floor-area':'A_floor = Σ (A_footprint × storeys)',
-  'floor-area-ratio':'FAR = A_floor / A_study',
+  ...floorFormulas,
   'courtyard-area':'A_court = area(explicit courtyard polygon)',
   'courtyard-width':'W_court = length(selected east–west transect)',
   'spatial-enclosure':'E = length(walled court edges) / perimeter(court)',
@@ -89,7 +86,7 @@ export function measurements(model) {
   return {study:result,buildings:sites};
 }
 
-function axisMeasurements(ring,axis) {
+export function axisMeasurements(ring,axis) {
   const [dx,dy] = axis;
   const length = Math.hypot(dx,dy);
   const span = (x,y) => {
@@ -98,4 +95,16 @@ function axisMeasurements(ring,axis) {
   };
   const bearing = ((Math.atan2(dx,dy)*180/Math.PI)%180+180)%180;
   return {length:span(dx,dy),depth:span(-dy,dx),orientation:bearing};
+}
+
+// One vertical transect through the interior of a simple outer ring. Ambiguous
+// vertex or multi-component intersections need a different named method.
+export function depthAtEasting(ring, easting) {
+  if (ring.some(([x])=>x===easting)) throw new RangeError('Transect passes through a vertex');
+  const crossings = ring.slice(1).flatMap(([x2,y2],i)=>{
+    const [x1,y1] = ring[i];
+    return (x1<easting)===(x2<easting) ? [] : [y1+(y2-y1)*(easting-x1)/(x2-x1)];
+  });
+  if (crossings.length!==2) throw new RangeError('Expected one contiguous footprint intersection');
+  return Math.abs(crossings[1]-crossings[0]);
 }
