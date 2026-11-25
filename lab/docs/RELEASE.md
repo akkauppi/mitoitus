@@ -1,7 +1,7 @@
 # Rulebook release — 2026-11-13
 
-Local candidate: **v2026-11-25.3** (contextual assertion robustness).
-Published edition: **v2026-11-25.2** (built form and density assertions).
+Local candidate: **v2026-11-25.4** (residential block capacity).
+Published edition: **v2026-11-25.3** (contextual assertion robustness).
 The initial v2026-11-13 acceptance record follows below. Publication target:
 https://akkauppi.github.io/mitoitus/.
 
@@ -217,7 +217,7 @@ for method and unit.
 | Is repeated-footprint floor area measured? | The public fixtures are synthetic. In an empirical exchange, repeating identical footprint plates requires inferred or estimated status. |
 | Why can one L-shaped building be both 16 m and 6 m deep? | The values are the full envelope depth and the depth at the 20 m easting transect. Neither is a recommendation. |
 
-## Contextual assertions — v2026-11-25.3 candidate
+## Contextual assertions — v2026-11-25.3
 
 The collection adds the Helsinki, Espoo and Tampere daycare references, two
 SuRaKu clear turning diameters and the scoped Espoo detention examples. The
@@ -235,3 +235,39 @@ dataset against the deployed manifest before freezing the original 15
 revisions. The original fields and example results compare equal after
 removing the new annotations. See [schema, citation and revision
 conventions](CONTEXTUAL-ASSERTIONS.md).
+
+## Residential block capacity — v2026-11-25.4 candidate
+
+The morphology lab compares 2, 4 and 8 storeys on a 32 × 32 m synthetic
+site at a target of 1,024 m² of modelled floor area. The footprints are
+512, 256 and 128 m². At 75% residential and an assumed 40 m² of modelled
+residential area per person, each alternative estimates 19.2 residents.
+The comparison uses repeating full floor plates and one rectangular slab
+spanning the study area width. The unbuilt ground calculation subtracts
+the footprint. Access, daylight, surface use and planning compliance
+require separate design information.
+
+The catalogue links the static exercise and `data/morphology/worked-examples.json`.
+The JSON records formulas, their dependencies, units, geometry and source
+assertion revisions. To reproduce the public reference or run a different
+target from the repository root:
+
+```sh
+node --input-type=module -e '
+  import {referenceCapacityInputs, residentialCapacity} from "./lab/morphology/capacity.mjs";
+  const record = residentialCapacity({...referenceCapacityInputs, targetFloorArea:2304});
+  console.log(JSON.stringify(record, null, 2));
+'
+```
+
+For the reference target, pass `referenceCapacityInputs` directly. The
+2,304 m² variation needs a 1,152 m² footprint with two storeys, which exceeds
+the site area. The four and eight storey alternatives still fit by area.
+Use `null` for an unknown input. Occupancy values require the
+`modelled-residential-full-floor-plates` basis. The worksheet rounds values
+for display and the JSON retains the calculated precision.
+
+The browser uses the same calculation for its interactive comparison and
+JSON download. Seven added deterministic consumer cases cover alternatives,
+missing and incompatible inputs, area fit and interpretation limits. See
+[worked example revision conventions](CONTEXTUAL-ASSERTIONS.md#worked-example-revisions).

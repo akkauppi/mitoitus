@@ -3,6 +3,8 @@
 The 3D rulebook links design dimensions to evidence. The open data catalogue
 includes structured reference data and contextual assertions. The morphology
 laboratory publishes synthetic geometries and their reproducible calculations.
+The residential capacity exercise compares three storey options for one floor
+area target. Its download includes the current geometry, inputs and results.
 
 The book opens in live 3D Focus. Overview, print and direct-file reading use
 reviewed figures. The [release record](docs/RELEASE.md) documents the current

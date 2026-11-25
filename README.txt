@@ -17,8 +17,9 @@ figures. The offline ZIP includes those figures, structured data, the
 morphology controls and metric CAD references. The rulebook prints to A3.
 
 The data catalogue links the rulebook JSON and CSV, contextual assertions,
-the assertion schema, reference questions, the morphology dictionary and exchange schema. The
-morphology laboratory uses synthetic geometry with explicit parameters.
+reference questions, worked examples, the morphology dictionary and exchange
+schema. In the morphology laboratory, the residential capacity exercise compares
+three synthetic slab alternatives and downloads the current inputs and results.
 Use the integration guide in lab/docs/CITYMODEL-INTEGRATION.md to exchange
 measurements and retain their methods and provenance.
 

@@ -78,6 +78,20 @@ content. Ordinary navigation path changes are separate and are checked by
 the release verifier. The lock depends on trusted repository history and
 does not replace review of the source or the measurement method.
 
+## Worked example revisions
+
+`data/morphology/worked-examples.json` uses its own format version, 1.0.0.
+`contextualAssertions` and `measurementDictionary` resolve relative to this
+file. `siteRoot` points to the containing site. `assertionRevisionIds` pins
+the revisions used by each exercise. The existing assertion schema and
+embedded examples retain their published formats.
+
+The ledger's `workedExamples` section locks the complete reference record
+for `residential-block-capacity/r1`, including formulas, assumptions, geometry
+and reference scenarios. Changes require adding a new revision while retaining
+the old record and digest. Browser downloads contain a `referenceRevision` and
+a separate `configuration` for the user's inputs and results.
+
 ## Verification
 
 Run the usual build and release verifier. It exercises a deterministic
