@@ -17,7 +17,7 @@ figures. The offline ZIP includes those figures, structured data, the
 morphology controls and metric CAD references. The rulebook prints to A3.
 
 The data catalogue links the rulebook JSON and CSV, contextual assertions,
-calculation examples, morphology dictionary and exchange schema. The
+the assertion schema, reference questions, the morphology dictionary and exchange schema. The
 morphology laboratory uses synthetic geometry with explicit parameters.
 Use the integration guide in lab/docs/CITYMODEL-INTEGRATION.md to exchange
 measurements and retain their methods and provenance.
@@ -25,3 +25,7 @@ measurements and retain their methods and provenance.
 Development, verification and packaging are documented in lab/README.md.
 The root HTML and build-tools preserve the historical input. GitHub Pages
 serves only the verified artifact built from lab/.
+
+The project has no declared project-wide reuse licence. The vendored
+Three.js runtime has its own licence in lab/vendor/LICENSE. Third-party
+sources retain their own rights and source terms.

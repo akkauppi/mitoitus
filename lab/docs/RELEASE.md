@@ -1,7 +1,7 @@
 # Rulebook release — 2026-11-13
 
-Local candidate: **v2026-11-25.2** (built form and density assertions).
-Published edition: **v2026-11-25.1** (morphology laboratory and catalogue).
+Local candidate: **v2026-11-25.3** (contextual assertion robustness).
+Published edition: **v2026-11-25.2** (built form and density assertions).
 The initial v2026-11-13 acceptance record follows below. Publication target:
 https://akkauppi.github.io/mitoitus/.
 
@@ -181,7 +181,7 @@ drawing variant links.
 The release includes the static data catalogue, parametric synthetic laboratory and
 validated exchange fixtures described in [the morphology decision record](MORPHOLOGY-ARCHITECTURE.md).
 
-## Built form and density — v2026-11-25.2 candidate
+## Built form and density — v2026-11-25.2
 
 The existing five panels link to 15 contextual assertion revisions under
 Sources. The catalogue exposes the same records in JSON. Historical excerpts
@@ -216,3 +216,22 @@ for method and unit.
 | What changes with the land boundary? | Fixing 1,024 m² modelled floor area gives FAR 1, 0.25 and 0.0625 in the three nested cases. About 30 residents/ha is a separate historical statement. |
 | Is repeated-footprint floor area measured? | The public fixtures are synthetic. In an empirical exchange, repeating identical footprint plates requires inferred or estimated status. |
 | Why can one L-shaped building be both 16 m and 6 m deep? | The values are the full envelope depth and the depth at the 20 m easting transect. Neither is a recommendation. |
+
+## Contextual assertions — v2026-11-25.3 candidate
+
+The collection adds the Helsinki, Espoo and Tampere daycare references, two
+SuRaKu clear turning diameters and the scoped Espoo detention examples. The
+released evidence and service source records supply the values and locators.
+The formerly illustrated stormwater storage panel stays retired. The
+detention calculation is available under Sources for the basin panel.
+
+The catalogue links JSON, JSON Schema, generated Markdown and twenty
+deterministic consumer cases. The cases include expected answers, supporting
+IDs and evidence, and one plausible misreading per question. Retrieval and
+field validation do not test an AI model’s interpretation.
+
+The launch audit retrieved v2026-11-25.2 from Pages and verified its assertion
+dataset against the deployed manifest before freezing the original 15
+revisions. The original fields and example results compare equal after
+removing the new annotations. See [schema, citation and revision
+conventions](CONTEXTUAL-ASSERTIONS.md).
