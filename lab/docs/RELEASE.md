@@ -1,7 +1,7 @@
 # Rulebook release — 2026-11-13
 
-Local candidate: **v2026-11-25.4** (residential block capacity).
-Published edition: **v2026-11-25.3** (contextual assertion robustness).
+Current edition: **v2026-11-25.5** (portable capacity configurations).
+Previous edition: **v2026-11-25.4** (residential block capacity).
 The initial v2026-11-13 acceptance record follows below. Publication target:
 https://akkauppi.github.io/mitoitus/.
 
@@ -236,7 +236,7 @@ revisions. The original fields and example results compare equal after
 removing the new annotations. See [schema, citation and revision
 conventions](CONTEXTUAL-ASSERTIONS.md).
 
-## Residential block capacity — v2026-11-25.4 candidate
+## Residential block capacity — v2026-11-25.4
 
 The morphology lab compares 2, 4 and 8 storeys on a 32 × 32 m synthetic
 site at a target of 1,024 m² of modelled floor area. The footprints are
@@ -271,3 +271,12 @@ The browser uses the same calculation for its interactive comparison and
 JSON download. Seven added deterministic consumer cases cover alternatives,
 missing and incompatible inputs, area fit and interpretation limits. See
 [worked example revision conventions](CONTEXTUAL-ASSERTIONS.md#worked-example-revisions).
+
+## Portable capacity configurations — v2026-11-25.5
+
+The worksheet edits site dimensions and a set of storey counts and heights,
+along with the floor-area target, residential share and occupancy. It loads
+local JSON or pasted text, recalculates the scenario and flags stale results.
+Downloads add the software edition to the existing configuration format.
+The catalogue and the offline edition include the
+[configuration format and exchange example](CAPACITY-CONFIGURATIONS.md).
