@@ -16,6 +16,101 @@ async function readDownload(page,button) {
   return JSON.parse(readFileSync(await (await promise).path(),'utf8'));
 }
 
+async function checkCapacityExchange(page) {
+  const worksheet = page.locator('#capacity');
+  const statuses = worksheet.locator('#capacity-import-status');
+  const fileInput = worksheet.getByLabel('Load capacity JSON');
+  const drawing = worksheet.locator('#capacity-drawing');
+  const shape = drawing.locator('path.building');
+  const height = drawing.locator('rect.building');
+  const cell = (key,storeys) => worksheet.locator(`[data-capacity-value="${key}"][data-storeys="${storeys}"]`);
+  const selected = worksheet.getByLabel('Draw alternative');
+  const inputsJSON = worksheet.getByLabel('Configuration JSON');
+
+  async function importFile(text) {
+    await fileInput.setInputFiles({name:'capacity.json',mimeType:'application/json',buffer:Buffer.from(text)});
+    await page.waitForFunction(()=>document.querySelector('#capacity input[type=file]').value==='');
+  }
+
+  for (const [label,value] of [
+    ['Site width (m)','40'],['Site depth (m)','30'],['Target modelled floor area (m²)','2400'],
+    ['Storey counts','4, 6, 8'],['Modelled storey height (m)','3'],
+    ['Residential share (%)','80'],['Modelled residential m² per resident','40'],
+  ]) await worksheet.getByLabel(label,{exact:true}).fill(value);
+  await selected.selectOption('6');
+  const exported = await readDownload(page,'Download capacity JSON');
+  assert.match(exported.edition,/^2026-/);
+  assert.equal(exported.selectedStoreys,6);
+  assert.equal(exported.configuration.studyArea,1200);
+  for (const [storeys,footprint,coverage] of [[4,'600','50%'],[6,'400','33.3333%'],[8,'300','25%']]) {
+    assert.equal(await cell('footprintArea',storeys).textContent(),footprint);
+    assert.equal(await cell('far',storeys).textContent(),'2');
+    assert.equal(await cell('coverage',storeys).textContent(),coverage);
+    assert.equal(await cell('populationEstimate',storeys).textContent(),'≈48');
+  }
+  const originalPlan = await shape.getAttribute('d');
+  assert.equal(await height.getAttribute('height'),'18');
+
+  const edited = JSON.parse(JSON.stringify(exported));
+  edited.configuration.inputs.occupancy.areaPerResident = 32;
+  await importFile(JSON.stringify(edited));
+  assert.match(await statuses.textContent(),/Saved results differed/);
+  assert.equal(await cell('populationEstimate',6).textContent(),'≈60');
+  assert.equal(await shape.getAttribute('d'),originalPlan);
+  assert.equal(await height.getAttribute('height'),'18');
+  const updated = await readDownload(page,'Download capacity JSON');
+  assert.deepEqual(updated.configuration.alternatives.map(item=>item.model),
+    exported.configuration.alternatives.map(item=>item.model));
+  await importFile(JSON.stringify(updated));
+  assert.equal(await statuses.textContent(),'Configuration loaded.');
+
+  await worksheet.getByText('Copy or paste inputs',{exact:true}).click();
+  await worksheet.getByRole('button',{name:'Show input JSON'}).click();
+  const compact = JSON.parse(await inputsJSON.inputValue());
+  assert.deepEqual(compact.configuration,{inputs:updated.configuration.inputs});
+  compact.configuration.inputs.siteWidth = 48;
+  compact.configuration.inputs.storeyHeight = 3.5;
+  await inputsJSON.fill(JSON.stringify(compact));
+  await worksheet.getByRole('button',{name:'Load pasted JSON'}).click();
+  assert.equal(await statuses.textContent(),'Configuration loaded.');
+  assert.notEqual(await shape.getAttribute('d'),originalPlan);
+  assert.equal(await height.getAttribute('height'),'21');
+  assert.equal(await cell('far',6).textContent(),'1.6667');
+  assert.equal(await cell('populationEstimate',6).textContent(),'≈60');
+
+  const currentPlan = await shape.getAttribute('d');
+  edited.configuration.inputs.occupancy.basis = 'net-dwelling-area';
+  for (const [text,message] of [
+    ['{',/Invalid JSON/],
+    [JSON.stringify(edited),/modelled-residential-full-floor-plates occupancy basis/],
+    [JSON.stringify({...compact,schemaVersion:'2.0.0'}),/Unsupported capacity format/],
+  ]) {
+    await importFile(text);
+    assert.match(await statuses.textContent(),message);
+    assert.equal(await shape.getAttribute('d'),currentPlan);
+    assert.equal(await worksheet.getByLabel('Site width (m)').inputValue(),'48');
+  }
+
+  compact.configuration.inputs.siteWidth = 10;
+  await importFile(JSON.stringify(compact));
+  assert.equal(await cell('status',6).textContent(),'Exceeds site area');
+  assert.equal(await cell('requiredFootprint',6).textContent(),'400');
+  assert.equal(await shape.count(),0);
+  await selected.selectOption('8');
+  assert.equal(await cell('status',8).textContent(),'Fits by area');
+  assert.equal(await shape.count(),1);
+
+  const unknown = {...compact,selectedStoreys:null,configuration:{inputs:{siteWidth:null,storeys:null,occupancy:null}}};
+  await importFile(JSON.stringify(unknown));
+  assert.equal(await worksheet.getByLabel('Site depth (m)').inputValue(),'');
+  assert.equal(await worksheet.getByLabel('Storey counts').inputValue(),'');
+  assert.equal(await worksheet.getByLabel('Modelled residential m² per resident').inputValue(),'');
+  assert.equal(await shape.count(),0);
+  const incomplete = await readDownload(page,'Download capacity JSON');
+  assert.deepEqual(Object.values(incomplete.configuration.inputs),Array(8).fill(null));
+  assert.equal(incomplete.selectedStoreys,null);
+}
+
 (async()=>{
   execFileSync('python3',['-m','zipfile','-e',archive,directory]);
   const browser = await chromium.launch();
@@ -24,6 +119,10 @@ async function readDownload(page,button) {
     const noScript = await context.newPage();
     await noScript.goto(base);
     await noScript.getByRole('link',{name:'Open data / AI agents'}).click();
+    const formatHref = await noScript.getByRole('link',{name:'Capacity configuration format'}).getAttribute('href');
+    const formatResponse = await noScript.request.get(new URL(formatHref,noScript.url()).href);
+    assert.equal(formatResponse.status(),200);
+    assert.match(await formatResponse.text(),/"referenceRevision": "residential-block-capacity\/r1"/);
     const exportPath = await noScript.getByRole('link',{name:'Synthetic geometry, formulas and results JSON'}).getAttribute('href');
     const fixtureResponse = await noScript.request.get(new URL(exportPath,noScript.url()).href);
     assert.match(fixtureResponse.headers()['content-type'],/application\/json/);
@@ -37,7 +136,7 @@ async function readDownload(page,button) {
       assert.equal(await noScript.locator(`[data-capacity-value="footprintArea"][data-storeys="${storeys}"]`).textContent(),area);
       assert.equal(await noScript.locator(`[data-capacity-value="floorArea"][data-storeys="${storeys}"]`).textContent(),'1,024');
     }
-    await noScript.locator('#capacity summary').click();
+    await noScript.getByText('Sources and assumptions',{exact:true}).click();
     assert.ok(await noScript.getByRole('link',{name:'far-coverage-storeys-identity/r1'}).isVisible());
     assert.equal(await noScript.locator('[data-value="footprint-area"]').textContent(),'896 m²');
     assert.equal(await noScript.locator('#observe details').count(),8);
@@ -47,7 +146,9 @@ async function readDownload(page,button) {
 
     const page = await browser.newPage({acceptDownloads:true,viewport:{width:320,height:900}});
     const errors = [];
+    const network = [];
     page.on('pageerror',error=>errors.push(error.message));
+    page.on('request',request=>{if (/^https?:/.test(request.url())) network.push(request.url());});
     for (const url of [new URL('morphology/index.html',base).href,
         pathToFileURL(path.join(directory,'morphology/index.html')).href]) {
       await page.goto(url);
@@ -109,10 +210,13 @@ async function readDownload(page,button) {
       assert.ok(custom.configuration.assertionRevisionIds.includes('far-coverage-storeys-identity/r1'));
       await occupancy.fill('0');
       assert.ok(await page.getByRole('button',{name:'Download capacity JSON'}).isDisabled());
+      const requestsBeforeExchange = network.length;
+      await checkCapacityExchange(page);
+      assert.equal(network.length,requestsBeforeExchange);
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     }
     assert.deepEqual(errors,[]);
-    console.log('PASS: homepage discovery, eight static fixtures and capacity with JS disabled; both labs, unknown inputs, area fit, JSON downloads and 320px layout over HTTP and extracted file://.');
+    console.log('PASS: static defaults and catalogue discovery; capacity file and paste round trips, stale results, errors, unknowns, area fit, and 320px layout over HTTP and extracted file://.');
   } finally {
     await browser.close();
   }

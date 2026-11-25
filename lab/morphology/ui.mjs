@@ -1,7 +1,8 @@
 import {limits,defaultParameters,perimeterBlock,formulas} from './geometry.mjs';
 import {syntheticPackage} from './exchange.mjs';
 import {planMarkup,elevationMarkup,summaryMarkup,capacityDrawing,capacitySummary,capacityTable} from './render.mjs';
-import {CAPACITY_REVISION,referenceCapacityInputs,residentialCapacity} from './capacity.mjs';
+import {MODELLED_PLATES,MODELLED_RESIDENTIAL,referenceCapacityInputs} from './capacity.mjs';
+import {calculateCapacityConfiguration,capacityConfiguration,loadCapacityConfiguration} from './capacity-configuration.mjs';
 import dictionary from '../data/morphology/measurements.json';
 
 const form = document.querySelector('#parameters');
@@ -47,47 +48,126 @@ form.hidden = false;
 
 const capacityForm = document.querySelector('#capacity-parameters');
 const capacityInput = name => capacityForm.elements.namedItem(name);
-const capacityNumber = name => capacityInput(name).value==='' ? null : capacityInput(name).valueAsNumber;
 const capacitySave = document.querySelector('#capacity-save');
+const showInputJSON = document.querySelector('#capacity-show-inputs');
+const pasteJSON = capacityInput('paste-json');
+const fileInput = capacityInput('configuration-file');
+const selector = capacityInput('draw-storeys');
+const calculationStatus = document.querySelector('#capacity-status');
+const importStatus = document.querySelector('#capacity-import-status');
+const edition = capacityForm.dataset.edition;
+let baseInputs = referenceCapacityInputs;
+const editedFields = new Set();
 let capacityRecord;
 
-function drawCapacity() {
-  const residential = capacityNumber('residential');
-  const storeys = Number(capacityInput('draw-storeys').value);
-  const status = document.querySelector('#capacity-status');
+function readNumber(input) {
+  if (input.validity.badInput) throw new RangeError('Enter a number or leave the field blank.');
+  return input.value==='' ? null : input.valueAsNumber;
+}
+
+function readStoreys(input) {
+  if (!input.value.trim()) return null;
+  const counts = input.value.split(',').map(part=>part.trim());
+  if (!counts.every(count=>/^\d+$/.test(count))) throw new RangeError('Enter storey counts separated by commas.');
+  return counts.map(Number);
+}
+
+const editors = {
+  siteWidth:readNumber,siteDepth:readNumber,targetFloorArea:readNumber,storeyHeight:readNumber,storeys:readStoreys,
+  residentialShare:input=>{
+    const percent = readNumber(input);
+    return percent===null ? null : percent/100;
+  },
+  occupancy:input=>({areaPerResident:readNumber(input),basis:MODELLED_RESIDENTIAL}),
+};
+
+function selectedStoreys() {
+  return Number(selector.value)||null;
+}
+
+function showCapacityRecord(record, storeys) {
+  const selected = record.alternatives.find(item=>item.storeys===storeys);
+  const counts = record.inputs.storeys?.join(',')??'';
+  if (selector.dataset.counts!==counts) {
+    selector.replaceChildren(new Option('Choose alternative',''),...record.alternatives.map(item=>
+      new Option(item.storeys+' storeys',item.storeys)));
+    selector.dataset.counts = counts;
+  }
+  selector.value = selected?.storeys??'';
+  selector.disabled = !record.alternatives.length;
+  calculationStatus.textContent = ({
+    'missing-geometry-input':'Enter both site dimensions and a target floor area to draw the alternatives.',
+    'exceeds-site-area':'The selected slab exceeds the study area.',
+  })[selected?.status]??(selected?.populationStatus?.startsWith('missing')?'Population estimate needs an occupancy assumption and residential share.':'');
+  document.querySelector('#capacity-drawing').innerHTML = capacityDrawing(record,selected?.storeys??null);
+  document.querySelector('#capacity-summary').textContent = capacitySummary(record);
+  document.querySelector('#capacity-comparison').innerHTML = capacityTable(record);
+  capacityRecord = record;
+  capacitySave.disabled = showInputJSON.disabled = false;
+}
+
+function drawCapacity(event) {
+  if (event) {
+    const name = event.target.name;
+    if (Object.hasOwn(editors,name)) editedFields.add(name);
+    else if (name!=='draw-storeys') return;
+  }
   try {
-    capacityRecord = residentialCapacity({
-      ...referenceCapacityInputs,
-      targetFloorArea:capacityNumber('target'),
-      residentialShare:residential===null ? null : residential/100,
-      occupancy:{...referenceCapacityInputs.occupancy,areaPerResident:capacityNumber('occupancy')},
-    });
-    const selected = capacityRecord.alternatives.find(item=>item.storeys===storeys);
-    status.textContent = ({
-      'missing-geometry-input':'Enter a target floor area to draw the alternatives.',
-      'exceeds-site-area':'The selected slab exceeds the study area.',
-    })[selected.status]??(selected.populationStatus?.startsWith('missing')?'Population estimate needs an occupancy assumption and residential share.':'');
-    document.querySelector('#capacity-drawing').innerHTML = capacityDrawing(capacityRecord,storeys);
-    document.querySelector('#capacity-summary').textContent = capacitySummary(capacityRecord);
-    document.querySelector('#capacity-comparison').innerHTML = capacityTable(capacityRecord);
-    capacitySave.disabled = false;
+    const inputs = {...baseInputs};
+    for (const name of editedFields) inputs[name] = editors[name](capacityInput(name));
+    if (editedFields.has('targetFloorArea')) inputs.targetFloorAreaBasis = MODELLED_PLATES;
+    showCapacityRecord(calculateCapacityConfiguration(inputs),selectedStoreys());
   } catch (error) {
     capacityRecord = null;
-    status.textContent = error.message;
+    calculationStatus.textContent = error.message;
     document.querySelector('#capacity-summary').textContent = '';
     document.querySelector('#capacity-drawing').replaceChildren();
     document.querySelector('#capacity-comparison').replaceChildren();
-    capacitySave.disabled = true;
+    capacitySave.disabled = showInputJSON.disabled = true;
+  }
+}
+
+function applyCapacityJSON(text) {
+  try {
+    const {record,selectedStoreys,stale} = loadCapacityConfiguration(text);
+    baseInputs = record.inputs;
+    editedFields.clear();
+    const displayed = {...baseInputs,storeys:baseInputs.storeys?.join(', '),
+      residentialShare:baseInputs.residentialShare===null ? null : baseInputs.residentialShare*100,
+      occupancy:baseInputs.occupancy?.areaPerResident};
+    for (const name of Object.keys(editors)) capacityInput(name).value = displayed[name]??'';
+    showCapacityRecord(record,selectedStoreys);
+    importStatus.textContent = stale ? 'Loaded inputs. Saved results differed and were recalculated.' : 'Configuration loaded.';
+  } catch (error) {
+    importStatus.textContent = error.message;
   }
 }
 
 capacityForm.addEventListener('input',drawCapacity);
 capacityForm.addEventListener('submit',event=>event.preventDefault());
 capacitySave.addEventListener('click',()=>{
+  if (capacityRecord) downloadJSON(capacityConfiguration(capacityRecord,selectedStoreys(),edition),'dubious-residential-block-capacity.json');
+});
+fileInput.addEventListener('change',async()=>{
+  const [file] = fileInput.files;
+  if (!file) return;
+  try {
+    const text = await file.text();
+    if (fileInput.files[0]===file) applyCapacityJSON(text);
+  } catch {
+    if (fileInput.files[0]===file) importStatus.textContent = 'Could not read the configuration file.';
+  } finally {
+    if (fileInput.files[0]===file) fileInput.value = '';
+  }
+});
+document.querySelector('#capacity-paste').addEventListener('click',()=>{
+  fileInput.value = '';
+  applyCapacityJSON(pasteJSON.value);
+});
+showInputJSON.addEventListener('click',()=>{
   if (!capacityRecord) return;
-  const {id,revision,...configuration} = capacityRecord;
-  downloadJSON({schemaVersion:'1.0.0',referenceRevision:CAPACITY_REVISION,
-    selectedStoreys:Number(capacityInput('draw-storeys').value),configuration},'dubious-residential-block-capacity.json');
+  pasteJSON.value = JSON.stringify(capacityConfiguration(capacityRecord,selectedStoreys(),edition,true),null,2);
+  pasteJSON.select();
 });
 drawCapacity();
 capacityForm.hidden = false;

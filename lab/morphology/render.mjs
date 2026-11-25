@@ -55,6 +55,7 @@ const capacityResults = [
 ];
 
 export function capacityTable(record) {
+  if (!record.alternatives.length) return '<p>Storey alternatives unknown.</p>';
   const cells = (key, formatter) => record.alternatives.map(item=>
     `<td data-capacity-value="${key}" data-storeys="${item.storeys}">${formatter(item)}</td>`).join('');
   const formatStatus = item => ({
@@ -86,6 +87,7 @@ export function capacitySummary(record) {
 }
 
 export function capacityDrawing(record, selectedStoreys) {
+  if (selectedStoreys===null) return '<p>Choose a storey alternative to draw.</p>';
   const selected = record.alternatives.find(item=>item.storeys===selectedStoreys);
   if (!selected?.model) return '<p>Plan unavailable for this alternative.</p>';
   const elevation = selected.results.height===null ? '' : elevationMarkup(selected.model);

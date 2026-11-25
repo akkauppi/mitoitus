@@ -18,7 +18,7 @@ from reference_export import EXPORT_FILES, JSON_PATH, SPREAD_ORDER, build_export
 from curated_reference import (ASSERTIONS_PATH, KNOWLEDGE_FILES, PROJECT_DESCRIPTION, PUBLIC_URL, WORKED_PATH,
                                add_sources_links, authoring, build_curated, knowledge_artifacts,
                                render_curated_evidence)
-from morphology_export import build_morphology, MORPHOLOGY_FILES, CATALOGUE
+from morphology_export import build_morphology, MORPHOLOGY_FILES, CATALOGUE, CAPACITY_GUIDE
 from poster_assets import public_mapping, validate_assets, replace_figures
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -350,10 +350,11 @@ def verify_candidate(output, allow_legacy=False):
     t05_expected = t06_expected - {'runtime/recipes/tram.js'}
     t04_expected = t05_expected - {'runtime/recipes/accessibility.js','runtime/primitives/accessibility.js'}
     t03_expected = t04_expected - {'runtime/recipes/routes.js','runtime/primitives/surfaces.js'}
-    previous_capacity = expected - {WORKED_PATH}
+    previous_worksheet = expected - {CAPACITY_GUIDE}
+    previous_capacity = previous_worksheet - {WORKED_PATH}
     previous_knowledge = previous_capacity - (set(KNOWLEDGE_FILES)-{ASSERTIONS_PATH})
     previous_morphology = previous_knowledge - {ASSERTIONS_PATH, 'runtime/metrics.js'}
-    if allow_legacy and names in (previous_capacity, previous_knowledge, previous_morphology, previous_morphology - set(MORPHOLOGY_FILES),
+    if allow_legacy and names in (previous_worksheet, previous_capacity, previous_knowledge, previous_morphology, previous_morphology - set(MORPHOLOGY_FILES),
                                   previous_morphology - set(MORPHOLOGY_FILES) - set(EXPORT_FILES),old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected,t11_expected,t13_expected,t14_expected):
         expected = names
     if names != expected:

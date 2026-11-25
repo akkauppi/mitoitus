@@ -10,16 +10,18 @@ LAB_PAGE = 'morphology/index.html'
 CATALOGUE = 'data/index.html'
 DATA = 'data/morphology/'
 DATA_SOURCE = 'lab/data/morphology/measurements.json'
+CAPACITY_GUIDE_SOURCE = 'lab/docs/CAPACITY-CONFIGURATIONS.md'
+CAPACITY_GUIDE = DATA+'CAPACITY-CONFIGURATIONS.md'
 MORPHOLOGY_FILES = (
     LAB_PAGE, 'morphology/lab.js', CATALOGUE, DATA+'measurements.json',
     DATA+'exchange.schema.json', DATA+'fixtures.json', DATA+'example-package.json', DATA+'CITYMODEL-INTEGRATION.md',
-    WORKED_PATH,
+    WORKED_PATH, CAPACITY_GUIDE,
 )
 SOURCE_FILES = (
     DATA_SOURCE, 'lab/data/morphology/exchange.schema.json',
-    'lab/docs/CITYMODEL-INTEGRATION.md',
+    'lab/docs/CITYMODEL-INTEGRATION.md', CAPACITY_GUIDE_SOURCE,
     *(f'lab/morphology/{name}.mjs' for name in (
-        'geometry', 'exchange', 'fixtures', 'import', 'render', 'ui', 'publish', 'capacity')),
+        'geometry', 'exchange', 'fixtures', 'import', 'render', 'ui', 'publish', 'capacity', 'capacity-configuration')),
 )
 
 
@@ -43,7 +45,11 @@ svg .floor,svg .scale-line{{fill:none;stroke:#736242;stroke-width:.22}}
 #elevation svg,.capacity-elevation svg{{max-height:9rem}}
 .capacity-elevation:not(:empty){{margin-top:.5rem}}
 #capacity{{margin-block:2rem}}#capacity-parameters label{{display:block;margin:.5rem 0}}
-#capacity-parameters input{{max-width:9rem;font:inherit}}
+.capacity-fields{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 .8rem}}
+.capacity-fields input{{display:block;box-sizing:border-box;width:100%;max-width:11rem;font:inherit}}
+.capacity-fields select{{display:block;max-width:100%}}
+#capacity-parameters input[type=file],#capacity-parameters textarea{{box-sizing:border-box;max-width:100%;font:inherit}}
+#capacity-parameters textarea{{display:block;width:100%;resize:vertical}}
 #capacity-comparison{{overflow-x:auto}}#capacity-comparison table{{min-width:27rem}}
 #capacity-comparison td{{font-variant-numeric:tabular-nums}}.summary{{display:grid;grid-template-columns:1fr auto;gap:.45rem 1rem}}
 dd{{margin:0;text-align:right;font-variant-numeric:tabular-nums}}form{{border-block:1px solid #a8ad9c;padding:.8rem 0}}
@@ -53,7 +59,7 @@ output{{font-variant-numeric:tabular-nums;font-weight:650}}button,select{{font:i
 table{{border-collapse:collapse;width:100%;margin:.6rem 0}}th,td{{text-align:left;padding:.3rem .4rem;border-bottom:1px solid #bcc2af}}
 details{{margin:.5rem 0}}summary{{cursor:pointer}}
 @media(max-width:640px){{
-.grid{{grid-template-columns:1fr;gap:.8rem}}
+.grid{{grid-template-columns:minmax(0,1fr);gap:.8rem}}
 #capacity-comparison table{{table-layout:fixed;min-width:0;font-size:.875rem}}
 #capacity-comparison th,#capacity-comparison td{{padding:.24rem .22rem;overflow-wrap:anywhere}}
 #capacity-comparison th:first-child{{width:41%}}
@@ -77,6 +83,7 @@ def build_morphology(root, edition):
     capacity, = worked.values()
     view = result['capacityView']
     capacity_inputs = capacity['inputs']
+    storeys = ', '.join(map(str,capacity_inputs['storeys']))
     options = ''.join(f'<option value="{n}"{" selected" if n==view["selectedStoreys"] else ""}>{n} storeys</option>'
                       for n in capacity_inputs['storeys'])
     evidence = ''.join(f'<li><a href="../evidence.html#assertion-{revision.replace("/", "-")}">{revision}</a></li>'
@@ -97,14 +104,28 @@ def build_morphology(root, edition):
 <h2>Residential block capacity</h2>
 <div class="grid"><div id="capacity-drawing">{view['drawing']}</div>
 <div><p id="capacity-summary">{view['summary']}</p>
-<form id="capacity-parameters" hidden>
-<label>Target modelled floor area (m²) <input type="number" name="target" min="0" step="any" value="{capacity_inputs['targetFloorArea']}"></label>
-<label>Residential share (%) <input type="number" name="residential" min="0" max="100" step="any" value="{capacity_inputs['residentialShare']*100:g}"></label>
+<form id="capacity-parameters" data-edition="{escape(edition)}" hidden>
+<div class="capacity-fields">
+<label>Site width (m) <input type="number" name="siteWidth" min="0" step="any" value="{capacity_inputs['siteWidth']}"></label>
+<label>Site depth (m) <input type="number" name="siteDepth" min="0" step="any" value="{capacity_inputs['siteDepth']}"></label>
+<label>Target modelled floor area (m²) <input type="number" name="targetFloorArea" min="0" step="any" value="{capacity_inputs['targetFloorArea']}"></label>
+<label>Storey counts <input type="text" name="storeys" value="{storeys}" aria-describedby="capacity-storeys-hint"></label>
+<label>Modelled storey height (m) <input type="number" name="storeyHeight" min="0" step="any" value="{capacity_inputs['storeyHeight']}"></label>
+<label>Residential share (%) <input type="number" name="residentialShare" min="0" max="100" step="any" value="{capacity_inputs['residentialShare']*100:g}"></label>
 <label>Modelled residential m² per resident <input type="number" name="occupancy" min="0" step="any" value="{capacity_inputs['occupancy']['areaPerResident']}"></label>
 <label>Draw alternative <select name="draw-storeys">{options}</select></label>
-<button type="button" id="capacity-save">Download capacity JSON</button></form>
+</div>
+<small id="capacity-storeys-hint">Up to three storey counts, separated by commas.</small>
+<p><button type="button" id="capacity-save">Download capacity JSON</button></p>
+<label>Load capacity JSON <input type="file" name="configuration-file" accept=".json,application/json"></label>
+<details><summary>Copy or paste inputs</summary>
+<label>Configuration JSON <textarea name="paste-json" rows="5" spellcheck="false"></textarea></label>
+<button type="button" id="capacity-show-inputs">Show input JSON</button>
+<button type="button" id="capacity-paste">Load pasted JSON</button></details>
+<p id="capacity-import-status" role="status"></p>
+</form>
 <p id="capacity-status" role="status"></p>
-<a href="../{WORKED_PATH}">Worked examples JSON</a></div></div>
+<a href="../{WORKED_PATH}">Worked examples JSON</a> · <a href="../{CAPACITY_GUIDE}">Configuration format</a></div></div>
 <div id="capacity-comparison" role="region" aria-label="Capacity alternatives" tabindex="0">{view['table']}</div>
 <details><summary>Sources and assumptions</summary><ul>{details}{evidence}</ul></details>
 </section>
@@ -131,7 +152,8 @@ Courtyard width is the east–west transect. Plan enclosure is the fraction of t
 <details><summary>Thematic JSON</summary><ul>{thematic}</ul></details></section>
 <section><h2>Compute and Observe</h2><ul><li><a href="../{LAB_PAGE}">Interactive morphology laboratory and synthetic fixture tables</a></li>
 <li><a href="../{LAB_PAGE}#capacity">Residential block capacity exercise</a> ·
-<a href="{WORKED_PATH.removeprefix("data/")}">Worked examples JSON</a></li>
+<a href="{WORKED_PATH.removeprefix("data/")}">Worked examples JSON</a> ·
+<a href="{CAPACITY_GUIDE.removeprefix("data/")}">Capacity configuration format</a></li>
 <li><a href="morphology/measurements.json">Measurement dictionary JSON</a></li>
 <li><a href="morphology/exchange.schema.json">Provisional exchange schema</a></li>
 <li><a href="morphology/fixtures.json">Synthetic geometry, formulas and results JSON</a></li>
@@ -144,6 +166,7 @@ Courtyard width is the east–west transect. Plan enclosure is the fraction of t
         LAB_PAGE:html_page('Urban morphology laboratory','Exact synthetic urban block geometry and measurements.',LAB_PAGE,body),
         'morphology/lab.js':result['script'].encode(),
         CATALOGUE:html_page('Open data / AI agents',PROJECT_DESCRIPTION,CATALOGUE,catalogue_body),
+        CAPACITY_GUIDE:source(CAPACITY_GUIDE_SOURCE),
         DATA+'measurements.json':source(DATA_SOURCE),
         WORKED_PATH:encode({'schemaVersion':'1.0.0','edition':edition,'urlBase':PUBLIC_URL,
                             'siteRoot':'../../','contextualAssertions':'../contextual-assertions.json',
