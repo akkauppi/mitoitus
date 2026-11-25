@@ -660,5 +660,270 @@
         "equals": "Side slopes, freeboard, ground conditions and actual inflow/outflow are outside this calculation."
       }
     ]
+  },
+  {
+    "id": "capacity-equal-target",
+    "question": "Which alternatives meet the 1,024 m² target in the reference exercise?",
+    "expectedAnswer": "All three. The 2-, 4- and 8-storey slabs require 512, 256 and 128 m² footprints and give FAR 1.",
+    "essentialQualifiers": [
+      "same study area and modelled full plates",
+      "different footprints and heights"
+    ],
+    "incorrectInterpretation": "Equal FAR means all three slabs must occupy 512 m².",
+    "knowledgeIdentifiers": [
+      "worked:residential-block-capacity/r1",
+      "far-coverage-storeys-identity/r1"
+    ],
+    "supportingEvidence": [
+      "morphology/index.html#capacity",
+      "evidence.html#assertion-far-coverage-storeys-identity-r1"
+    ],
+    "checks": [
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/alternatives/0/results/footprintArea",
+        "equals": 512
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/alternatives/1/results/footprintArea",
+        "equals": 256
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/alternatives/2/results/footprintArea",
+        "equals": 128
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/alternatives/2/results/far",
+        "equals": 1
+      }
+    ]
+  },
+  {
+    "id": "capacity-unknown-target",
+    "question": "Can a slab be drawn from the site boundary and storey counts alone?",
+    "expectedAnswer": "The target floor area is unknown, so footprint and results remain unknown.",
+    "essentialQualifiers": [
+      "scenario omits target",
+      "no substitute value"
+    ],
+    "incorrectInterpretation": "An omitted target is zero modelled floor area.",
+    "knowledgeIdentifiers": [
+      "worked:residential-block-capacity/r1"
+    ],
+    "supportingEvidence": [
+      "morphology/index.html#capacity"
+    ],
+    "checks": [
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/scenarios/unknown-target/overrides/targetFloorArea",
+        "equals": null
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/scenarios/unknown-target/alternatives/0/requiredFootprint",
+        "equals": null
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/scenarios/unknown-target/alternatives/0/results",
+        "equals": null
+      }
+    ]
+  },
+  {
+    "id": "capacity-occupancy",
+    "question": "How does the reference exercise estimate population, and what if occupancy is unknown?",
+    "expectedAnswer": "75% of 1,024 m² gives 768 m² modelled residential area. At the assumed 40 m² per resident, the estimate is 19.2. Without occupancy it is unknown.",
+    "essentialQualifiers": [
+      "hypothetical share and occupancy",
+      "consistent modelled residential full plates"
+    ],
+    "incorrectInterpretation": "The exact floor-area calculation determines the number of residents by itself.",
+    "knowledgeIdentifiers": [
+      "worked:residential-block-capacity/r1"
+    ],
+    "supportingEvidence": [
+      "morphology/index.html#capacity"
+    ],
+    "checks": [
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/inputs/residentialShare",
+        "equals": 0.75
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/alternatives/0/results/residentialFloorArea",
+        "equals": 768
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/alternatives/0/results/populationEstimate",
+        "equals": 19.2
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/scenarios/unknown-occupancy/alternatives/0/results/populationEstimate",
+        "equals": null
+      }
+    ]
+  },
+  {
+    "id": "capacity-basis",
+    "question": "Can a net-dwelling-area occupancy rate or a statutory kerrosala target be applied directly?",
+    "expectedAnswer": "Neither has the assumed full-plate basis. The occupancy mismatch suppresses the estimate. The target mismatch suppresses geometry.",
+    "essentialQualifiers": [
+      "consistent area definitions required",
+      "unknown results remain null"
+    ],
+    "incorrectInterpretation": "Convert neither basis and silently apply both values as modelled plate area.",
+    "knowledgeIdentifiers": [
+      "worked:residential-block-capacity/r1"
+    ],
+    "supportingEvidence": [
+      "morphology/index.html#capacity"
+    ],
+    "checks": [
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/scenarios/incompatible-occupancy-basis/alternatives/0/populationStatus",
+        "equals": "incompatible-occupancy-basis"
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/scenarios/incompatible-occupancy-basis/alternatives/0/results/populationEstimate",
+        "equals": null
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/scenarios/incompatible-target-basis/alternatives/0/status",
+        "equals": "incompatible-target-basis"
+      }
+    ]
+  },
+  {
+    "id": "capacity-insufficient-site",
+    "question": "Which slabs fit by area when the target is 2,304 m²?",
+    "expectedAnswer": "Two storeys need 1,152 m² and exceed the 1,024 m² site. Four and eight storeys fit by area.",
+    "essentialQualifiers": [
+      "footprints derive from the target and storey count",
+      "area fit only"
+    ],
+    "incorrectInterpretation": "Clip the two-storey slab at the site boundary and claim it meets the target.",
+    "knowledgeIdentifiers": [
+      "worked:residential-block-capacity/r1"
+    ],
+    "supportingEvidence": [
+      "morphology/index.html#capacity"
+    ],
+    "checks": [
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/scenarios/exceeds-site-area/alternatives/0/requiredFootprint",
+        "equals": 1152
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/scenarios/exceeds-site-area/alternatives/0/status",
+        "equals": "exceeds-site-area"
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/scenarios/exceeds-site-area/alternatives/1/status",
+        "equals": "within-site-area"
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/scenarios/exceeds-site-area/alternatives/2/status",
+        "equals": "within-site-area"
+      }
+    ]
+  },
+  {
+    "id": "capacity-design-limits",
+    "question": "Does the eight-storey area-fit result establish 896 m² of usable green ground?",
+    "expectedAnswer": "896 m² is site area minus the footprint. Ground character and architectural suitability remain unassessed.",
+    "essentialQualifiers": [
+      "no automatic access, permeability or vegetation classification",
+      "separate design checks"
+    ],
+    "incorrectInterpretation": "Treat the unbuilt ground as verified usable park area and the slab as approved design.",
+    "knowledgeIdentifiers": [
+      "worked:residential-block-capacity/r1"
+    ],
+    "supportingEvidence": [
+      "morphology/index.html#capacity"
+    ],
+    "checks": [
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/alternatives/2/results/unbuiltGround",
+        "equals": 896
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/limitations/1",
+        "equals": "Unbuilt ground excludes the footprint only. Its accessibility, use, vegetation and permeability remain unknown."
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/limitations/2",
+        "equals": "Area fit checks the slab within the rectangle. Setbacks, access, daylight, circulation and architectural suitability need separate evaluation."
+      }
+    ]
+  },
+  {
+    "id": "capacity-local-daycare",
+    "question": "Does the residential estimate activate Tampere’s daycare minimum everywhere?",
+    "expectedAnswer": "The estimate does not establish daycare demand. Tampere’s 15 m² per child refers to the conditional built-urban case.",
+    "essentialQualifiers": [
+      "childcare demand unknown",
+      "local guidance with a distinct denominator"
+    ],
+    "incorrectInterpretation": "Take the estimated residents as daycare children and apply 15 m² per person nationally.",
+    "knowledgeIdentifiers": [
+      "worked:residential-block-capacity/r1",
+      "tampere-daycare-yard-urban-minimum/r1"
+    ],
+    "supportingEvidence": [
+      "morphology/index.html#capacity",
+      "evidence.html#assertion-tampere-daycare-yard-urban-minimum-r1"
+    ],
+    "checks": [
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/alternatives/1/results/populationEstimate",
+        "equals": 19.2
+      },
+      {
+        "document": "worked",
+        "path": "/residential-block-capacity~1r1/limitations/3",
+        "equals": "Population is an estimate from the assumed area per resident. It does not calculate occupied dwellings or childcare demand."
+      },
+      {
+        "document": "assertions",
+        "path": "/tampere-daycare-yard-urban-minimum~1r1/geography",
+        "equals": "Tampere"
+      },
+      {
+        "document": "assertions",
+        "path": "/tampere-daycare-yard-urban-minimum~1r1/applicability",
+        "equals": "Built urban surroundings where the 20 m² per child target is difficult to achieve."
+      },
+      {
+        "document": "assertions",
+        "path": "/tampere-daycare-yard-urban-minimum~1r1/quantity/numerator/value",
+        "equals": 15
+      },
+      {
+        "document": "assertions",
+        "path": "/tampere-daycare-yard-urban-minimum~1r1/quantity/denominator/unit",
+        "equals": "child"
+      }
+    ]
   }
 ]

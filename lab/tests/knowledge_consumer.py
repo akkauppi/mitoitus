@@ -1,6 +1,7 @@
 """Exercise a Dubious reader using only the supplied homepage URL."""
 import argparse
 import json
+from math import isclose
 import sys
 from html.parser import HTMLParser
 from urllib.parse import urldefrag, urljoin, urlsplit
@@ -53,15 +54,17 @@ def run(url):
     curated_url,curated = data('Contextual assertions JSON')
     dictionary_url,dictionary = data('Measurement dictionary JSON')
     fixtures_url,fixtures = data('Synthetic geometry, formulas and results JSON')
+    worked_url,worked = data('Worked examples JSON')
+    capacity_url = urljoin(catalogue,links['Residential block capacity exercise'])
     questions_url,questions = data('Knowledge reference questions JSON')
     schema_url,schema = data('Contextual assertion schema')
     _,exchange = data('Provisional exchange schema')
     evidence_url,evidence_html = fetch(urljoin(catalogue,links['Evidence register']),'text/html')
     evidence_json_url,evidence_json = data('Evidence JSON')
     site = urljoin(home,'./')
-    assert rulebook['edition'] == curated['edition'] == fixtures['edition'] == questions['edition']
+    assert rulebook['edition'] == curated['edition'] == fixtures['edition'] == questions['edition'] == worked['edition']
     for url,dataset in [(book_url,rulebook),(curated_url,curated),(fixtures_url,fixtures),
-                        (questions_url,questions),(evidence_json_url,evidence_json)]:
+                        (questions_url,questions),(worked_url,worked),(evidence_json_url,evidence_json)]:
         assert urljoin(url,dataset['siteRoot']) == site, (url,dataset['siteRoot'])
         assert dataset['urlBase'] == curated['urlBase']
 
@@ -69,10 +72,10 @@ def run(url):
     assert len(names) == len(curated['assertions'])
     documents = {
         'assertions':names, 'dictionary':dictionary, 'fixtures':fixtures,
-        'examples':curated['examples'], 'panels':{panel['id']:panel for panel in rulebook['panels']},
+        'examples':curated['examples'], 'worked':worked['examples'], 'panels':{panel['id']:panel for panel in rulebook['panels']},
     }
     pages = {evidence_url:Page(evidence_html)}
-    resources = {book_url,curated_url,dictionary_url,fixtures_url,questions_url,schema_url,evidence_json_url,evidence_url}
+    resources = {book_url,curated_url,dictionary_url,fixtures_url,worked_url,questions_url,schema_url,evidence_json_url,evidence_url}
 
     def check_portable(url):
         target, fragment = urldefrag(url)
@@ -95,6 +98,8 @@ def run(url):
     assert urljoin(curated_url,curated['schema']) == schema_url
     assert urljoin(site,curated['measurementDictionary']) == dictionary_url
     assert urljoin(site,rulebook['contextualAssertions']) == curated_url
+    assert urljoin(worked_url,worked['contextualAssertions']) == curated_url
+    assert urljoin(worked_url,worked['measurementDictionary']) == dictionary_url
     assert schema['$id'] == urljoin(curated['urlBase'],'data/'+curated['schema'])
     for record in names.values():
         for obj,field in [(record,'citationUrl'), *((ref,'evidenceUrl') for ref in record['evidence'])]:
@@ -121,8 +126,26 @@ def run(url):
     for label in ('Rulebook CSV','Synthetic exchange example','Contextual assertions Markdown'):
         check_portable(urljoin(catalogue,links[label]))
 
+    check_portable(capacity_url)
+    assert urldefrag(capacity_url).fragment=='capacity'
+    for key,example in worked['examples'].items():
+        assert key==f'{example["id"]}/r{example["revision"]}'
+        assert set(example['assertionRevisionIds'])<=names.keys()
+        assert set(example['measurementIds'])<=dictionary['measurements'].keys()
+        if example['id']=='residential-block-capacity':
+            # Independent arithmetic for the rectangular reference exercise.
+            inputs = example['inputs']
+            for case in example['alternatives']:
+                values = case['results']
+                exact_footprint = inputs['targetFloorArea']/case['storeys']
+                assert isclose(values['footprintArea'],exact_footprint)
+                assert isclose(values['unbuiltGround']+exact_footprint,example['studyArea'])
+                expected_residential = exact_footprint*case['storeys']*inputs['residentialShare']
+                assert isclose(values['residentialFloorArea'],expected_residential)
+                assert isclose(values['populationEstimate'],expected_residential/inputs['occupancy']['areaPerResident'])
+
     registry = set(names)
-    for kind,values in [('example',documents['examples']),('measurement',dictionary['measurements']),('panel',documents['panels'])]:
+    for kind,values in [('example',documents['examples']),('measurement',dictionary['measurements']),('panel',documents['panels']),('worked',worked['examples'])]:
         registry.update(f'{kind}:{value}' for value in values)
     case_ids = set()
     for case in questions['cases']:

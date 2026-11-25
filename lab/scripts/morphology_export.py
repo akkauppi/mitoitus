@@ -3,20 +3,23 @@ import json
 import subprocess
 from html import escape
 from reference_export import PUBLIC_URL, SPREAD_PATHS
-from curated_reference import ASSERTIONS_PATH, MARKDOWN_PATH, PROJECT_DESCRIPTION, QUESTIONS_PATH, SCHEMA_PATH
+from curated_reference import (ASSERTIONS_PATH, LOCK_PATH, MARKDOWN_PATH, PROJECT_DESCRIPTION,
+                               QUESTIONS_PATH, SCHEMA_PATH, WORKED_PATH, authoring, verify_worked_examples)
 
 LAB_PAGE = 'morphology/index.html'
 CATALOGUE = 'data/index.html'
 DATA = 'data/morphology/'
+DATA_SOURCE = 'lab/data/morphology/measurements.json'
 MORPHOLOGY_FILES = (
     LAB_PAGE, 'morphology/lab.js', CATALOGUE, DATA+'measurements.json',
     DATA+'exchange.schema.json', DATA+'fixtures.json', DATA+'example-package.json', DATA+'CITYMODEL-INTEGRATION.md',
+    WORKED_PATH,
 )
 SOURCE_FILES = (
-    'lab/data/morphology/measurements.json', 'lab/data/morphology/exchange.schema.json',
+    DATA_SOURCE, 'lab/data/morphology/exchange.schema.json',
     'lab/docs/CITYMODEL-INTEGRATION.md',
     *(f'lab/morphology/{name}.mjs' for name in (
-        'geometry', 'exchange', 'fixtures', 'import', 'render', 'ui', 'publish')),
+        'geometry', 'exchange', 'fixtures', 'import', 'render', 'ui', 'publish', 'capacity')),
 )
 
 
@@ -37,14 +40,24 @@ svg .building{{fill:#e6daba;stroke:#8a7855;stroke-width:.22}}svg .study{{fill:#e
 svg .court{{fill:#c9d6ad;fill-opacity:.8;stroke:#697a54;stroke-width:.25;stroke-dasharray:.75,.55}}
 svg .transect{{fill:none;stroke:#54758a;stroke-width:.36;stroke-dasharray:1,.6}}
 svg .floor,svg .scale-line{{fill:none;stroke:#736242;stroke-width:.22}}
-#elevation svg{{max-height:9rem}}.summary{{display:grid;grid-template-columns:1fr auto;gap:.45rem 1rem}}
+#elevation svg,.capacity-elevation svg{{max-height:9rem}}
+.capacity-elevation:not(:empty){{margin-top:.5rem}}
+#capacity{{margin-block:2rem}}#capacity-parameters label{{display:block;margin:.5rem 0}}
+#capacity-parameters input{{max-width:9rem;font:inherit}}
+#capacity-comparison{{overflow-x:auto}}#capacity-comparison table{{min-width:27rem}}
+#capacity-comparison td{{font-variant-numeric:tabular-nums}}.summary{{display:grid;grid-template-columns:1fr auto;gap:.45rem 1rem}}
 dd{{margin:0;text-align:right;font-variant-numeric:tabular-nums}}form{{border-block:1px solid #a8ad9c;padding:.8rem 0}}
 #sliders{{display:grid;gap:.45rem}}#sliders label{{display:grid;grid-template-columns:minmax(9rem,1fr) 1fr;gap:.5rem}}
 input[type=range]{{accent-color:#57715b}}
 output{{font-variant-numeric:tabular-nums;font-weight:650}}button,select{{font:inherit;margin:.4rem .3rem .1rem 0}}
 table{{border-collapse:collapse;width:100%;margin:.6rem 0}}th,td{{text-align:left;padding:.3rem .4rem;border-bottom:1px solid #bcc2af}}
 details{{margin:.5rem 0}}summary{{cursor:pointer}}
-@media(max-width:640px){{.grid{{grid-template-columns:1fr;gap:.8rem}}}}
+@media(max-width:640px){{
+.grid{{grid-template-columns:1fr;gap:.8rem}}
+#capacity-comparison table{{table-layout:fixed;min-width:0;font-size:.875rem}}
+#capacity-comparison th,#capacity-comparison td{{padding:.24rem .22rem;overflow-wrap:anywhere}}
+#capacity-comparison th:first-child{{width:41%}}
+}}
 @media print{{form,nav{{display:none}}body{{padding:0}}}}
 </style>{extra}</head><body>{body}</body></html>
 """.encode()
@@ -56,8 +69,21 @@ def build_morphology(root, edition):
     fixtures = result['fixtures']
     if not fixtures or any(item['exchange']['kind'] != 'synthetic' for item in fixtures):
         raise ValueError('Only the reviewed synthetic fixture collection is in the release allowlist')
+    worked = result['workedExamples']
+    revisions = {f'{item["id"]}/r{item["revision"]}' for item in authoring(root)}
+    ids = json.loads(source(DATA_SOURCE))['measurements'].keys()
+    ledger = json.loads(source(LOCK_PATH))
+    verify_worked_examples(worked, revisions, ids, ledger['workedExamples'])
+    capacity, = worked.values()
+    view = result['capacityView']
+    capacity_inputs = capacity['inputs']
+    options = ''.join(f'<option value="{n}"{" selected" if n==view["selectedStoreys"] else ""}>{n} storeys</option>'
+                      for n in capacity_inputs['storeys'])
+    evidence = ''.join(f'<li><a href="../evidence.html#assertion-{revision.replace("/", "-")}">{revision}</a></li>'
+                       for revision in capacity['assertionRevisionIds'])
+    details = ''.join(f'<li>{escape(note)}</li>' for note in capacity['assumptions']+capacity['limitations'])
     body = f"""<nav><a href="../index.html">3D rulebook</a><a href="../{CATALOGUE}">Open data</a>
-<a href="#compute">Compute</a><a href="#observe">Observe</a></nav>
+<a href="#compute">Compute</a><a href="#capacity">Capacity</a><a href="#observe">Observe</a></nav>
 <main><h1>Urban morphology laboratory</h1>
 <p>Synthetic perimeter block · dimensions in metres</p>
 <section id="compute" class="grid" aria-label="Synthetic block calculation">
@@ -67,6 +93,21 @@ def build_morphology(root, edition):
 <option value="closed">Closed perimeter</option><option value="open">Open perimeter</option></select></label>
 <div id="sliders"></div><button type="button" id="save-example">Download configuration JSON</button><button type="reset">Reset</button></form>
 <dl class="summary" id="results" aria-live="polite">{result['summary']}</dl></div></section>
+<section id="capacity">
+<h2>Residential block capacity</h2>
+<div class="grid"><div id="capacity-drawing">{view['drawing']}</div>
+<div><p id="capacity-summary">{view['summary']}</p>
+<form id="capacity-parameters" hidden>
+<label>Target modelled floor area (m²) <input type="number" name="target" min="0" step="any" value="{capacity_inputs['targetFloorArea']}"></label>
+<label>Residential share (%) <input type="number" name="residential" min="0" max="100" step="any" value="{capacity_inputs['residentialShare']*100:g}"></label>
+<label>Modelled residential m² per resident <input type="number" name="occupancy" min="0" step="any" value="{capacity_inputs['occupancy']['areaPerResident']}"></label>
+<label>Draw alternative <select name="draw-storeys">{options}</select></label>
+<button type="button" id="capacity-save">Download capacity JSON</button></form>
+<p id="capacity-status" role="status"></p>
+<a href="../{WORKED_PATH}">Worked examples JSON</a></div></div>
+<div id="capacity-comparison" role="region" aria-label="Capacity alternatives" tabindex="0">{view['table']}</div>
+<details><summary>Sources and assumptions</summary><ul>{details}{evidence}</ul></details>
+</section>
 <section id="observe"><h2>Synthetic fixtures</h2>
 <p><a href="../{DATA}fixtures.json">Geometry, formula and result records (JSON)</a> ·
 <a href="../{DATA}example-package.json">Exchange example</a></p>{result['records']}</section>
@@ -89,6 +130,8 @@ Courtyard width is the east–west transect. Plan enclosure is the fraction of t
 <li><a href="../llms.txt">Agent guide</a></li></ul>
 <details><summary>Thematic JSON</summary><ul>{thematic}</ul></details></section>
 <section><h2>Compute and Observe</h2><ul><li><a href="../{LAB_PAGE}">Interactive morphology laboratory and synthetic fixture tables</a></li>
+<li><a href="../{LAB_PAGE}#capacity">Residential block capacity exercise</a> ·
+<a href="{WORKED_PATH.removeprefix("data/")}">Worked examples JSON</a></li>
 <li><a href="morphology/measurements.json">Measurement dictionary JSON</a></li>
 <li><a href="morphology/exchange.schema.json">Provisional exchange schema</a></li>
 <li><a href="morphology/fixtures.json">Synthetic geometry, formulas and results JSON</a></li>
@@ -101,7 +144,10 @@ Courtyard width is the east–west transect. Plan enclosure is the fraction of t
         LAB_PAGE:html_page('Urban morphology laboratory','Exact synthetic urban block geometry and measurements.',LAB_PAGE,body),
         'morphology/lab.js':result['script'].encode(),
         CATALOGUE:html_page('Open data / AI agents',PROJECT_DESCRIPTION,CATALOGUE,catalogue_body),
-        DATA+'measurements.json':source('lab/data/morphology/measurements.json'),
+        DATA+'measurements.json':source(DATA_SOURCE),
+        WORKED_PATH:encode({'schemaVersion':'1.0.0','edition':edition,'urlBase':PUBLIC_URL,
+                            'siteRoot':'../../','contextualAssertions':'../contextual-assertions.json',
+                            'measurementDictionary':'measurements.json','examples':worked}),
         DATA+'exchange.schema.json':source('lab/data/morphology/exchange.schema.json'),
         DATA+'fixtures.json':encode({'edition':edition,'kind':'synthetic','urlBase':PUBLIC_URL,'siteRoot':'../../','formulas':result['formulas'],'fixtures':fixtures}),
         DATA+'example-package.json':encode(fixtures[0]['exchange']),

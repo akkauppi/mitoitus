@@ -17,6 +17,7 @@ SCHEMA_CHECK = 'lab/scripts/verify-assertion-schema.mjs'
 LOCK_PATH = 'lab/data/knowledge/revision-lock.json'
 MARKDOWN_PATH = 'data/contextual-assertions.md'
 QUESTIONS_PATH = 'data/knowledge-questions.json'
+WORKED_PATH = 'data/morphology/worked-examples.json'
 QUESTIONS_SOURCE = 'lab/data/knowledge/questions.json'
 KNOWLEDGE_FILES = (ASSERTIONS_PATH, SCHEMA_PATH, MARKDOWN_PATH, QUESTIONS_PATH)
 AUTHORING_PATH = 'lab/data/knowledge/assertions.json'
@@ -135,6 +136,11 @@ def validate_service_quantity(quantity, row):
         raise ValueError(f'Assertion quantity disagrees with service row {row["id"]}')
 
 
+def semantic_digest(snapshot):
+    content = json.dumps(snapshot,sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)
+    return sha256(content.encode()).hexdigest()
+
+
 def revision_hashes(dataset):
     """Hash semantic records and pinned examples. Navigation metadata is separate."""
     checksums = {}
@@ -144,8 +150,7 @@ def revision_hashes(dataset):
                                 for ref in record['evidence']]
         if example := snapshot.get('example'):
             snapshot['exampleContent'] = dataset['examples'][example]
-        content = json.dumps(snapshot,sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)
-        checksums[f'{record["id"]}/r{record["revision"]}'] = sha256(content.encode()).hexdigest()
+        checksums[f'{record["id"]}/r{record["revision"]}'] = semantic_digest(snapshot)
     return checksums
 
 
@@ -157,13 +162,24 @@ def verify_revision_lock(dataset, expected):
 
 
 def verify_previous_lock(previous, current):
+    sections = {'revisions','workedExamples'}
     for key, value in previous.items():
-        if key != 'revisions' and current.get(key) != value:
+        if key not in sections and current.get(key) != value:
             raise ValueError(f'Assertion revision ledger metadata changed: {key}')
-    changed = {key for key,value in previous['revisions'].items()
-               if current['revisions'].get(key) != value}
+    changed = {key for section in sections for key,value in previous.get(section,{}).items()
+               if current.get(section,{}).get(key) != value}
     if changed:
-        raise ValueError('Existing assertion revision locked: '+', '.join(sorted(changed)))
+        raise ValueError('Existing assertion or worked-example revision locked: '+', '.join(sorted(changed)))
+
+
+def verify_worked_examples(examples, assertions, measurements, expected):
+    for revision,example in examples.items():
+        if revision != f'{example["id"]}/r{example["revision"]}' or example['status'] != 'synthetic':
+            raise ValueError(f'Invalid worked-example revision: {revision}')
+        if set(example['assertionRevisionIds'])-assertions or set(example['measurementIds'])-measurements:
+            raise ValueError(f'Missing worked-example dependency: {revision}')
+    if {key:semantic_digest(value) for key,value in examples.items()} != expected:
+        raise ValueError('Worked-example revision lock drift')
 
 
 def build_curated(root, evidence, edition, *, verify_lock=True):

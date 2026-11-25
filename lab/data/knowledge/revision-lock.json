@@ -32,5 +32,8 @@
     "espoo-detention-example-emptying/r1": "b6bbc7f92fedf170f02a5ca15d15cb1ce5b57b4256c6acc9657365f6ce6f7e04",
     "espoo-detention-worked-volume/r1": "4cac0ce381b4521c211dfb7921026007d0e636c69cd062ee9018a16168f4fa15",
     "espoo-detention-worked-plan-area/r1": "02de9f19423925fa1696260b5adb2b0ae040a8506ec01801d48069dbcda1d9a8"
+  },
+  "workedExamples": {
+    "residential-block-capacity/r1": "3c89ff187faebf024561c4f3d8e0de98a6ddb96a36873b0b07855a7ce6955008"
   }
 }

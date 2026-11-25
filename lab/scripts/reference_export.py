@@ -7,7 +7,7 @@ import subprocess
 from dataclasses import dataclass, field
 from html.parser import HTMLParser
 from urllib.parse import urlencode
-from curated_reference import ASSERTIONS_PATH, MARKDOWN_PATH, PUBLIC_URL, QUESTIONS_PATH, SCHEMA_PATH, authoring, panel_index
+from curated_reference import ASSERTIONS_PATH, MARKDOWN_PATH, PUBLIC_URL, QUESTIONS_PATH, SCHEMA_PATH, WORKED_PATH, authoring, panel_index
 
 JSON_PATH = 'data/rulebook.json'
 CSV_PATH = 'data/rulebook.csv'
@@ -234,6 +234,7 @@ def build_exports(root, index, evidence, services, edition):
 - [Contextual assertions Markdown]({PUBLIC_URL}{MARKDOWN_PATH}) · [Reference questions]({PUBLIC_URL}{QUESTIONS_PATH})
 - [Open data catalogue]({PUBLIC_URL}data/index.html)
 - [Morphology laboratory]({PUBLIC_URL}morphology/index.html)
+- [Residential block capacity]({PUBLIC_URL}morphology/index.html#capacity) · [Worked examples JSON]({PUBLIC_URL}{WORKED_PATH})
 - [Rulebook JSON]({PUBLIC_URL}{JSON_PATH}): All 30 panels, including facts, ordered table cells, notes, charts, scenes, source claims and the structured service supplement.
 - [Rulebook CSV]({PUBLIC_URL}{CSV_PATH}): A flat index of facts, notes, table rows and drawing labels. Table-row values are JSON arrays of cell text in display order.
 - [Evidence index]({PUBLIC_URL}evidence.html): Source methods, locators and historical evidence.

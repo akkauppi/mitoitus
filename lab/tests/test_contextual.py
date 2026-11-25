@@ -9,7 +9,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'lab/scripts'))
 from curated_reference import (LOCK_PATH, SCHEMA_CHECK, SCHEMA_SOURCE, build_curated,
-                               validate_quantity, validate_service_quantity, verify_previous_lock, verify_revision_lock)
+                               validate_quantity, validate_service_quantity, verify_previous_lock,
+                               verify_revision_lock, verify_worked_examples)
 from candidate import EDITION, render_evidence_json
 
 
@@ -39,6 +40,31 @@ class ContextualAssertionsTests(unittest.TestCase):
         revised['revisions']['new-record/r1'] = '0'*64
         verify_previous_lock(self.ledger,revised)
         revised['revisions'][key] = 'f'*64
+        with self.assertRaisesRegex(ValueError,'revision locked'):
+            verify_previous_lock(self.ledger,revised)
+
+    def test_worked_example_revision_locks_inputs_calculations_and_results(self):
+        publication = json.loads(subprocess.check_output(['node',str(ROOT/'lab/morphology/publish.mjs')]))
+        examples = publication['workedExamples']
+        key = 'residential-block-capacity/r1'
+        revisions = {f'{item["id"]}/r{item["revision"]}' for item in self.dataset['assertions']}
+        measurements = json.loads((ROOT/'lab/data/morphology/measurements.json').read_bytes())['measurements'].keys()
+        verify_worked_examples(examples,revisions,measurements,self.ledger['workedExamples'])
+        for mutate in (
+            lambda row:row['inputs'].update(residentialShare=.5),
+            lambda row:row['formulas']['populationEstimate'].update(expression='P = 0'),
+            lambda row:row['alternatives'][0]['results'].update(populationEstimate=20),
+            lambda row:row['scenarios']['unknown-occupancy']['overrides'].update(occupancy=0),
+        ):
+            altered = deepcopy(examples)
+            mutate(altered[key])
+            with self.assertRaisesRegex(ValueError,'Worked-example revision lock drift'):
+                verify_worked_examples(altered,revisions,measurements,self.ledger['workedExamples'])
+        with self.assertRaisesRegex(ValueError,'Missing worked-example dependency'):
+            verify_worked_examples(examples,revisions-{'far-coverage-storeys-identity/r1'},
+                                   measurements,self.ledger['workedExamples'])
+        revised = deepcopy(self.ledger)
+        revised['workedExamples'][key] = 'f'*64
         with self.assertRaisesRegex(ValueError,'revision locked'):
             verify_previous_lock(self.ledger,revised)
 

@@ -46,3 +46,49 @@ export function summaryMarkup(observations,dictionary) {
     return `<dt>${display}</dt><dd data-value="${key}">${format(value,unit,['building-coverage','spatial-enclosure'].includes(measurement))}</dd>`;
   }).join('');
 }
+
+const capacityResults = [
+  ['slabDepth','Slab depth (m)'], ['height','Modelled height (m)'],
+  ['footprintArea','Footprint (m²)'], ['coverage','Coverage'], ['floorArea','Modelled floor area (m²)'],
+  ['far','Modelled FAR'], ['unbuiltGround','Unbuilt ground (m²)'], ['residentialFloorArea','Residential (m²)'],
+  ['nonResidentialFloorArea','Non-residential (m²)'], ['populationEstimate','Estimated residents'],
+];
+
+export function capacityTable(record) {
+  const cells = (key, formatter) => record.alternatives.map(item=>
+    `<td data-capacity-value="${key}" data-storeys="${item.storeys}">${formatter(item)}</td>`).join('');
+  const formatStatus = item => ({
+    'within-site-area':'Fits by area', 'exceeds-site-area':'Exceeds site area',
+    'missing-target-basis':'Area basis unknown', 'incompatible-target-basis':'Incompatible area basis',
+    'missing-geometry-input':'Input unknown',
+  })[item.status];
+  const rows = capacityResults.map(([key,label])=>`<tr><th scope="row">${label}</th>${cells(key,item=>{
+    const value = item.results?.[key];
+    if (value==null) return '—';
+    return (key==='populationEstimate'?'≈':'')+format(value,'',key==='coverage');
+  })}</tr>`).join('');
+  const heading = record.alternatives.map(item=>`<th scope="col">${item.storeys} storeys</th>`).join('');
+  const invalid = record.alternatives.some(item=>item.status==='exceeds-site-area');
+  const required = invalid ? `<tr><th scope="row">Required footprint (m²)</th>${cells('requiredFootprint',item=>
+    item.requiredFootprint==null?'—':format(item.requiredFootprint,''))}</tr>` : '';
+  return `<table><thead><tr><th scope="col">Quantity</th>${heading}</tr></thead>
+  <tbody><tr><th scope="row">Site-area check</th>${cells('status',formatStatus)}</tr>${required}${rows}</tbody></table>`;
+}
+
+export function capacitySummary(record) {
+  const {inputs,studyArea,nonResidentialShare} = record;
+  const site = studyArea===null ? 'Study area unknown' : `${inputs.siteWidth} × ${inputs.siteDepth} m site · ${format(studyArea,'m2')}`;
+  const share = inputs.residentialShare===null ? 'Floor-area shares unknown'
+    : `${format(inputs.residentialShare,'',true)} residential · ${format(nonResidentialShare,'',true)} non-residential`;
+  const occupancy = inputs.occupancy?.areaPerResident==null ? 'Occupancy unknown'
+    : `Assumed ${format(inputs.occupancy.areaPerResident,'m2')} of modelled residential area per resident`;
+  return `${site}. ${share}. ${occupancy}.`;
+}
+
+export function capacityDrawing(record, selectedStoreys) {
+  const selected = record.alternatives.find(item=>item.storeys===selectedStoreys);
+  if (!selected?.model) return '<p>Plan unavailable for this alternative.</p>';
+  const elevation = selected.results.height===null ? '' : elevationMarkup(selected.model);
+  return `<figure>${planMarkup(selected.model)}<div class="capacity-elevation">${elevation}</div>
+  <figcaption>${selectedStoreys}-storey slab</figcaption></figure>`;
+}

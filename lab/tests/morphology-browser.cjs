@@ -10,6 +10,12 @@ const base = process.env.BOOK_URL||'http://127.0.0.1:8767/';
 const archive = path.resolve(__dirname,'../.build/release/downloads/rulebook-offline.zip');
 const directory = mkdtempSync(path.join(tmpdir(),'dubious-morphology-'));
 
+async function readDownload(page,button) {
+  const promise = page.waitForEvent('download');
+  await page.getByRole('button',{name:button,exact:true}).click();
+  return JSON.parse(readFileSync(await (await promise).path(),'utf8'));
+}
+
 (async()=>{
   execFileSync('python3',['-m','zipfile','-e',archive,directory]);
   const browser = await chromium.launch();
@@ -23,9 +29,18 @@ const directory = mkdtempSync(path.join(tmpdir(),'dubious-morphology-'));
     assert.match(fixtureResponse.headers()['content-type'],/application\/json/);
     const data = await fixtureResponse.json();
     assert.equal(data.fixtures.length,8);
-    await noScript.getByRole('link',{name:'Morphology laboratory',exact:true}).click();
+    await noScript.getByRole('link',{name:'Residential block capacity exercise'}).click();
+    assert.equal(new URL(noScript.url()).hash,'#capacity');
+    assert.equal(await noScript.locator('#capacity-drawing path.building').count(),1);
+    assert.ok(await noScript.locator('#capacity-parameters').isHidden());
+    for (const [storeys,area] of [[2,'512'],[4,'256'],[8,'128']]) {
+      assert.equal(await noScript.locator(`[data-capacity-value="footprintArea"][data-storeys="${storeys}"]`).textContent(),area);
+      assert.equal(await noScript.locator(`[data-capacity-value="floorArea"][data-storeys="${storeys}"]`).textContent(),'1,024');
+    }
+    await noScript.locator('#capacity summary').click();
+    assert.ok(await noScript.getByRole('link',{name:'far-coverage-storeys-identity/r1'}).isVisible());
     assert.equal(await noScript.locator('[data-value="footprint-area"]').textContent(),'896 m²');
-    assert.equal(await noScript.locator('details').count(),8);
+    assert.equal(await noScript.locator('#observe details').count(),8);
     await noScript.getByText('Asymmetric street section',{exact:true}).click();
     assert.ok(await noScript.getByText('0.75',{exact:true}).isVisible());
     await context.close();
@@ -47,20 +62,57 @@ const directory = mkdtempSync(path.join(tmpdir(),'dubious-morphology-'));
       assert.equal(await area.textContent(),'4,160 m²');
       await page.getByLabel('Block type').selectOption('open');
       assert.equal(await page.locator('[data-value="spatial-enclosure"]').textContent(),'68.75%');
-      const promise = page.waitForEvent('download');
-      await page.getByRole('button',{name:'Download configuration JSON'}).click();
-      const download = await promise;
-      const record = JSON.parse(readFileSync(await download.path(),'utf8'));
+      const record = await readDownload(page,'Download configuration JSON');
       assert.equal(record.form,'open');
       assert.equal(record.parameters.depth,10);
       assert.equal(record.exchange.kind,'synthetic');
       assert.equal(record.exchange.observations.find(row=>row.id==='study.footprint-area').value,840);
       await page.getByRole('button',{name:'Reset'}).click();
       assert.equal(await footprint.textContent(),'896 m²');
+
+      const drawing = page.locator('#capacity-drawing');
+      const shape = drawing.locator('path.building');
+      const drawnAlternative = page.getByLabel('Draw alternative');
+      const target = page.getByLabel('Target modelled floor area');
+      const occupancy = page.getByLabel('Modelled residential m² per resident');
+      const cell = (key,storeys) => page.locator(`[data-capacity-value="${key}"][data-storeys="${storeys}"]`);
+      const fourStoreyPlan = await shape.getAttribute('d');
+      await drawnAlternative.selectOption('2');
+      assert.notEqual(await shape.getAttribute('d'),fourStoreyPlan);
+      assert.equal(await drawing.locator('path.floor').count(),1);
+      await occupancy.fill('');
+      assert.equal(await cell('populationEstimate',2).textContent(),'—');
+      const incomplete = await readDownload(page,'Download capacity JSON');
+      assert.equal(incomplete.referenceRevision,'residential-block-capacity/r1');
+      assert.equal(incomplete.selectedStoreys,2);
+      assert.equal(incomplete.configuration.inputs.occupancy.areaPerResident,null);
+      assert.equal(incomplete.configuration.alternatives[0].populationStatus,'missing-occupancy');
+      assert.equal(incomplete.configuration.alternatives[0].results.populationEstimate,null);
+      assert.equal(incomplete.configuration.revision,undefined);
+      await target.fill('2304');
+      assert.equal(await cell('status',2).textContent(),'Exceeds site area');
+      assert.equal(await cell('requiredFootprint',2).textContent(),'1,152');
+      assert.equal(await shape.count(),0);
+      await drawnAlternative.selectOption('4');
+      assert.equal(await shape.count(),1);
+      assert.equal(await cell('far',4).textContent(),'2.25');
+      await page.getByLabel('Residential share (%)').fill('50');
+      await occupancy.fill('32');
+      assert.equal(await cell('populationEstimate',4).textContent(),'≈36');
+      assert.ok(await page.locator('#capacity-comparison').evaluate(region=>region.scrollWidth<=region.clientWidth));
+      const custom = await readDownload(page,'Download capacity JSON');
+      assert.equal(custom.selectedStoreys,4);
+      assert.equal(custom.configuration.status,'synthetic');
+      assert.equal(custom.configuration.alternatives[1].results.footprintArea,576);
+      assert.equal(custom.configuration.alternatives[1].results.residentialFloorArea,1152);
+      assert.equal(custom.configuration.alternatives[1].results.populationEstimate,36);
+      assert.ok(custom.configuration.assertionRevisionIds.includes('far-coverage-storeys-identity/r1'));
+      await occupancy.fill('0');
+      assert.ok(await page.getByRole('button',{name:'Download capacity JSON'}).isDisabled());
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     }
     assert.deepEqual(errors,[]);
-    console.log('PASS: homepage-only discovery and eight static fixtures with JS disabled; interactive plan, ratios, download, reset and 320px layout over HTTP and extracted file://.');
+    console.log('PASS: homepage discovery, eight static fixtures and capacity with JS disabled; both labs, unknown inputs, area fit, JSON downloads and 320px layout over HTTP and extracted file://.');
   } finally {
     await browser.close();
   }
