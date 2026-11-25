@@ -25,16 +25,19 @@
           "kind": "range",
           "unit": "m",
           "minimum": 22,
-          "maximum": 30
+          "maximum": 30,
+          "intervalType": "historical_reference_range"
         },
         "depth": {
           "kind": "range",
           "unit": "m",
           "minimum": 10,
-          "maximum": 12
+          "maximum": 12,
+          "intervalType": "historical_reference_range"
         }
       }
-    }
+    },
+    "quantityMeaning": "module-dimensions"
   },
   {
     "id": "tkk-row-dwelling-width",
@@ -59,8 +62,10 @@
       "kind": "range",
       "unit": "m",
       "minimum": 4,
-      "maximum": 8
-    }
+      "maximum": 8,
+      "intervalType": "historical_reference_range"
+    },
+    "quantityMeaning": "dwelling-width"
   },
   {
     "id": "tkk-row-house-depth",
@@ -85,8 +90,10 @@
       "kind": "range",
       "unit": "m",
       "minimum": 8,
-      "maximum": 11
-    }
+      "maximum": 11,
+      "intervalType": "historical_reference_range"
+    },
+    "quantityMeaning": "building-body-depth"
   },
   {
     "id": "tkk-detached-house-footprint",
@@ -122,7 +129,8 @@
           "value": 10
         }
       }
-    }
+    },
+    "quantityMeaning": "footprint-dimensions"
   },
   {
     "id": "tkk-detached-plot-area",
@@ -148,8 +156,10 @@
       "unit": "m2",
       "minimum": 500,
       "maximum": 1000,
-      "approximate": true
-    }
+      "approximate": true,
+      "intervalType": "historical_reference_range"
+    },
+    "quantityMeaning": "plot-area"
   },
   {
     "id": "tkk-floor-area-ratio-definition",
@@ -170,7 +180,15 @@
         "sourceId": "TKK"
       }
     ],
-    "relatedAssertionIds": []
+    "relatedAssertionIds": [],
+    "quantityMeaning": "floor-area-ratio",
+    "relationships": [
+      {
+        "type": "defines",
+        "targetType": "measurement",
+        "target": "floor-area-ratio"
+      }
+    ]
   },
   {
     "id": "tkk-detached-district-far",
@@ -197,8 +215,10 @@
       "minimum": 0.04,
       "maximum": 0.1,
       "numeratorBasis": "Total floor area in the historical table",
-      "denominatorBasis": "district land area"
-    }
+      "denominatorBasis": "district land area",
+      "intervalType": "historical_reference_range"
+    },
+    "quantityMeaning": "floor-area-ratio"
   },
   {
     "id": "tkk-detached-block-far",
@@ -225,8 +245,10 @@
       "minimum": 0.1,
       "maximum": 0.15,
       "numeratorBasis": "Total floor area in the historical table",
-      "denominatorBasis": "block land area"
-    }
+      "denominatorBasis": "block land area",
+      "intervalType": "historical_reference_range"
+    },
+    "quantityMeaning": "floor-area-ratio"
   },
   {
     "id": "tkk-detached-plot-far",
@@ -253,8 +275,10 @@
       "minimum": 0.05,
       "maximum": 0.15,
       "numeratorBasis": "Total floor area in the historical table",
-      "denominatorBasis": "plot land area"
-    }
+      "denominatorBasis": "plot land area",
+      "intervalType": "historical_reference_range"
+    },
+    "quantityMeaning": "floor-area-ratio"
   },
   {
     "id": "tkk-detached-population-density",
@@ -289,7 +313,8 @@
       },
       "approximate": true
     },
-    "limitation": "The land boundary behind the reported hectare figure is unresolved. No conversion from FAR is stated."
+    "limitation": "The land boundary behind the reported hectare figure is unresolved. No conversion from FAR is stated.",
+    "quantityMeaning": "population-density"
   },
   {
     "id": "far-coverage-storeys-identity",
@@ -307,7 +332,15 @@
     "relatedAssertionIds": [
       "tkk-floor-area-ratio-definition"
     ],
-    "example": "equal-far"
+    "example": "equal-far",
+    "quantityMeaning": "floor-area-ratio",
+    "relationships": [
+      {
+        "type": "derived_from",
+        "targetType": "assertion",
+        "target": "tkk-floor-area-ratio-definition/r1"
+      }
+    ]
   },
   {
     "id": "far-massing-model-storey-height",
@@ -325,7 +358,8 @@
     "relatedAssertionIds": [
       "far-coverage-storeys-identity"
     ],
-    "example": "equal-far"
+    "example": "equal-far",
+    "quantityMeaning": "storey-height"
   },
   {
     "id": "far-same-ratio-different-form",
@@ -344,7 +378,15 @@
       "far-coverage-storeys-identity",
       "far-massing-model-storey-height"
     ],
-    "example": "equal-far"
+    "example": "equal-far",
+    "quantityMeaning": "building-form",
+    "relationships": [
+      {
+        "type": "illustrates",
+        "targetType": "assertion",
+        "target": "far-coverage-storeys-identity/r1"
+      }
+    ]
   },
   {
     "id": "far-nested-land-boundaries",
@@ -364,7 +406,15 @@
       "tkk-floor-area-ratio-definition"
     ],
     "limitation": "Actual blocks and districts may contain additional floor area.",
-    "example": "nested-denominators"
+    "example": "nested-denominators",
+    "quantityMeaning": "floor-area-ratio",
+    "relationships": [
+      {
+        "type": "derived_from",
+        "targetType": "assertion",
+        "target": "tkk-floor-area-ratio-definition/r1"
+      }
+    ]
   },
   {
     "id": "depth-envelope-versus-transect",
@@ -382,6 +432,383 @@
     "evidence": [],
     "relatedAssertionIds": [],
     "limitation": "The example transects avoid vertices and intersect one contiguous part of each footprint.",
-    "example": "depth-methods"
+    "example": "depth-methods",
+    "quantityMeaning": "building-depth",
+    "relationships": [
+      {
+        "type": "alternative_measurement_method",
+        "targetType": "measurement",
+        "target": "building-depth"
+      }
+    ]
+  },
+  {
+    "id": "helsinki-daycare-yard",
+    "revision": 1,
+    "supersedes": null,
+    "role": "planning_reference",
+    "title": "Helsinki daycare yard reference",
+    "originalTerm": null,
+    "panels": [
+      "services"
+    ],
+    "subject": "daycare yard",
+    "quantityMeaning": "yard-area-rate",
+    "geography": "Helsinki",
+    "applicability": "Daycare yard provision described in Helsinki’s 2023 City Board explanatory report. The meeting deferred the motion.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "sourceId": "R01",
+        "serviceRowId": "daycare-yard-helsinki"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "relationships": [],
+    "quantity": {
+      "kind": "rate",
+      "numerator": {
+        "kind": "range",
+        "minimum": 10,
+        "maximum": 15,
+        "unit": "m2",
+        "intervalType": "reference_interval",
+        "basis": "yard area"
+      },
+      "denominator": {
+        "value": 1,
+        "unit": "child",
+        "basis": "per child"
+      }
+    },
+    "exception": "Dense inner-city contexts are excepted. Nearby green space is part of the planning context."
+  },
+  {
+    "id": "espoo-daycare-yard",
+    "revision": 1,
+    "supersedes": null,
+    "role": "target",
+    "title": "Espoo daycare play-yard target",
+    "originalTerm": null,
+    "panels": [
+      "services"
+    ],
+    "subject": "daycare yard",
+    "quantityMeaning": "yard-area-rate",
+    "geography": "Espoo",
+    "applicability": "Growth and Learning sector target cited in the 2023 Postipuu needs assessment.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "sourceId": "R02",
+        "serviceRowId": "daycare-yard-espoo"
+      }
+    ],
+    "relatedAssertionIds": [
+      "helsinki-daycare-yard"
+    ],
+    "relationships": [
+      {
+        "type": "different_geographical_context",
+        "targetType": "assertion",
+        "target": "helsinki-daycare-yard/r1"
+      }
+    ],
+    "quantity": {
+      "kind": "rate",
+      "numerator": {
+        "value": 15,
+        "unit": "m2",
+        "basis": "play yard area"
+      },
+      "denominator": {
+        "value": 1,
+        "unit": "place",
+        "basis": "per early-childhood place"
+      }
+    }
+  },
+  {
+    "id": "tampere-daycare-yard",
+    "revision": 1,
+    "supersedes": null,
+    "role": "target",
+    "title": "Tampere daycare play-yard target",
+    "originalTerm": null,
+    "panels": [
+      "services"
+    ],
+    "subject": "daycare yard",
+    "quantityMeaning": "yard-area-rate",
+    "geography": "Tampere",
+    "applicability": "Tampere’s daycare design guide dated 17 November 2025 and revised 8 January 2026.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "sourceId": "R04",
+        "serviceRowId": "daycare-yard-tampere"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "relationships": [],
+    "quantity": {
+      "kind": "rate",
+      "numerator": {
+        "value": 20,
+        "unit": "m2",
+        "basis": "play yard area"
+      },
+      "denominator": {
+        "value": 1,
+        "unit": "child",
+        "basis": "per child"
+      }
+    },
+    "exception": "See the separate conditional minimum for built urban surroundings."
+  },
+  {
+    "id": "tampere-daycare-yard-urban-minimum",
+    "revision": 1,
+    "supersedes": null,
+    "role": "recommendation",
+    "title": "Tampere conditional urban play-yard minimum",
+    "originalTerm": null,
+    "panels": [
+      "services"
+    ],
+    "subject": "daycare yard",
+    "quantityMeaning": "yard-area-rate",
+    "geography": "Tampere",
+    "applicability": "Built urban surroundings where the 20 m² per child target is difficult to achieve.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "sourceId": "R04",
+        "serviceRowId": "daycare-yard-tampere"
+      }
+    ],
+    "relatedAssertionIds": [
+      "tampere-daycare-yard"
+    ],
+    "relationships": [
+      {
+        "type": "different_applicability_conditions",
+        "targetType": "assertion",
+        "target": "tampere-daycare-yard/r1"
+      }
+    ],
+    "quantity": {
+      "kind": "rate",
+      "numerator": {
+        "kind": "bound",
+        "operator": "gte",
+        "value": 15,
+        "unit": "m2",
+        "basis": "play yard area"
+      },
+      "denominator": {
+        "value": 1,
+        "unit": "child",
+        "basis": "per child"
+      }
+    }
+  },
+  {
+    "id": "wheelchair-turning-clear-diameter",
+    "revision": 1,
+    "supersedes": null,
+    "role": "recommendation",
+    "title": "Wheelchair clear turning diameter",
+    "originalTerm": null,
+    "panels": [
+      "turning"
+    ],
+    "subject": "wheelchair",
+    "quantityMeaning": "clear-turning-diameter",
+    "geography": null,
+    "applicability": "Clear turning circle in SuRaKu outdoor accessibility guidance, 2008, Card 3.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "sourceId": "S10",
+        "claimId": "turning"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "relationships": [],
+    "quantity": {
+      "kind": "bound",
+      "operator": "gte",
+      "value": 1.5,
+      "unit": "m",
+      "basis": "unobstructed diameter"
+    },
+    "limitation": "The source distinguishes wheelchair types. Fit for an individual mobility scooter is unresolved."
+  },
+  {
+    "id": "powered-wheelchair-turning-clear-diameter",
+    "revision": 1,
+    "supersedes": null,
+    "role": "recommendation",
+    "title": "Powered wheelchair clear turning diameter",
+    "originalTerm": null,
+    "panels": [
+      "turning"
+    ],
+    "subject": "powered wheelchair",
+    "quantityMeaning": "clear-turning-diameter",
+    "geography": null,
+    "applicability": "Clear turning circle in SuRaKu outdoor accessibility guidance, 2008, Card 3.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "sourceId": "S10",
+        "claimId": "turning"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "relationships": [],
+    "quantity": {
+      "kind": "bound",
+      "operator": "gte",
+      "value": 2.5,
+      "unit": "m",
+      "basis": "unobstructed diameter"
+    },
+    "limitation": "The source distinguishes wheelchair types. Fit for an individual mobility scooter is unresolved."
+  },
+  {
+    "id": "espoo-detention-example-rate",
+    "revision": 1,
+    "supersedes": null,
+    "role": "example_provision",
+    "title": "Espoo example detention provision",
+    "originalTerm": null,
+    "panels": [
+      "ponds"
+    ],
+    "subject": "stormwater detention",
+    "quantityMeaning": "detention-volume-rate",
+    "geography": "Espoo",
+    "applicability": "Illustrative zoning provision in the Kaavoitus section. Application to a given site requires its actual provision.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "sourceId": "S07",
+        "claimId": "stormwater"
+      }
+    ],
+    "relatedAssertionIds": [],
+    "relationships": [],
+    "quantity": {
+      "kind": "rate",
+      "numerator": {
+        "value": 1,
+        "unit": "m3",
+        "basis": "detention storage volume"
+      },
+      "denominator": {
+        "value": 100,
+        "unit": "m2",
+        "basis": "impermeable surface area"
+      }
+    }
+  },
+  {
+    "id": "espoo-detention-example-emptying",
+    "revision": 1,
+    "supersedes": null,
+    "role": "example_provision",
+    "title": "Espoo example detention emptying time",
+    "originalTerm": null,
+    "panels": [
+      "ponds"
+    ],
+    "subject": "stormwater detention",
+    "quantityMeaning": "detention-emptying-time",
+    "geography": "Espoo",
+    "applicability": "Emptying interval in the same zoning example, with controlled overflow.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [
+      {
+        "sourceId": "S07",
+        "claimId": "stormwater"
+      }
+    ],
+    "relatedAssertionIds": [
+      "espoo-detention-example-rate"
+    ],
+    "relationships": [
+      {
+        "type": "same_source_context",
+        "targetType": "assertion",
+        "target": "espoo-detention-example-rate/r1"
+      }
+    ],
+    "quantity": {
+      "kind": "range",
+      "minimum": 12,
+      "maximum": 24,
+      "unit": "h",
+      "intervalType": "prescribed_interval",
+      "basis": "emptying time"
+    }
+  },
+  {
+    "id": "espoo-detention-worked-volume",
+    "revision": 1,
+    "supersedes": null,
+    "role": "derived_result",
+    "title": "Worked detention volume",
+    "originalTerm": null,
+    "panels": [
+      "ponds"
+    ],
+    "subject": "stormwater detention",
+    "quantityMeaning": "detention-volume",
+    "geography": null,
+    "applicability": "Assumed 600 m² of impermeable area and the cited example provision.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [],
+    "relatedAssertionIds": [
+      "espoo-detention-example-rate"
+    ],
+    "relationships": [
+      {
+        "type": "derived_from",
+        "targetType": "assertion",
+        "target": "espoo-detention-example-rate/r1"
+      }
+    ],
+    "example": "detention-worked-volume"
+  },
+  {
+    "id": "espoo-detention-worked-plan-area",
+    "revision": 1,
+    "supersedes": null,
+    "role": "derived_result",
+    "title": "Idealised detention plan area",
+    "originalTerm": null,
+    "panels": [
+      "ponds"
+    ],
+    "subject": "stormwater detention",
+    "quantityMeaning": "detention-plan-area",
+    "geography": null,
+    "applicability": "Uniform 0.20 m effective depth applied to the worked detention volume.",
+    "reviewStatus": "editorial-synthesis",
+    "evidence": [],
+    "relatedAssertionIds": [
+      "espoo-detention-worked-volume"
+    ],
+    "relationships": [
+      {
+        "type": "derived_from",
+        "targetType": "assertion",
+        "target": "espoo-detention-worked-volume/r1"
+      }
+    ],
+    "limitation": "Side slopes, freeboard, ground conditions and actual inflow/outflow are outside this calculation.",
+    "example": "detention-worked-plan-area"
   }
 ]

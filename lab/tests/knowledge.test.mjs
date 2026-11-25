@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
+import {readFileSync} from 'node:fs';
 import {createRecipe} from '../src/registry.js';
 import {examples} from '../morphology/knowledge-examples.mjs';
 import {depthAtEasting, measurements} from '../morphology/geometry.mjs';
@@ -52,4 +53,15 @@ test('the exchange rejects a measured label for repeated-footprint floor area',(
   assert.doesNotThrow(()=>check(sample));
   sample.observations.find(observation=>observation.measurement==='floor-area').status='measured';
   assert.throws(()=>check(sample),/modelled status/);
+});
+
+test('detention example uses the scoped rate and does not imply hydraulic sizing',()=>{
+  const assertions = JSON.parse(readFileSync(new URL('../data/knowledge/assertions.json',import.meta.url)));
+  const {quantity} = assertions.find(record=>record.id==='espoo-detention-example-rate'&&record.revision===1);
+  const result = examples(quantity);
+  assert.deepEqual(result['detention-worked-volume'].result,{value:6,unit:'m3'});
+  assert.deepEqual(result['detention-worked-plan-area'].result,{value:30,unit:'m2'});
+  assert.equal(result['detention-worked-plan-area'].inputs.effectiveDepth.value,.2);
+  assert.match(result['detention-worked-plan-area'].limitations,/freeboard/);
+  assert.throws(()=>examples({...quantity,denominator:{...quantity.denominator,unit:'ha'}}),/positive impermeable square metres/);
 });

@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://akkauppi.github.io/mitoitus/data/contextual-assertions.schema.v0.2.0.json",
+  "title": "Dubious contextual assertion dataset 0.2.0",
+  "type": "object",
+  "required": ["schemaVersion","edition","urlBase","siteRoot","schema","measurementDictionary","assertions","examples"],
+  "properties": {
+    "schemaVersion": {"const":"0.2.0"},
+    "edition": {"$ref":"#/$defs/text"},
+    "urlBase": {"$ref":"#/$defs/text"},
+    "siteRoot": {"const":"../"},
+    "schema": {"$ref":"#/$defs/text"},
+    "measurementDictionary": {"$ref":"#/$defs/text"},
+    "assertions": {"type":"array","minItems":1,"items":{"$ref":"#/$defs/assertion"}},
+    "examples": {
+      "type":"object",
+      "additionalProperties":{
+        "type":"object",
+        "required":["status","measurementIds"],
+        "properties":{
+          "status":{"const":"synthetic"},
+          "measurementIds":{"$ref":"#/$defs/ids"},
+          "formula":{"$ref":"#/$defs/text"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "text":{"type":"string","minLength":1},
+    "id":{"type":"string","pattern":"^[a-z0-9]+(-[a-z0-9]+)*$"},
+    "revisionId":{"type":"string","pattern":"^[a-z0-9]+(-[a-z0-9]+)*/r[1-9][0-9]*$"},
+    "ids":{"type":"array","uniqueItems":true,"items":{"$ref":"#/$defs/id"}},
+    "urls":{
+      "type":"object","additionalProperties":false,"required":["portable","canonical"],
+      "properties":{"portable":{"$ref":"#/$defs/text"},"canonical":{"type":"string","pattern":"^https://"}}
+    },
+    "unit":{"enum":["m","m2","m3","1","person","ha","child","place","h"]},
+    "value":{"type":"number","minimum":0},
+    "component":{
+      "type":"object","additionalProperties":false,"required":["value","unit","basis"],
+      "properties":{"value":{"$ref":"#/$defs/value"},"unit":{"$ref":"#/$defs/unit"},"basis":{"$ref":"#/$defs/text"}}
+    },
+    "scalar":{
+      "type":"object","additionalProperties":false,"required":["kind","value","unit"],
+      "properties":{
+        "kind":{"const":"scalar"},"value":{"$ref":"#/$defs/value"},"unit":{"$ref":"#/$defs/unit"},
+        "basis":{"$ref":"#/$defs/text"},"approximate":{"type":"boolean"}
+      }
+    },
+    "range":{
+      "type":"object","additionalProperties":false,"required":["kind","minimum","maximum","unit","intervalType"],
+      "properties":{
+        "kind":{"const":"range"},"minimum":{"$ref":"#/$defs/value"},"maximum":{"$ref":"#/$defs/value"},
+        "unit":{"$ref":"#/$defs/unit"},"basis":{"$ref":"#/$defs/text"},
+        "numeratorBasis":{"$ref":"#/$defs/text"},"denominatorBasis":{"$ref":"#/$defs/text"},
+        "approximate":{"type":"boolean"},
+        "intervalType":{"enum":["historical_reference_range","reference_interval","recommended_interval","prescribed_interval","uncertainty_interval","observed_variation"]}
+      }
+    },
+    "bound":{
+      "type":"object","additionalProperties":false,"required":["kind","operator","value","unit"],
+      "properties":{
+        "kind":{"const":"bound"},"operator":{"enum":["gt","gte","lt","lte"]},
+        "value":{"$ref":"#/$defs/value"},"unit":{"$ref":"#/$defs/unit"},
+        "basis":{"$ref":"#/$defs/text"},"approximate":{"type":"boolean"}
+      }
+    },
+    "simple":{"oneOf":[{"$ref":"#/$defs/scalar"},{"$ref":"#/$defs/range"},{"$ref":"#/$defs/bound"}]},
+    "quantity":{
+      "oneOf":[
+        {"$ref":"#/$defs/simple"},
+        {
+          "type":"object","additionalProperties":false,"required":["kind","components"],
+          "properties":{
+            "kind":{"const":"components"},"approximate":{"type":"boolean"},
+            "components":{"type":"object","minProperties":2,"propertyNames":{"$ref":"#/$defs/id"},"additionalProperties":{"$ref":"#/$defs/simple"}}
+          }
+        },
+        {
+          "type":"object","additionalProperties":false,"required":["kind","numerator","denominator"],
+          "properties":{
+            "kind":{"const":"rate"},"approximate":{"type":"boolean"},
+            "numerator":{"oneOf":[{"$ref":"#/$defs/component"},{"allOf":[{"$ref":"#/$defs/simple"},{"type":"object","required":["basis"]}]}]},
+            "denominator":{"allOf":[{"$ref":"#/$defs/component"},{"type":"object","properties":{"value":{"type":"number","exclusiveMinimum":0}}}]}
+          }
+        }
+      ]
+    },
+    "relationship":{
+      "type":"object","additionalProperties":false,"required":["type","targetType","target"],
+      "properties":{
+        "type":{"enum":["defines","derived_from","illustrates","alternative_measurement_method","different_geographical_context","different_applicability_conditions","same_source_context"]},
+        "targetType":{"enum":["assertion","measurement"]},
+        "target":{"$ref":"#/$defs/text"}
+      }
+    },
+    "evidence":{
+      "type":"object","additionalProperties":false,
+      "required":["sourceId","locator","sourceUrl","sourceTitle","sourceEdition","sourcePublicationStatus","evidenceUrl","urls"],
+      "properties":{
+        "claimId":{"$ref":"#/$defs/id"},"serviceRowId":{"$ref":"#/$defs/id"},
+        "sourceId":{"$ref":"#/$defs/text"},"locator":{"$ref":"#/$defs/text"},
+        "sourceUrl":{"type":"string","pattern":"^https?://"},"sourceTitle":{"$ref":"#/$defs/text"},
+        "sourceEdition":{"type":["string","null"]},"sourceRetrieved":{"type":["string","null"]},
+        "sourceSha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},
+        "sourcePublicationStatus":{"enum":["historical","guidance","municipal_report","example_provision","unclassified"]},
+        "evidenceUrl":{"$ref":"#/$defs/text"},"urls":{"$ref":"#/$defs/urls"}
+      },
+      "oneOf":[{"required":["claimId"]},{"required":["serviceRowId"]}]
+    },
+    "assertion":{
+      "type":"object","additionalProperties":false,
+      "required":["id","revision","supersedes","role","title","originalTerm","panels","applicability","reviewStatus","evidence","relatedAssertionIds","citationUrl","urls","quantityMeaning"],
+      "properties":{
+        "id":{"$ref":"#/$defs/id"},"revision":{"type":"integer","minimum":1},
+        "supersedes":{"anyOf":[{"$ref":"#/$defs/revisionId"},{"type":"null"}]},
+        "role":{"enum":["historical_reference","planning_reference","target","example_provision","recommendation","requirement","definition","empirical_observation","model_assumption","mathematical_identity","derived_result","professional_interpretation"]},
+        "title":{"$ref":"#/$defs/text"},"originalTerm":{"type":["string","null"]},
+        "subject":{"$ref":"#/$defs/text"},"geography":{"type":["string","null"]},
+        "panels":{"allOf":[{"$ref":"#/$defs/ids"},{"type":"array","minItems":1}]},
+        "applicability":{"$ref":"#/$defs/text"},"exception":{"$ref":"#/$defs/text"},
+        "limitation":{"$ref":"#/$defs/text"},"reviewStatus":{"const":"editorial-synthesis"},
+        "evidence":{"type":"array","items":{"$ref":"#/$defs/evidence"}},
+        "quantityMeaning":{"$ref":"#/$defs/id"},"quantity":{"$ref":"#/$defs/quantity"},
+        "relatedAssertionIds":{"$ref":"#/$defs/ids"},
+        "relationships":{"type":"array","uniqueItems":true,"items":{"$ref":"#/$defs/relationship"}},
+        "example":{"$ref":"#/$defs/id"},"citationUrl":{"$ref":"#/$defs/text"},"urls":{"$ref":"#/$defs/urls"}
+      }
+    }
+  }
+}

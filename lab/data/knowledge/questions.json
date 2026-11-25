@@ -1,0 +1,664 @@
+[
+  {
+    "id": "slab-history",
+    "question": "What slab length does TKK give?",
+    "expectedAnswer": "22–30 m for one slab module.",
+    "essentialQualifiers": [
+      "TKK 2007",
+      "repeated slab module"
+    ],
+    "incorrectInterpretation": "The slab is required to be 26 m long.",
+    "knowledgeIdentifiers": [
+      "tkk-slab-module-dimensions/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#building-blocks"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/tkk-slab-module-dimensions~1r1/role",
+        "equals": "historical_reference"
+      },
+      {
+        "document": "assertions",
+        "path": "/tkk-slab-module-dimensions~1r1/quantity/components/length/minimum",
+        "equals": 22
+      },
+      {
+        "document": "assertions",
+        "path": "/tkk-slab-module-dimensions~1r1/quantity/components/length/maximum",
+        "equals": 30
+      },
+      {
+        "document": "assertions",
+        "path": "/tkk-slab-module-dimensions~1r1/evidence/0/sourceEdition",
+        "equals": "28 Aug 2007"
+      }
+    ]
+  },
+  {
+    "id": "slab-model",
+    "question": "How long is the drawn module?",
+    "expectedAnswer": "26 m, with 11 m modelled depth.",
+    "essentialQualifiers": [
+      "3D model parameter",
+      "metres"
+    ],
+    "incorrectInterpretation": "The model length replaces the historical range.",
+    "knowledgeIdentifiers": [
+      "panel:building-blocks",
+      "tkk-slab-module-dimensions/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#building-blocks"
+    ],
+    "checks": [
+      {
+        "document": "panels",
+        "path": "/building-blocks/scenes/0/modelMeasurements/moduleLength",
+        "equals": 26
+      },
+      {
+        "document": "panels",
+        "path": "/building-blocks/scenes/0/modelMeasurements/moduleDepth",
+        "equals": 11
+      }
+    ]
+  },
+  {
+    "id": "detached-compound",
+    "question": "Is the detached 15 × 10 m footprint a range?",
+    "expectedAnswer": "It has two approximate dimensions.",
+    "essentialQualifiers": [
+      "length 15 m",
+      "depth 10 m",
+      "one-storey historical example"
+    ],
+    "incorrectInterpretation": "It gives a single 10–15 m interval.",
+    "knowledgeIdentifiers": [
+      "tkk-detached-house-footprint/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#building-detached"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/tkk-detached-house-footprint~1r1/quantity/kind",
+        "equals": "components"
+      },
+      {
+        "document": "assertions",
+        "path": "/tkk-detached-house-footprint~1r1/quantity/components/length/value",
+        "equals": 15
+      },
+      {
+        "document": "assertions",
+        "path": "/tkk-detached-house-footprint~1r1/quantity/approximate",
+        "equals": true
+      }
+    ]
+  },
+  {
+    "id": "row-scope",
+    "question": "Does row dwelling width cover the whole row?",
+    "expectedAnswer": "4–8 m refers to one repeating dwelling.",
+    "essentialQualifiers": [
+      "historical reference",
+      "dwelling width"
+    ],
+    "incorrectInterpretation": "The whole row must fit within 8 m.",
+    "knowledgeIdentifiers": [
+      "tkk-row-dwelling-width/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#building-rows"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/tkk-row-dwelling-width~1r1/quantity/minimum",
+        "equals": 4
+      },
+      {
+        "document": "assertions",
+        "path": "/tkk-row-dwelling-width~1r1/quantity/maximum",
+        "equals": 8
+      }
+    ]
+  },
+  {
+    "id": "density-denominators",
+    "question": "Are detached district and plot FAR ranges conflicting values?",
+    "expectedAnswer": "They use district land versus plot land.",
+    "essentialQualifiers": [
+      "same historical source",
+      "distinct land boundaries"
+    ],
+    "incorrectInterpretation": "Average the values because the source is inconsistent.",
+    "knowledgeIdentifiers": [
+      "tkk-detached-district-far/r1",
+      "tkk-detached-plot-far/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#density"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/tkk-detached-district-far~1r1/quantity/denominatorBasis",
+        "equals": "district land area"
+      },
+      {
+        "document": "assertions",
+        "path": "/tkk-detached-plot-far~1r1/quantity/denominatorBasis",
+        "equals": "plot land area"
+      }
+    ]
+  },
+  {
+    "id": "population-unknown",
+    "question": "Can the land boundary for about 30 residents per hectare be identified here?",
+    "expectedAnswer": "The boundary remains unresolved in the curated record.",
+    "essentialQualifiers": [
+      "approximate residents per hectare",
+      "historical example"
+    ],
+    "incorrectInterpretation": "The number uses plot hectares because the plot FAR is listed nearby.",
+    "knowledgeIdentifiers": [
+      "tkk-detached-population-density/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#density"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/tkk-detached-population-density~1r1/quantity/denominator/unit",
+        "equals": "ha"
+      },
+      {
+        "document": "assertions",
+        "path": "/tkk-detached-population-density~1r1/quantity/numerator/unit",
+        "equals": "person"
+      },
+      {
+        "document": "assertions",
+        "path": "/tkk-detached-population-density~1r1/limitation",
+        "equals": "The land boundary behind the reported hectare figure is unresolved. No conversion from FAR is stated."
+      }
+    ]
+  },
+  {
+    "id": "same-far",
+    "question": "Does equal FAR fix site coverage?",
+    "expectedAnswer": "No. The same FAR 1 is shown at 50%, 25% and 12.5% coverage.",
+    "essentialQualifiers": [
+      "synthetic plots",
+      "2, 4 and 8 identical plates"
+    ],
+    "incorrectInterpretation": "FAR 1 requires every site to have the same coverage.",
+    "knowledgeIdentifiers": [
+      "example:equal-far",
+      "far-same-ratio-different-form/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#example-equal-far"
+    ],
+    "checks": [
+      {
+        "document": "examples",
+        "path": "/equal-far/cases/0/coverage",
+        "equals": 0.5
+      },
+      {
+        "document": "examples",
+        "path": "/equal-far/cases/2/coverage",
+        "equals": 0.125
+      },
+      {
+        "document": "examples",
+        "path": "/equal-far/cases/2/far",
+        "equals": 1
+      }
+    ]
+  },
+  {
+    "id": "nested-boundary",
+    "question": "What happens to FAR when the area grows from 1,024 to 4,096 m²?",
+    "expectedAnswer": "The same 1,024 m² floor area gives FAR 0.25.",
+    "essentialQualifiers": [
+      "synthetic",
+      "same floor numerator"
+    ],
+    "incorrectInterpretation": "The FAR stays 1 because the building did not change.",
+    "knowledgeIdentifiers": [
+      "example:nested-denominators",
+      "far-nested-land-boundaries/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#example-nested-denominators"
+    ],
+    "checks": [
+      {
+        "document": "examples",
+        "path": "/nested-denominators/cases/1/landArea",
+        "equals": 4096
+      },
+      {
+        "document": "examples",
+        "path": "/nested-denominators/cases/1/floorArea",
+        "equals": 1024
+      },
+      {
+        "document": "examples",
+        "path": "/nested-denominators/cases/1/far",
+        "equals": 0.25
+      }
+    ]
+  },
+  {
+    "id": "massing-storey",
+    "question": "Is 3 m a sourced storey requirement?",
+    "expectedAnswer": "3 m is the storey height assumed in the massing.",
+    "essentialQualifiers": [
+      "synthetic model",
+      "storey height assumption"
+    ],
+    "incorrectInterpretation": "TKK or Finnish law requires 3 m per storey.",
+    "knowledgeIdentifiers": [
+      "far-massing-model-storey-height/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#example-equal-far"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/far-massing-model-storey-height~1r1/role",
+        "equals": "model_assumption"
+      },
+      {
+        "document": "assertions",
+        "path": "/far-massing-model-storey-height~1r1/quantity/value",
+        "equals": 3
+      },
+      {
+        "document": "assertions",
+        "path": "/far-massing-model-storey-height~1r1/evidence",
+        "equals": []
+      }
+    ]
+  },
+  {
+    "id": "geometry-method",
+    "question": "Why are there 16 m and 6 m depths for one L-shaped footprint?",
+    "expectedAnswer": "16 m is the envelope span and 6 m is a selected transect at 20 m easting.",
+    "essentialQualifiers": [
+      "same geometry",
+      "different methods"
+    ],
+    "incorrectInterpretation": "The shorter number corrects a data error in the longer one.",
+    "knowledgeIdentifiers": [
+      "example:depth-methods",
+      "measurement:building-depth",
+      "depth-envelope-versus-transect/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#example-depth-methods"
+    ],
+    "checks": [
+      {
+        "document": "examples",
+        "path": "/depth-methods/cases/0/envelopeDepth",
+        "equals": 16
+      },
+      {
+        "document": "examples",
+        "path": "/depth-methods/cases/0/transectDepth",
+        "equals": 6
+      },
+      {
+        "document": "examples",
+        "path": "/depth-methods/cases/0/easting",
+        "equals": 20
+      }
+    ]
+  },
+  {
+    "id": "estimated-floor-area",
+    "question": "Can a repeated full footprint multiplied by storeys be reported as directly measured empirical floor area?",
+    "expectedAnswer": "The method represents modelled floor area. The published fixtures are synthetic.",
+    "essentialQualifiers": [
+      "identical-plate model",
+      "measured and estimated statuses are distinct"
+    ],
+    "incorrectInterpretation": "An exact multiplication proves that the underlying floor area was measured.",
+    "knowledgeIdentifiers": [
+      "measurement:floor-area"
+    ],
+    "supportingEvidence": [
+      "data/morphology/CITYMODEL-INTEGRATION.md"
+    ],
+    "checks": [
+      {
+        "document": "dictionary",
+        "path": "/measurements/floor-area/methods/identical-footprint-times-storeys/version",
+        "equals": "1.0.0"
+      },
+      {
+        "document": "fixtures",
+        "path": "/kind",
+        "equals": "synthetic"
+      }
+    ]
+  },
+  {
+    "id": "helsinki-yards",
+    "question": "How should Helsinki’s daycare yard interval be read?",
+    "expectedAnswer": "The 2023 report describes 10–15 m² per child with dense inner-city exceptions.",
+    "essentialQualifiers": [
+      "Helsinki explanatory report",
+      "per child",
+      "exceptions and nearby green space"
+    ],
+    "incorrectInterpretation": "A national 10–15 m² requirement applies to all daycare sites.",
+    "knowledgeIdentifiers": [
+      "helsinki-daycare-yard/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#daycare-yard-helsinki"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/helsinki-daycare-yard~1r1/quantity/numerator/intervalType",
+        "equals": "reference_interval"
+      },
+      {
+        "document": "assertions",
+        "path": "/helsinki-daycare-yard~1r1/quantity/denominator/unit",
+        "equals": "child"
+      },
+      {
+        "document": "assertions",
+        "path": "/helsinki-daycare-yard~1r1/quantity/numerator/maximum",
+        "equals": 15
+      }
+    ]
+  },
+  {
+    "id": "espoo-yards",
+    "question": "What does the Espoo daycare target count?",
+    "expectedAnswer": "15 m² per early-childhood place in the target cited by the 2023 Postipuu assessment.",
+    "essentialQualifiers": [
+      "Espoo municipal target",
+      "per place"
+    ],
+    "incorrectInterpretation": "The Espoo denominator is automatically interchangeable with a Helsinki child count.",
+    "knowledgeIdentifiers": [
+      "espoo-daycare-yard/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#daycare-yard-espoo"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/espoo-daycare-yard~1r1/role",
+        "equals": "target"
+      },
+      {
+        "document": "assertions",
+        "path": "/espoo-daycare-yard~1r1/quantity/numerator/value",
+        "equals": 15
+      },
+      {
+        "document": "assertions",
+        "path": "/espoo-daycare-yard~1r1/quantity/denominator/unit",
+        "equals": "place"
+      }
+    ]
+  },
+  {
+    "id": "tampere-yards",
+    "question": "When is Tampere’s 15 m² minimum applicable?",
+    "expectedAnswer": "In built urban surroundings where achieving the 20 m² per child target is difficult.",
+    "essentialQualifiers": [
+      "Tampere local design guide",
+      "conditional ≥15 m² per child",
+      "20 m² target"
+    ],
+    "incorrectInterpretation": "15 m² replaces the target for all sites.",
+    "knowledgeIdentifiers": [
+      "tampere-daycare-yard/r1",
+      "tampere-daycare-yard-urban-minimum/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#daycare-yard-tampere"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/tampere-daycare-yard~1r1/quantity/numerator/value",
+        "equals": 20
+      },
+      {
+        "document": "assertions",
+        "path": "/tampere-daycare-yard-urban-minimum~1r1/quantity/numerator/operator",
+        "equals": "gte"
+      },
+      {
+        "document": "assertions",
+        "path": "/tampere-daycare-yard-urban-minimum~1r1/quantity/numerator/value",
+        "equals": 15
+      },
+      {
+        "document": "assertions",
+        "path": "/tampere-daycare-yard-urban-minimum~1r1/relationships/0/type",
+        "equals": "different_applicability_conditions"
+      }
+    ]
+  },
+  {
+    "id": "wheelchair-diameter",
+    "question": "What is the SuRaKu turning value for a wheelchair?",
+    "expectedAnswer": "An unobstructed diameter of at least 1.5 m in the dated outdoor guidance.",
+    "essentialQualifiers": [
+      "diameter",
+      "not a radius",
+      "2008 SuRaKu guidance"
+    ],
+    "incorrectInterpretation": "A statutory 1.5 m radius is required everywhere.",
+    "knowledgeIdentifiers": [
+      "wheelchair-turning-clear-diameter/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#turning"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/wheelchair-turning-clear-diameter~1r1/quantity/value",
+        "equals": 1.5
+      },
+      {
+        "document": "assertions",
+        "path": "/wheelchair-turning-clear-diameter~1r1/quantity/operator",
+        "equals": "gte"
+      },
+      {
+        "document": "assertions",
+        "path": "/wheelchair-turning-clear-diameter~1r1/evidence/0/sourcePublicationStatus",
+        "equals": "guidance"
+      }
+    ]
+  },
+  {
+    "id": "powered-diameter",
+    "question": "Does a 1.5 m clear diameter establish the powered-wheelchair reference?",
+    "expectedAnswer": "The cited powered-wheelchair reference is at least 2.5 m clear diameter.",
+    "essentialQualifiers": [
+      "powered wheelchair",
+      "same SuRaKu guidance context"
+    ],
+    "incorrectInterpretation": "The two device categories have the same envelope.",
+    "knowledgeIdentifiers": [
+      "wheelchair-turning-clear-diameter/r1",
+      "powered-wheelchair-turning-clear-diameter/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#turning"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/powered-wheelchair-turning-clear-diameter~1r1/subject",
+        "equals": "powered wheelchair"
+      },
+      {
+        "document": "assertions",
+        "path": "/powered-wheelchair-turning-clear-diameter~1r1/quantity/value",
+        "equals": 2.5
+      },
+      {
+        "document": "assertions",
+        "path": "/powered-wheelchair-turning-clear-diameter~1r1/quantity/basis",
+        "equals": "unobstructed diameter"
+      }
+    ]
+  },
+  {
+    "id": "scooter-unknown",
+    "question": "Does the powered-wheelchair reference establish clearance for a specific scooter?",
+    "expectedAnswer": "Scooter suitability is unresolved for the individual model.",
+    "essentialQualifiers": [
+      "device-specific fit",
+      "outdoor guidance scope"
+    ],
+    "incorrectInterpretation": "Any mobility scooter fits inside the powered-wheelchair reference.",
+    "knowledgeIdentifiers": [
+      "powered-wheelchair-turning-clear-diameter/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#turning"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/powered-wheelchair-turning-clear-diameter~1r1/limitation",
+        "equals": "The source distinguishes wheelchair types. Fit for an individual mobility scooter is unresolved."
+      }
+    ]
+  },
+  {
+    "id": "detention-source",
+    "question": "Is the Espoo detention rate a general requirement?",
+    "expectedAnswer": "One cubic metre per 100 m² impermeable area is an example zoning provision.",
+    "essentialQualifiers": [
+      "actual site provision needed",
+      "impermeable surface denominator"
+    ],
+    "incorrectInterpretation": "Use one cubic metre per 100 m² of the entire property for every site.",
+    "knowledgeIdentifiers": [
+      "espoo-detention-example-rate/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#stormwater"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/espoo-detention-example-rate~1r1/role",
+        "equals": "example_provision"
+      },
+      {
+        "document": "assertions",
+        "path": "/espoo-detention-example-rate~1r1/quantity/denominator/basis",
+        "equals": "impermeable surface area"
+      },
+      {
+        "document": "assertions",
+        "path": "/espoo-detention-example-rate~1r1/quantity/denominator/value",
+        "equals": 100
+      }
+    ]
+  },
+  {
+    "id": "detention-emptying",
+    "question": "What is the emptying time in the example?",
+    "expectedAnswer": "12–24 hours with controlled overflow.",
+    "essentialQualifiers": [
+      "same example zoning provision",
+      "interval describes emptying"
+    ],
+    "incorrectInterpretation": "12–24 hours is an observational uncertainty interval.",
+    "knowledgeIdentifiers": [
+      "espoo-detention-example-emptying/r1"
+    ],
+    "supportingEvidence": [
+      "evidence.html#stormwater"
+    ],
+    "checks": [
+      {
+        "document": "assertions",
+        "path": "/espoo-detention-example-emptying~1r1/quantity/intervalType",
+        "equals": "prescribed_interval"
+      },
+      {
+        "document": "assertions",
+        "path": "/espoo-detention-example-emptying~1r1/quantity/minimum",
+        "equals": 12
+      },
+      {
+        "document": "assertions",
+        "path": "/espoo-detention-example-emptying~1r1/quantity/maximum",
+        "equals": 24
+      }
+    ]
+  },
+  {
+    "id": "detention-geometry",
+    "question": "Does the worked example size an actual basin?",
+    "expectedAnswer": "The arithmetic gives 6 m³ and 30 m² plan area at an assumed uniform 0.20 m effective depth.",
+    "essentialQualifiers": [
+      "600 m² assumed impermeable area",
+      "idealised plan area",
+      "freeboard and inflow/outflow excluded"
+    ],
+    "incorrectInterpretation": "30 m² is an approved site-specific hydraulic design.",
+    "knowledgeIdentifiers": [
+      "espoo-detention-worked-volume/r1",
+      "espoo-detention-worked-plan-area/r1",
+      "example:detention-worked-volume",
+      "example:detention-worked-plan-area"
+    ],
+    "supportingEvidence": [
+      "evidence.html#stormwater",
+      "evidence.html#example-detention-worked-plan-area"
+    ],
+    "checks": [
+      {
+        "document": "examples",
+        "path": "/detention-worked-volume/result/value",
+        "equals": 6
+      },
+      {
+        "document": "examples",
+        "path": "/detention-worked-plan-area/result/value",
+        "equals": 30
+      },
+      {
+        "document": "examples",
+        "path": "/detention-worked-plan-area/inputs/effectiveDepth/value",
+        "equals": 0.2
+      },
+      {
+        "document": "assertions",
+        "path": "/espoo-detention-worked-plan-area~1r1/limitation",
+        "equals": "Side slopes, freeboard, ground conditions and actual inflow/outflow are outside this calculation."
+      }
+    ]
+  }
+]

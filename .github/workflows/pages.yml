@@ -16,6 +16,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Protect previously locked assertion revisions
+        if: github.event_name == 'push'
+        env:
+          PREVIOUS_SHA: ${{ github.event.before }}
+        run: |
+          git cat-file -e "$PREVIOUS_SHA^{commit}" 2>/dev/null || git fetch --no-tags --depth=1 origin "$PREVIOUS_SHA"
+          PYTHONPATH=lab/scripts python3 - <<'PYTHON'
+          import json, os, subprocess
+          from pathlib import Path
+          from curated_reference import LOCK_PATH, verify_previous_lock
+
+          previous = subprocess.run(['git', 'show', os.environ['PREVIOUS_SHA']+':'+LOCK_PATH],
+                                    capture_output=True)
+          if previous.returncode:
+              tree = subprocess.check_output(['git','ls-tree',os.environ['PREVIOUS_SHA'],LOCK_PATH])
+              if tree:
+                  raise RuntimeError(previous.stderr.decode())
+          else:
+              verify_previous_lock(json.loads(previous.stdout), json.loads(Path(LOCK_PATH).read_bytes()))
+          PYTHON
       - name: Install locked test dependency
         run: npm ci --prefix lab --ignore-scripts
       - name: Check metric geometry

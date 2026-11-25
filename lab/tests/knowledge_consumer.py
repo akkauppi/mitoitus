@@ -1,8 +1,9 @@
 """Exercise a Dubious reader using only the supplied homepage URL."""
+import argparse
 import json
 import sys
 from html.parser import HTMLParser
-from urllib.parse import urldefrag, urljoin
+from urllib.parse import urldefrag, urljoin, urlsplit
 from urllib.request import urlopen
 
 
@@ -34,7 +35,7 @@ class Page(HTMLParser):
 
 def fetch(url, content_type):
     with urlopen(url,timeout=15) as response:
-        assert response.status == 200
+        assert response.status in (200, None)
         assert response.headers.get_content_type() == content_type, response.geturl()
         return response.geturl(), response.read().decode('utf-8')
 
@@ -45,69 +46,108 @@ def run(url):
     links = Page(html).links
 
     def data(label):
-        return json.loads(fetch(urljoin(catalogue,links[label]),'application/json')[1])
+        address, content = fetch(urljoin(catalogue,links[label]),'application/json')
+        return address, json.loads(content)
 
-    rulebook = data('Rulebook JSON')
-    curated = data('Contextual assertions JSON')
-    dictionary = data('Measurement dictionary JSON')
-    fixtures = data('Synthetic geometry, formulas and results JSON')
-    schema = data('Provisional exchange schema')
-    assert rulebook['edition'] == curated['edition'] == fixtures['edition']
+    book_url,rulebook = data('Rulebook JSON')
+    curated_url,curated = data('Contextual assertions JSON')
+    dictionary_url,dictionary = data('Measurement dictionary JSON')
+    fixtures_url,fixtures = data('Synthetic geometry, formulas and results JSON')
+    questions_url,questions = data('Knowledge reference questions JSON')
+    schema_url,schema = data('Contextual assertion schema')
+    _,exchange = data('Provisional exchange schema')
     evidence_url,evidence_html = fetch(urljoin(catalogue,links['Evidence register']),'text/html')
-    assert evidence_url
-    evidence = Page(evidence_html)
-    records = {f'{item["id"]}/r{item["revision"]}':item for item in curated['assertions']}
-    examples = curated['examples']
+    evidence_json_url,evidence_json = data('Evidence JSON')
+    site = urljoin(home,'./')
+    assert rulebook['edition'] == curated['edition'] == fixtures['edition'] == questions['edition']
+    for url,dataset in [(book_url,rulebook),(curated_url,curated),(fixtures_url,fixtures),
+                        (questions_url,questions),(evidence_json_url,evidence_json)]:
+        assert urljoin(url,dataset['siteRoot']) == site, (url,dataset['siteRoot'])
+        assert dataset['urlBase'] == curated['urlBase']
 
-    # A claim's citation resolves to its exact revision and source locator.
-    for record in records.values():
-        assert urldefrag(record['citationUrl']).fragment in evidence.ids
-        for source in record['evidence']:
-            assert urldefrag(source['evidenceUrl']).fragment in evidence.ids
-            assert source['locator'] and source['sourceEdition']
+    names = {f'{item["id"]}/r{item["revision"]}':item for item in curated['assertions']}
+    assert len(names) == len(curated['assertions'])
+    documents = {
+        'assertions':names, 'dictionary':dictionary, 'fixtures':fixtures,
+        'examples':curated['examples'], 'panels':{panel['id']:panel for panel in rulebook['panels']},
+    }
+    pages = {evidence_url:Page(evidence_html)}
+    resources = {book_url,curated_url,dictionary_url,fixtures_url,questions_url,schema_url,evidence_json_url,evidence_url}
 
-    slab = records['tkk-slab-module-dimensions/r1']
-    span = slab['quantity']['components']
-    assert (span['length']['minimum'],span['length']['maximum'],span['depth']['minimum'],
-            span['depth']['maximum'],span['depth']['unit']) == (22,30,10,12,'m')
-    assert slab['role']=='historical_reference' and slab['evidence'][0]['sourceEdition']=='28 Aug 2007'
-    panels = {panel['id']:panel for panel in rulebook['panels']}
-    assert 'tkk-slab-module-dimensions/r1' in panels['building-blocks']['assertionRevisionIds']
-    scene = panels['building-blocks']['scenes'][0]
-    assert scene['coordinateUnits']=='m'
-    assert (scene['modelMeasurements']['moduleLength'],scene['modelMeasurements']['moduleDepth'])==(26,11)
-    assert records['far-massing-model-storey-height/r1']['quantity']=={'kind':'scalar','value':3,'unit':'m'}
+    def check_portable(url):
+        target, fragment = urldefrag(url)
+        assert target.startswith(site), target
+        if fragment:
+            if target not in pages:
+                resolved,html = fetch(target,'text/html')
+                assert resolved == target
+                pages[target] = Page(html)
+            assert fragment in pages[target].ids, url
+        elif target not in resources:
+            expected = ('application/json' if target.endswith('.json') else
+                        'text/html' if target.endswith('.html') else None)
+            with urlopen(target,timeout=15) as response:
+                assert response.status in (200,None) and response.geturl()==target
+                if expected:
+                    assert response.headers.get_content_type()==expected
+            resources.add(target)
 
-    far = examples['equal-far']
-    assert far['status']=='synthetic' and far['units']['floorArea']=='m2'
-    assert [item['far'] for item in far['cases']]==[1,1,1]
-    assert far['cases']==panels['equal-density']['scenes'][0]['modelMeasurements']['cases']
-    assert [item['far'] for item in examples['nested-denominators']['cases']]==[1,.25,.0625]
-    residents = records['tkk-detached-population-density/r1']
-    assert residents['quantity']['numerator']['unit']=='person' and residents['quantity']['denominator']['unit']=='ha'
-    assert residents['quantity']['approximate'] and 'unresolved' in residents['limitation']
-    for scope in ('plot','block','district'):
-        q = records[f'tkk-detached-{scope}-far/r1']['quantity']
-        assert q['denominatorBasis']==f'{scope} land area' and q['unit']=='1'
+    assert urljoin(curated_url,curated['schema']) == schema_url
+    assert urljoin(site,curated['measurementDictionary']) == dictionary_url
+    assert urljoin(site,rulebook['contextualAssertions']) == curated_url
+    assert schema['$id'] == urljoin(curated['urlBase'],'data/'+curated['schema'])
+    for record in names.values():
+        for obj,field in [(record,'citationUrl'), *((ref,'evidenceUrl') for ref in record['evidence'])]:
+            portable = urljoin(curated_url,obj['urls']['portable'])
+            assert portable == urljoin(site,obj[field])
+            assert obj['urls']['canonical'] == urljoin(curated['urlBase'],obj[field])
+            check_portable(portable)
+        for ref in record['evidence']:
+            source = urlsplit(ref['sourceUrl'])
+            assert source.scheme in ('http','https') and source.netloc and ref['locator']
+            assert ref['sourceEdition'] or ref.get('sourceRetrieved')
+        if example := record.get('example'):
+            check_portable(evidence_url+'#example-'+example)
 
-    statuses = schema['$defs']['observation']['properties']['status']['enum']
-    assert 'measured' in statuses and 'estimated' in statuses and 'synthetic' in statuses
-    floor_methods = dictionary['measurements']['floor-area']['methods']
-    assert 'identical-footprint-times-storeys' in floor_methods
-    actual = [row for item in fixtures['fixtures'] for row in item['exchange']['observations']]
-    assert {row['status'] for row in actual}=={'synthetic'}
-    assert all(row['method']=='identical-footprint-times-storeys' for row in actual if row['measurement']=='floor-area')
+    for path in rulebook['spreadFiles'].values():
+        spread_url,data_str = fetch(urljoin(site,path),'application/json')
+        spread = json.loads(data_str)
+        assert spread['edition']==rulebook['edition']
+        assert urljoin(spread_url,spread['siteRoot']) == site
+        if linked := spread.get('contextualAssertions'):
+            assert urljoin(urljoin(spread_url,spread['siteRoot']),linked) == curated_url
+        for panel in spread['panels']:
+            assert urljoin(urljoin(spread_url,spread['siteRoot']),panel['url']) == urljoin(site,panel['url'])
+    for label in ('Rulebook CSV','Synthetic exchange example','Contextual assertions Markdown'):
+        check_portable(urljoin(catalogue,links[label]))
 
-    depth = examples['depth-methods']
-    assert depth['status']=='synthetic' and {'envelopeDepth','transectDepth'}==set(depth['methods'])
-    full = depth['methods']['envelopeDepth']['method']
-    assert full in dictionary['measurements']['building-depth']['methods']
-    assert (depth['cases'][0]['envelopeDepth'],depth['cases'][0]['transectDepth'],depth['cases'][0]['unit']) == (16,6,'m')
-    assert records['depth-envelope-versus-transect/r1']['role']=='derived_result'
-    for label in ('Rulebook CSV','Synthetic exchange example'):
-        assert label in links
-    print(f"PASS: homepage-only consumer, five distinction checks and 15 stable citation anchors, edition {curated['edition']}.")
+    registry = set(names)
+    for kind,values in [('example',documents['examples']),('measurement',dictionary['measurements']),('panel',documents['panels'])]:
+        registry.update(f'{kind}:{value}' for value in values)
+    case_ids = set()
+    for case in questions['cases']:
+        assert case['id'] not in case_ids
+        case_ids.add(case['id'])
+        assert all(case[k] for k in ('question','expectedAnswer','essentialQualifiers','incorrectInterpretation',
+                                     'knowledgeIdentifiers','supportingEvidence','checks'))
+        assert set(case['knowledgeIdentifiers'])<=registry, case['id']
+        for reference in case['supportingEvidence']:
+            check_portable(urljoin(urljoin(questions_url,questions['siteRoot']),reference))
+        for check in case['checks']:
+            actual = documents[check['document']]
+            for part in check['path'][1:].split('/'):
+                key = part.replace('~1','/').replace('~0','~')
+                actual = actual[int(key) if isinstance(actual,list) else key]
+            assert actual == check['equals'], (case['id'],check,actual)
+
+    equal = documents['panels']['equal-density']['scenes'][0]['modelMeasurements']['cases']
+    assert equal == documents['examples']['equal-far']['cases']
+    assert {row['status'] for f in fixtures['fixtures'] for row in f['exchange']['observations']} == {'synthetic'}
+    assert {'measured','estimated','synthetic'} <= set(exchange['$defs']['observation']['properties']['status']['enum'])
+    print(f"PASS: {len(case_ids)} reference cases and complete citation URLs for {len(names)} revisions ({urlsplit(home).scheme}).")
 
 
 if __name__ == '__main__':
-    run(sys.argv[1])
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('homepage')
+    run(parser.parse_args().homepage)

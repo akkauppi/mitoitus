@@ -1,0 +1,36 @@
+{
+  "algorithm": "sha256",
+  "canonicalization": "dubious-semantic-record-v1",
+  "publishedBaseline": {
+    "edition": "2026-11-25.2",
+    "datasetSha256": "7631965b83e6c4b360e46dd37ee1af05397c93243612dbe513fcd634304ce2d4",
+    "assertions": 15
+  },
+  "revisions": {
+    "tkk-slab-module-dimensions/r1": "2cfacf42d58e201f78940baaaabdbe84e04b457f000db896b2ecc581506d36d6",
+    "tkk-row-dwelling-width/r1": "5e38e8505863b27f82b86dce45cf59ef799cd6bf16e7febb627295bcd740ff22",
+    "tkk-row-house-depth/r1": "47d0596094fe9c3f53ab319c4674bccf243aa348c9c6f438addb30159fed5a76",
+    "tkk-detached-house-footprint/r1": "4b7b466996ac91b4c6890d477931216a081b8c420900c43904e4ac8541decbd5",
+    "tkk-detached-plot-area/r1": "f11b996ae1e15a206f53557307d544c760dcba419102f5f143148618b9469dcd",
+    "tkk-floor-area-ratio-definition/r1": "5eec4b2461d872d66dc83719fd9379b1bc5397e5c5a1801d34160f42f2c60272",
+    "tkk-detached-district-far/r1": "6c97699fc030afee2f23c605476666f2949f12f913eb4cef4bd32ab7c90e10a9",
+    "tkk-detached-block-far/r1": "ffd70541a56bc0992c843c880855728a2a4086e3bb0cba2eebe8f1436b293ceb",
+    "tkk-detached-plot-far/r1": "15ff2ccf210259d73f497d604f0d80302bcb1d379bb5bec016f1542ed2838b30",
+    "tkk-detached-population-density/r1": "3b2bc52c9c2503832edb2ae254777c6e92d8de1a35255a34eeda4a0a9fb13a93",
+    "far-coverage-storeys-identity/r1": "e6a22207e7a6f2df8507b4270b1ad22aab0b5a81eba9659c5e973149c74c1c1f",
+    "far-massing-model-storey-height/r1": "3d180d92b120ecc9075580270a60f5d0da1f72e8a36db08022829b1ac2f754c1",
+    "far-same-ratio-different-form/r1": "a40f9598c3cac851070be4c71b343a58cafee6f741c732d470b27f5102078251",
+    "far-nested-land-boundaries/r1": "49132f5c0b42a08cc3844c37ac678e4cbb292407e704202f773029c76fd9a09d",
+    "depth-envelope-versus-transect/r1": "42dac96beca8336a182cbf254e3425ea34a332f43c92530570f66aae331e4739",
+    "helsinki-daycare-yard/r1": "eaf363dc22bc31cc573b919a533c1aa1653807933f21fb6822a262b665601b71",
+    "espoo-daycare-yard/r1": "ea65e2eb108b39d51e7e2cb546fa6c51ce779d436297eb118a6f32f313bae4f3",
+    "tampere-daycare-yard/r1": "1522c0604b636650925b474047b260b096772e9bcd959245058c728e1d23e856",
+    "tampere-daycare-yard-urban-minimum/r1": "dd4c0e146930ba5a412fdfe3618c12640631c74e75453562ae8e11921f8dc773",
+    "wheelchair-turning-clear-diameter/r1": "ddc9faad214732c652fdb70a988d53e247d4fbef7d2fc33f6abe17afc8df3d50",
+    "powered-wheelchair-turning-clear-diameter/r1": "1bf47cb0978697b814f4c8b33c14f1e5cdc3ebfef40db979c13c0a22cbc0276e",
+    "espoo-detention-example-rate/r1": "6bbf1bcbc6cbab309be32cfe656d42245cab481058c1064c6bbae1819554d2ff",
+    "espoo-detention-example-emptying/r1": "b6bbc7f92fedf170f02a5ca15d15cb1ce5b57b4256c6acc9657365f6ce6f7e04",
+    "espoo-detention-worked-volume/r1": "4cac0ce381b4521c211dfb7921026007d0e636c69cd062ee9018a16168f4fa15",
+    "espoo-detention-worked-plan-area/r1": "02de9f19423925fa1696260b5adb2b0ae040a8506ec01801d48069dbcda1d9a8"
+  }
+}

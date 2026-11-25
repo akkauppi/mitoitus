@@ -15,8 +15,9 @@ from population_editorial import redesign_population, render_population_evidence
 from parking_editorial import redesign_parking
 from release_editorial import apply_release_edits, PANEL_ALIASES, EDITION, render_branding
 from reference_export import EXPORT_FILES, JSON_PATH, SPREAD_ORDER, build_exports
-from curated_reference import (ASSERTIONS_PATH, PROJECT_DESCRIPTION, add_sources_links,
-                               authoring, build_curated, render_curated_evidence)
+from curated_reference import (ASSERTIONS_PATH, KNOWLEDGE_FILES, PROJECT_DESCRIPTION, PUBLIC_URL,
+                               add_sources_links, authoring, build_curated, knowledge_artifacts,
+                               render_curated_evidence)
 from morphology_export import build_morphology, MORPHOLOGY_FILES, CATALOGUE
 from poster_assets import public_mapping, validate_assets, replace_figures
 
@@ -70,7 +71,7 @@ RUNTIME_FILES.update({
 })
 T15_PUBLIC_FILES = (*PUBLIC_FILES, *RUNTIME_FILES)
 REFERENCE_PUBLIC_FILES = (*T15_PUBLIC_FILES, *EXPORT_FILES)
-PUBLIC_FILES = (*REFERENCE_PUBLIC_FILES, *MORPHOLOGY_FILES, ASSERTIONS_PATH)
+PUBLIC_FILES = (*REFERENCE_PUBLIC_FILES, *MORPHOLOGY_FILES, *KNOWLEDGE_FILES)
 OFFLINE = 'downloads/rulebook-offline.zip'
 MAX_ARCHIVE_BYTES = 32 * 1024 * 1024
 
@@ -197,6 +198,7 @@ def render_evidence_json(source):
             raise ValueError('S10 link update does not match retained source identity')
         item['url'] = update['url']
         item['link_update'] = {'checkedAt': evidence['checkedAt'], 'previousUrl': evidence['originalUrl'], 'sameContentSha256': evidence['sha256']}
+    data.update(urlBase=PUBLIC_URL,siteRoot='./')
     return (json.dumps(data, ensure_ascii=False, indent=2)+'\n').encode()
 
 
@@ -348,8 +350,9 @@ def verify_candidate(output, allow_legacy=False):
     t05_expected = t06_expected - {'runtime/recipes/tram.js'}
     t04_expected = t05_expected - {'runtime/recipes/accessibility.js','runtime/primitives/accessibility.js'}
     t03_expected = t04_expected - {'runtime/recipes/routes.js','runtime/primitives/surfaces.js'}
-    previous_morphology = expected - {ASSERTIONS_PATH, 'runtime/metrics.js'}
-    if allow_legacy and names in (previous_morphology, previous_morphology - set(MORPHOLOGY_FILES),
+    previous_knowledge = expected - (set(KNOWLEDGE_FILES)-{ASSERTIONS_PATH})
+    previous_morphology = previous_knowledge - {ASSERTIONS_PATH, 'runtime/metrics.js'}
+    if allow_legacy and names in (previous_knowledge, previous_morphology, previous_morphology - set(MORPHOLOGY_FILES),
                                   previous_morphology - set(MORPHOLOGY_FILES) - set(EXPORT_FILES),old_expected,t02_expected,t03_expected,t04_expected,t05_expected,t06_expected,t07_expected,t08_expected,t09_expected,t09_review_expected,t10_expected,t11_expected,t13_expected,t14_expected):
         expected = names
     if names != expected:
@@ -411,7 +414,7 @@ def build(output=None, replace=False):
     files['evidence.html'] = render_evidence(files['evidence.html'])
     files['evidence.json'] = render_evidence_json(files['evidence.json'])
     curated = build_curated(ROOT, json.loads(files['evidence.json']), EDITION)
-    files[ASSERTIONS_PATH] = (json.dumps(curated, ensure_ascii=False, indent=2, allow_nan=False)+'\n').encode()
+    files.update(knowledge_artifacts(ROOT, curated))
     files['evidence.html'] = render_curated_evidence(files['evidence.html'], curated)
     files.update(build_exports(ROOT, files['index.html'], json.loads(files['evidence.json']),
                                json.loads(files['data/release-data.json']), EDITION))

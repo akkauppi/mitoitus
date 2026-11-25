@@ -7,7 +7,7 @@ import subprocess
 from dataclasses import dataclass, field
 from html.parser import HTMLParser
 from urllib.parse import urlencode
-from curated_reference import ASSERTIONS_PATH, authoring, panel_index
+from curated_reference import ASSERTIONS_PATH, MARKDOWN_PATH, PUBLIC_URL, QUESTIONS_PATH, SCHEMA_PATH, authoring, panel_index
 
 JSON_PATH = 'data/rulebook.json'
 CSV_PATH = 'data/rulebook.csv'
@@ -16,7 +16,6 @@ SPREAD_ORDER = ('built-form', 'land-population', 'walk-cycle', 'accessible',
                 'section-details', 'green-blue', 'stormwater-options')
 SPREAD_PATHS = {spread: f'data/spreads/{spread}.json' for spread in SPREAD_ORDER}
 EXPORT_FILES = (JSON_PATH, CSV_PATH, 'llms.txt', *SPREAD_PATHS.values())
-PUBLIC_URL = 'https://akkauppi.github.io/mitoitus/'
 NUMBER = r'(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.[0-9]+)?'
 SIMPLE_QUANTITY = re.compile(
     rf'(?P<operator>[~≈≤≥<>])?(?P<first>{NUMBER})(?:–(?P<last>{NUMBER}))?\s*(?P<unit>mm|km|m²|m³|m|ha|%)'
@@ -212,7 +211,7 @@ def build_exports(root, index, evidence, services, edition):
     claims = {claim['id']: claim for claim in evidence['claims']}
     claim_ids = {claim for panel in panels for claim in panel['claimIds']}
     data = {
-        'schemaVersion': 1, 'edition': edition, 'urlBase': PUBLIC_URL,
+        'schemaVersion': 1, 'edition': edition, 'urlBase': PUBLIC_URL, 'siteRoot':'../',
         'title': 'Dubious Little Planning Rulebook',
         'panels': panels,
         'claims': {claim_id: claims[claim_id] for claim_id in sorted(claim_ids)},
@@ -231,7 +230,8 @@ def build_exports(root, index, evidence, services, edition):
 
 ## Data
 
-- [Built form and density assertions]({PUBLIC_URL}{ASSERTIONS_PATH})
+- [Contextual assertions JSON]({PUBLIC_URL}{ASSERTIONS_PATH}) · [Schema]({PUBLIC_URL}{SCHEMA_PATH})
+- [Contextual assertions Markdown]({PUBLIC_URL}{MARKDOWN_PATH}) · [Reference questions]({PUBLIC_URL}{QUESTIONS_PATH})
 - [Open data catalogue]({PUBLIC_URL}data/index.html)
 - [Morphology laboratory]({PUBLIC_URL}morphology/index.html)
 - [Rulebook JSON]({PUBLIC_URL}{JSON_PATH}): All 30 panels, including facts, ordered table cells, notes, charts, scenes, source claims and the structured service supplement.
@@ -239,7 +239,7 @@ def build_exports(root, index, evidence, services, edition):
 - [Evidence index]({PUBLIC_URL}evidence.html): Source methods, locators and historical evidence.
 - [3D rulebook]({PUBLIC_URL}): Interactive scenes and printable reference sheets.
 
-Use the JSON panel ID, edition and panel URL to cite a value. Resolve relative URLs against `urlBase`. Follow `claimIds` to `claims`, then resolve each reference against `sources` using its source ID and fragment. Read the case, notes and source scope with each value. Where a simple metric value or range is present, `quantity` provides its numeric values, unit and comparison operator. Use scene assumptions to interpret drawing measurements and diagram coordinates. Service supplement rows retain their localities, dates, units and source IDs.
+Use the JSON panel ID, edition and panel URL to cite a value. Use `urlBase` for canonical online citations. For portable copies, resolve `siteRoot` against the current dataset URL, then resolve site-relative fields against that root. The contextual assertions also provide explicit dataset-relative and canonical citation URLs. Follow `claimIds` to `claims`, then resolve each reference against `sources` using its source ID and fragment. Read the case, notes and source scope with each value. Where a simple metric value or range is present, `quantity` provides its numeric values, unit and comparison operator. Use scene assumptions to interpret drawing measurements and diagram coordinates. Service supplement rows retain their localities, dates, units and source IDs.
 
 ## Spreads
 
@@ -252,7 +252,7 @@ Use the JSON panel ID, edition and panel URL to cite a value. Resolve relative U
         selected_sources = sorted({reference['source'] for claim in selected_claims.values()
                                    for reference in claim['references']})
         subset = {key: data[key] for key in ('schemaVersion', 'edition', 'urlBase', 'title', 'evidence')}
-        subset.update(panels=selected, claims=selected_claims,
+        subset.update(siteRoot='../../',panels=selected, claims=selected_claims,
                       sources={source_id: data['sources'][source_id] for source_id in selected_sources})
         if spread == 'land-population':
             subset['serviceSupplement'] = services

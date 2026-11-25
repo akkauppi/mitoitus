@@ -3,12 +3,13 @@ import io
 import json
 import re
 import sys
+import subprocess
 import zipfile
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import unquote, urlsplit
+from urllib.parse import unquote, urljoin, urlsplit
 from reference_export import JSON_PATH, build_exports
-from curated_reference import ASSERTIONS_PATH, build_curated
+from curated_reference import ASSERTIONS_PATH, PUBLIC_URL, build_curated, knowledge_artifacts
 from morphology_export import CATALOGUE, DATA, LAB_PAGE, build_morphology
 from candidate import ROOT, EDITION, KINDS, UNITS, PUBLIC_FILES, OFFLINE, digest, offline_files, render_branding
 
@@ -139,18 +140,27 @@ def verify(root):
     assert json.loads((root/(DATA+'example-package.json')).read_bytes()) == morphology['fixtures'][0]['exchange']
     curated = json.loads((root/ASSERTIONS_PATH).read_bytes())
     assert curated == build_curated(ROOT, json.loads((root/'evidence.json').read_bytes()), EDITION)
+    for name,content in knowledge_artifacts(ROOT,curated).items():
+        assert (root/name).read_bytes() == content, f'Contextual export drift: {name}'
     assert reference['contextualAssertions'] == ASSERTIONS_PATH
     assert ASSERTIONS_PATH.removeprefix('data/') in parsers[CATALOGUE].links
     revisions = {f"{item['id']}/r{item['revision']}" for item in curated['assertions']}
+    dataset_url = (root/ASSERTIONS_PATH).as_uri()
+    assert urljoin(dataset_url,curated['siteRoot']) == root.as_uri()+'/'
     for item in curated['assertions']:
-        link = urlsplit(item['citationUrl'])
-        assert link.fragment in parsers[link.path].ids
+        for entry,key in [(item,'citationUrl'), *((ref,'evidenceUrl') for ref in item['evidence'])]:
+            link = urlsplit(entry[key])
+            assert link.path == 'evidence.html' and link.fragment in parsers[link.path].ids
+            target = (root/link.path).as_uri()+'#'+link.fragment
+            assert urljoin(dataset_url,entry['urls']['portable']) == target
+            assert entry['urls']['canonical'] == urljoin(PUBLIC_URL,entry[key])
     for panel in panels:
         if 'assertionRevisionIds' in panel:
             assert set(panel['assertionRevisionIds']) <= revisions
             assert 'evidence.html#assertions-'+panel['id'] in parsers['index.html'].links
     equal = next(panel for panel in panels if panel['id']=='equal-density')
     assert equal['scenes'][0]['modelMeasurements']['cases'] == curated['examples']['equal-far']['cases']
+    subprocess.run([sys.executable,str(ROOT/'lab/tests/knowledge_consumer.py'),(root/'index.html').as_uri()],check=True)
     print(f'PASS: {len(revisions)} contextual assertion revisions and matching scene/calculation data.')
     print('PASS: Morphology catalogue discovery, eight validated fixtures and identical staged data.')
     print(f'PASS: Agent reference covers {len(panels)} panels and {len(views)} drawing states, with verified evidence links.')

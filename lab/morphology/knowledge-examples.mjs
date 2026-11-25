@@ -3,7 +3,7 @@ import {equalDensityCases, equalDensityPlotSide, equalDensityStoreyHeight, floor
 import {axisMeasurements, depthAtEasting, polygonArea, rectangle} from './geometry.mjs';
 import {fixtures} from './fixtures.mjs';
 
-export function examples() {
+export function examples(detentionRate) {
   const floorArea = equalDensityCases[0].floorArea;
   const boundaryCases = [['plot',equalDensityPlotSide],['block',64],['district',128]].map(([scope,side])=>{
     const ring = rectangle(0,0,side,side);
@@ -17,7 +17,7 @@ export function examples() {
     return {fixture:id, label:fixture.label, unit:'m',axis:[1,0],easting,
       envelopeDepth:axisMeasurements(ring,[1,0]).depth, transectDepth:depthAtEasting(ring,easting)};
   });
-  return {
+  const cases = {
     'equal-far':{status:'synthetic',measurementIds:['building-coverage','floor-area','floor-area-ratio'],
       referencePanel:'equal-density',formula:floorFormulas['equal-floor-plates'],plotSide:equalDensityPlotSide,
       storeyHeight:equalDensityStoreyHeight,
@@ -33,7 +33,26 @@ export function examples() {
         transectDepth:{basis:'Single contiguous façade-to-façade intersection at the stated easting'},
       },cases:depthCases},
   };
+  if (detentionRate) {
+    const {numerator,denominator} = detentionRate;
+    if (numerator.unit!=='m3' || denominator.unit!=='m2' || denominator.value<=0)
+      throw new Error('Detention rate needs cubic metres per positive impermeable square metres');
+    const impermeableArea = {value:600,unit:'m2',basis:'assumed impermeable surface'};
+    const effectiveDepth = {value:.2,unit:'m',basis:'assumed uniform effective depth'};
+    const volume = {value:impermeableArea.value*numerator.value/denominator.value,unit:'m3'};
+    cases['detention-worked-volume'] = {
+      status:'synthetic',measurementIds:[],formula:'V = A × (V_ref / A_ref)',
+      inputs:{impermeableArea,detentionRate,rateAssertion:'espoo-detention-example-rate/r1'},result:volume,
+    };
+    cases['detention-worked-plan-area'] = {
+      status:'synthetic',measurementIds:[],formula:'A_plan = V / d',
+      inputs:{volume,effectiveDepth,volumeAssertion:'espoo-detention-worked-volume/r1'},
+      result:{value:volume.value/effectiveDepth.value,unit:'m2'},
+      limitations:'Side slopes, freeboard, ground conditions and actual inflow/outflow are outside this calculation.',
+    };
+  }
+  return cases;
 }
 
 if (process.argv[1] && import.meta.url===pathToFileURL(process.argv[1]).href)
-  process.stdout.write(JSON.stringify(examples()));
+  process.stdout.write(JSON.stringify(examples(process.argv[2] ? JSON.parse(process.argv[2]) : undefined)));

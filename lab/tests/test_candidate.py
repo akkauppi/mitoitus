@@ -15,7 +15,8 @@ from urllib.parse import parse_qs, urlsplit
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
 import candidate as m
 from morphology_export import SOURCE_FILES
-from curated_reference import AUTHORING_PATH, EXAMPLES_PATH, build_curated, render_curated_evidence
+from curated_reference import (AUTHORING_PATH, EXAMPLES_PATH, LOCK_PATH, QUESTIONS_SOURCE,
+                               SCHEMA_CHECK, SCHEMA_SOURCE, build_curated, render_curated_evidence)
 
 SOURCE = m.ROOT
 
@@ -25,7 +26,7 @@ class CandidateTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)/'repo'
         for name in (*m.T15_PUBLIC_FILES, 'lab/docs/scene-inventory.json',
-                     'lab/data/quick-notes.json', 'lab/scripts/export-scenes.mjs', 'lab/package.json', AUTHORING_PATH, EXAMPLES_PATH, *SOURCE_FILES):
+                     'lab/data/quick-notes.json', 'lab/scripts/export-scenes.mjs', 'lab/package.json', AUTHORING_PATH, EXAMPLES_PATH, LOCK_PATH, SCHEMA_CHECK, SCHEMA_SOURCE, QUESTIONS_SOURCE, *SOURCE_FILES):
             target = m.source_path(self.root,name)
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(m.source_path(SOURCE,name), target)

@@ -3,7 +3,7 @@ import json
 import subprocess
 from html import escape
 from reference_export import PUBLIC_URL, SPREAD_PATHS
-from curated_reference import ASSERTIONS_PATH, PROJECT_DESCRIPTION
+from curated_reference import ASSERTIONS_PATH, MARKDOWN_PATH, PROJECT_DESCRIPTION, QUESTIONS_PATH, SCHEMA_PATH
 
 LAB_PAGE = 'morphology/index.html'
 CATALOGUE = 'data/index.html'
@@ -82,7 +82,9 @@ Courtyard width is the east–west transect. Plan enclosure is the fraction of t
 <main><h1>Open data / AI agents</h1><p>Rulebook edition {escape(edition)}</p>
 <section><h2>Reference</h2><ul>
 <li><a href="rulebook.json">Rulebook JSON</a> · <a href="rulebook.csv">Rulebook CSV</a></li>
-<li><a href="{ASSERTIONS_PATH.removeprefix("data/")}">Contextual assertions JSON</a> · <a href="../evidence.html#contextual-assertions">Built form and density evidence</a></li>
+<li><a href="{ASSERTIONS_PATH.removeprefix("data/")}">Contextual assertions JSON</a> · <a href="{SCHEMA_PATH.removeprefix("data/")}">Contextual assertion schema</a> ·
+<a href="{MARKDOWN_PATH.removeprefix("data/")}">Contextual assertions Markdown</a> · <a href="../evidence.html#contextual-assertions">Contextual evidence</a></li>
+<li><a href="{QUESTIONS_PATH.removeprefix("data/")}">Knowledge reference questions JSON</a></li>
 <li><a href="../evidence.html">Evidence register</a> · <a href="../evidence.json">Evidence JSON</a></li>
 <li><a href="../llms.txt">Agent guide</a></li></ul>
 <details><summary>Thematic JSON</summary><ul>{thematic}</ul></details></section>
@@ -101,7 +103,7 @@ Courtyard width is the east–west transect. Plan enclosure is the fraction of t
         CATALOGUE:html_page('Open data / AI agents',PROJECT_DESCRIPTION,CATALOGUE,catalogue_body),
         DATA+'measurements.json':source('lab/data/morphology/measurements.json'),
         DATA+'exchange.schema.json':source('lab/data/morphology/exchange.schema.json'),
-        DATA+'fixtures.json':encode({'edition':edition,'kind':'synthetic','formulas':result['formulas'],'fixtures':fixtures}),
+        DATA+'fixtures.json':encode({'edition':edition,'kind':'synthetic','urlBase':PUBLIC_URL,'siteRoot':'../../','formulas':result['formulas'],'fixtures':fixtures}),
         DATA+'example-package.json':encode(fixtures[0]['exchange']),
         DATA+'CITYMODEL-INTEGRATION.md':source('lab/docs/CITYMODEL-INTEGRATION.md')
             .replace(b'../data/morphology/',b'./')
